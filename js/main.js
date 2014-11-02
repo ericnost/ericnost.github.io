@@ -161,9 +161,9 @@ function createDropdown(csvData){
 };
 
 // adapted from Mike Bostock's multi-line series graph: http://bl.ocks.org/mbostock/3884955
-var margin = {top: 20, right: 10, bottom: 30, left: 300},
+var margin = {top: 600, right: 120, bottom: 50, left: 40},
     width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    height = 400;
 
 var parseDate = d3.time.format("%Y%m%d").parse;
 
@@ -194,7 +194,7 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.tsv("dataLandLoss.csv", function(error, data) {
+d3.csv("data/dataLandLoss.csv", function(error, data) {
   color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
 
   data.forEach(function(d) {
@@ -230,7 +230,7 @@ d3.tsv("dataLandLoss.csv", function(error, data) {
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("% change fr1932 Land");
+      .text("% change from 1932 Land");
 
   var city = svg.selectAll(".city")
       .data(cities)
@@ -246,6 +246,6 @@ d3.tsv("dataLandLoss.csv", function(error, data) {
       .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
       .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")"; })
       .attr("x", 3)
-      .attr("dy", ".35em")
+      .attr("dy", ".95em")
       .text(function(d) { return d.name; });
 }); 
