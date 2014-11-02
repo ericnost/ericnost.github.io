@@ -180,7 +180,7 @@ var xAxis = d3.svg.axis()
     .orient("bottom");
 
 var yAxis = d3.svg.axis()
-    .scale(y)
+    .scale(y + 10)
     .orient("left");
 
 var line = d3.svg.line()
