@@ -6,9 +6,52 @@ body {
 	margin: 20px;
 	font-family: "Proxima Nova Rg", Arial, Helvetica, sans-serif;
 	/* text unselectable */
+	font: 8px;
 	-webkit-user-select: none; /* Chrome/Safari */        
 	-moz-user-select: none; /* Firefox */
 	-ms-user-select: none; /* IE10+ */
+}
+
+.bar rect {
+  fill: steelblue;
+}
+
+.bar text.value {
+  fill: white;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.bx {
+  shape-rendering: crispEdges;
+}
+
+.bx path {
+  fill: none;
+}
+
+.bx line {
+  stroke: #fff;
+  stroke-opacity: .8;
+}
+
+.by {
+  shape-rendering: crispEdges;
+}
+
+.by path {
+  fill: none;
+  stroke: black;
+}
+
+.chartLabels {
+  	font: 10px sans-serif;
+}
+
+.axis {
+  font: 10px sans-serif;
 }
 
 .axis path,
@@ -25,7 +68,18 @@ body {
 .line {
   fill: none;
   stroke: steelblue;
-  stroke-width: 1.5px;
+  stroke-width: 3.5px;
+}
+
+.dot {
+  stroke: #000;
+}
+
+.tooltip {
+  position: absolute;
+  width: 200px;
+  height: 28px;
+  pointer-events: none;
 }
 
 svg {
@@ -65,7 +119,7 @@ h3 {
 }
 
 .dropdown {
-	margin-left: 598px;
+	margin-left: 950px;
 	margin-top: 40px;
 	margin-bottom: -20px;
 }
