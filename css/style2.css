@@ -95,12 +95,6 @@ h3 {
   fill: #D5E3FF;
 }
 
-.gratLines {
-  fill: none;
-  stroke: #999;
-  stroke-width: 1px;
-}
-
 .map {
 	border: medium solid #999;
 }
@@ -119,9 +113,9 @@ h3 {
 }
 
 .dropdown {
-	margin-left: 950px;
-	margin-top: 40px;
-	margin-bottom: -20px;
+	position: absolute;
+	left: 350px;
+	top: 30px;
 }
 
 .dropdown select {
@@ -163,11 +157,18 @@ h3 {
 .chart {
 	background-color: rgba(128,128,128,.2);
 	border: medium solid #999;
-	margin-left: 600px;
-	margin-top: 56px;
+	position: absolute;
+	left: 680px;
+	top: 73px;
 }
 
 .charttext {
 	font-size: 1.5em;
 	font-weight: bold;
+}
+
+.boxplot{
+	position: absolute;
+	left: 900px;
+	top: 150px;
 }

@@ -1,17 +1,14 @@
 var keyArray = ["wellDensitySqMi", "hydrocarbonFieldDensity", "pipelineDensity", "restorationProjectsDensity", "permitDensity", "leveesNormalizedSQMI", "spoilBanksAreaNormalizedSQMI"];
 var expressed = keyArray[0]; 
 var colorize;
-var bar;
 var Bsvg;
 var Ssvg;
-var chartWidth = 550, chartHeight = 450;
+var chartWidth = 350, chartHeight = 250;
 
 //begin script when window loads 
 window.onload = initialize(); 
 
 //the first function called once the html is loaded 
-
-
 
 function initialize(){ 
 	setMap(); 
@@ -26,8 +23,8 @@ function setMap(){
 		.text("Louisiana Land Loss");
 
 	//map frame dimensions 
-	var width = 960; 
-	var height = 460; 
+	var width = 650; 
+	var height = 400; 
 
 	//create a new svg element with the above dimensions 
 	var map = d3.select("body") 
@@ -38,10 +35,10 @@ function setMap(){
 
 	//create Europe Albers equal area conic projection, centered on France 
 	var projection = d3.geo.mercator()
-		.center([-91, 30])
+		.center([-91.3, 30])
 		//.rotate([20, 0])  
 		//.parallels([29, 31]) 
-		.scale(9000) 
+		.scale(6550) 
 		.translate([width / 2, height / 2]); 
 	
 	//create svg path generator using the projection 
@@ -119,7 +116,7 @@ function setMap(){
 					return choropleth(d, colorize);
 				});
 		createDropdown(csvData);
-		updateTheChart(csvData);
+		setChart(csvData);
 		scatPlot(csvData);
 	}; 
 };
@@ -157,7 +154,7 @@ function setChart(csvData, colorize){
 	//create a text element for the chart title
 	var title = chart.append("text")
 		.attr("x", 20)
-		.attr("y", 40)
+		.attr("y", -40)
 		.attr("class", "chartTitle");
 
 	//set bars for each province
@@ -165,17 +162,17 @@ function setChart(csvData, colorize){
 		.data(csvData)
 		.enter()
 		.append("rect")
-		.sort(function(a, b){return a[expressed]-b[expressed]})
+		.sort(function(a, b){return b[expressed]-a[expressed]})
 		.attr("class", function(d){
 			return "barz " + d.id;
 		})
-		.attr("width", chartWidth / csvData.length - 1)
-		.on("mouseover", highlight)
+		.attr("height", chartHeight / csvData.length - 1)
+		/*.on("mouseover", highlight)
 		.on("mouseout", dehighlight)
-		.on("mousemove", moveLabel);
+		.on("mousemove", moveLabel);*/
 
 	//adjust bars according to current attribute
-	updateChart(barz, csvData.length);
+	updateChart(barz, csvData.length, csvData);
 };
 
 function colorScale(csvData){
@@ -192,11 +189,19 @@ function colorScale(csvData){
 	
 
 	
+	var domainArray = [];
+	for (var i in csvData){
+		domainArray.push(Number(csvData[i][expressed]));
+	};
+	
 	//for equal-interval scale, use min and max expressed data values as domain
-	color.domain([
-		d3.min(csvData, function(d) { return Number(d[expressed]); }),
-		d3.max(csvData, function(d) { return Number(d[expressed]); })
-	]);
+	// color.domain([
+	// 	d3.min(csvData, function(d) { return Number(d[expressed]); }),
+	// 	d3.max(csvData, function(d) { return Number(d[expressed]); })
+	// ]);
+
+	//for quantile scale, pass array of expressed values as domain
+	color.domain(domainArray);
 	
 	return color; //return the color scale generator
 }
@@ -231,31 +236,32 @@ function changeAttribute(attribute, csvData){
 				return choropleth(d, colorize); //->
 			});
 
-//re-sort the bar chart
-		/*bar.sort(function(a, b){
-			return a[expressed]-b[expressed];
+	//re-sort the bar chart
+	var barz = d3.selectAll(".barz")
+		.sort(function(a, b){
+			return b[expressed]-a[expressed];
 		})
 		.transition() //this adds the super cool animation
 		.delay(function(d, i){
-			return i * 30 
-		});*/
-	Ssvg.remove();
-	Bsvg.remove();
+			return i * 45 
+		});
+
 	//update bars according to current attribute
-	updateTheChart(csvData);
+	updateChart(barz, csvData.length, csvData);
+	Ssvg.remove();
 	scatPlot(csvData);
 };
 
-function updateChart(barz, numbars){
+function updateChart(barz, numbars, csvData){
+	var BxScale = d3.scale.linear().range([0, chartWidth]);
+  	BxScale.domain([0, d3.max(csvData, function(d) { return Number(d[expressed]); })]);
 	//style the bars according to currently expressed attribute
-	barz.attr("height", function(d, i){
-			return Number(d[expressed])*3;
+	barz.attr("width", function(d, i){
+			return BxScale(Number(d[expressed]));
 		})
+		.attr("x", 0)
 		.attr("y", function(d, i){
-			return chartHeight - Number(d[expressed])*3;
-		})
-		.attr("x", function(d, i){
-			return i * (chartWidth / numbars);
+			return i * (chartHeight / numbars);
 		})
 		.style("fill", function(d){
 			return choropleth(d, colorize);
@@ -410,21 +416,20 @@ d3.csv("data/dataLandLoss.csv", function(error, data) {
 });
 
 //following code adapted from Mike Bostock's bar chart:
-
-
-
+/*
 function updateTheChart (data) {
 	var m = [1200, 120, 50, 200],
     w = 960 - m[1] - m[3],
     h = 400;
-
-	var Bformat = d3.format(".2r");
 
 	var Bx = d3.scale.linear().range([0, w]),
 	    By = d3.scale.ordinal().rangeRoundBands([0, h], .1);
 
 	var BxAxis = d3.svg.axis().scale(Bx).orient("top").tickSize(-h),
 	    ByAxis = d3.svg.axis().scale(By).orient("left").tickSize(0);
+
+	var Bformat = d3.format(".2r");
+
 
 	Bsvg = d3.select("body").append("svg")
 	    .attr("width", w + m[1] + m[3])
@@ -471,14 +476,14 @@ function updateTheChart (data) {
       .attr("class", "by")
       .call(ByAxis);
 }; 
-
+*/
 
 //adapted from weiglemc scatter plot: http://bl.ocks.org/weiglemc/6185069
 
 function scatPlot(data){
-var margin = {top: 1600, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500
+var margin = {top: 30, right: 30, bottom: 30, left: 30},
+    width = 200
+    height = 200
 
 /* 
  * value accessor - returns the value to encode for a given data object.
@@ -489,24 +494,22 @@ var margin = {top: 1600, right: 20, bottom: 30, left: 40},
 
 // setup x 
 var xValue = function(d) { return d[expressed];}, // data -> value
-    xScale = d3.scale.linear().range([0, width]), // value -> display
+    xScale = d3.scale.linear().range([width, 0]), // value -> display
     xMap = function(d) { return xScale(xValue(d));}, // data -> display
-    xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+    xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickSize(1);
 
 // setup y
 var yValue = function(d) { return d.landloss;}, // data -> value
     yScale = d3.scale.linear().range([height, 0]), // value -> display
     yMap = function(d) { return yScale(yValue(d));}, // data -> display
-    yAxis = d3.svg.axis().scale(yScale).orient("left");
+    yAxis = d3.svg.axis().scale(yScale).orient("left").tickSize(0);
 
-// setup fill color
-var cValue = function(d) { return d.basinName;},
-    color = d3.scale.category10();
 
 // add the graph canvas to the body of the webpage
 Ssvg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
+    .attr("class", "boxplot")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -531,17 +534,20 @@ var tooltip = d3.select("body").append("div")
   Ssvg.append("g")
       .attr("class", "XXXaxis")
       .attr("transform", "translate(0," + height + ")")
+      .style("font-size", "10px")
       .call(xAxis)
     .append("text")
       .attr("class", "label")
       .attr("x", width)
       .attr("y", -6)
       .style("text-anchor", "end")
+      .style("font-size", "10px")
       .text(expressed);
 
   // y-axis
   Ssvg.append("g")
       .attr("class", "y axis")
+      .attr("transform", "translate(" + width + " ,0)")   
       .call(yAxis)
     .append("text")
       .attr("class", "label")
@@ -556,10 +562,12 @@ var tooltip = d3.select("body").append("div")
       .data(data)
     .enter().append("circle")
       .attr("class", "dot")
-      .attr("r", 3.5)
+      .attr("r", 6.5)
       .attr("cx", xMap)
       .attr("cy", yMap)
-      .style("fill", function(d) { return color(cValue(d));}) 
+      .style("fill", function(d){
+			return choropleth(d, colorize);
+		}) 
       .on("mouseover", function(d) {
           tooltip.transition()
                .duration(200)
@@ -591,6 +599,7 @@ var tooltip = d3.select("body").append("div")
 		var y2 = leastSquaresCoeff[0] * xSeries.length + leastSquaresCoeff[1];
 		var trendData = [[x1,y1,x2,y2]];
 		
+		//make trendline optional...
 		var trendline = Ssvg.selectAll(".trendline")
 			.data(trendData);
 			
@@ -602,15 +611,15 @@ var tooltip = d3.select("body").append("div")
 			.attr("x2", function(d) { return xScale(d[2]); })
 			.attr("y2", function(d) { return yScale(d[3]); })
 			.attr("stroke", "black")
-			.attr("stroke-width", 1);
+			.attr("stroke-width", 2);
 		
 		// display equation on the chart
-		Ssvg.append("text")
+		/*Ssvg.append("text")
 			.text("eq: " + decimalFormat(leastSquaresCoeff[0]) + "x + " + 
 				decimalFormat(leastSquaresCoeff[1]))
 			.attr("class", "text-label")
 			.attr("x", function(d) {return xScale(x2) - 60;})
-			.attr("y", function(d) {return yScale(y2) - 30;});
+			.attr("y", function(d) {return yScale(y2) - 30;});*/
 		
 		// display r-square on the chart
 		Ssvg.append("text")
@@ -619,7 +628,7 @@ var tooltip = d3.select("body").append("div")
 			.attr("x", function(d) {return xScale(x2) - 60;})
 			.attr("y", function(d) {return yScale(y2) - 10;});
 
-  // draw legend
+ /*// draw legend
   var legend = Ssvg.selectAll(".legend")
       .data(color.domain())
     .enter().append("g")
@@ -639,7 +648,7 @@ var tooltip = d3.select("body").append("div")
       .attr("y", 9)
       .attr("dy", ".35em")
       .style("text-anchor", "end")
-      .text(function(d) { return d;})
+      .text(function(d) { return d;})*/
 };
 
 //from http://bl.ocks.org/benvandyke/8459843
