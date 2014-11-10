@@ -1,7 +1,6 @@
 var keyArray = ["wellDensitySqMi", "hydrocarbonFieldDensity", "pipelineDensity", "restorationProjectsDensity", "permitDensity", "leveesNormalizedSQMI", "spoilBanksAreaNormalizedSQMI"];
 var expressed = keyArray[0]; 
 var colorize;
-var Bsvg;
 var Ssvg;
 var chartWidth = 350, chartHeight = 250;
 
@@ -11,16 +10,14 @@ window.onload = initialize();
 //the first function called once the html is loaded 
 
 function initialize(){ 
+	landLossChart();
 	setMap(); 
+	
 }; 
 
 
 //set choropleth map parameters 
 function setMap(){
-
-	var title = d3.select("body")
-		.append("h1")
-		.text("Louisiana Land Loss");
 
 	//map frame dimensions 
 	var width = 650; 
@@ -98,7 +95,7 @@ function setMap(){
 			.attr("d", path); //project data as geometry in svg
 
 		var subbasins = map.selectAll(".subbasins")
-			.data(topojson.feature(coast, coast.objects.subbasins). features)
+			.data(topojson.feature(coast, coast.objects.subbasins).features)
 			.enter() //create elements
 			.append("g")
 			.attr("class", "subbasins") //assign class for additional styling
@@ -110,18 +107,31 @@ function setMap(){
 			})
 			.on("mouseover", highlight)
 			.on("mouseout", dehighlight)
-			.on("mousemove", moveLabel)
-			.append("desc") //append the current color
+			.on("mousemove", moveLabel);
+			/*.append("desc") //append the current color
 				.text(function(d) {
 					return choropleth(d, colorize);
-				});
-		createDropdown(csvData);
-		setChart(csvData);
+				});*/
+		
+		
+		menu(csvData);
+		setChart(csvData, colorize);
 		scatPlot(csvData);
 	}; 
 };
 
-function createDropdown(csvData){
+function menu(csvData) {
+    $( ":button")
+    	//.css({"position":"absolute", "left":"100px"})
+    	//.find(".pipelineDensity")// #wellDensitySqMi, #hydrocarbonFieldDensity, #spoilBanksAreaNormalizedSQMI, #leveesNormalizedSQMI, #permitDensity, #restorationProjectsDensity`")
+    	.click( function() {
+        	changeAttribute(this.id, csvData);
+        	$("#text").html(this.id+"text");
+        	return false;
+      });
+  };
+
+/*function createDropdown(csvData){
 	//add a select element for the dropdown menu
 	var dropdown = d3.select("body")
 		.append("div")
@@ -140,7 +150,7 @@ function createDropdown(csvData){
 			//d = d[0].toUpperCase() + d.substring(1,3) + " " + d.substring(3);
 			return d
 		});
-};
+};*/
 
 function setChart(csvData, colorize){
 
@@ -167,9 +177,9 @@ function setChart(csvData, colorize){
 			return "barz " + d.id;
 		})
 		.attr("height", chartHeight / csvData.length - 1)
-		/*.on("mouseover", highlight)
+		.on("mouseover", highlight)
 		.on("mouseout", dehighlight)
-		.on("mousemove", moveLabel);*/
+		.on("mousemove", moveLabel);
 
 	//adjust bars according to current attribute
 	updateChart(barz, csvData.length, csvData);
@@ -220,6 +230,7 @@ function choropleth(d, colorize){
 
 
 function changeAttribute(attribute, csvData){
+	console.log(attribute);
 
 	//change the expressed attribute
 	expressed = attribute;
@@ -231,10 +242,10 @@ function changeAttribute(attribute, csvData){
 		.style("fill", function(d) { //color enumeration units
 			return choropleth(d, colorize); //->
 		})
-		.select("desc") //replace the color text in each province's desc element
+		/*.select("desc") //replace the color text in each province's desc element
 			.text(function(d) {
 				return choropleth(d, colorize); //->
-			});
+			});*/
 
 	//re-sort the bar chart
 	var barz = d3.selectAll(".barz")
@@ -253,8 +264,10 @@ function changeAttribute(attribute, csvData){
 };
 
 function updateChart(barz, numbars, csvData){
+	//scale the chart size to fit the largest bar
 	var BxScale = d3.scale.linear().range([0, chartWidth]);
   	BxScale.domain([0, d3.max(csvData, function(d) { return Number(d[expressed]); })]);
+
 	//style the bars according to currently expressed attribute
 	barz.attr("width", function(d, i){
 			return BxScale(Number(d[expressed]));
@@ -276,25 +289,24 @@ function updateChart(barz, numbars, csvData){
 
 
 function highlight(data){
-
+	console.log(data);
 	//json or csv properties
 	var props = data.properties ? data.properties : data;
+	d3.selectAll("."+props.id) //select the current province in the DOM
+		.style({"stroke": "#ffff00", "stroke-width": "5px"}); //set the enumeration unit fill to black
 
-	d3.selectAll("."+props.adm1_code) //select the current province in the DOM
-		.style("fill", "#000"); //set the enumeration unit fill to black
 
-	var labelAttribute = "<h1>"+props[expressed]+
-		"</h1><br><b>"+expressed+"</b>"; //label content
-	var labelName = props.name //html string for name to go in child div
+	var labelAttribute = "<h1>"+props[expressed]+"</h1><br><b>"+expressed+"</b><br>"; //label content
+	var labelName = props.basinName ? props.basinName : props.BASIN_NAME; //html string for name to go in child div
 	
 	//create info label div
 	var infolabel = d3.select("body")
 		.append("div") //create the label div
 		.attr("class", "infolabel")
-		.attr("id", props.adm1_code+"label") //for styling label
+		.attr("id", props.id+"label") //for styling label
 		.html(labelAttribute) //add text
 		.append("div") //add child div for feature name
-		.attr("class", "labelname") //for styling name
+		.attr("class", "labelName") //for styling name
 		.html(labelName); //add feature name to label
 };
 
@@ -302,11 +314,11 @@ function dehighlight(data){
 	
 	//json or csv properties
 	var props = data.properties ? data.properties : data;
-	var prov = d3.selectAll("."+props.adm1_code); //designate selector variable for brevity
-	var fillcolor = prov.select("desc").text(); //access original color from desc
-	prov.style("fill", fillcolor); //reset enumeration unit to orginal color
+	var subb = d3.selectAll("."+props.id); //designate selector variable for brevity
+	//var fillcolor = subb.select("desc").text(); //access original color from desc
+	subb.style({"stroke": "#000", "stroke-width": "0px"}); //reset enumeration unit to orginal color
 	
-	d3.select("#"+props.adm1_code+"label").remove(); //remove info label
+	d3.select("#"+props.id+"label").remove(); //remove info label
 };
 
 function moveLabel() {
@@ -322,168 +334,108 @@ function moveLabel() {
 };
 
 
+function landLossChart() {
 // adapted from Mike Bostock's multi-line series graph: http://bl.ocks.org/mbostock/3884955
-var margin = {top: 600, right: 120, bottom: 50, left: 50},
-    width = 960 - margin.left - margin.right,
-    height = 400;
+	var margin = {top: 500, right: 120, bottom: 50, left: 50},
+	    width = 960 - margin.left - margin.right,
+	    height = 400;
 
-var parseDate = d3.time.format("%Y%m%d").parse;
+	var parseDate = d3.time.format("%Y%m%d").parse;
 
-var x = d3.time.scale()
-    .range([0, width]);
+	var x = d3.time.scale()
+	    .range([0, width]);
 
-var y = d3.scale.linear()
-    .range([height, 0]);
+	var y = d3.scale.linear()
+	    .range([height, 0]);
 
-var color = d3.scale.category10();
+	var color = d3.scale.category10();
 
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
+	var xAxis = d3.svg.axis()
+	    .scale(x)
+	    .orient("bottom");
 
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left");
+	var yAxis = d3.svg.axis()
+	    .scale(y)
+	    .orient("left");
 
-var line = d3.svg.line()
-    .interpolate("basis")
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.temperature); });
+	var line = d3.svg.line()
+	    .interpolate("basis")
+	    .x(function(d) { return x(d.date); })
+	    .y(function(d) { return y(d.temperature); });
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-d3.csv("data/dataLandLoss.csv", function(error, data) {
-  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
-
-  data.forEach(function(d) {
-    d.date = parseDate(d.date);
-  });
-
-  var cities = color.domain().map(function(name) {
-    return {
-      name: name,
-      values: data.map(function(d) {
-        return {date: d.date, temperature: +d[name]};
-      })
-    };
-  });
-
-  x.domain(d3.extent(data, function(d) { return d.date; }));
-
-  y.domain([
-    d3.min(cities, function(c) { return d3.min(c.values, function(v) { return v.temperature; }); }),
-    d3.max(cities, function(c) { return d3.max(c.values, function(v) { return v.temperature; }); })
-  ]);
-
-  svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
-
-  svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
-    .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", -40)
-      .attr("x", -150)
-      .attr("dy", ".3em")
-      .style("text-anchor", "end")
-      .text("% of 1932 Land Area");
-
-  var city = svg.selectAll(".city")
-      .data(cities)
-    .enter().append("g")
-      .attr("class", "city");
-
-  city.append("path")
-      .attr("class", "line")
-      .attr("d", function(d) { return line(d.values); })
-      .style("stroke", function(d) { return color(d.name); });
-
-  city.append("text")
- 	  .attr("class", "chartLabels")
-      .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
-      .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")"; })
-      .attr("x", 3)
-      .attr("dy", ".5em")
-      .text(function(d) { return d.name; })
-      ;
-});
-
-//following code adapted from Mike Bostock's bar chart:
-/*
-function updateTheChart (data) {
-	var m = [1200, 120, 50, 200],
-    w = 960 - m[1] - m[3],
-    h = 400;
-
-	var Bx = d3.scale.linear().range([0, w]),
-	    By = d3.scale.ordinal().rangeRoundBands([0, h], .1);
-
-	var BxAxis = d3.svg.axis().scale(Bx).orient("top").tickSize(-h),
-	    ByAxis = d3.svg.axis().scale(By).orient("left").tickSize(0);
-
-	var Bformat = d3.format(".2r");
-
-
-	Bsvg = d3.select("body").append("svg")
-	    .attr("width", w + m[1] + m[3])
-	    .attr("height", h + m[0] + m[2])
+	var svg = d3.select("body").append("svg")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
 	  .append("g")
-	    .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		
+	
+	d3.csv("data/dataLandLoss.csv", function(error, data) {
+		data.forEach(function(d) {
+		    d.date = parseDate(d.date);
+		  });
+
+		color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
 
 
-  // Parse numbers, and sort by value.
-  data.forEach(function(d) { d[expressed] = +d[expressed]; });
-  data.sort(function(a, b) { return b[expressed] - a[expressed]; });
-
-  // Set the scale domain.
-  Bx.domain([0, d3.max(data, function(d) { return Number(d[expressed]); })]);
-  By.domain(data.map(function(d) { return d.basinName; }));
-
-  bar = Bsvg.selectAll("g.bar")
-      .data(data)
-      .enter().append("g")
-      .attr("transform", function(d) { return "translate(0," + By(d.basinName) + ")"; })
-      .style("fill", function(d){
-			return choropleth(d, colorize);
+		var cities = color.domain().map(function(name) {
+		    return {
+		      name: name,
+		      values: data.map(function(d) {
+		        return {date: d.date, temperature: +d[name]};
+		      })
+		    };
 		});
- 
 
-  bar.append("rect")
-      .attr("width", function(d) { return Bx(Number(d[expressed])); })
-      .attr("height", By.rangeBand());
+		x.domain(d3.extent(data, function(d) { return d.date; }));
 
-  bar.append("text")
-      .attr("class", "value")
-      .attr("x", function(d) { return Bx(Number(d[expressed])); })
-      .attr("y", By.rangeBand() / 2)
-      .attr("dx", -3)
-      .attr("dy", ".35em")
-      .attr("text-anchor", "end")
-      .text(function(d) { return Bformat(Number(d[expressed])); });
+		y.domain([
+		    d3.min(cities, function(c) { return d3.min(c.values, function(v) { return v.temperature; }); }),
+		    d3.max(cities, function(c) { return d3.max(c.values, function(v) { return v.temperature; }); })
+		  ]);
 
-  Bsvg.append("g")
-      .attr("class", "bx")
-      .call(BxAxis);
+		svg.append("g")
+		      .attr("class", "x axis")
+		      .attr("transform", "translate(0," + height + ")")
+		      .call(xAxis);
 
-  Bsvg.append("g")
-      .attr("class", "by")
-      .call(ByAxis);
-}; 
-*/
+		svg.append("g")
+	      .attr("class", "y axis")
+	      .call(yAxis)
+	    .append("text")
+	      .attr("transform", "rotate(-90)")
+	      .attr("y", -40)
+	      .attr("x", -150)
+	      .attr("dy", ".3em")
+	      .style("text-anchor", "end")
+	      .text("% of 1932 Land Area");
+
+		var city = svg.selectAll(".city")
+		    .data(cities)
+		  .enter().append("g")
+		    .attr("class", "city");
+
+		city.append("path")
+	      	.attr("class", "line")
+		    .attr("d", function(d) { return line(d.values); })
+		    .style("stroke", function(d) { return color(d.name); });
+
+		city.append("text")
+		 	.attr("class", "chartLabels")
+		    .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
+		    .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")"; })
+		    .attr("x", 3)
+		    .attr("dy", ".5em")
+		    .text(function(d) { return d.name; });
+	});
+};
 
 //adapted from weiglemc scatter plot: http://bl.ocks.org/weiglemc/6185069
 
 function scatPlot(data){
 var margin = {top: 30, right: 30, bottom: 30, left: 30},
-    width = 200
-    height = 200
+    width = 300
+    height = 300
 
 /* 
  * value accessor - returns the value to encode for a given data object.
@@ -502,7 +454,7 @@ var xValue = function(d) { return d[expressed];}, // data -> value
 var yValue = function(d) { return d.landloss;}, // data -> value
     yScale = d3.scale.linear().range([height, 0]), // value -> display
     yMap = function(d) { return yScale(yValue(d));}, // data -> display
-    yAxis = d3.svg.axis().scale(yScale).orient("left").tickSize(0);
+    yAxis = d3.svg.axis().scale(yScale).orient("right").tickSize(0);
 
 
 // add the graph canvas to the body of the webpage
@@ -513,17 +465,12 @@ Ssvg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// add the tooltip area to the webpage
-var tooltip = d3.select("body").append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
-
   // change string (from CSV) into number format
-  data.forEach(function(d) {
+data.forEach(function(d) {
     d[expressed] = +d[expressed];
     d.landloss = +d.landloss;
 
-  });
+});
 
   // don't want dots overlapping axis, so add in buffer to data domain
   xScale.domain([d3.min(data, xValue)-1, d3.max(data, xValue)+1]);
@@ -538,9 +485,9 @@ var tooltip = d3.select("body").append("div")
       .call(xAxis)
     .append("text")
       .attr("class", "label")
-      .attr("x", width)
+      .attr("x", 0)
       .attr("y", -6)
-      .style("text-anchor", "end")
+      .style("text-anchor", "start")
       .style("font-size", "10px")
       .text(expressed);
 
@@ -552,7 +499,7 @@ var tooltip = d3.select("body").append("div")
     .append("text")
       .attr("class", "label")
       .attr("transform", "rotate(-90)")
-      .attr("y", 6)
+      .attr("y", -10)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
       .text("% of 1932 land");
@@ -560,28 +507,20 @@ var tooltip = d3.select("body").append("div")
   // draw dots
   Ssvg.selectAll(".dot")
       .data(data)
-    .enter().append("circle")
-      .attr("class", "dot")
-      .attr("r", 6.5)
+      .enter()
+      .append("circle")
+      .attr("r", 10)
       .attr("cx", xMap)
       .attr("cy", yMap)
+      .attr("class", function(d){
+			return "dot " + d.id;
+		})
       .style("fill", function(d){
 			return choropleth(d, colorize);
 		}) 
-      .on("mouseover", function(d) {
-          tooltip.transition()
-               .duration(200)
-               .style("opacity", .9);
-          tooltip.html(d.basinName + "<br/> (" + xValue(d) 
-	        + ", " + yValue(d) + ")")
-               .style("left", (d3.event.pageX + 5) + "px")
-               .style("top", (d3.event.pageY - 28) + "px");
-      })
-      .on("mouseout", function(d) {
-          tooltip.transition()
-               .duration(500)
-               .style("opacity", 0);
-      });
+      .on("mouseover", highlight)
+	  .on("mouseout", dehighlight)
+      .on("mousemove", moveLabel);
 
    // from http://bl.ocks.org/benvandyke/8459843
   // get the x and y values for least squares
@@ -599,7 +538,7 @@ var tooltip = d3.select("body").append("div")
 		var y2 = leastSquaresCoeff[0] * xSeries.length + leastSquaresCoeff[1];
 		var trendData = [[x1,y1,x2,y2]];
 		
-		//make trendline optional...
+		/*//make trendline optional...
 		var trendline = Ssvg.selectAll(".trendline")
 			.data(trendData);
 			
@@ -614,19 +553,19 @@ var tooltip = d3.select("body").append("div")
 			.attr("stroke-width", 2);
 		
 		// display equation on the chart
-		/*Ssvg.append("text")
+		Ssvg.append("text")
 			.text("eq: " + decimalFormat(leastSquaresCoeff[0]) + "x + " + 
 				decimalFormat(leastSquaresCoeff[1]))
 			.attr("class", "text-label")
 			.attr("x", function(d) {return xScale(x2) - 60;})
-			.attr("y", function(d) {return yScale(y2) - 30;});*/
+			.attr("y", function(d) {return yScale(y2) - 30;});
 		
 		// display r-square on the chart
 		Ssvg.append("text")
 			.text("r-sq: " + decimalFormat(leastSquaresCoeff[2]))
 			.attr("class", "text-label")
-			.attr("x", function(d) {return xScale(x2) - 60;})
-			.attr("y", function(d) {return yScale(y2) - 10;});
+			.attr("x", 60)
+			.attr("y", 10);*/
 
  /*// draw legend
   var legend = Ssvg.selectAll(".legend")

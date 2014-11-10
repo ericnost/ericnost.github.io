@@ -9,11 +9,31 @@
 </head> 
 <body> 
 <!--libraries--> 
+ <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script src="lib/d3.js"></script> 
 <script src="lib/topojson.v1.min.js"></script> 
 <script src="lib/queue.js"></script> 
+<div id ="title">
+	<h2>Louisiana Land Loss</h2>
+</div>
+<div class="buttons">
+	Select a variable:
+  <button id = "wellDensitySqMi">Wells</button>
+  <button id = "hydrocarbonFieldDensity">Oil/Gas fields</button>
+  <button id = "restorationProjectsDensity">Restoration Projects</button>
+  <button id = "permitDensity">Permits</button>
+  <button id = "leveesNormalizedSQMI">Levees</button>
+  <button id = "spoilBanksAreaNormalizedSQMI">Spoil Banks</button>
+  <button id = "pipelineDensity">Pipelines</button>
+</div>
+<p style="height: 10px">
+<div id="text" style="height: 50px">
+
+</div>
 
 <!--link to main JavaScript file--> 
 <script src="js/main.js"></script> 
+
 </body> 
 </html> 

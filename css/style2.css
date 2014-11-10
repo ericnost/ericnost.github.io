@@ -12,38 +12,37 @@ body {
 	-ms-user-select: none; /* IE10+ */
 }
 
-.bar rect {
-  fill: steelblue;
+
+#text{
+}
+.infolabel {
+	position: absolute;
+	width: 200px;
+	height: 100px;
+	color: #fff;
+	background-color: #000;
+	border: solid thin #fff;
+	padding: 5px;
 }
 
-.bar text.value {
-  fill: white;
+.infolabel h1 {
+	margin: 0px;
+	padding: 0px;
+	display: inline-block;
+	line-height: 1em;
 }
 
-.bar:hover {
-  fill: brown;
+.infolabel b {
+	float: left;
 }
 
-.bx {
-  shape-rendering: crispEdges;
-}
-
-.bx path {
-  fill: none;
-}
-
-.bx line {
-  stroke: #fff;
-  stroke-opacity: .8;
-}
-
-.by {
-  shape-rendering: crispEdges;
-}
-
-.by path {
-  fill: none;
-  stroke: black;
+.labelname {
+	display: inline-block;
+	float: right;
+	margin: -25px 0px 0px 40px;
+	font-size: 1em;
+	font-weight: bold;
+	position: absolute;
 }
 
 .chartLabels {
@@ -71,16 +70,6 @@ body {
   stroke-width: 3.5px;
 }
 
-.dot {
-  stroke: #000;
-}
-
-.tooltip {
-  position: absolute;
-  width: 200px;
-  height: 28px;
-  pointer-events: none;
-}
 
 svg {
 	position: absolute;
@@ -96,7 +85,6 @@ h3 {
 }
 
 .map {
-	border: medium solid #999;
 }
 
 .states {
@@ -108,58 +96,16 @@ h3 {
 .subbasins {
   fill: none;
   stroke: #000;
-  stroke-width: 0.5px;
+  stroke-width: 0px;
   stroke-linecap: round;
 }
 
-.dropdown {
-	position: absolute;
-	left: 350px;
-	top: 30px;
-}
 
-.dropdown select {
-	font-size: 1em;
-	border: 1px solid black;
-	width: 135px;
-}
-
-.infolabel {
-	position: absolute;
-	width: 200px;
-	height: 50px;
-	color: #fff;
-	background-color: #000;
-	border: solid thin #fff;
-	padding: 5px;
-}
-
-.infolabel h1 {
-	margin: 0px;
-	padding: 0px;
-	display: inline-block;
-	line-height: 1em;
-}
-
-.infolabel b {
-	float: left;
-}
-
-.labelname {
-	display: inline-block;
-	float: right;
-	margin: -25px 0px 0px 40px;
-	font-size: 1em;
-	font-weight: bold;
-	position: absolute;
-}
 
 .chart {
-	background-color: rgba(128,128,128,.2);
-	border: medium solid #999;
 	position: absolute;
 	left: 680px;
-	top: 73px;
+	top: 200px;
 }
 
 .charttext {
@@ -170,5 +116,5 @@ h3 {
 .boxplot{
 	position: absolute;
 	left: 900px;
-	top: 150px;
+	top: 250px;
 }
