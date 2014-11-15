@@ -1,5 +1,12 @@
-var keyArray = ["wellDensitySqMi", "hydrocarbonFieldDensity", "pipelineDensity", "restorationProjectsDensity", "permitDensity", "leveesNormalizedSQMI", "spoilBanksAreaNormalizedSQMI"];
+var keyArray = ["wellDensitySqMi", "pipelineDensity", "permitDensity", "leveesNormalizedSQMI", "spoilBanksAreaNormalizedSQMI"];
 var expressed = keyArray[0]; 
+var labelArray = {"wellDensitySqMi": "Wells per mi^2", "pipelineDensity": "Pipelines per mi^2", "permitDensity": "Drilling permits per mi^2", "leveesNormalizedSQMI": "Levee length per mi^2", "spoilBanksAreaNormalizedSQMI": "Spoil bank length per mi^2"};
+var textKey = {
+	"wellDensitySqMi": "Oil wells contribute to land loss through subsidence.",
+	"pipelineDensity": "Many offshore drilling operations have laid pipeline through coastal areas", 
+	"permitDensity": "Since the 1950s, oil/gas operators have been required to obtain various permits from the state.", 
+	"leveesNormalizedSQMI": "The Army Corps of Engineers has built and maintained miles of levees in the region for flood and navigation purposes.", 
+	"spoilBanksAreaNormalizedSQMI": "Spoil banks are created from dredging canals. They change an area's hydrological regime, impounding water upgradient and drying soils downgradient."};
 var colorize;
 var Ssvg;
 var chartWidth = 350, chartHeight = 250;
@@ -10,7 +17,7 @@ window.onload = initialize();
 //the first function called once the html is loaded 
 
 function initialize(){ 
-	landLossChart();
+	//landLossChart();
 	setMap(); 
 	
 }; 
@@ -20,7 +27,7 @@ function initialize(){
 function setMap(){
 
 	//map frame dimensions 
-	var width = 650; 
+	var width = 700; 
 	var height = 400; 
 
 	//create a new svg element with the above dimensions 
@@ -35,7 +42,7 @@ function setMap(){
 		.center([-91.3, 30])
 		//.rotate([20, 0])  
 		//.parallels([29, 31]) 
-		.scale(6550) 
+		.scale(7550) 
 		.translate([width / 2, height / 2]); 
 	
 	//create svg path generator using the projection 
@@ -52,13 +59,16 @@ function setMap(){
 		.attr("class", "gratBackground") //assign class for styling
 		.attr("d", path) //project graticule
 
+	
 	//use queue.js to parallelize asynchronous data loading 
 	queue() 
 		.defer(d3.csv, "data/d3Data.csv") //load attributes from csv 
-		.defer(d3.json, "data/coast.json") //load geometry from topojson 
+		.defer(d3.json, "data/coast.json")
+		.defer(d3.json, "data/riversLA.json") //load geometry from topojson
 		.await(callback); //trigger callback function once data is loaded 
 
-	function callback(error, csvData, coast){
+
+	function callback(error, csvData, coast, riversLA){
 
 		colorize = colorScale(csvData);
 
@@ -87,12 +97,18 @@ function setMap(){
 				};
 			};
 		};
+		//add Europe countries geometry to map
+		
 
-		//add Europe countries geometry to map 
 		var states = map.append("path") //create SVG path element 
 			.datum(topojson.feature(coast, coast.objects.states)) 
 			.attr("class", "states") //class name for styling 
 			.attr("d", path); //project data as geometry in svg
+
+		var rivers = map.append("path")
+	      .datum(topojson.feature(riversLA, riversLA.objects.riversLA2))
+	      .attr("class", "rivers")
+	      .attr("d", path);
 
 		var subbasins = map.selectAll(".subbasins")
 			.data(topojson.feature(coast, coast.objects.subbasins).features)
@@ -102,9 +118,9 @@ function setMap(){
 			.append("path") //append elements to svg
 			.attr("class", function(d) { return d.properties.id })
 			.attr("d", path) //project data as geometry in svg
-			.style("fill", function(d) { //color enumeration units
+			.style({"fill": function(d) { //color enumeration units
 				return choropleth(d, colorize);
-			})
+			}, "fill-opacity": .75})
 			.on("mouseover", highlight)
 			.on("mouseout", dehighlight)
 			.on("mousemove", moveLabel);
@@ -114,11 +130,13 @@ function setMap(){
 				});*/
 		
 		
+
 		menu(csvData);
 		setChart(csvData, colorize);
 		scatPlot(csvData);
 	}; 
 };
+
 
 function menu(csvData) {
     $( ":button")
@@ -126,7 +144,7 @@ function menu(csvData) {
     	//.find(".pipelineDensity")// #wellDensitySqMi, #hydrocarbonFieldDensity, #spoilBanksAreaNormalizedSQMI, #leveesNormalizedSQMI, #permitDensity, #restorationProjectsDensity`")
     	.click( function() {
         	changeAttribute(this.id, csvData);
-        	$("#text").html(this.id+"text");
+        	$("#text").html(textKey[this.id]);
         	return false;
       });
   };
@@ -157,14 +175,16 @@ function setChart(csvData, colorize){
 	//create a second svg element to hold the bar chart
 	var chart = d3.select("body")
 		.append("svg")
-		.attr("width", chartWidth)
-		.attr("height", chartHeight)
-		.attr("class", "chart");
+		.attr("width", chartWidth + 30)
+		.attr("height", chartHeight + 30)
+		.attr("class", "chart")
+		.append('g')
+		 .attr("transform", "translate(" + 30 + "," + 30 + ")");
 
 	//create a text element for the chart title
 	var title = chart.append("text")
-		.attr("x", 20)
-		.attr("y", -40)
+		.attr("x", 0)
+		.attr("y", -15)
 		.attr("class", "chartTitle");
 
 	//set bars for each province
@@ -189,13 +209,7 @@ function colorScale(csvData){
 	
 	//create quantile classes with color scale
 	var color = d3.scale.quantile() //designate quantile scale generator
-		.range([
-			"#D4B9DA",
-			"#C994C7",
-			"#DF65B0",
-			"#DD1C77",
-			"#980043"
-		]);
+		.range(['rgb(240,249,232)','rgb(186,228,188)','rgb(123,204,196)','rgb(67,162,202)','rgb(8,104,172)']);
 	
 
 	
@@ -282,21 +296,20 @@ function updateChart(barz, numbars, csvData){
 
 	//update chart title
 	d3.select(".chartTitle")
-		.text("Number of "+ 
-			expressed+
-			" In Each Subbasin");
+		.text(labelArray[expressed]+
+			" for each subbasin");
 };
 
 
 function highlight(data){
-	console.log(data);
+	console.log(labelArray);
 	//json or csv properties
 	var props = data.properties ? data.properties : data;
 	d3.selectAll("."+props.id) //select the current province in the DOM
 		.style({"stroke": "#ffff00", "stroke-width": "5px"}); //set the enumeration unit fill to black
 
 
-	var labelAttribute = "<h1>"+props[expressed]+"</h1><br><b>"+expressed+"</b><br>"; //label content
+	var labelAttribute = "<h1>"+props[expressed]+"</h1><br><b>"+labelArray[expressed]+"</b><br>"; //label content
 	var labelName = props.basinName ? props.basinName : props.BASIN_NAME; //html string for name to go in child div
 	
 	//create info label div
@@ -333,7 +346,7 @@ function moveLabel() {
 		.style("margin-top", y+"px"); //reposition label vertical
 };
 
-
+/*
 function landLossChart() {
 // adapted from Mike Bostock's multi-line series graph: http://bl.ocks.org/mbostock/3884955
 	var margin = {top: 500, right: 120, bottom: 50, left: 50},
@@ -413,7 +426,7 @@ function landLossChart() {
 		var city = svg.selectAll(".city")
 		    .data(cities)
 		  .enter().append("g")
-		    .attr("class", "city");
+		    .style("font-size", "14px");
 
 		city.append("path")
 	      	.attr("class", "line")
@@ -428,7 +441,8 @@ function landLossChart() {
 		    .attr("dy", ".5em")
 		    .text(function(d) { return d.name; });
 	});
-};
+}; */
+
 
 //adapted from weiglemc scatter plot: http://bl.ocks.org/weiglemc/6185069
 
@@ -481,14 +495,14 @@ data.forEach(function(d) {
   Ssvg.append("g")
       .attr("class", "XXXaxis")
       .attr("transform", "translate(0," + height + ")")
-      .style("font-size", "10px")
+      .style("font-size", "12px")
       .call(xAxis)
     .append("text")
       .attr("class", "label")
       .attr("x", 0)
       .attr("y", -6)
       .style("text-anchor", "start")
-      .style("font-size", "10px")
+      .style("font-size", "12px")
       .text(expressed);
 
   // y-axis

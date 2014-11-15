@@ -2,7 +2,7 @@
 <html> 
 <head> 
 <meta charset="utf-8"> 
-<title>My Coordinated Visualization</title> 
+<title>Louisiana Land Loss Explorer beta</title> 
 
 <!--main stylesheet--> 
 <link rel="stylesheet" href="css/style2.css" /> 
@@ -14,26 +14,22 @@
 <script src="lib/d3.js"></script> 
 <script src="lib/topojson.v1.min.js"></script> 
 <script src="lib/queue.js"></script> 
-<div id ="title">
-	<h2>Louisiana Land Loss</h2>
+<div>
+	<img src="data/banner.jpg" id="title">
 </div>
 <div class="buttons">
-	Select a variable:
-  <button id = "wellDensitySqMi">Wells</button>
-  <button id = "hydrocarbonFieldDensity">Oil/Gas fields</button>
-  <button id = "restorationProjectsDensity">Restoration Projects</button>
-  <button id = "permitDensity">Permits</button>
-  <button id = "leveesNormalizedSQMI">Levees</button>
-  <button id = "spoilBanksAreaNormalizedSQMI">Spoil Banks</button>
-  <button id = "pipelineDensity">Pipelines</button>
-</div>
-<p style="height: 10px">
-<div id="text" style="height: 50px">
-
+	Investigate the oil/gas industry has contributed to land loss in Louisiana:
+  <button class = "btn" id = "wellDensitySqMi">Wells</button>
+  <button class = "btn" id = "permitDensity">Permits</button>
+  <button class = "btn" id = "leveesNormalizedSQMI">Levees</button>
+  <button class = "btn" id = "spoilBanksAreaNormalizedSQMI">Spoil Banks</button>
+  <button class = "btn" id = "pipelineDensity">Pipelines</button>
 </div>
 
+<div id="text" style="height: 75px; width: 650px; margin-top: 10px; margin-bottom: 10px">
+Over the past 80 years, oil/gas extraction in coastal Louisiana has contributed to unprecedented land loss. Here you can explore the spatial distribution of different components of oil/gas extraction (wells, pipelines, etc.) that are known to contribute to the problem.
+</div>
 <!--link to main JavaScript file--> 
 <script src="js/main.js"></script> 
-
 </body> 
 </html> 

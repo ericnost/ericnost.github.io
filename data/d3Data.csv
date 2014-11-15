@@ -1,11 +1,11 @@
-id,basinName,wellDensitySqMi,hydrocarbonFieldDensity,pipelineDensity,restorationProjectsDensity,permitDensity,leveesNormalizedSQMI,spoilBanksAreaNormalizedSQMI,landloss
-a1,Atchafalaya Delta,3.54,0.04,185.08,0.00,3.93,90.36,117564,107.87
-a2,Baratraia,5.19,0.05,388.79,0.02,5.78,359.52,89219,69.21
-a3,Breton Sound,3.74,0.06,254.58,0.02,3.91,175.61,84808,59.26
-a4,Calcasieu-Sabine,4.38,0.05,62.41,0.04,4.32,0.00,30681,74.11
-a5,Mermentau,2.70,0.05,213.79,0.01,3.12,0.00,76304,83.81
-a6,Mississippi River Delta,10.33,0.05,237.53,0.03,5.35,1.28,221607,52.67
-a7,Pearl River,0.43,0.02,0.00,0.02,2.26,0.00,19936,91.47
-a8,Pontchartrain,0.84,0.02,183.33,0.01,2.32,115.08,36937,82.43
-a9,Teche-Vermillion,3.82,0.03,138.72,0.04,3.71,23.72,82643,85.91
-a0,Terrebonne,5.29,0.04,182.55,0.03,4.49,173.53,68722,70.71
+id,basinName,wellDensitySqMi,pipelineDensity,permitDensity,leveesNormalizedSQMI,spoilBanksAreaNormalizedSQMI,landloss
+a1,Atchafalaya Delta,3.54,185.08,3.93,90.36,117564,107.87
+a2,Baratraia,5.19,388.79,5.78,359.52,89219,69.21
+a3,Breton Sound,3.74,254.58,3.91,175.61,84808,59.26
+a4,Calcasieu-Sabine,4.38,62.41,4.32,0,30681,74.11
+a5,Mermentau,2.7,213.79,3.12,0,76304,83.81
+a6,Mississippi River Delta,10.33,237.53,5.35,1.28,221607,52.67
+a7,Pearl River,0.43,0,2.26,0,19936,91.47
+a8,Pontchartrain,0.84,183.33,2.32,115.08,36937,82.43
+a9,Teche-Vermillion,3.82,138.72,3.71,23.72,82643,85.91
+a0,Terrebonne,5.29,182.55,4.49,173.53,68722,70.71
