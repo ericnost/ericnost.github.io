@@ -4,6 +4,7 @@
 body {
 	height: 100%;
 	margin: 20px;
+	background-color: #dddddd;
 	font-family: Arial, Helvetica, sans-serif;
 	/* text unselectable */
 	font: 10px;
@@ -18,19 +19,114 @@ body {
 	stroke-width: .2px;
 }
 
-.text{
+.text1{
 }
+
+.topContent{
+	position:absolute;
+	top:35%;
+	width: 100%;
+}
+.bars {
+	position: absolute;
+	left: 50%;
+}
+
+.charttext {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.chart{
+	position: absolute;
+	left: 65%;
+}
+
+
+.bottomContent{
+	position:absolute;
+	top:104%;
+	left:0%;
+	width: 100%;
+	height:200%;
+	
+}
+.landlossChart{
+	float:left;
+	width:66%;
+	height:50%;
+}
+.landLossText{
+	position: absolute;
+	right:5%;
+	
+	width:18%;
+}
+.canalText{
+	position:absolute;
+	bottom:0%;
+	width:33%;
+	left:5%;
+}
+.canalImg{
+	position:absolute;
+	right:5%;
+	bottom:-15%;
+	width:35%;
+}
+#map{
+	position:absolute;
+	left: 5%;
+	bottom:25%;
+	width:50%;
+	height:30%;
+}
+#text{
+	position:absolute;
+	left: 60%;
+	bottom:25%;
+	width:30%;
+	height:30%;
+}
+#links{
+	position:absolute;
+	left: 5%;
+	bottom:10%;
+	width:60%;
+	height:14%;
+}
+
+hr{
+	position:absolute;
+	color: black;
+	width:80%;
+	height: 5px;
+	border: 0; 
+	border-top: 1px solid #ccc;
+	margin-left: 10%;
+}
+#topHR{
+	top:95%;
+	
+}
+#midHR{
+	top:180%;
+}
+#bottomHR{
+	position:absolute;
+	top:275%;
+}
+
 
 button {
 	border-width: 0px;
   	border-radius: 12px;
   	font-family: Arial;
-  	color: #594a59;
+  	color: #d6d2d6;
  	font-size: 14px;
-  	background: #dbe2ea;
+  	background: #83878c;
   	padding: 5px 10px 5px 10px;
   	text-decoration: none;
-  
 }
 
 button:hover {
@@ -80,15 +176,18 @@ img {
 
 .axis path,
 .axis line {
-	font: 12px Arial;
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
 }
 
-.x.axis path {
+.xaxis{
 	font: 12px Arial;
-  display: none;
+}
+.xaxis path, line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
 }
 
 .line {
@@ -110,8 +209,6 @@ h3 {
   fill: #D5E3FF;
 }
 
-.map {
-}
 
 .states {
   fill: #fff;
@@ -128,19 +225,52 @@ h3 {
 
 
 
-.chart {
-	position: absolute;
-	left: 720px;
-	top: 250px;
+h2 {
+    font-size: 1.2em;
+    margin-top: 3px;
 }
-
-.charttext {
-	font-size: 1.5em;
-	font-weight: bold;
+h2,div, span {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    border: 5px;
 }
+.legend, .temporal-legend {
+    padding: 6px 10px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+#legendTitle {
+    text-align: center;
+    margin-bottom: 15px;
+    font-variant: small-caps;
+}
+.symbolsContainer {
+    float: left;
+	margin-left: 50px;
+    width: 100px;
+}
+.legendCircle {
+     border-radius:50%; 
+     border: 1px solid #2E2E2E; 
+     background: #2E2E2E, .6;
+	 display: inline-block;
+}
+.legendValue {
+    position: absolute;
+    right: 8px;
+}
+.range-slider {
+    width: 250px;
 
-.boxplot{
-	position: absolute;
-	left: 940px;
-	top: 250px;
+}
+.temporal-legend {
+    font-size: 2.2em;
+    text-align: center;
 }

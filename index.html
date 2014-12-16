@@ -6,18 +6,15 @@
 
 <!--main stylesheet--> 
 <link rel="stylesheet" href="css/style2.css" /> 
+<link rel="stylesheet" href="css/leaflet.css"> 
 </head> 
 <body> 
-<!--libraries--> 
- <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-<script src="lib/d3.js"></script> 
-<script src="lib/topojson.v1.min.js"></script> 
-<script src="lib/queue.js"></script> 
+
 <div>
 	<img src="data/banner.jpg" id="title">
 </div>
 <div class="buttons">
+	<p>
 	Investigate how the oil/gas industry has contributed to land loss in Louisiana:
   <button class = "btn" id = "wellDensitySqMi">Wells</button>
   <button class = "btn" id = "permitDensity">Permits</button>
@@ -26,9 +23,15 @@
   <button class = "btn" id = "pipelineDensity">Pipelines</button>
 </div>
 
-<div id="text" style="height: 75px; width: 650px; margin-top: 10px; margin-bottom: 10px">
+<div id="text1" style="height: 75px; width: 650px; margin-top: 10px; margin-bottom: 10px">
 Over the past 80 years, oil/gas extraction in coastal Louisiana has contributed to unprecedented land loss. Here you can explore the spatial distribution of different components of oil/gas extraction (wells, pipelines, etc.) that are known factors.
 </div>
+<!--libraries--> 
+<script src="js/leaflet.js"></script>
+<script src="js/jquery.js"></script>
+<script src="lib/d3.js"></script> 
+<script src="lib/topojson.v1.min.js"></script> 
+<script src="lib/queue.js"></script> 
 <!--link to main JavaScript file--> 
 <script src="js/main.js"></script> 
 </body> 
