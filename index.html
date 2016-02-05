@@ -8,13 +8,24 @@
   <body>
   <style>
     body  {
-      background: #ffffff url("/wetlands.jpg") no-repeat left top;
       font-family: helvetica;
+    }
+    div.background{
+      height: 95vh;
+      width: 95vw;
+      z-index: 0;
+      overflow-y: hidden;
     }
     div.top{
       background: #ffffff;
+      position: absolute;
+      top: 5vh;
+      padding: 1vh;
+      z-index:1;
+
     }
   </style>
+  <div class="background"><img src="wetlands.jpg"/></div>
   <div class="top">
 	<h3>Eric Nost</h3>
   <a href="http://geography.wisc.edu/hazardouswaste/map" target="_blank">HazMatMapper</a>&nbsp &nbsp &nbsp &nbsp
