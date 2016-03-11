@@ -106,6 +106,7 @@ function initialize(){
     locator(data) //rollup sites for mapping
 
     loadSites(data)
+    paleoplaces()
   }) 
  }
 
@@ -437,4 +438,49 @@ function zoomer() {
       .selectAll("circle").attr("r", function (d){if (firstTime){return 3/zoom.scale()} else{return radiusFlannery(d.pollen)/(zoom.scale())}}).style("stroke-width", 1 / zoom.scale() + "px" )
 
 }
+
+function paleoplaces(){
+  //d3.range([11500, 12500])
+  year = [11500, 12500]
+  d3.json("data/neotoma.json", function(sitedata) {
+
+  d3.csv("data/all_pollen_final.csv", function(pollendata) {
+    pollendata.forEach(function(d){
+      d.Latitude=+d.Latitude
+      d.Age =+ d.Age
+      d.Pct =+ d.Pct
+    });
+   
+  var sitekeys = sitedata.data.map(function(d){return d.LatitudeNorth}) // sites from nemotoma
+  var pollenSites = pollendata.filter(function(d){return sitekeys.includes(d.Latitude)}).filter(function(d){return d.Age > year[0] && d.Age < year[1]}) //all pollen sites
+  
+  //for (x=0; x<sitekeys.length;x++) {
+  var pollenNest = d3.nest()
+    .key(function(d) { return d.Taxon})
+    .map(pollenSites);
+  
+  var taxKeys = d3.keys(pollenNest)
+  var dump =[]
+  for (n=0; n<taxKeys.length; n++){
+    console.log(pollenNest[taxKeys[n]])
+    mean = d3.mean(pollenNest[taxKeys[n]], function(d){return d.Pct})
+    dump[taxKeys[n]] = mean
+  }
+  console.log(dump)
+  //var pollen = d3.mean(allSites[y[p]], function(d){return d.pollen})
+  
+  //nest data by site again
+ // var y = y.filter(function(d){return })//get matches
+  //then look back up in the data
+  //then nest pollen
+  //then do interporlations
+  })
+  })
+}
+
+
+
+
+
+
 
