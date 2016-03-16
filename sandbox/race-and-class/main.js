@@ -12,7 +12,7 @@ var tooltip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-5, 0])
   .html(function(d) {
-    return "<span style='color:white'>" + d.id +"<p>"+d.percent+"</span>";
+    return "<span style='color:white'>" + d.id +"<p>"+d["60-75k"]/d.total+"</span>";
   })
 
 
@@ -92,12 +92,13 @@ function setData(){
       d.id = d.GEOlabel
     });
 
-    var max = d3.max(data, function(d) {return d.percent}),
-    min = d3.min(data, function(d) {return d.percent})
+    var max = d3.max(data, function(d) {return d["60-75k"]/d.total}),
+    min = d3.min(data, function(d) {return d["60-75k"]/d.total})
+    var yyy = data.map(function(d){return d["60-75k"]/d.total;})
 
     var color = d3.scale.quantile()
-      .domain([0,50,100])
-      .range(['#67a9cf','#f7f7f7','#ef8a62']);
+      .domain(yyy)
+      .range(['#e66101','#fdb863','#f7f7f7','#b2abd2','#5e3c99'].reverse());
 
     var city = svg.append("g")
     city.selectAll("circle")
@@ -106,7 +107,7 @@ function setData(){
       //.attr("class", function(d) {return d.id+" "+d.state+d.years+" "+d.name})
       .attr("id", function(d){return d.id})
       //.style("fill", exDefaultColor)
-      .style("fill", function(d){return color(d.percent)})
+      .style("fill", function(d){return color(d["60-75k"]/d.total)})
       .style(defaultStroke)
       .attr("cx", function(d) {
         //find d in geojson
