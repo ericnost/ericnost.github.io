@@ -6,9 +6,11 @@ var exDefaultColor = "#969696"
 var zoom = d3.behavior.zoom()
     .scaleExtent([1, 8])
     .on("zoom",zoomer);
-var defaultStroke = {"stroke": "black", "opacity": 1} //{"stroke": "red", "stroke-width": ".5px"}
+var defaultStroke = {"stroke": "black", "stroke-width": .1} //{"stroke": "red", "stroke-width": ".5px"}
 var u, b
 var files = ["race", "publicassistance", "otherincome", "occupancy"]
+var format = d3.format(",.2%")  ;
+var filterer = []
 
 //begin script when window loads 
 window.onload = initialize(); 
@@ -54,7 +56,7 @@ function setData(selectedCSV){
 
 
   function callback(error, selectedCSV, blocks, riversLA){
-      svg.call(zoom);
+      //svg.call(zoom);
 
       expressed = d3.keys(selectedCSV[0])[5]
       colorize = colorScale(selectedCSV);
@@ -83,12 +85,13 @@ function setData(selectedCSV){
           };
         };
       };
+    keys.splice(0,1)
     
     var tooltip = d3.tip()
     .attr('class', 'd3-tip')
-    .offset([-5, 0])
-    .html(function(d) {console.log(d); 
-      return "<span style='color:white'>" + d.properties.GEOID + "<br>" +d.properties[expressed]/d.properties["Estimate; Total:"]+"</span>";
+    .offset([-50, 0])
+    .html(function(d) { 
+      return "<span style='color:white'> Census block: " + d.properties.GEOID + "<br>" +format(d.properties[expressed]/d.properties["Estimate; Total:"])+" " + expressed.replace("Estimate; Total: - ", "") + "</span>";
     })
 
     svg.call(tooltip)
@@ -97,15 +100,18 @@ function setData(selectedCSV){
       .data(topojson.feature(blocks, blocks.objects.blocks).features)
       .enter() //create elements
       .append("g")
-      .attr("class", "blocks") //assign class for additional styling
+       .attr("class", "blocks") //assign class for additional styling
+      .attr("id", function(d) { return d.properties.LSAD+d.properties.GEOID })
       .append("path") //append elements to svg
-      .attr("id", function(d) { return d.properties.Id })
+     
+
       .attr("d", path) //project data as geometry in svg
       .style({"fill": function(d) { //color enumeration units
         return choropleth(d, colorize);
       }, "fill-opacity": 1})
-      .on("mouseover", function(d){ highlight(d); tooltip.show(d)})
-      .on("mouseover", function(d){ dehighlight(d); tooltip.show(d)})
+      .style(defaultStroke)
+      .on("mouseover", function(d){if (d.properties[expressed]){highlight(d); tooltip.show(d)}})
+      .on("mouseout", function(d){ dehighlight(d); tooltip.hide(d)})
 
     var rivers = svg.append("path")
         .datum(topojson.feature(riversLA, riversLA.objects.riversLA2))
@@ -113,17 +119,18 @@ function setData(selectedCSV){
         .attr("d", path);
 
 //attribute selector
-    svg.selectAll("rect")
+    svg.selectAll(".att")
       .data(keys)
       .enter()
       .append("rect")
-      .attr("class", "selectorz")
+      .attr("class", "selectorz att")
       .style("fill", function (d){if (d == expressed){return "blue"}else{return "d3d3d3"}})
       .attr("width", 16)
       .attr("height", 16)
       .attr("y", function(d, i){return  (height100/3) + i*18 - 16}) 
       .attr("x", 5)
       .on('click', function(d){
+        filterer = []
         changeAttribute(d, selectedCSV)
         legend()
       })
@@ -132,7 +139,7 @@ function setData(selectedCSV){
       .data(keys)
        .enter()
        .append("text")
-       .text(function(d){return d})
+       .text(function(d){return d.replace("Estimate; Total: -", "")})
        .attr("class", "selectorz")
        .attr("text-anchor", "right")
        .attr("y", function(d, i){return height100/3 + i*18}) 
@@ -140,6 +147,7 @@ function setData(selectedCSV){
        .attr("font-size", "12px")
        .attr("fill", "white")
        .on('click', function(d){
+        filterer = []
          changeAttribute(d, selectedCSV)
          legend()
         })
@@ -173,6 +181,7 @@ function setData(selectedCSV){
        .attr("fill", "white")
        .on('click', function(d){
          d3.selectAll(".blocks, rect, text").remove()
+         filterer = []
          setData(d)
         })
   legend()
@@ -181,10 +190,13 @@ function setData(selectedCSV){
 
 function legend(){
   //legend
+    x = color.copy()
+    x.quantiles().unshift(0)
+
 
     svg.selectAll(".legrect").remove()
     svg.selectAll("legrect")
-      .data(color.quantiles())
+      .data(x.quantiles())
       .enter()
       .append("rect")
       .attr("class", "legrect")
@@ -193,19 +205,89 @@ function legend(){
       .attr("height", 16)
       .attr("y", function(d, i){return  (height100/1.3) + i*16 - 16}) 
       .attr("x", 5) 
+      .on('click', function(d){filter(d)})
+
 
     svg.selectAll(".legtext").remove()
     svg.selectAll("legtext")
-      .data(color.quantiles())
+      .data(x.quantiles())
        .enter()
        .append("text")
-       .text(function(d){return d})
+       .text(function(d, i){return format(d)+" - "+format(x.quantiles()[i+1])})
        .attr("class", "legtext")
        .attr("text-anchor", "right")
         .attr("y", function(d, i){return height100/1.3 + i*16}) 
         .attr("x", 21) 
        .attr("font-size", "12px")
        .attr("fill", "white")
+       .on('click', function(d){filter(d)})
+
+var margin = {top: 100, right: 25, bottom: 100, left: 25},
+    width = width100/2 - margin.left - margin.right,
+    height = height100/1.5
+var x = d3.scale.linear()
+    .domain([d3.min(color.domain()), d3.max(color.domain())])
+    .range([margin.left, width])
+
+d3.selectAll(".axis, .filtercircles, .brush").remove()
+var brush = d3.svg.brush()
+    .x(x)
+    .extent([d3.min(color.domain()), d3.max(color.domain())])
+    .on("brushstart", brushstart)
+    .on("brush", brushmove)
+    .on("brushend", brushend);
+
+var arc = d3.svg.arc()
+    .outerRadius(height / 50)
+    .startAngle(0)
+    .endAngle(function(d, i) { return i ? -Math.PI : Math.PI; });
+
+svg.append("g")
+    .attr("transform", "translate(" + margin.left + "," + 0 + ")");
+
+svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate("+0+"," + height + ")")
+    .call(d3.svg.axis().scale(x).orient("bottom").ticks(20).tickFormat(d3.format("%")));
+
+var circle = svg.append("g").selectAll("circles")
+    .data(color.domain())
+  .enter().append("circle")
+    .attr('class', "filtercircles")
+    .attr("transform", function(d) { return "translate(" + x(d) + "," + height + ")"; })
+    .attr("fill", function(d){return colorize(d)})
+    .attr("r", height/50);
+
+var brushg = svg.append("g")
+    .attr("class", "brush")
+    .call(brush);
+
+brushg.selectAll(".resize").append("path")
+    .attr("transform", "translate(0," +  height + ")")
+    .attr("d", arc);
+
+
+
+brushstart();
+brushmove();
+
+function brushstart() {
+  svg.classed("selecting", true);
+}
+
+function brushmove() {
+  var s = brush.extent();
+  circle.classed("selected", function(d) { return s[0] <= d && d <= s[1]; });
+  filter(s)
+}
+
+function brushend() {
+  svg.classed("selecting", !d3.event.target.empty());
+}
+
+
+
+
 }
 
 function changeAttribute(attribute, csvData){
@@ -213,6 +295,8 @@ function changeAttribute(attribute, csvData){
   expressed = attribute;
   colorize = colorScale(csvData);
   
+  d3.selectAll(".att")
+      .style("fill", function (d){if (d == expressed){return "blue"}else{return "d3d3d3"}})
   //recolor the map
   d3.selectAll(".blocks") //select every province
     .select("path")
@@ -224,17 +308,15 @@ function changeAttribute(attribute, csvData){
 function choropleth(d, colorize){
   //get data value
   var value = d.properties[expressed]/d.properties["Estimate; Total:"];
-
   //if value exists, assign it a color; otherwise assign gray
   if (value) {
     return colorize(value); //colorize holds the colorScale generator
   } else {
-    return "#ccc";
+    return "#ddd";
   };
 };
 
 function colorScale(csvData){
-  
   //create quantile classes with color scale
   color = d3.scale.quantile() //designate quantile scale generator
     .range(['rgb(240,249,232)','rgb(186,228,188)','rgb(123,204,196)','rgb(67,162,202)','rgb(8,104,172)']);
@@ -258,32 +340,36 @@ function colorScale(csvData){
 }
 
 
-function filter() {
-/*   svg.selectAll('circle')
-    .filter(function (d){return d.namer.indexOf("CLEAN HARBOR") == -1}) // >-1
-    .style("fill", "blue")
-    //.remove()
-*/
+function filter(data) {
+//return s[0] <= d && d <= s[1]; 
+//do math to get range
+ svg.selectAll('.blocks')
+    .select('path')
+    .style("fill", function(d){
+      if (d.properties[expressed]/d.properties["Estimate; Total:"] <= data[0] || d.properties[expressed]/d.properties["Estimate; Total:"] >= data[1]){console.log('true');return "#ddd"}
+      else {return choropleth(d, colorize)}
+    })
 }
 
-function zoomer() {
+/*function zoomer() {
   svg.selectAll(".blocks").attr("transform", "translate(" +  zoom.translate() + ")scale(" + zoom.scale() + ")")
       .selectAll("path").style("stroke-width", 1 / zoom.scale() + "px" );
- }
+ }*/
 
 function highlight(data){
   svg.selectAll(".blocks")
-    .transition().duration(500) 
-    .style({"opacity": ".2"})
-  svg.selectAll("#"+data.Id) 
-    .transition().duration(500) 
-    .style({"opacity": "1"})
+    .select("path")
+    .style('fill-opacity', .75)
+  svg.select("#"+data.properties.LSAD+data.properties.GEOID) 
+    .select('path')
+    //.transition().duration(500) 
+    .style('fill-opacity', 1)
 }
 
 function dehighlight(data){
-  svg.selectAll(".blocks") 
-    .transition().duration(500) 
-    .style({"opacity": "1"})
+  svg.selectAll(".blocks")
+    .select("path")
+    .style('fill-opacity', 1)
 };
 
 function redraw (base){

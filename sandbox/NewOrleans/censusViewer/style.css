@@ -15,8 +15,8 @@ html {
 
 .rivers {
   fill: none;
-  stroke: blue;
-  stroke-width: .2px;
+  stroke: #1e90ff;
+  stroke-width: 12px;
 }
 
 .selectorz:hover{
@@ -417,4 +417,39 @@ ul.ui-autocomplete {
     margin: .8em 0 .2em;
     line-height: 1.5;
   }
+
+  svg {
+  font: 10px sans-serif;
+}
+
+circle {
+  -webkit-transition: fill-opacity 250ms linear;
+}
+
+.selecting circle {
+  fill-opacity: .75;
+}
+
+.selecting circle.selected {
+  stroke: #f00;
+  stroke-width: .1;
+}
+
+.resize path {
+  fill: #666;
+  fill-opacity: .8;
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.brush .extent {
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
 
