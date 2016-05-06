@@ -31,12 +31,40 @@ body {
 
 </style>
 <body>
-
+ <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+ <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script src="tip.js"></script>
+
 <script src="timeline.js"></script>
 <script>
+d3.select('body').append('div').attr('id', "title").style({"position": "absolute", "top": "5%", "width": "100%"}).text("Timeline of Hazardous Waste Governance")
+var search = d3.select("#title").append("form")
+    var labels = search.selectAll("span").data([0]).enter().append("span")
+    var term;
+    labels.append("input")
+        .attr({
+            type: "text",
+            id: "chem",
+            width: 200,
+            value: "Search for events"
+        })
+
+    $("#chem").on("keydown",function search(e) {
+        if(e.keyCode == 13) {
+          term = $( "#chem" ).val()
+          d3.select("svg").remove()
+          setData(term)
+          event.preventDefault();
+        }
+    });
+d3.select('body').append("div").attr('id', "timelineContainer").style({"position": "absolute", "bottom": "5%", "width": "75%"})
+
+function setData(term){
 d3.csv("timeline.csv", function(data){
+	data = data.filter(function(row){
+		return row['item'].toLowerCase().includes(term) || row['notes'].toLowerCase().includes(term)
+	})
 	data.forEach(function(d){
 		d.start = Date.parse(d.start)
 		d.end = Date.parse(d.end)
@@ -52,12 +80,12 @@ d3.csv("timeline.csv", function(data){
 		var c = {"class": "", "label": "", "times": []}
 			for (b=0; b<times[keys[a]].length; b++){
 				if (isNaN(times[keys[a]][b].end)){
-					c["times"].push({"starting_time": times[keys[a]][b].start, "display": "circle", "id": times[keys[a]][b].item, "data": times[keys[a]][b]})
+					c["times"].push({"starting_time": times[keys[a]][b].start, "display": "circle", "id": "a"+times[keys[a]][b].item, "data": times[keys[a]][b]})
 					c.class = times[keys[a]][b].type
 					c.label = times[keys[a]][b].type
 				}
 				else {
-					c["times"].push({"starting_time": times[keys[a]][b].start, "ending_time": times[keys[a]][b].end, "id": times[keys[a]][b].item, "data": times[keys[a]][b]})
+					c["times"].push({"starting_time": times[keys[a]][b].start, "ending_time": times[keys[a]][b].end, "id": "a"+times[keys[a]][b].item, "data": times[keys[a]][b]})
 					c.class = times[keys[a]][b].type
 					c.label = times[keys[a]][b].type
 				}
@@ -74,10 +102,8 @@ var tooltip = d3.tip()
 
 //sort so newer things drawn last
 test.forEach(function(d){
-	console.log(d)
-	d["times"].sort(function(a,b){console.log(a); return a.starting_time - b.starting_time})
+	d["times"].sort(function(a,b){return a.starting_time - b.starting_time})
 })
-console.log(test)
 var width = window.innerWidth
 var height = window.innerHeight
 var chart = d3.timeline()
@@ -94,9 +120,15 @@ var chart = d3.timeline()
 			  width: 1
 			})
           .mouseover(function(d,i,datum){
+          	console.log(d,i,datum)
+          	svg.selectAll("rect, circle").style("opacity", .2)
+          	svg.select("#"+d.id).style("opacity", 1)
           	tooltip.show(d,i,datum)
           })
-          .mouseout(function(d,i,datum){tooltip.hide(d,i,datum)})
+          .mouseout(function(d,i,datum){
+          	svg.selectAll("rect, circle").style("opacity", 1)
+          	tooltip.hide(d,i,datum)
+          })
           .click(function(d,i,datum){
           	var position = chart.height()/2
           	d3.select("#viewer").remove()
@@ -112,14 +144,17 @@ var chart = d3.timeline()
 chart.tickFormat({
 	format: d3.time.format("%y"),
 	tickTime: d3.time.years})
-d3.select('body').append('div').attr('id', "title").style({"position": "absolute", "top": "5%", "width": "100%"}).text("Timeline of Hazardous Waste Governance")
-d3.select('body').append("div").attr('id', "timelineContainer").style({"position": "absolute", "bottom": "5%", "width": "75%"})
 var svg = d3.select("#timelineContainer").append("svg").attr("width", "100%")
   .datum(test).call(chart);
 svg.call(tooltip)
 svg.selectAll("rect, circle").style({"stroke": "black"})
 svg.selectAll("circle").attr("r", width/1.5/40)
-
-//filter
 })
+}
+
+
+setData("")
+//filter
+
+
 </script>
