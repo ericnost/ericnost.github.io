@@ -648,7 +648,7 @@ function colorScale(csvData){
 
   //create quantile classes with color scale
   color = d3.scale.quantile() //designate quantile scale generator
-    .range(['rgb(240,249,232)','rgb(186,228,188)','rgb(123,204,196)','rgb(67,162,202)','rgb(8,104,172)']);
+    .range(['#edf8e9','#bae4b3','#74c476','#31a354','#006d2c']);
   
 /*  var domainArray = [];
   for (var i in csvData){

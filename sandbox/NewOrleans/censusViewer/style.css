@@ -27,11 +27,11 @@ html {
 
 .rivers {
   fill: none;
-  stroke: #000080;
-  stroke-width: 12px;
+  stroke: #1E90FF;
+  stroke-width: 10px;
 }
 .water{
-  fill: #000080;
+  fill: #1E90FF;
   stroke: black 1px;
 }
 
