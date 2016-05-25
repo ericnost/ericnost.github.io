@@ -27,11 +27,11 @@ html {
 
 .rivers {
   fill: none;
-  stroke: #1e90ff;
+  stroke: #000080;
   stroke-width: 12px;
 }
 .water{
-  fill: #1e90ff;
+  fill: #000080;
 }
 
 .selectorz:hover{
