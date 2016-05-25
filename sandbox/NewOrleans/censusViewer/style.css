@@ -13,6 +13,18 @@ html {
   overflow-y: hidden;
 }
 
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.dot {
+  fill: white;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
 .rivers {
   fill: none;
   stroke: #1e90ff;
@@ -28,178 +40,19 @@ a{
   font-size: 10px;
 }
 
-a.about{
-  color: yellow;
-  font-size: 12px;
-  text-decoration: none;
-}
-
-/*#showHide{
-  position: absolute;
-  bottom: 175px;
-  right: 200px;
-}
-#showHide:hover{
-  cursor: pointer;
-}*/
-.barWrap{
-  background-color: #252525;
-  position: absolute; 
-  height: 100%;
-  border-radius: 5px;
-  padding: 5px;
-}
-.filterSelector{
-  position: absolute;
-}
-.filterDiv{
-  position: absolute;
-  width: 100%;
-}
-.showDiv{
-  position: absolute;
-  width: 80%;
-  left:40%;
-}
-.yearDiv{
-  position: relative;
-  left: 0%;
-  width: 33%;
-}
-/*this is the class for all of the filter buttons*/
-label {
-  color: white;
-  font-size: 10px;
-}
-.filtering{
-  color: white;
-  width: 80%;
-  text-align: center;
-  font-size: 10px;
-}
-.filtering:hover {
-  cursor: pointer;
-}
-.mapDisplay{
-  position: absolute;
-  width: 75%;
-  color:white;
-  font-family: 'Rockwell';
-  font-size: 10px;
-}
-.descriptions{
-  position:absolute;
-}
-
-.footer{
-  position: absolute;
-  bottom: 0%;
-  height: 15px;
-  background-color: #252525;
-  color: yellow;
-  font-size:12px;
-  border-radius: 5px;
-  padding: 5px;
-}
-.aboutFooter, {
-  position:absolute;
-  cursor: pointer; 
-  left: 0%;
-  width: 5%;
-}
-.help{
-  font-size:12px;
-  color: black;
-}
 
 
-.title{
-  color: yellow;
-  font-size: 20px;
-  position: absolute;
-  background: #252525;
-  border-radius: 5px;
-  padding: 5px;
+#title{
+  fill: white;
+  font-size: 28px;
 }
-.subtitle{
-  color: #c2c2c2;
-  font-size:12px;
-  position: absolute;
-  width: 95%;
-  background: #252525;
-}
-.long{
-  width: 100%;
-  background-color:orange;
-}
-
-
-.CAN, .MEX, .USA{
-  fill: #cccccc;
-  stroke:white;
-  stroke-width: .5px;
-}
-.borders{
-  fill: none;
-  stroke: black;
-  stroke-width: 1px
-}
-.epa {
-  stroke: none;
-  stroke-width: 2px;
-  fill: none;
-}
-
-/*.introTitle{
-  color: yellow;
-}
-.introButton{
-  width:100%;
-  height:10%;
-  background: #252525;
-  opacity: .3;
-  text-shadow:none;
-  border: none;
-  box-shadow:none;
-  color: white;
-}
-.introButton:hover{
-  border: solid yellow 2px;
-  cursor: pointer;
-}
-*/
-
-
-
-#importer, #exporter{
-  /*stroke: red;
-  stroke-width:.5px;*/
+#viewerclose{
+  fill: #4b4b4b;
   cursor: pointer;
 }
 
 
 
-
-
-#resetter{
-  position: absolute;
-  top: 20px;
-  right: 150px
-}
-#resetter:hover{
-  cursor:pointer;
-}
-
-
-
-#viewShowHide{
-  position: absolute;
-  top: 145px;
-  left: 0px
-}
-#viewShowHide:hover{
-  cursor:pointer;
-}
 .viewer {
   position:absolute;
   background-color: #252525;
@@ -210,124 +63,12 @@ label {
 font-family: 'Rockwell';
   color: white;
 }
-.viewerText{
-  margin: 5px;
-}
-.importerName{
-  font-size: 12px;
-  color: #c2c2c2;
-}
-.viewerCategory{
-  font-size: 10px;
-  color: #c2c2c2;
-  border: none;
-}
-.percentLabel{
-  font-size: 8px;
-  text-align: bottom;
-  fill: #b2b2b2
-}
-.viewerData{
-  font-size: 10px;
-  color: #e8e8e8;
-}
-.triImports:hover, .triDemos:hover, .triManifests:hover{
-  text-decoration: none;
-  cursor: pointer;
-}
-.triImports{
-  position:absolute;
-  left:0%;
-  width:33%;
-  text-align: center;
-  text-decoration: underline;
-  font-size: 10px;
-  color: #c2c2c2;
-}
-.triDemos{
-  position:absolute;
-  left:34%;
-  width:33%;
-  text-align: center;
-  text-decoration: underline;
-  font-size: 10px;
-  color: #c2c2c2;
-}
-.triManifests{
-  position:relative;
-  left:68%;
-  width:33%;
-  text-align: center;
-  text-decoration: underline;
-  font-size: 10px;
-  color: #c2c2c2;
-}
-.povertyChart{
-  border: none;
-}
-.yearChart{
-  position:absolute;
-}
-.yearData{
-  position:absolute;
-  border: none;
-}
-.typeChart{
-  position: absolute;
-}
-.raceLabel, .povLabel{
-  font-size: 12px;
-  color: #c2c2c2;
-}
-div.manifests, div.typeChart, div.povertyChart {
-  height: 100%;    
-  overflow: auto;
-  overflow-x:hidden;
-}
 
-
-
-
-
-.textdiv { /* text in the boxes */
-display: inline-block;
-font-size: medium;
-text-align: center;
-width: 50%;
-vertical-align: middle;
-font-family: 'Rockwell';
-color:white;
-}
-
-h3{
-  color: black;
-}
-
-
-
-
-
-
-
-.something{
-  width: 85%;
-  text-align: center;
-  vertical-align: middle;
-  background-color: #252525;
-  border: solid 1px black;
-}
-
-.greyedOut{
-  height: 100vh;
-  width: 100vw;
-}
 
 
 .label {
-  font: 10px sans-serif;
-  text-anchor: middle;
-  color:white;
-
+  font: 12px sans-serif;
+  fill:white;
 }
 
 .node {
@@ -337,14 +78,6 @@ h3{
 }
 
 
-.introBox{
-  position: absolute;
-  top:20%;
-  left:20%;
-  width:60%;
-  height:35%;
-}
-
 
 .background {
     fill: transparent;
@@ -353,6 +86,11 @@ h3{
 .background:hover{
   cursor: pointer;
 
+}
+
+.controlbackground{
+  fill: #4b4b4b;
+  opacity: .8;
 }
 
 
@@ -370,14 +108,9 @@ h3{
 
 
 
-.yaxis{
-font-family: 'Rockwell';
-  font-size: 10px;
-  fill: white;
-}
+
 .axis text{
-font-family: 'Rockwell';
-  font-size: 10px;
+  font: 12px sans-serif;
   fill: white;
 }
 .axis path,
@@ -385,12 +118,6 @@ font-family: 'Rockwell';
   fill: none;
   stroke: none;
   shape-rendering: crispEdges;
-}
-
-#tags {
-    border-radius: 0px;
-    border: 1px solid black;
-    height: 0 0 30px;
 }
 
 .ui-autocomplete {
@@ -419,7 +146,7 @@ ul.ui-autocomplete {
   }
 
   svg {
-  font: 10px sans-serif;
+  font: 12px sans-serif;
 }
 
 circle {
@@ -439,7 +166,7 @@ circle {
   fill: #666;
   fill-opacity: .8;
   stroke: #000;
-  stroke-width: 1.5px;
+  stroke-width: .5px;
 }
 
 .axis path, .axis line {
