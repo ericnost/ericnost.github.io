@@ -704,7 +704,7 @@ function highlight(data){
 function dehighlight(data){
   svg.selectAll(".blocks")
     .select("path")
-    .style("stroke": "black")
+    .style("stroke", "black")
 };
 
 function redraw (base){
