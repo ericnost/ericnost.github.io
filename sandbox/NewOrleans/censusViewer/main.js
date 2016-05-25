@@ -153,11 +153,11 @@ function setData(selectedCSV){
         .attr("d", path);
     var lakes = svg.append("path")
         .datum(topojson.feature(water, water.objects.lakes))
-        .attr("class", "rivers")
+        .attr("class", "water")
         .attr("d", path);
     var ocean = svg.append("path")
         .datum(topojson.feature(water, water.objects.ocean))
-        .attr("class", "rivers")
+        .attr("class", "water")
         .attr("d", path);
 
 

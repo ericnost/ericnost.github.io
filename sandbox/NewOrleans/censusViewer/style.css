@@ -30,6 +30,9 @@ html {
   stroke: #1e90ff;
   stroke-width: 12px;
 }
+.water{
+  fill: #1e90ff;
+}
 
 .selectorz:hover{
   cursor:pointer;
