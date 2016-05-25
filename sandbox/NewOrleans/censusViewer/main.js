@@ -694,7 +694,7 @@ function zoomer() {
 function highlight(data){
   svg.selectAll(".blocks")
     .select("path")
-    .style('stroke', "black")
+    .style(defaultStroke)
   svg.select("#"+data.properties.LSAD+data.properties.GEOID) 
     .select('path')
     //.transition().duration(500) 
@@ -704,7 +704,7 @@ function highlight(data){
 function dehighlight(data){
   svg.selectAll(".blocks")
     .select("path")
-    .style("stroke", "black")
+    .style(defaultStroke)
 };
 
 function redraw (base){
