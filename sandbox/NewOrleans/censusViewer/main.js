@@ -694,17 +694,17 @@ function zoomer() {
 function highlight(data){
   svg.selectAll(".blocks")
     .select("path")
-    .style('fill-opacity', .75)
+    .style('stroke', "yellow")
   svg.select("#"+data.properties.LSAD+data.properties.GEOID) 
     .select('path')
     //.transition().duration(500) 
-    .style({'fill-opacity': 1, 'cursor': 'pointer'})
+    .style({"stroke": "black", 'cursor': 'pointer'})
 }
 
 function dehighlight(data){
   svg.selectAll(".blocks")
     .select("path")
-    .style('fill-opacity', 1)
+    .style("stroke": "black")
 };
 
 function redraw (base){
