@@ -219,7 +219,7 @@ function setData(selectedCSV){
 	  	.enter()
 	  	.append("text")
 	  	.attr("id", "title")
-   		.attr("transform", "translate(" + ((width100/2.25))+ "," + ((height100/20)/2) + ")")
+   		.attr("transform", "translate(" + ((width100/2.25))+ "," + 35 + ")")
 	  	.text(function(d){return d})
   
   legend()

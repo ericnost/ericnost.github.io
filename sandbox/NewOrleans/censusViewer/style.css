@@ -32,6 +32,7 @@ html {
 }
 .water{
   fill: #000080;
+  stroke: black 1px;
 }
 
 .selectorz:hover{
