@@ -694,11 +694,11 @@ function zoomer() {
 function highlight(data){
   svg.selectAll(".blocks")
     .select("path")
-    .style('stroke', "yellow")
+    .style('stroke', "black")
   svg.select("#"+data.properties.LSAD+data.properties.GEOID) 
     .select('path')
     //.transition().duration(500) 
-    .style({"stroke": "black", 'cursor': 'pointer'})
+    .style({"stroke": "yellow", 'cursor': 'pointer'})
 }
 
 function dehighlight(data){
