@@ -54,7 +54,7 @@
 	</div>
 
 		<div class="container">
-			<div class="col-md-6 col-md-offset-3" id="clean-harbors-shipments-image">
+			<div class="col-md-8 col-md-offset-3" id="clean-harbors-shipments-image">
 						<script>
 						//global variables
 						var svg, zoomer, path, projection, width100, height100, globalMin, globalMax, arcGroup, exGlobalMin, exGlobalMax, circleMax
@@ -77,11 +77,11 @@
 						function initialize(){
 
 						  height100 =  window.innerHeight/1.5
-						  $(".col-md-6").height(height100)
-						  width100 = $(".col-md-6").width()
+						  $(".col-md-8").height(height100)
+						  width100 = $(".col-md-8").width()
 						  console.log(height100, width100)
 
-						  svg = d3.select(".col-md-6").append("svg")
+						  svg = d3.select(".col-md-8").append("svg")
 						    .attr("id", "mapSVG")
 						    .style({"height": height100, "width": width100, "position": "absolute"})
 
@@ -93,7 +93,7 @@
 
 						  function updateWindow(){
 						    x = window.innerHeight/2
-						    y = $(".col-md-6").width()
+						    y = $(".col-md-8").width()
 						    svg.style({"width": x, "height": y});
 						  }
 						  window.onresize = updateWindow;
