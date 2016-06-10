@@ -172,3 +172,7 @@ a:visited {
   color: black;
   border-radius: 1px;
 }
+.legendText{
+  font-size: 10px;
+  fill: #685544;
+}

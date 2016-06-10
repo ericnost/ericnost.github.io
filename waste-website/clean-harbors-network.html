@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.chord {
+  fill-opacity: .67;
+}
+.phaser{
+  text-decoration: underline;
+  font-size: 20px;
+  color: #d3d3d3;
+}
+.phaser:hover{
+  text-decoration: none;
+  cursor: pointer;
+}
+
+</style>
+<head>
+			<!-- <link href='https://fonts.googleapis.com/css?family=Ruda:400,700|Cantarell:400,700,400italic,700italic' rel='stylesheet' type='text/css'> -->
+			<link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<meta name="keywords" content="maps,cartography, hazardous waste trade"/>
+			<title>Who imports waste into the US?</title>
+
+			<!--put Bootstrap stylesheet links above style.css-->
+			<link rel="stylesheet" href="CSS/bootstrap.min.css">
+			<link rel="stylesheet" href="CSS/bootstrap-theme.min.css">
+			<link rel="stylesheet" href="CSS/style.css">
+			<script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
+			<script type="text/javascript" src="lib/bootstrap.min.js"></script>
+			<script type="text/javascript" src="lib/d3.js" charset="utf-8"></script>
+			<script type="text/javascript" src="lib/queue.js"></script>
+			<script type="text/javascript" src="lib/topojson.v1.min.js"></script>
+			<script type="text/javascript" src="lib/tip.js"></script>
+
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top main-navbar"> <!--creates navbar-->
+
+						<div class="navbar-header"> <!--creates the navbar header-->
+								<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+										<span class="sr-only">Toggle navigation</span><!--used for screen readers for accessibility-->
+										<span class="glyphicon glyphicon-menu-hamburger"></span>
+										<span class="menu">Menu</span>
+								</button> <!--hamburger button for smaller devices-->
+								<a class="navbar-brand" href="index.html">HazMatMapping</a><!--our website brand name-->
+						</div>
+						<div id="navbar" class="collapse navbar-collapse"><!--links in navbar-->
+								<ul class="nav navbar-nav navbar-right"><!--unordered list for links on navbar-->
+
+										<li><a href="AboutUs.html">About Us</a></li>
+										<li><a href="Stories.html">Stories</a></li>
+										<li><a href="Tools.html">Tools</a></li>
+								</ul>
+						</div><!--end navbar=collapse-->
+
+		</nav><!--end navigation bar-->
+	<div class="center">
+		<div class="jumbotron">
+				<div class="container">
+						<h1>Where Does Clean Harbors Waste Go?</h1>
+				</div>
+		</div>
+	</div>
+
+		<div class="container">
+			<div class="col-md-8 col-md-offset-2" id="clean-harbors-network-image">
+				<script>
+
+				var outerRadius = $(".col-md-8").width() / 3,
+				    innerRadius = outerRadius - outerRadius/3;
+
+				var phase = {"selected":"kg", "unselected": "l", "kg":{"tick1": 1000000, "tick2": 100}, "l": {"tick1": 10000, "tick2": 100}}
+				var format = d3.format(",.0f")  ;
+
+				var fill = d3.scale.category20c();
+
+				var chord = d3.layout.chord()
+				    .padding(.04)
+				    .sortSubgroups(d3.descending)
+				    .sortChords(d3.descending);
+
+				var arc = d3.svg.arc()
+				    .innerRadius(innerRadius)
+				    .outerRadius(innerRadius + 20);
+
+				var svg = d3.select(".col-md-8").append("svg")
+				    .attr("width", outerRadius * 4)
+				    .attr("height", outerRadius * 3	)
+				  .append("g")
+				    .attr("transform", "translate(" + outerRadius*1.5 + "," + outerRadius*1.5+ ")");
+
+				var s;
+
+				var tooltip = d3.tip()
+				  .attr('class', 'd3-tip')
+				  .offset([200, 0])
+				  .html(function(d,i) {
+				   	return "<span style='color:white'>" + s[d.source.index] + " to "+ s[d.target.index] + ": "+format(d.source.value)+" "+phase.selected
+				   	+"<br>"+s[d.target.index]+" to "+s[d.source.index]+": "+format(d.target.value)+" "+phase.selected+"</span>";
+				  })
+
+				setdata()
+
+				function setdata(){
+					d3.csv("data/clean-harbors-network.csv", function(error, data) {
+					  //construct matrix
+					  //exporterbyimporter
+					  data = data.filter(function(d){return d.units == phase.selected})
+					var exporters = d3.nest()
+						  .key(function(d) {return d.exporterCity;})
+						  .key(function(d) {return d.impCity})
+					  	   .rollup(function(leaves) { return {"total_waste": d3.sum(leaves, function(d) {return d.quant;})} }) 
+					  	  .map(data);
+
+					  s = d3.keys(exporters), t=[]
+					  for (o=0; o<s.length; o++) {
+					  		t[o] = []
+					  	for (l=0; l<s.length; l++){
+					  		if (exporters[s[o]][s[l]]) {
+					  			t[o][l] = exporters[s[o]][s[l]].total_waste
+					  		} else {
+					  			t[o][l] = 0
+					  		}
+					  	}
+					  }
+					  //t[s[o]]=d3.values(exporters[s[o]]).length 	# of sites shipping to
+
+					  var matrix = t
+
+					chord.matrix(matrix);
+
+					svg.call(tooltip)
+
+					svg.append("g").selectAll("path")
+					    .data(chord.groups)
+					  .enter().append("path")
+					    .style("fill", function(d) { return fill(d.index); })
+					    .style("stroke", function(d) { return fill(d.index); })
+					    .attr("d", arc)
+					    .on("mouseover", fade(.1))
+					    .on("mouseout", fade(1)); 
+
+					  svg.selectAll("text")
+					    .data(chord.groups)
+					  .enter().append("text")
+					      .each(function(d) { d.angle = (d.startAngle + d.endAngle) / 2; })
+					      .attr("dy", ".35em")
+					      .attr("transform", function(d) {
+					        return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
+					            + "translate(" + (innerRadius + 100) + ")"
+					            + (d.angle > Math.PI ? "rotate(180)" : "");
+					      })
+					      .style("text-anchor", function(d) { return d.angle > Math.PI ? "end" : null; })
+					      .text(function(d, i) { return s[i] })
+					      .attr("class", "legendText");
+					      
+
+						svg.append("g")
+					    	.attr("class", "chord")
+					  	.selectAll("path")
+					    	.data(chord.chords)
+					  	.enter().append("path")
+					      //.style("stroke", function(d) { return d3.rgb(fill(d.source.index)).darker(); })
+					      .style("fill", function(d) { return fill(d.source.index); })
+					      .style("opacity", 1)
+					      .attr("d", d3.svg.chord().radius(innerRadius))
+					      .on("mouseover", function (d,i){tooltip.show(d, i)})
+					      .on("mouseout", function (d,i){tooltip.hide(d, i)});
+
+					  var ticks = svg.append("g").selectAll("g")
+					    .data(chord.groups)
+					  .enter().append("g").selectAll("g")
+					    .data(groupTicks)
+					  .enter().append("g")
+					    .attr("transform", function(d) {
+					      return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
+					          + "translate(" + outerRadius/1.25 + ",0)";
+					    });
+
+					ticks.append("line")
+					    .attr("x1", 1)
+					    .attr("y1", 0)
+					    .attr("x2", 2)
+					    .attr("y2", 0)
+					    .style("stroke", "#000");
+
+					ticks.append("text")
+					    .attr("x", 0)
+					    .attr("dy", ".35em")
+					    .attr("transform", function(d) { return d.angle > Math.PI ? "rotate(180)translate(-16)" : null; })
+					    .style("text-anchor", function(d) { return d.angle > Math.PI ? "end" : null; })
+					    .text(function(d) { return d.label; })
+					    .attr("class", "legendText");
+
+					// Returns an array of tick angles and labels, given a group.
+					function groupTicks(d) {
+					  var k = (d.endAngle - d.startAngle) / d.value;
+					  return d3.range(0, d.value, phase[phase.selected].tick1).map(function(v, i) {
+					    return {
+					      angle: v * k + d.startAngle,
+					      label: i % 10 ? null : v / phase[phase.selected].tick2 + " " + phase.selected
+					    };
+					  });
+					}
+
+					function fade(opacity) {
+					  return function(g, i) {
+					    svg.selectAll(".chord path")
+					        .filter(function(d) { return d.source.index != i && d.target.index != i; })
+					      .transition()
+					        .style("opacity", opacity);
+					  };
+					}
+
+					d3.select(".title").remove()
+					d3.select(".col-md-8").append('div')
+						.attr('class', 'title')
+						.style({"position": "absolute", "left":"25%", "bottom": "10%"})
+						.html("("+phase.selected+")"+" <span class='phaser'>"+phase.unselected)
+						.on('click', function(){
+						  var temp = phase.selected
+						  phase.selected = phase.unselected
+						  phase.unselected = temp
+						  svg.selectAll("path, text").remove()
+						  setdata()
+					     })
+					  
+				});
+				}
+
+				//d3.select(self.frameElement).style("height", outerRadius * 1.5 + "px");
+
+				</script>
+			</div>
+		</div>
+		<div class="container">
+			<div class="col-md-12"><h4>Clean Harbors Waste Streams 2007-2012</h4>
+				<h5>Clean Harbors moves a lot of waste between its facilities. Here's how to read this chart: XXXX. Most flows are unidirectional, indicative of the fact that the reason Clean Harbors moves waste between facilities is because each specializes in a particular kind of treatment or disposal method. Clean Harbors accounts for <a href='clean-harbors-shipments.html'>40% of the hazardous waste imported in the US between 2007 and 2012</a>. 
+				</h5>
+			<br>
+			</div>
+		</div>
+
+
+	</body>
+
+
+</html>
