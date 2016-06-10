@@ -91,8 +91,8 @@
 						  .translate([(width100)/2, (height100)/2]);
 
 						  function updateWindow(){
-						    x = window.innerHeight/2
-						    y = $(".col-md-8").width()
+						    y = window.innerHeight/2
+						    x = $(".col-md-8").width()
 						    svg.style({"width": x, "height": y});
 						  }
 						  window.onresize = updateWindow;
@@ -269,7 +269,7 @@
 						  var legendKey = ["Max", "Minimum","Max", "Minimum"]
 
 						  leg = svg.append("g")
-						  leg.selectAll("rect")
+						 /* leg.selectAll("rect")
 						    .data([0])
 						    .enter()
 						    .append("rect")
@@ -277,7 +277,7 @@
 						    .attr("x", 0)
 						    .attr("width", width100/3.5)
 						    .attr("height", height100/1.5)
-						    .attr("fill", "#b8c68b")
+						    .attr("fill", "#b8c68b")*/
 						  leg.selectAll("circle")
 						    .data(circleData)
 						    .enter()
