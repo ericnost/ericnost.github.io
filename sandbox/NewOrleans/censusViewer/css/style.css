@@ -1,16 +1,13 @@
 body {
-  font-family: 'Rockwell';
-  color: white;
-  background-color: white;
+    background-color: #fcfcfc;
+  font-family: 'Bitter', serif;
   max-width: 100%;
   overflow-x: hidden;
-  overflow-y: hidden;
 }
 
 html {
   max-width: 100%;
   overflow-x: hidden;
-  overflow-y: hidden;
 }
 
 .line {
@@ -27,52 +24,17 @@ html {
 
 .rivers {
   fill: none;
-  stroke: #1E90FF;
+  stroke: #1C6BA0;
   stroke-width: 10px;
 }
+
 .water{
-  fill: #1E90FF;
+  fill: #1C6BA0;
   stroke: black 1px;
 }
 
-.selectorz:hover{
-  cursor:pointer;
-}
-
-a{
-  color: red;
-  font-size: 10px;
-}
-
-
-
-#title{
-  fill: white;
-  font-size: 28px;
-}
-#viewerclose{
-  fill: #4b4b4b;
-  cursor: pointer;
-}
-
-
-
-.viewer {
-  position:absolute;
-  background-color: #252525;
-  border-radius: 5px;
-}
-.intro{
-  font-size: 12px;
-font-family: 'Rockwell';
-  color: white;
-}
-
-
-
 .label {
-  font: 12px sans-serif;
-  fill:white;
+  font: 10px sans-serif;
 }
 
 .node {
@@ -81,7 +43,9 @@ font-family: 'Rockwell';
   stroke-width: 10px;
 }
 
-
+.row{
+  padding:10px;
+}
 
 .background {
     fill: transparent;
@@ -90,11 +54,6 @@ font-family: 'Rockwell';
 .background:hover{
   cursor: pointer;
 
-}
-
-.controlbackground{
-  fill: #4b4b4b;
-  opacity: .8;
 }
 
 
@@ -112,10 +71,8 @@ font-family: 'Rockwell';
 
 
 
-
 .axis text{
-  font: 12px sans-serif;
-  fill: white;
+  font: 10px sans-serif;
 }
 .axis path,
 .axis line {
@@ -149,19 +106,16 @@ ul.ui-autocomplete {
     line-height: 1.5;
   }
 
-  svg {
-  font: 12px sans-serif;
-}
 
 circle {
   -webkit-transition: fill-opacity 250ms linear;
 }
 
-.selecting circle {
+.selecting bar {
   fill-opacity: .75;
 }
 
-.selecting circle.selected {
+.selecting bar.selected {
   stroke: #f00;
   stroke-width: .1;
 }
@@ -196,61 +150,47 @@ circle {
   overflow: hidden;
 }
 
-.jumbotron h1 {
-  font-size: 30px;
-}
-
-.jumbotron p {
-  font-size: 16x;
+.center {
+  padding: 30px;
+  background: #fcfcfc;;
 }
 
 .navbar-default .navbar-toggle:hover {
-  background-color: #685544;
+  background-color: #636363;
 
 }
 .navbar-default .navbar-brand {
-  color: #b3a580;
+  color: white;
   font-family: 'Bitter', serif;
   font-size: 30px;
 }
 
 .navbar-default .navbar-brand:hover {
-  color: white;
+  color: #fef0d9;
 }
 
 .navbar-default .navbar-nav > li > a  {
-  color: #b3a580;
+  color: white;
   font-family: 'Bitter', serif;
   font-size: 20px;
 }
 
 .navbar-default .navbar-nav:hover > li > a:hover  {
-  color: white;
+  color: #fef0d9;
 
 }
 
 .navbar-collapse {
-  background-color: #685544;
+  background-color: #636363;
 
 }
-
-body {
-  background-color: #f4f0cb;
-  font-family: 'Bitter', serif;
-
+.navbar-right {
+  padding-right: 10px;
 }
 
-.jumbotron {
-  font-family: 'Bitter', serif;
-  color: #685544;
-  background: #b8c68b;
-  text-align: center;
-   padding-top: 80px;
-  padding-bottom: 40px;
-  margin-top: 12px;
-
- }
-
+.navbar-header {
+  background-color: #636363;
+}
 
 h4 {
   font-size: 20px;
@@ -261,66 +201,12 @@ h5 {
 
 }
 
-.col-md-3 {
-    float: center;
-/**position: relative; **/
-    margin: 0 auto;
-    overflow: hidden;
-    border-color: #685544;
-    border-width: 2px;
-    font-family: 'Bitter', serif;
+li{
+  font-size: 10px;
 }
 
-.navbar-right {
-  padding-right: 10px;
-}
-
-.portfolio-thumbnail img {
-  -webkit-transition: 0.25s ease-in all;
-  transition: 0.25s ease-in all;
-}
-
-.col-md-3:hover .portfolio-thumbnail img {
-  -webkit-transform: scale(1.1);
-  -moz-transform: scale(1.1);
-  -ms-transform: scale(1.1);
-  -o-transform: scale(1.1);
-  transform: scale(1.10);
-
-}
-
-.col-md-3:hover .portfolio-thumbnail h1 {
-display: block
-
-}
-
-.col-md-6 {
-  font-family: 'Bitter', serif;
-  font-size: 16px;
-}
-
-.col-md-5 {
-  font-family: 'Bitter', serif;
-  font-size: 16px;
-
-}
-
-.navbar-header {
-  background-color: #685544;
-}
-
-.col-md-12 {
-  text-align: center;
-}
-
-a {
-  color: gray ;
-}
-
-a:hover {
-  color: white;
-}
-
-a:visited {
-  color: gray;
+.well {
+  min-height: 20px;
+  padding: 2px;
+  margin-bottom: 10px;
 }
