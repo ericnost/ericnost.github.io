@@ -116,7 +116,7 @@ function initialize(){
     x = $(".map").width()
     svg.style({"width": x, "height": y});
   }
-  $(window).resize(function(e) {updateWindow(e);  }); //updateHSVG(e); updateSSVG(e);
+  $(window).resize(function(e) {console.log(e);updateWindow(e); updateHSVG(e); updateSSVG(e); });
 
   path = d3.geo.path()
     .projection(projection);
@@ -220,11 +220,11 @@ function setData(){
     svg.call(tooltip)
 
   //map
-    var fakeblocks = svg.selectAll(".fillblocks")
+    var fakeblocks = svg.selectAll(".blocks")
       .data(topojson.feature(blocks, blocks.objects.blocks).features)
       .enter() //create elements
       .append("g")
-      //.attr("class", "blocks") //assign class for additional styling
+      .attr("class", "blocks") //assign class for additional styling
       //.attr("id", function(d) { return d.properties.LSAD+d.properties.GEOID })
       .append("path") //append elements to svg
       .attr("d", path) //project data as geometry in svg
@@ -232,12 +232,12 @@ function setData(){
         return choropleth(d, colorize);
       }, "fill-opacity": 1})
 
-    var realblocks = svg.selectAll(".blocks")
+    var realblocks = svg.selectAll(".fakeblocks")
       .data(topojson.feature(blocks, blocks.objects.blocks).features)
       .enter() //create elements
       .append("g")
-       .attr("class", "blocks") //assign class for additional styling
-      .attr("id", function(d) { return d.properties.LSAD+d.properties.GEOID })
+      .attr("class", function(d) { return "strokeblocks "+d.properties.LSAD+d.properties.GEOID }) //assign class for additional styling
+      //.attr("id", function(d) { return d.properties.LSAD+d.properties.GEOID })
       .append("path") //append elements to svg
       .attr("d", path) //project data as geometry in svg
       .style({"fill": function(d) { //color enumeration units
@@ -295,11 +295,11 @@ function setData(){
 }
 
 function clickedBlock(data) {
-  svg.selectAll(".blocks") 
+  svg.selectAll(".strokeblocks") 
     .select('path')
     //.transition().duration(500) 
     .style(defaultStroke)
-  svg.select("#"+data.properties.LSAD+data.properties.GEOID) 
+  svg.select("."+data.properties.LSAD+data.properties.GEOID) 
     .select('path')
     //.transition().duration(500) 
     .style({"stroke": "red", "stroke-width": "5px", 'cursor': 'pointer'})
@@ -966,16 +966,16 @@ function radius(data){
 }
 
 function highlight(data){
-  svg.selectAll(".blocks")
+  svg.selectAll(".strokeblocks")
     .select("path")
     .style(defaultStroke)
   if (clickedBlockHelp["target"].properties){
-    svg.select("#"+clickedBlockHelp["target"].properties.LSAD+clickedBlockHelp["target"].properties.GEOID) 
+    svg.select("."+clickedBlockHelp["target"].properties.LSAD+clickedBlockHelp["target"].properties.GEOID) 
       .select('path')
       //.transition().duration(500) 
       .style({"stroke": "red", "stroke-width": "3px", 'cursor': 'pointer'})
   }
-  svg.select("#"+data.properties.LSAD+data.properties.GEOID) 
+  svg.select("."+data.properties.LSAD+data.properties.GEOID) 
     .select('path')
     //.transition().duration(500) 
     .style({"stroke": "yellow", "stroke-width": "3px", 'cursor': 'pointer'})
@@ -992,11 +992,11 @@ function highlight(data){
 }
 
 function dehighlight(data){
-  svg.selectAll(".blocks")
+  svg.selectAll(".strokeblocks")
     .select("path")
     .style(defaultStroke)
   if (clickedBlockHelp["target"].properties){
-    svg.select("#"+clickedBlockHelp["target"].properties.LSAD+clickedBlockHelp["target"].properties.GEOID) 
+    svg.select("."+clickedBlockHelp["target"].properties.LSAD+clickedBlockHelp["target"].properties.GEOID) 
       .select('path')
       //.transition().duration(500) 
       .style({"stroke": "red", "stroke-width": "3px", 'cursor': 'pointer'})
