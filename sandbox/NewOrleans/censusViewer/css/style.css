@@ -1,14 +1,4 @@
-body {
-    background-color: #fcfcfc;
-  font-family: 'Bitter', serif;
-  max-width: 100%;
-  overflow-x: hidden;
-}
 
-html {
-  max-width: 100%;
-  overflow-x: hidden;
-}
 
 .line {
   fill: none;
@@ -43,9 +33,7 @@ html {
   stroke-width: 10px;
 }
 
-.row{
-  padding:10px;
-}
+
 
 .background {
     fill: transparent;
@@ -138,75 +126,6 @@ circle {
   shape-rendering: crispEdges;
 }
 
-/*CSS styling for the website*/
-/*Color scheme from http://power20method.com/minimalist/*/
 
-.portfolio-thumbnail {
-  background-color: #ded2a0;
-  border-width: 2px;
-  border-style: solid;
-  border-right-style: solid;
-  border-color: #685544;
-  overflow: hidden;
-}
 
-.center {
-  padding: 30px;
-  background: #fcfcfc;;
-}
 
-.navbar-default .navbar-toggle:hover {
-  background-color: #636363;
-
-}
-.navbar-default .navbar-brand {
-  color: white;
-  font-family: 'Bitter', serif;
-  font-size: 30px;
-}
-
-.navbar-default .navbar-brand:hover {
-  color: #fef0d9;
-}
-
-.navbar-default .navbar-nav > li > a  {
-  color: white;
-  font-family: 'Bitter', serif;
-  font-size: 20px;
-}
-
-.navbar-default .navbar-nav:hover > li > a:hover  {
-  color: #fef0d9;
-
-}
-
-.navbar-collapse {
-  background-color: #636363;
-
-}
-.navbar-right {
-  padding-right: 10px;
-}
-
-.navbar-header {
-  background-color: #636363;
-}
-
-h4 {
-  font-size: 20px;
-}
-
-h5 {
-  font-size: 16px;
-
-}
-
-li{
-  font-size: 10px;
-}
-
-.well {
-  min-height: 20px;
-  padding: 2px;
-  margin-bottom: 10px;
-}

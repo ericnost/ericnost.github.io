@@ -1,0 +1,509 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+	<head>
+			<!-- <link href='https://fonts.googleapis.com/css?family=Ruda:400,700|Cantarell:400,700,400italic,700italic' rel='stylesheet' type='text/css'> -->
+			<link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<meta name="keywords" content="maps,cartography, hazardous waste trade"/>
+			<title>Are waste processors in compliance?</title>
+
+			<!--put Bootstrap stylesheet links above style.css-->
+			<link rel="stylesheet" href="CSS/bootstrap.min.css">
+			<link rel="stylesheet" href="CSS/bootstrap-theme.min.css">
+			<link rel="stylesheet" href="CSS/style.css">
+			<script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
+			<script type="text/javascript" src="lib/bootstrap.min.js"></script>
+			<script type="text/javascript" src="lib/d3.js" charset="utf-8"></script>
+			<script type="text/javascript" src="lib/queue.js"></script>
+			<script type="text/javascript" src="lib/topojson.v1.min.js"></script>
+			<script type="text/javascript" src="lib/tip.js"></script>
+	</head>
+
+	<body>
+		<nav class="navbar navbar-default navbar-fixed-top main-navbar"> <!--creates navbar-->
+
+						<div class="navbar-header"> <!--creates the navbar header-->
+								<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+										<span class="sr-only">Toggle navigation</span><!--used for screen readers for accessibility-->
+										<span class="glyphicon glyphicon-menu-hamburger"></span>
+										<span class="menu">Menu</span>
+								</button> <!--hamburger button for smaller devices-->
+								<a class="navbar-brand" href="index.html">HazMatMapping</a><!--our website brand name-->
+						</div>
+						<!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="nav1">
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Enter Keyword">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="AboutUs.html">About Us</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="http://geography.wisc.edu/hazardouswaste/map" target="blank">Hazmatmapper</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Content<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="Visual Form">Stories</a></li>
+            <li><a href="Story Content">Visuals</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+
+		</nav><!--end navigation bar-->
+	<div class="center">
+		<div class="jumbotron">
+				<div class="container">
+						<h1>Are waste processors in compliance?</h1>
+						
+				</div>
+		</div>
+	</div>
+
+		<div class="container">
+			<div class="col-md-8 col-md-offset-2" id="clean-harbors-network-image">
+
+			</div>
+		</div>
+		<div class="container" >
+			<div class="col-md-12 well" id = "timeDiv">
+
+			</div>
+		</div>
+		<div class="container">
+			<div class="col-md-12"><h4>Compliance status of US waste importers</h4>
+				<h5>Data from US EPA ECHO. Indicates plant-wide status, not necessary imported waste processing.
+				</h5>
+			<br>
+			</div>
+		</div>
+					<script>
+					//global variables
+
+					var svg, zoomer, projection, width100, height100, colorKey, mapData = {}, dates = [], max, circleMax, path, time, plegend, firstTime = true;
+					var defaultColor = "#f7f7f7";
+					var exDefaultColor = "#969696"
+					var zoom = d3.behavior.zoom()
+					    .scaleExtent([1, 12])
+					    .on("zoom",zoomer);
+					var defaultStroke = {"stroke": "black", "opacity": 1} //{"stroke": "red", "stroke-width": ".5px"}
+					var u, b, imp, exp;
+					var tooltip = d3.tip()
+					  .attr('class', 'd3-tip')
+					  .offset([-5, 0])
+					  .html(function(d, status) {
+					  	console.log(d)
+					    return "<span style='color:white'>" + d.id + ": "+ format(d.shipments)+" shipments <br>"+status+"</span>";
+					  })
+					var flanneryScale;
+					var phase = {"selected":"kg", "unselected": "l"}
+					var format = d3.format(",.0f")  ;
+
+					//begin script when window loads 
+					initialize(); 
+
+					//the first function called once the html is loaded 
+					function initialize(){
+
+					  height100 =  window.innerHeight/1.5
+					  $(".col-md-8").height(height100)
+					  width100 = $(".col-md-8").width()
+
+					  svg = d3.select(".col-md-8").append("svg")
+					    .attr("id", "mapSVG")
+					    .style({"height": height100, "width": width100, "position": "absolute"})
+					  
+					  //create map projection
+					  projection = d3.geo.albers()
+					  .center([2,38])
+					  .scale(height100*1.25)
+					  .translate([(width100)/2, (height100)/2]);
+
+						  function updateWindow(){
+						    y = window.innerHeight/2
+						    x = $(".col-md-8").width()
+						    svg.style({"width": x, "height": y});
+						  }
+						  window.onresize = updateWindow;
+
+					  path = d3.geo.path()
+					    .projection(projection);
+
+					  u = svg.append("g")
+					  b = svg.append("g")
+
+					  queue()
+					    .defer(d3.json, "data/na.json")
+					    .defer(d3.json, "data/borders.json")
+					    .await(callback);
+
+					    function callback(error, na, borders){
+					      svg.call(zoom);
+
+					      b.selectAll('path')
+					        .data(topojson.feature(borders, borders.objects.borders).features)
+					        .enter().append("path")
+					          .attr("d", path)
+					          .attr("class", "borders")
+
+
+					      u.selectAll("path")
+					        .data(topojson.feature(na, na.objects.na).features)
+					        .enter().append("path")
+					          .attr("d", path)
+					          .attr("class", function (d){
+					            return d.properties.gu_a3
+					          })
+					          .attr("id", function (d){
+					            return d.properties.postal
+					          })
+					    };
+					  setData();
+					  //legend(); 
+					}
+
+					function setData(){
+					  svg.call(tooltip)
+
+					  d3.csv("data/us-importers-geocoding.csv", function(importerData) {
+					    importerData.forEach(function(d){
+					      mapData[d.EPAID] = {"id": d.EPAID, "name": d.name, "latitude": d.lat, "longitude": d.lon, "shipments": d.shipments, "Status": {}}
+					      //ECHO(d)
+					    });	
+					    otherstuff();
+					  })
+					 }
+					function otherstuff(){
+						//console.log(mapData)
+						d3.values(mapData).forEach(function(d){
+							ECHO(d)
+						})
+					}
+					  
+/*					    d3.values(mapData).forEach(function(d){
+					    	ECHO(d)
+					    })*/
+					  	//ECHO(mapData["TXD981053770"])
+
+					    //run echo here
+						function ECHO(data){
+						  var name = data.id
+						  $.ajax({
+						    url:"https://ofmpub.epa.gov/echo/dfr_rest_services.get_dfr?output=JSON&p_id="+name+"", //epa id
+						    dataType:"json",
+						    success: function (d){
+						      if (d.Results.RCRACompliance.Sources[0].Status){
+						        data = d.Results.RCRACompliance.Sources[0].Status
+						        var legend = d.Results.RCRACompliance
+						        delete legend.Sources
+								//console.log(data, legend, name);
+						      }
+						        ECHOchart(data, legend, name)
+						    }
+
+						  })
+						}
+
+						function ECHOchart(data, legend, name){
+						      var p = d3.keys(data)
+						      p.shift()
+						      var q = d3.values(data)
+						      q.shift()
+
+						      console.log(data, legend, name)
+						      //console.log(q, legend)
+						      var status = {}
+						      status[name] = {}
+						      for (var i =0; i<d3.values(legend).length; i+=2){
+						      	var j = i + 1
+						      	var counter = d3.values(legend)[i]
+
+						      	mapData[name]["Status"][counter]  = i == 0 ? q[0] : q[i/2]
+						      	status[name][counter] = i == 0 ? q[0] : q[i/2]
+						      	dates[counter] = "" //[d3.values(legend)[i]+"-"+d3.values(legend)[j]] = ""
+						      }
+						      //console.log(status)
+						      time = d3.values(legend)[0]
+						      map(status, time)
+
+						}
+						
+					            
+					/*  svg.append('g').selectAll("rect").data("Click me").enter().append("rect")
+					    .attr({"fill": "blue", "width": 20, "height": 20, "x": width100/3, "y": height100/2})
+					    .on('click', filter)*/
+					
+					   
+					
+					function map(status, time){
+						
+   	 					var name = d3.keys(status)[0]; 
+   	 					//console.log(d3.keys(status)[0])
+   	 					//console.log(status[name][time])
+							    plegend={"SNC": "Significant Non-Compliance", "In Viol": "In Violation", "No Viol": "No violation", "null": "Unknown status"}
+							    colorKey={"SNC": "red", "In Viol": "orange", "No Viol": "black", "null": "grey"}
+
+						        var ships = d3.values(mapData).map(function(d){return +d.shipments})
+						        var max = d3.max(ships)
+
+						        circleMax = height100/16
+
+						        var flanMax = calcFlanneryRadius(max);
+						        flanneryScale = d3.scale.linear().domain([0, flanMax]).range([10, circleMax]);
+
+						//console.log(mapData[name])
+						if (status[name][time] === undefined){return} else{var test = [status[name][time]]}
+				        var exp = svg.append("g")
+				        exp.selectAll("circle")
+				          .data(test)
+				          .enter().append("circle")
+				          .attr("class", "circle")
+				          .attr("id", function(d){return mapData[name].id})
+				          .style("fill", function(d) {
+				          	return colorKey[d]
+				          	//return "blue"
+					       })
+				          .style(defaultStroke)
+				          .attr("cx", function(d) {return projection([mapData[name].longitude, mapData[name].latitude])[0]; }) 
+				          .attr("cy", function(d) { return projection([mapData[name].longitude, mapData[name].latitude])[1]; })
+				          .on("mouseover", function(d){
+				            tooltip.show(mapData[name], d);
+				            highlight(mapData[name]);
+				          })
+				          .on("mouseout", function(d){
+				            tooltip.hide(mapData[name]);
+				            dehighlight(mapData[name]);
+				          })
+				          .on('click', function(d){
+				            redraw(mapData[name]);
+				          })
+
+				        exp.selectAll("circle")
+				          .transition()
+				          .duration(1000)
+				          .attr("r", function(d){return radiusFlannery(mapData[name].shipments)})
+
+				        if(firstTime){firstTime = false; legend(plegend, dates, time)}
+
+					}
+					function legend(plegend, dates, time){
+						d3.select("#legend").remove()
+						d3.select("#timer").remove()
+
+					    var leg = svg.append("g").attr("id", "legend")
+					    leg.selectAll("rect")
+					      .data(d3.keys(plegend))
+					      .enter()
+					      .append("rect")
+					      .style("fill", function(d, i) {
+					          return colorKey[d]
+					           })
+					      .attr("width", 16)
+					      .attr("height", 16)
+					      .attr("y", function(d,i){return i * 16 + height100/1.3}) 
+					      .attr("x", 16)
+					    leg.selectAll("text")
+					      .data(d3.values(plegend))
+					       .enter()
+					       .append("text")
+					       .text(function(d){return d})
+					       .attr("text-anchor", "right")
+					       .attr("x", 45)
+					       .attr("y", function(d,i){return i * 16 +14+ height100/1.3})
+					       .attr("class", "legendText")
+					    leg.selectAll("toptext")
+					      .data(["Compliance status"])
+					       .enter()
+					       .append("text")
+					       .text(function(d){return d})
+					       .attr("text-anchor", "right")
+					       .attr("x", 16)
+					       .attr("y", height100/1.3 - 10)
+					       .attr("class", "legendText")
+
+						var margin = {top: 20, right: 25, left: 25},
+						    width = $(".col-md-8").width(),
+						    height = 100
+
+						$("#timeDiv").height(50)
+
+						var Ssvg = d3.select("#timeDiv").append("svg")
+						.attr("id", "timer")
+						    .style({"height": height+margin.top, "width": width+margin.right})
+
+						var timeScale =  d3.scale.ordinal()
+						    .domain(d3.keys(dates))
+						   .rangeRoundBands([0, width-margin.right]);
+
+
+						// initial value
+						var brushT = d3.svg.brush()
+						  .x(timeScale)
+						  .extent([d3.keys(dates)[0], d3.keys(dates).length-1])
+						  .on("brush", brushedT)
+
+						//var heightx = height100-40
+						var pad = 30
+
+						Ssvg.append("g")
+						  .attr("class", "x axis legendText")
+						  .attr("transform", "translate("+0+"," + 20+ ")")
+						// inroduce axis
+						.call(d3.svg.axis()
+						  .scale(timeScale)
+						  .orient("bottom")
+						  .tickFormat(function(d) {
+						    return d;
+						  })
+						  .tickSize(5)
+						  .tickPadding(12)
+						  .tickValues(d3.keys(dates)))
+						  .selectAll("text")
+    						.attr("transform", "rotate(-45)")
+    						.attr("y", "3em")
+    						.attr("x", "-1em")
+    						.style("text-decoration", function (d){
+					       	if (d==time){return "underline"}
+					       })
+						  .select(".domain")
+						  .select(function() {
+						    return this.parentNode.appendChild(this.cloneNode(true));
+						  })
+						  .attr("class", "halo")
+					    
+					    Ssvg.selectAll("toptext")
+					      .data(["Time period"])
+					       .enter()
+					       .append("text")
+					       .text(function(d){return d})
+					       .attr("text-anchor", "right")
+					       .attr("x", width/2-10)
+					       .attr("y", 10)
+					       .attr("class", "legendText")
+
+
+						var slider = Ssvg.append("g")
+						  .attr("class", "slider")
+						  .attr("transform", "translate("+pad+"," + pad+ ")")
+						  .call(brushT);
+
+						slider.selectAll(".extent,.resize")
+						  .remove();
+
+						slider.select(".background")
+							.attr("transform", "translate("+0+"," +-10+ ")")
+						  .attr("height", 20);
+
+						var handle = slider.append("circle")
+						    .attr("class", "handle")
+						    .attr("transform", "translate(0," + pad + ")")
+						    .attr("r", 9);
+
+						slider
+						  .call(brushT.event)
+
+						function brushedT() {
+						  var value = brushT.extent()[0];
+						  var d0 = closest(value, timeScale.range())
+						  brushT.extent([d0,d0])
+
+						  handle.attr("transform", "translate(" + value + ",0)");
+						  handle.select('text').text(value);
+
+						  //calculate dates
+						  var z = timeScale.range().indexOf(d0)
+						  time = d3.keys(dates)[z]
+						  svg.selectAll(".circle").remove()
+						  Ssvg.select(".axis").selectAll("text")
+    						.style("text-decoration", function (d){
+					       	if (d==time){return "underline"}
+					       })
+					      d3.values(mapData).forEach(function(d){
+					       		var obj = {}
+					       		obj[d.id]=d["Status"]
+					       		map(obj, time)
+					      })
+
+						}   
+					}
+
+					function zoomer() {
+					  u.attr("transform", "translate(" +  zoom.translate() + ")scale(" + zoom.scale() + ")")
+					      .selectAll("path").style("stroke-width", 1 / zoom.scale() + "px" );
+					  b.attr("transform", "translate(" +  zoom.translate() + ")scale(" + zoom.scale() + ")")
+					      .selectAll("path").style("stroke-width", 1 / zoom.scale() + "px" );
+					  svg.selectAll("circle").attr("transform", "translate(" +  zoom.translate() + ")scale(" + zoom.scale() + ")")
+					      .attr("r", function (d){
+					      return 10//radiusFlannery(d.shipments)/(zoom.scale())
+					      })
+					      .style("stroke-width", 1 / zoom.scale() + "px" ) 
+					 }
+
+					//various helper functions here: calculating flannery's compensation, and svg z-indexing.
+					//flannery compensation for circles. modified from here: http://codepen.io/mxfh/pen/pggXoW
+					var calcFlanneryRadius = function(x, max) {
+					  // Flannery Compensation formula as described here:
+					  //http://www.scribd.com/doc/33408233/SUG243-Cartography-Proportional-Symbol#scribd
+					  // log x * 0.57
+					  // anti log
+					  var flannery = 0.57;
+					  var log = Math.log(x);
+					  var r = log * flannery;
+					  r = Math.exp(r);
+					  return (r);
+					};
+
+					var radiusFlannery = function(x) {
+					  return flanneryScale(calcFlanneryRadius(x));
+					};
+					function closest (num, arr) {
+					    var curr = arr[0];
+					    var diff = Math.abs (num - curr);
+					    for (var val = 0; val < arr.length; val++) {
+					        var newdiff = Math.abs (num - arr[val]);
+					        if (newdiff < diff) {
+					            diff = newdiff;
+					            curr = arr[val];
+					        }
+					    }
+					    return curr;
+					}
+
+					function highlight(data){
+					  svg.selectAll(".circle")
+					    .transition().duration(500) 
+					    .style({"opacity": ".2"})
+					  svg.selectAll("#"+data.id) 
+					    .transition().duration(500) 
+					    .style({"opacity": "1"})
+					}
+
+					function dehighlight(data){
+					  svg.selectAll(".circle") 
+					    .transition().duration(500) 
+					    .style({"opacity": "1"})
+					};	
+
+					function redraw (base){
+					  svg.selectAll(".circle").sort(function (a, b) {
+					    if (a != base) return 0;               // a is not the hovered element, send "a" to the back
+					    else return 1;                             // a is the hovered element, bring "a" to the front
+					  });
+					}
+
+				</script>
+
+
+	</body>
+
+
+</html>

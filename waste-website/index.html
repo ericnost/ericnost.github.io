@@ -16,23 +16,46 @@
 	</head>
 
 	<body>
-		<nav class="navbar navbar-default navbar-fixed-top main-navbar"> <!--creates navbar-->
-						<div class="navbar-header"> <!--creates the navbar header-->
-								<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-										<span class="sr-only">Toggle navigation</span><!--used for screen readers for accessibility-->
-										<span class="glyphicon glyphicon-menu-hamburger"></span>
-										<span class="menu">Menu</span>
-								</button> <!--hamburger button for smaller devices-->
-								<a class="navbar-brand" href="#">HazMatMapping</a><!--our website brand name-->
-						</div>
-						<div id="navbar" class="collapse navbar-collapse"><!--links in navbar-->
-								<ul class="nav navbar-nav navbar-right"><!--unordered list for links on navbar-->
+<nav class="navbar navbar-default navbar-fixed-top main-navbar">
+  
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">HazmatMapping</a>
+    </div>
 
-										<li><a href="AboutUs.html">About Us</a></li>
-										<li><a href="Stories.html">Stories</a></li>
-										<li><a href="Tools.html">Tools</a></li>
-								</ul>
-						</div><!--end navbar=collapse-->
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="nav1">
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Enter Keyword">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="AboutUs.html">About Us</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="http://geography.wisc.edu/hazardouswaste/map" target="blank">Hazmatmapper</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Content<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="Visual Form">Stories</a></li>
+            <li><a href="Story Content">Visuals</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+ 
 
 		</nav><!--end navigation bar-->
 	<div class="center">
@@ -43,18 +66,18 @@
 				</div>
 		</div>
 	</div>
-
+		<!--https://miketricking.github.io/dist/ look here for hover-->
 		<div class="container">
 			<div class="col-md-3">
 					<div class="thumbnail portfolio-thumbnail center-block">
-							<a href = "clean-harbors-shipments.html"><img src="img/Clean-Harbors-Shipments.jpg"
+							<a href = "clean-harbors-shipments.html"><img src="img/Clean-Harbors-Shipments.png"
 							alt="Clean Harbors Shipments"/>
 							</a>
 					</div>
 			</div>
 			<div class="col-md-3">
 					<div class="thumbnail portfolio-thumbnail center-block">
-							<a href = "clean-harbors-network.html" target = "blank"><img src="img/clean-harbors-networks.jpg"
+							<a href = "clean-harbors-network.html" target = "blank"><img src="img/clean-harbors-networks.png"
 							alt="Clean Harbors Networks"/>
 							</a>
 					</div>
@@ -68,8 +91,8 @@
 			</div>
 			<div class="col-md-3">
 					<div class="thumbnail portfolio-thumbnail center-block">
-							<a href = "Story3.html"><img src="img/testImage.png"
-							alt="Test Image"/>
+							<a href = "imports-exports.html"><img src="img/imports-exports.jpg"
+							alt="Imports and Exports"/>
 							</a>
 					</div>
 			</div>
@@ -77,16 +100,23 @@
 		<div class="container">
 			<div class="col-md-3">
 					<div class="thumbnail portfolio-thumbnail center-block">
-							<a href = "Story4.html"><img src="img/testImage.png"
-							alt="Test Image"/>
+							<a href = "race-and-income.html"><img src="img/race-and-income.jpg"
+							alt="Race and Income"/>
 							</a>
 					</div>
 			</div>
 
 			<div class="col-md-3">
 					<div class="thumbnail portfolio-thumbnail center-block">
-							<a href = "Story5.html"><img src="img/testImage.png"
-							alt="Test Image"/>
+							<a href = "compliance.html"><img src="img/compliance.jpg"
+							alt="Compliance"/>
+							</a>
+					</div>
+			</div>
+			<div class="col-md-3">
+					<div class="thumbnail portfolio-thumbnail center-block">
+							<a href = "trades.html"><img src="img/trades.jpg"
+							alt="Trades"/>
 							</a>
 					</div>
 			</div>
