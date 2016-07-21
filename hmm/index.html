@@ -86,10 +86,11 @@
 				<div class ="col-md-12 title well">
 					<div class ="col-md-12 search"></div>
 					<div class ="col-md-4 type"></div>
-					<div class ="col-md-4 normalize"></div>
+					<div class ="col-md-8 normalize"></div>
 					<div class ="col-md-4 agg"></div>
+          <div class ="col-md-8 resetter"></div>
 				</div>
-				<div class = "col-md-12" id="viewShowHide" z-index="1">
+				<div class = "col-md-12" id="viewShowHide" style="display:none">
 					<div class="col-md-12 viewer well"></div>
 				</div> <!-- viewer figure out overlapping columns-->
 			</div>
@@ -98,8 +99,8 @@
 				<div class="col-md-12 "><h4>Legend</h4></div>
 				<div class="col-md-12 icicle"></div>
 				<div class="col-md-12 filterDiv"></div>
-				<div class="row col-md-6 mapDisplayShell"></div>
-				<div class="row col-md-6"></div>
+				<div class="col-md-12 mapDisplayShell"></div>
+				<div class="col-md-12 descriptionsShell"></div>
 				<div class="col-md-12 filterSelector">
 					<div class="col-md-6 yearDiv"></div>
 					<div class="col-md-6 showDiv"></div>
@@ -166,15 +167,15 @@ var facilityName = {"name": ""}
 var flanneryScale;
 var lineStroke
 var u, c, m, b, imp, exp, arcGroup;
-var filterTypesYear, filterTypesSignal;
+var filterTypesYear, filterTypesSignal;/*
 var lambda = "260px"; lambdaNOPX = 260
-var lambdaPlus = "300px"; lambdaplusNOPX = 300
+var lambdaPlus = "300px"; lambdaplusNOPX = 300*/
 var realchorodump;
 var format = d3.format(",.0f")	;
 var phaseformat = {"Solids": "kg", "Liquids": "liters"}
 var clicky, ECHOdata
-var descriptionsStyle = {"bottom": lambdaNOPX/1+"px", "height": (lambdaNOPX/1.15)-(lambdaNOPX/2)+"px"} //descriptions positioning
-var importerManifests, exporterManifests, globalManifests, globalExManifests, mansbyDestination, mansbyExporter
+/*var descriptionsStyle = {"bottom": lambdaNOPX/1+"px", "height": (lambdaNOPX/1.15)-(lambdaNOPX/2)+"px"} //descriptions positioning
+*/var importerManifests, exporterManifests, globalManifests, globalExManifests, mansbyDestination, mansbyExporter
 
 //begin script when window loads 
 window.onload = initialize(); 
@@ -188,10 +189,10 @@ function initialize(){
 
     //define width variables
 	height100 =  window.innerHeight/1.5
-	$(".col-md-8").height(height100)
-	width100 = $(".col-md-8").width()
+	$(".map").height(height100)
+	width100 = $(".map").width()
 
-	svg = d3.select(".col-md-8").append("svg")
+	svg = d3.select(".map").append("svg")
 	.attr("id", "mapSVG")
 	.style({"height": height100, "width": width100, "position": "absolute"})
 
@@ -203,8 +204,8 @@ function initialize(){
   .translate([width100/2, height100/2]);
 
   function updateWindow(){
-    y = window.innerHeight/2
-    x = $(".col-md-8").width()
+    y = window.innerHeight/1.5
+    x = $(".map").width()
     svg.style({"width": x, "height": y});
   }
   window.onresize = updateWindow;
@@ -300,7 +301,7 @@ labels.append("input")
             type: "text",
             id: "chem",
             size: 20,
-            value: "Search for a chemical (e.g. lead)"
+            value: "Search for a chemical"
         })
 
     $("#chem").on("keydown",function search(e) {
@@ -448,9 +449,8 @@ labels.append("input")
   labels.append("label").text(function(d) {return d;})
   labels.append("text").html("&nbsp")
 
-  d3.select(".title")
-    .append("div")
-    .html("<img src='hmm/data/icons/reset.svg' height='40' width='40'><br><span class='viewerCategory'>Reset map")
+  d3.select(".resetter")  
+    .html("<img src='data/icons/reset.svg' height='40' width='40'><br><span class='viewerCategory'>Reset map")
     .on("click", reset)
 
 
@@ -887,7 +887,6 @@ function shader(data){
     d3.select(".barWrap")
       .append("div")
       .attr("class", "descriptions")
-      .style(descriptionsStyle) 
       .html("<span class = 'importerName'>"+data+"</span>....<span class = 'viewerData'>"+lookup[data]+"</span>")
     d3.select(".mapDisplay").remove()
     d3.select(".mapDisplayShell")
@@ -970,7 +969,6 @@ function choropleth(data){
     d3.select(".barWrap")
       .append("div")
       .attr("class", "descriptions")
-      .style(descriptionsStyle) 
       .html("<span class = 'importerName'>Percent of total waste flow</span>....<span class = 'viewerData'>By state, for the selected years. Hover over a state to see total imports and # of sites.</span>")
     d3.select(".mapDisplay").remove()
     d3.select(".mapDisplayShell")
@@ -1103,7 +1101,6 @@ Isvg.selectAll("rects")
       icicleFilter(d);
       updateDisplay(d);
 	});
-	console.log(colorKey)
 
 
 var yax  = d3.scale.ordinal()
@@ -1115,8 +1112,7 @@ var yAxis = d3.svg.axis()
 
 //construct y axis
 var xscale = d3.scale.linear()
-    .range([height100-(2*(lambdaNOPX/1.25))-15, 10]);
-var xheight = lambdaNOPX *2 + margin.bottom
+    .range([height-15, 10]);
 var xAxis = d3.svg.axis()
     .scale(xscale)
     .ticks(10)
@@ -1124,21 +1120,20 @@ var xAxis = d3.svg.axis()
     .orient("right");
 Isvg.append("g")
       .attr("class", "x axis")
-      .attr("transform", "translate("+140+", "+0+")")
+      .attr("transform", "translate("+100+", "+0+")")
       .call(xAxis)
 
 
 Isvg.append("g")
       .attr("class", "y axis")
     .append("text")
-    .attr("transform", "translate("+30+","+ (height100 - 2* (lambdaNOPX/1.25)+margin.bottom)/2+")rotate(-90)")
+    .attr("transform", "translate("+30+","+ (height-15)/2+")rotate(-90)")
     .style("text-anchor", "middle")
     .text("Proportion of Total Waste")
 };
 
 function icicleFilter(data){
   //can cut?
-  console.log("icifilter")
   name = data.name
   icicleDump = [];
   if (filterDomain != "Site" && filterDomain != undefined){
@@ -1149,7 +1144,6 @@ function icicleFilter(data){
        }
      }
     }
-    console.log(icicleDump)
     icicleImporters(icicleDump, name)
   }
 }
@@ -1597,6 +1591,7 @@ function importers(data){
       //drawLinesOut(d);
     })
    .on("click", function (d){
+      d3.select("#viewShowHide").style("display", "block")
       drawLinesOut();
       exportThis(d);
       updateDisplay(d);
@@ -3001,6 +2996,7 @@ function mapDisplay(){ //show steady state of system - ports, importers, and exp
   })
   displaySVG.call(legendtooltip)
 
+  var w = $(".mapDisplayShell").width()
   
   leg = displaySVG.append("g")
   leg.selectAll("circle")
@@ -3013,7 +3009,7 @@ function mapDisplay(){ //show steady state of system - ports, importers, and exp
     .attr("r", function(d){return radiusFlannery(d[0])})
     .attr("cy", 34) 
     .attr("cx", function(d, i){
-      if (i <= 2) {return lambdaNOPX/4} else {return lambdaNOPX/1.5}
+      if (i <= 2) {return w/4} else {return w/1.5}
       })
     .on("mouseover", function(d,i){
       legendtooltip.show(d,i)
@@ -3028,11 +3024,10 @@ function mapDisplay(){ //show steady state of system - ports, importers, and exp
      .text(function(d){return d})
      .attr("text-anchor", "middle")
      .attr("x",  function(d, i){
-      if (i == 0) {return lambdaNOPX/4} else {return lambdaNOPX/1.5}
+      if (i == 0) {return w/4} else {return w/1.5}
       })
      .attr("y", 80)
-     .attr("font-size", "12px")
-     .attr("fill", "white")
+      .attr("class", "raceLabel")
 }
 
 function updateDisplay(data){ //function is called whether system change occurs and displays the new state of the system
@@ -3046,8 +3041,7 @@ function updateDisplay(data){ //function is called whether system change occurs 
 
   if (data.depth && filterDomain != "Site" && filterDomain != undefined){
     d3.select(".descriptions").remove()
-    d3.select(".barWrap").append("div").attr("class", "descriptions")
-      .style(descriptionsStyle) 
+    d3.select(".descriptionsShell").append("div").attr("class", "descriptions")
       .html("<span class = 'importerName'>"+name+"</span>....<span class = 'viewerData'>"+descriptors[name]+"</span>")
     
     d3.select(".mapDisplay").remove()
@@ -3087,8 +3081,7 @@ function updateDisplay(data){ //function is called whether system change occurs 
          //.attr("text-anchor", "right")
          .attr("x", 20)
          .attr("y", function (d, i){return 10+i*20})
-         .attr("font-size", "12px")
-         .attr("fill", "white")
+         .attr("class", "raceLabel")
     }
 }
 }
