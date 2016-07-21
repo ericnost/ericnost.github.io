@@ -10,9 +10,9 @@
 			<title>HazMatMapper</title>
 
 			<!--put Bootstrap stylesheet links above style.css-->
-			<link rel="stylesheet" href="CSS/bootstrap.min.css">
-			<link rel="stylesheet" href="CSS/bootstrap-theme.min.css">
-			<link rel="stylesheet" href="CSS/style.css">
+			<link rel="stylesheet" href="css/bootstrap.min.css">
+			<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+			<link rel="stylesheet" href="css/style.css">
 			<script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
 			<script type="text/javascript" src="lib/bootstrap.min.js"></script>
 			<script type="text/javascript" src="lib/d3.js" charset="utf-8"></script>
@@ -182,7 +182,7 @@ window.onload = initialize();
 //the first function called once the html is loaded 
 function initialize(){
 
-  d3.csv("/abouts/descriptors.csv", function (csv) {
+  d3.csv("hmm/abouts/descriptors.csv", function (csv) {
   for (var i = 0; i < csv.length; i++){descriptors[csv[i].type] = csv[i].description;}
   }) // load waste descriptors
 
@@ -450,7 +450,7 @@ labels.append("input")
 
   d3.select(".title")
     .append("div")
-    .html("<img src='/data/icons/reset.svg' height='40' width='40'><br><span class='viewerCategory'>Reset map")
+    .html("<img src='hmm/data/icons/reset.svg' height='40' width='40'><br><span class='viewerCategory'>Reset map")
     .on("click", reset)
 
 
@@ -562,7 +562,7 @@ labels.append("input")
 
 
     labelEnter.append("label")
-      .html(function(d) {if (d == "2008") {return d+" <img src='/data/icons/info.svg' height='12' width='12' id='info2008'>"} else {return d}})
+      .html(function(d) {if (d == "2008") {return d+" <img src='hmm/data/icons/info.svg' height='12' width='12' id='info2008'>"} else {return d}})
     labelEnter.append("br")
 
   //these only run first time
