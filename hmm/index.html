@@ -22,17 +22,18 @@
 
 
 	</head>
-		<style>
-			.phaser{
-		  text-decoration: underline;
-		  font-size: 20px;
-		  color: #d3d3d3;
-		}
-		.phaser:hover{
-		  text-decoration: none;
-		  cursor: pointer;
-		}
-		</style>
+  <style>
+  .col-md-12, .col-md-8, .col-md-4, .col-md-6, .col-md-2{
+    padding: 5px;
+  }
+  .nav-pills>li>a{
+    padding: 2px;
+  }
+  body{
+    overflow-x: hidden;
+  }
+
+  </style>
 	<body>
 
 		<nav class="navbar navbar-default navbar-fixed-top main-navbar"> <!--creates navbar-->
@@ -183,7 +184,7 @@ window.onload = initialize();
 //the first function called once the html is loaded 
 function initialize(){
 
-  d3.csv("hmm/abouts/descriptors.csv", function (csv) {
+  d3.csv("abouts/descriptors.csv", function (csv) {
   for (var i = 0; i < csv.length; i++){descriptors[csv[i].type] = csv[i].description;}
   }) // load waste descriptors
 
@@ -198,7 +199,7 @@ function initialize(){
 
     //create map projection
   projection = d3.geo.albers()
-  .center([9,43])
+  .center([0,40])
   //.rotate([100,0])
   .scale(height100*2) //491, 578 . at 578, 750 is fine. at 491, not so much.
   .translate([width100/2, height100/2]);
@@ -323,26 +324,18 @@ labels.append("input")
 
 //phase switcher here
 var filterPhases = ["Solids", "Liquids"]
-
-var form = d3.select(".type").append("form"), j=0;
-form.append("text")
-  .attr("class", "viewerCategory")
- .text("Show waste type:")
-var labels = form.selectAll("span")
-    .data(filterPhases)
-    .enter().append("div")
-labels.append("input")
-    .attr({
-        type: "radio",
-        name: "mode",
-        value: function(d, i) {return i;}
-    })
-    .property("checked", function(d, i) {return i===j;})
-    .on("click", function(d){
+   d3.select(".type").html("<span class='raceLabel'>Show waste type: </span>")
+   d3.select(".type").append("ul").attr("class", "nav nav-pills nav-stacked type-options").selectAll("li").data(filterPhases).enter().append("li")
+     .html(function (d){
+          return "<a href='#'>"+d+"</a>";
+      } )
+     .attr("class", function(d){if (d=="Solids"){return "active"}})
+     .attr("role", "presentation")
+     .on('click', function(d){
+      d3.selectAll(".type-options").selectAll("li").attr("class", function(e){if (e==d){return "active"}})
       if (zoomed){reset()}
       filterDomain = "Site" // set type to Site when switching
-      filterform.selectAll("#Site")
-        .property("checked", true)
+      d3.selectAll(".chart-options").selectAll("li").attr("class", function(e){if (e=="Site"){return "active"}})
       phase = d
       if (phase == "Liquids"){liquidChecker = true}
       Isvg.selectAll("rect, div, g").remove();
@@ -352,27 +345,19 @@ labels.append("input")
       zoom.translate([0,0]).scale(1)
       setData(d, currentYears, view) 
     })
-  labels.append("label").text(function(d) {return d;})
-  labels.append("text").html("&nbsp")
 
 
 //normalizer (weight, volume, shipments) switcher here
 var filterNormalizers = ["Weight (kg)", "Volume (l)", "# of Shipments"]
-var form = d3.select(".normalize").append("form"), j=0;
-form.append("text")
-  .attr("class", "viewerCategory")
- .text("Normalize by:")
-var labels = form.selectAll("span")
-    .data(filterNormalizers)
-    .enter().append("div")
-labels.append("input")
-    .attr({
-        type: "radio",
-        name: "mode",
-        value: function(d, i) {return i;}
-    })
-    .property("checked", function(d, i) {return i===j;})
-    .on("click", function(d){
+   d3.select(".normalize").html("<span class='raceLabel'>Show waste type: </span>")
+   d3.select(".normalize").append("ul").attr("class", "nav nav-pills nav-stacked norm-options").selectAll("li").data(filterNormalizers).enter().append("li")
+     .html(function (d){
+          return "<a href='#'>"+d+"</a>";
+      } )
+     .attr("class", function(d){if (d==filterNormalizers[0]){return "active"}})
+     .attr("role", "presentation")
+     .on('click', function(d){
+      d3.selectAll(".norm-options").selectAll("li").attr("class", function(e){if (e==d){return "active"}})
       if (zoomed){reset()}
       zoom.translate([0,0]).scale(1)
       Isvg.selectAll("rect, div, g").remove();
@@ -382,115 +367,83 @@ labels.append("input")
       viewToggle = d
       setData(phase, currentYears, view, viewToggle) 
     })
-  labels.append("label").text(function(d) {return d;})
-  labels.append("text").html("&nbsp")
 
 
 //site/state switcher here
 var filterView = ["Sites", "States"]
-var form = d3.select(".agg").append("form"), j=0;
-form.append("text")
-  .attr("class", "viewerCategory")
- .text("Aggregate by:")
-var labels = form.selectAll("span")
-    .data(filterView)
-    .enter().append("div")
-
-labels.append("input")
-    .attr({
-        type: "radio",
-        name: "mode",
-        value: function(d, i) {return i;}
-    })
-    .property("checked", function(d, i) {return i===j;})
-    .on("click", function(d){
+   d3.select(".agg").html("<span class='raceLabel'>Aggregate by: </span>")
+   d3.select(".agg").append("ul").attr("class", "nav nav-pills nav-stacked  agg-options").selectAll("li").data(filterView).enter().append("li")
+     .html(function (d){
+          return "<a href='#'>"+d+"</a>";
+      } )
+     .attr("class", function(d){if (d=="Sites"){return "active"}})
+     .attr("role", "presentation")
+     .on('click', function(d){
+        d3.selectAll(".agg-options").selectAll("li").attr("class", function(e){if (e==d){return "active"}})
         d3.select(".viewerText").remove()
         d3.select(".descriptions").remove()
         d3.select(".povertyChart").remove()
         d3.selectAll(".yearData").remove()
-        /*if (viewClickCheck == true) {
-        d3.select('.intro').remove()
-        d3.select(".viewerText")
-          .style("display", "none")
-        d3.select(".viewer")
-          .transition()
-          .duration(450)
-          .style("width", "0px")
-        d3.select("#viewShowHide")
-          .transition()
-          .duration(450)
-          .style({"left": "0px"})
-        viewClickCheck = false
-      }*/
-      if (zoomed){reset()}
-      filterDomain = "Site" // set type to Site when switching
-      view = d
-      Isvg.selectAll("rect, div, g").remove();
-      if (d == "Sites") {
-       //$("#tags").catcomplete( "enable" );
-        mapDisplay()
-        svg.selectAll(".USA").transition().duration(2500).style({"fill": '#cccccc'}).style("stroke", "white");
-        filterform.selectAll("input").property("disabled", false)
-        showform.selectAll("input").property("disabled", false)
-        filterform.selectAll("#Site").property("checked", true)
-        //showform.selectAll("#None").property("checked", true)
-      }
-      if (d == "States") {
-        //$("#tags").catcomplete( "disable" );
-        d3.selectAll(".mapDisplay").remove()
-        filterform.selectAll("input").property("disabled", true)
-        showform.selectAll("input").property("disabled", function(d){if (d=="Poverty" || d=="Race"){return true}})
-      } 
-      d3.selectAll(".arc").remove()
-      svg.selectAll("circle").transition().duration(1200).attr("r", 0).remove()
-      zoom.translate([0,0]).scale(1)
-      setData(phase, currentYears, d) 
+
+        if (zoomed){reset()}
+        filterDomain = "Site" // set type to Site when switching
+        view = d
+        Isvg.selectAll("rect, div, g").remove();
+        if (d == "Sites") {
+         //$("#tags").catcomplete( "enable" );
+          mapDisplay()
+          svg.selectAll(".USA").transition().duration(2500).style({"fill": '#cccccc'}).style("stroke", "white");
+          d3.selectAll(".chart-options").selectAll("li").classed("disabled", false).attr("class", function(d){if (d=="Site"){return "active"}})
+          document.getElementsByClassName('chart-options')[0].style.pointerEvents = 'auto'
+          showform.selectAll("input").property("disabled", false)
+          //showform.selectAll("#None").property("checked", true)
+        }
+        if (d == "States") {
+          //$("#tags").catcomplete( "disable" );
+          d3.selectAll(".mapDisplay").remove()
+          d3.selectAll(".chart-options").selectAll("li").attr("class", "disabled")
+          document.getElementsByClassName('chart-options')[0].style.pointerEvents = 'none'
+          //$('.chart-options li.disabled').find('a').removeAttr('data-toggle');
+          //filterform.selectAll("input").property("disabled", true)
+          showform.selectAll("input").property("disabled", function(d){if (d=="Poverty" || d=="Race"){return true}})
+        } 
+        d3.selectAll(".arc").remove()
+        svg.selectAll("circle").transition().duration(1200).attr("r", 0).remove()
+        zoom.translate([0,0]).scale(1)
+        setData(phase, currentYears, d) 
     })
-  labels.append("label").text(function(d) {return d;})
-  labels.append("text").html("&nbsp")
 
   d3.select(".resetter")  
-    .html("<img src='data/icons/reset.svg' height='40' width='40'><br><span class='viewerCategory'>Reset map")
+    .html("<br><img src='data/icons/reset.svg' height='40' width='40'><br><span class='viewerCategory'>Reset map")
     .on("click", reset)
 
 
 //filter types selector
-
   filterTypes = ["Site", "Company", "Disposal", "Type"]
-  var filterform = d3.select(".filterDiv").append("form"), j=0;
-  filterform.append("text")
-    .attr("class", "viewerCategory")
-    .text("Show by:")
-
-  var labelEnter = filterform.selectAll("span")
-    .data(filterTypes)
-    .enter().append("span")
-
-  labelEnter.append("input")
-    .attr({
-        id: function(d) {return d},
-        type: "radio",
-        name: "mode",
-        value: function(d, i) {return i;}
+   d3.select(".filterDiv").html("<span class='raceLabel'>Show by: </span>")
+   d3.select(".filterDiv").append("ul").attr("class", "nav nav-pills nav-justified chart-options").selectAll("li").data(filterTypes).enter().append("li")
+     .html(function (d){
+          return "<a href='#'>"+d+"</a>";
+      } )
+     .attr("class", function(d){if (d=="Site"){return "active"}})
+     .attr("data-toggle", "tab")
+     .attr("role", "presentation")
+     .on('click', function(d){
+        d3.selectAll(".chart-options").selectAll("li").attr("class", function(e){if (e==d){return "active"}})
+        results = []//[{"name": "other sites", "color": defaultColor}];
+        stringwork1= []//["other sites"];
+        filter = d
+        Isvg.selectAll("rect, div, g").remove();
+        svg.selectAll("#importer")
+          .style({"fill": defaultColor, "fill-opacity": "1"})
+        d3.select(".mapDisplay").remove()
+        mapDisplay()
+        d3.select(".descriptions").remove()
+        d3.selectAll(".arc").remove()
+        filterDomain = d
+        icicle(window[d])
     })
-    .property("checked", function(d, i) {return i===j;})
-    .on("click", function(d){
-      results = []//[{"name": "other sites", "color": defaultColor}];
-      stringwork1= []//["other sites"];
-      filter = d
-      Isvg.selectAll("rect, div, g").remove();
-      svg.selectAll("#importer")
-        .style({"fill": defaultColor, "fill-opacity": "1"})
-      d3.select(".mapDisplay").remove()
-      mapDisplay()
-      d3.select(".descriptions").remove()
-      d3.selectAll(".arc").remove()
 
-      filterDomain = d
-      icicle(window[d])
-   });
-  labelEnter.append("label").text(function(d) {return d;})
-  labelEnter.append("text").html("&nbsp")
 
   //overlay
   filterTypes = ["None", "Poverty", "Race", "EPA Regions"]
@@ -884,7 +837,7 @@ function shader(data){
     
     lookup = {"Race": "Race defined as % minority (nonwhite, incl. Hispanic) in site's census tract. Data from 2012 American Community Survey 5 year estimate.", "Poverty": "Poverty defined as % below poverty line w/in previous 12 months at census tract level. Data from 2012 American Community Survey 5 year estimate."}
     d3.select(".descriptions").remove()
-    d3.select(".barWrap")
+    d3.select(".descriptionsShell")
       .append("div")
       .attr("class", "descriptions")
       .html("<span class = 'importerName'>"+data+"</span>....<span class = 'viewerData'>"+lookup[data]+"</span>")
@@ -904,29 +857,28 @@ function shader(data){
     
 
     var stringwork2 = [results[3]+"% - "+max+"%", results[2]+"% - "+results[3]+"%", results[1]+"% - "+results[2]+"%", results[0]+"% - "+results[1]+"%", min+"% - "+results[0]+"%", "No data"]
-    var squareData = [[10, '#08519c'], [10, '#3182bd'],[10, '#6baed6'],[10, '#bdd7e7'], [10,'#edf8e9'], [10,'black']]
+    var squareData = ['#08519c', '#3182bd','#6baed6', '#bdd7e7','#edf8e9','black']
 
-    displaySVG = d3.select(".mapDisplay").append("svg").attr("width", lambda).attr("height",lambdaNOPX/2.5+"px")
+    displaySVG = d3.select(".mapDisplay").append("svg")
     displaySVG.selectAll("rect")
       .data(squareData)
       .enter()
       .append("rect")
       //.attr("class", function(d) {return data.parent.name})
-      .style("fill", function(d){return d[1]})
-      .attr("width", function(d){return d[0]})
-      .attr("height", function(d){return d[0]})
-      .attr("y", function(d,i){return i * 10 + 5}) 
-      .attr("x", 10)
+      .style("fill", function(d){return d})
+      .attr("width", 16)
+      .attr("height", 16)
+      .attr("y", function(d,i){return i * 16 + 5}) 
+      .attr("x", 16)
     displaySVG.selectAll("text")
       .data(stringwork2)
        .enter()
        .append("text")
        .text(function(d){return d})
        .attr("text-anchor", "right")
-       .attr("x", 25)
-       .attr("y", function(d,i){return i * 10 + 14})
-       .attr("font-size", "12px")
-       .attr("fill", "white")
+       .attr("x", 40)
+       .attr("y", function(d,i){return i * 16 + 14})
+       .attr("class", "raceLabel")
  }     
 }
 
@@ -966,7 +918,7 @@ function choropleth(data){
       .style("stroke", "black");
 
     d3.select(".descriptions").remove()
-    d3.select(".barWrap")
+    d3.select(".descriptionsShell")
       .append("div")
       .attr("class", "descriptions")
       .html("<span class = 'importerName'>Percent of total waste flow</span>....<span class = 'viewerData'>By state, for the selected years. Hover over a state to see total imports and # of sites.</span>")
@@ -984,29 +936,28 @@ function choropleth(data){
     min = d3.round(min,1)
 
     var stringwork2 = [results[2]+"% - "+max+"% ", results[1]+"% - "+results[2]+"% ", results[0]+"% - "+results[1]+"% ", min+"% - "+results[0]+"% ", " no imports"]
-    var squareData = [[12, '#08519c'], [12, '#3182bd'],[12, '#6baed6'],[12, '#bdd7e7'], [12,'#eff3ff']]
+    var squareData = ['#08519c','#3182bd','#6baed6', '#bdd7e7','#eff3ff']
 
-    displaySVG = d3.select(".mapDisplay").append("svg").attr("width", "100%")
+    displaySVG = d3.select(".mapDisplay").append("svg")
     displaySVG.selectAll("rect")
       .data(squareData)
       .enter()
       .append("rect")
       //.attr("class", function(d) {return data.parent.name})
-      .style("fill", function(d){return d[1]})
-      .attr("width", function(d){return d[0]})
-      .attr("height", function(d){return d[0]})
-      .attr("y", function(d,i){return i * 12 + 5}) 
-      .attr("x", 12)
+      .style("fill", function(d){return d})
+      .attr("width", 16)
+      .attr("height", 16)
+      .attr("y", function(d,i){return i * 16 + 5}) 
+      .attr("x", 16)
     displaySVG.selectAll("text")
       .data(stringwork2)
        .enter()
        .append("text")
        .text(function(d){return d})
        .attr("text-anchor", "right")
-       .attr("x", 30)
-       .attr("y", function(d,i){return i * 12 + 16})
-       .attr("font-size", "12px")
-       .attr("fill", "white")
+       .attr("x", 40)
+       .attr("y", function(d,i){return i * 16 + 12})
+       .attr("class", "raceLabel")
 } 
 
 function icicle(data){
@@ -1076,13 +1027,15 @@ Isvg.selectAll("rects")
     })
     .on("mouseout", function(d){ icicleDehighlight(d); tip.hide(d);}) //
     .on('click', function(d){
-        results = [];
-        stringwork1= ["other sites"];
+        //results = [];
+        //stringwork1= [];
         d3.select(".viewerText").remove()
         //d3.select(".descriptions").remove()
         d3.select(".povertyChart").remove()
         d3.selectAll(".yearData").remove()
-        drawLinesOut()/*
+        drawLinesOut()
+
+        /*
         if (viewClickCheck == true) {
           d3.select('.intro').remove()
           d3.select(".viewerText")
@@ -1098,7 +1051,9 @@ Isvg.selectAll("rects")
           viewClickCheck = false
         }*/
       //icicleImporters(d);
-      icicleFilter(d);
+      
+
+      if (filterDomain != "Site" && filterDomain != undefined){icicleFilter(d)} else {icicle4Sites(d)};
       updateDisplay(d);
 	});
 
@@ -1120,7 +1075,7 @@ var xAxis = d3.svg.axis()
     .orient("right");
 Isvg.append("g")
       .attr("class", "x axis")
-      .attr("transform", "translate("+100+", "+0+")")
+      .attr("transform", "translate("+width+", "+0+")")
       .call(xAxis)
 
 
@@ -1132,11 +1087,16 @@ Isvg.append("g")
     .text("Proportion of Total Waste")
 };
 
+function icicle4Sites(data){
+    d3.select("#viewShowHide").style("display", "block");
+    var d = latlongRdump.filter(function (d){return d.id == data.name})
+    colorize(d, data.name)
+    exportThis(d);
+}
+
 function icicleFilter(data){
-  //can cut?
   name = data.name
   icicleDump = [];
-  if (filterDomain != "Site" && filterDomain != undefined){
     for (var k=0; k<data.children.length; k++){
       for (var l=0; l<data.children[k].children.length; l++){
         for (var m=0; m<data.children[k].children[l].children.length; m++){
@@ -1145,8 +1105,23 @@ function icicleFilter(data){
      }
     }
     icicleImporters(icicleDump, name)
-  }
 }
+
+function icicleImporters(data, name){
+  //console.log(data,name)
+  var latlongRdump2=[];
+  if (data.length != undefined) {
+      for (var k=0; k<data.length; k++){
+        for (var j=0; j<latlongRdump.length; j++){
+          //console.log(data[k].name, latlongRdump[j].id)
+        if (data[k].name == latlongRdump[j].id || name == latlongRdump[j].id){
+          latlongRdump2.push(latlongRdump.slice([j], [j+1])[0])
+        };
+      }
+    } 
+    colorize(latlongRdump2, name);
+  }
+};
 
 function icicleHighlight(data){
   if (filterDomain != "Site" && filterDomain != undefined){
@@ -1170,6 +1145,7 @@ function icicleHighlight(data){
       .style(highlighted)
 
     var yyy = icicleDump.map( function(d){return d.name;})
+    //console.log(yyy)
     for (var n = 0; n<yyy.length; n++){
       svg.selectAll("."+yyy[n])
         .transition().duration(500)
@@ -1200,6 +1176,8 @@ function icicleDehighlight(data){
     .transition().duration(500)
     .style(defaultStroke)
   };
+
+
 
 function setMap() {
 var path = d3.geo.path()
@@ -1520,18 +1498,7 @@ importers(latlongRdump);
 mapDisplay();
 }
 
-function icicleImporters(data, name){
-  var latlongRdump2=[];
-  if (data.length != undefined) {
-      for (var k=0; k<data.length; k++){
-        for (var j=0; j<latlongRdump.length; j++){
-          //console.log(data[k].name, latlongRdump[j].id)
-        if (data[k].name == latlongRdump[j].id || name == latlongRdump[j].id){
-          latlongRdump2.push(latlongRdump.slice([j], [j+1])[0])
-        };
-    }} colorize(latlongRdump2, name);
-} 
-};
+
 
 //various helper functions here: calculating flannery's compensation, and svg z-indexing.
 //flannery compensation for circles. modified from here: http://codepen.io/mxfh/pen/pggXoW
@@ -1592,6 +1559,7 @@ function importers(data){
     })
    .on("click", function (d){
       d3.select("#viewShowHide").style("display", "block")
+       if (filterDomain == "Site" || filterDomain == undefined){colorize([d], d.id)}
       drawLinesOut();
       exportThis(d);
       updateDisplay(d);
@@ -1816,7 +1784,7 @@ function colorize(data, name){
   //svg.selectAll("circle")
     //.style({"fill": "#1f77b4"})
   var yyy = data.map(function(d){return d.id;})
-
+  yyy.filter(Boolean) //clean yyy of ""
   for (var r = 0; r<yyy.length; r++) {
   svg.selectAll("."+yyy[r])
     .style("fill", colorDump[0])
@@ -2026,7 +1994,12 @@ for (var j=0; j<latlongdump.length; j++){latlongdump[j].rank = j+1+"/"+latlongdu
     .on("mouseout", function(d){
       tooltip.hide(d);
       dehighlight(d)}) 
-    .on("click", function(d){drawLinesOut(d);importThis(d); updateDisplay(d)})
+    .on("click", function(d){
+      d3.select("#viewShowHide").style("display", "block")
+      drawLinesOut(d);
+      importThis(d); 
+      updateDisplay(d)
+    })
   exp.selectAll("circle")
     .transition()
     .duration(1000)
@@ -2095,19 +2068,21 @@ function viewer(data, latlongdump){
 }
 
   function viewerHelp(data, latlongdump){
-  
   d3.select(".viewer")
+    .append("div").attr("class", "viewerText")
    // .append("div")
    // .style("width", "80%")
     .html("<span class='importerName'>"+data.name+"</span><br> <span class ='viewerData'>"+data.address+", "+data.city+", "+data.state+"</span><p>")
 
   //set-up triptych: 1 (default) loads import; 2 loads demographicCharts; 3 loads manifests
-  d3.select(".viewer").append("ul").attr("class", "nav nav-pills nav-stacked").selectAll("li").data(["Imports", "Demographics", "Manifests", "Stories", "Enforcement"]).enter().append("li")
+  d3.select(".viewerText").append("ul").attr("class", "nav nav-pills viewer-options").selectAll("li").data(["Imports", "Demographics", "Manifests", "Stories", "Enforcement"]).enter().append("li")
+    .attr("class", function(e){if (e=="Imports"){return "active"}})
     .attr("role", "presentation")
     .html(function (d){
-          return "<a href='#'>"+(d)+"</a>";
+          return "<a href='#!'>"+d+"</a>"
      } )
     .on("click", function(d){
+      d3.selectAll(".viewer-options").selectAll("li").attr("class", function(e){if (e==d){return "active"}})
       d3.select(".importCharts, .povertyChart, .manifests, .stories, .ECHO").remove()
       if (d=="Imports"){importCharts(data)};
       if (d=="Demographics"){demographicCharts(data)}
@@ -2123,11 +2098,11 @@ importCharts(data);
 function importCharts(data){
 
 
-  d3.select(".viewer")
+  d3.select(".viewerText")
     .append('div')
     .html("<br><span class = 'povLabel'>Total imports and rank for selected year(s) </span><span class ='viewerData'><br>"+format(data.total_waste)+" "+data.units+"..........."+data.rank+"</span><p>");
   
-  d3.select(".viewer")
+  d3.select(".viewerText")
 	.append("div")
 	.attr("class", "importCharts")
   
@@ -2158,7 +2133,7 @@ function importCharts(data){
   var maxi = d3.max(yearskey, function(d){return d})
   var mini = d3.min(yearskey, function(d){return d})
   
-  var width = lambdaplusNOPX - 10
+  var width = $(".yearChart").width() - 10
   var height = (height100-100)/(20/yearskey.length)
 
   yearSVG =  d3.select(".yearChart").append("svg")
@@ -2197,8 +2172,8 @@ function importCharts(data){
         return i * barheight;
      })
      .attr("x", 0)
-     .attr("height", barheight - barPadding).transition().duration(750)
-     .attr("width", function(d){ return width - x(d)}).transition().duration(750)
+     .attr("height", barheight - barPadding)
+     .attr("width", function(d){ return width - x(d)})
      .attr("class", data.id)
      .attr("fill", function(d) { return document.getElementsByClassName(data.id)["importer"].style.fill})
 
@@ -2226,7 +2201,7 @@ d3.select(".typeChart").append("div")
 
 typedump = data.types
 
-var width = lambdaplusNOPX -10
+var width = $(".typeChart").width() -10
 var height = (height100-100)/(20/typedump.length)  //define variably as below
 
 //height max = lambdaNOPX*1.5 = lambdaNOPX*27
@@ -2317,9 +2292,8 @@ typeSVG.append("g")
       }
         else {lastStart =0; return 0;} //return last d + spacing 
       })
-     .attr("height", barheight - barPadding).transition().duration(750)
+     .attr("height", barheight - barPadding)
      .attr("width", function(d, i, j){if (width -x(d)<5){return 5} else{return width - x(d)}})
-     .transition().duration(750)
      //.attr("class", function(d, i){ if (i == 0){return data.id}})
      .attr("fill", function(d, i, j) {
           return document.getElementsByClassName(data.id)["importer"].style.fill
@@ -2350,9 +2324,9 @@ d3.selectAll(".viewer").append("div").attr("class", "povertyChart").append("div"
 
 d3.select(".povertyChart").append("div")
   .attr("class", "povLabel")
-  .html("<p>% in poverty near site")
+  .html("<br>% in poverty near site")
 
-var width = lambdaplusNOPX - 10
+var width = $(".povertyChart").width() - 10
 var height = (height100-100)/(20/7)
 var barheight = (height/7 < 15) ? 15:height/7
 
@@ -2377,8 +2351,8 @@ povSVG.selectAll("rect")
      .append("rect")
      .attr("y", function(d, i) {return i * barheight})
      .attr("x", function(d) { return 0; })
-     .attr("height", barheight - barPadding).transition().duration(750)
-     .attr("width", function(d){ return width - x(d)}).transition().duration(750)
+     .attr("height", barheight - barPadding)
+     .attr("width", function(d){ return width - x(d)})
      .attr("class", function(d, i){ if (i == 0){return data.id}})
      .attr("fill", function(d, i) {
         if (i == 0 || i == 2 || i == 4) {
@@ -2408,7 +2382,7 @@ povSVG.selectAll("text")
   //minority chart
   d3.select(".povertyChart").append("div")
     .attr("class", "raceLabel")
-    .html("<p>% non-white near site")
+    .html("<br>% non-white near site")
 
   rSVG =  d3.select(".povertyChart").append("svg")
     .attr("width", width)
@@ -2428,8 +2402,8 @@ rSVG.selectAll("rect")
         return i * barheight;
      })
      .attr("x", function(d) { return 0; })
-     .attr("height", barheight - barPadding).transition().duration(750)
-     .attr("width", function(d){ return width-x(d)}).transition().duration(750)
+     .attr("height", barheight - barPadding)
+     .attr("width", function(d){ return width-x(d)})
      .attr("class", function(d, i){ if (i == 0){return data.id}})
      .attr("fill", function(d, i) {
         if (i == 0 || i == 2 || i == 4) {
@@ -2504,7 +2478,7 @@ function stories(data){
 
 //insert ECHO web services here
 function ECHO(data){
-  d3.select(".viewer").append("div").attr("class", "ECHO")
+  d3.select(".viewerText").append("div").attr("class", "ECHO")
 
   d3.select(".ECHO")
     .append('div')
@@ -2526,11 +2500,11 @@ function ECHO(data){
 }
 
 function ECHOchart(data, legend){
-      var width = lambdaplusNOPX - 10
+      var width = $(".ECHO").width() - 10
       var height = (height100)/2
       var barheight = (height/12 < 15) ? 15:height/12
 
-      d3.select(".povertyChart").append("div")
+      d3.select(".ECHO").append("div")
           .attr("class", "raceLabel")
           .html("<p>Compliance status")
 
@@ -2555,7 +2529,7 @@ function ECHOchart(data, legend){
               return i * barheight;
            })
            .attr("x", width/1.4)
-           .attr("height", barheight - barPadding).transition().duration(750)
+           .attr("height", barheight - barPadding)
            .attr("width", width/4)
            .attr("fill", function(d, i) {
               if (d == "SNC"){return "red"};
@@ -2583,7 +2557,7 @@ function exportViewer(data, latlongdump){
 
   //implement the info panel/viewer here
   data=data[0]
-  d3.select(".intro").remove()
+  d3.select(".viewerText").remove()
   d3.selectAll(".povertyChart").remove()
   d3.selectAll(".yearData").remove()
   //d3.selectAll(".viewer").append("div").attr("class", "viewerText");
@@ -2632,12 +2606,11 @@ function exportViewer(data, latlongdump){
 function viewerHelp(data, latlongdump){
   d3.selectAll(".viewerText")
     .append("div")
-    .style("width", "80%")
-  .html("<span class='importerName'>"+data.name+"</span><br><span class ='viewerData'>"+data.address+", "+data.city+", "+data.state+"</span><br><a href='http://maps.google.com/?q="+data.address+" "+data.city+" "+data.state+"' target='_blank'>Open in Google Maps</a>")
+  .html("<span class='importerName'>"+data.name+"</span><br><span class ='viewerData'>"+data.address+", "+data.city+"</span><br><a href='http://maps.google.com/?q="+data.address+" "+data.city+"' target='_blank'>Open in Google Maps</a>")
 
 d3.select(".viewerText")
 .append("div")
-    .html("<br><span class = 'povLabel'>Total imports and rank for selected year(s) </span><span class ='viewerData'><br>"+format(data.total_waste)+" "+data.units+"..........."+data.rank+"</span><p>");
+    .html("<br><span class = 'povLabel'>Total exports and rank for selected year(s) </span><span class ='viewerData'><br>"+format(data.total_waste)+" "+data.units+"..........."+data.rank+"</span><p>");
 
 //exports by year
 d3.selectAll(".viewerText").append("div").attr("class", "importCharts");
@@ -2667,7 +2640,7 @@ d3.selectAll(".viewerText").append("div").attr("class", "importCharts");
   var maxi = d3.max(yearskey, function(d){return d})
   var mini = d3.min(yearskey, function(d){return d})
   
-  var width = lambdaplusNOPX - 10
+  var width = $(".yearChart").width() - 10
   var height = (height100-100)/(20/yearskey.length)
   var barheight = (height/yearskey.length < 15) ? 15:height/yearskey.length
 
@@ -2705,10 +2678,10 @@ d3.selectAll(".viewerText").append("div").attr("class", "importCharts");
         return i * barheight;
      })
      .attr("x", function(d) { return 0; })
-     .attr("height", barheight - barPadding).transition().duration(750)
-     .attr("width", function(d){ return width - x(d)}).transition().duration(750)
+     .attr("height", barheight - barPadding)
+     .attr("width", function(d){ return width - x(d)})
      .attr("class", data.id)
-     .attr("fill", function(d) {return document.getElementsByClassName(data.id)[0].style.fill})
+     .attr("fill", function(d) {return document.getElementsByClassName(data.id)["exporter"].style.fill})
 
   yearSVG.selectAll("text")
      .data(yearskey)
@@ -2735,7 +2708,7 @@ for (var e=0; e<data.types.length; e++){
   typedump[e] = [data.types[e].key,data.types[e].values.total_waste]
 }
 
-var width = lambdaplusNOPX -10
+var width = $(".typeChart").width() -10
 var height = (height100-100)/(20/typedump.length) //define variably as below
 var barheight = (height/typedump.length < 15) ? 15:height/typedump.length
 
@@ -2777,8 +2750,8 @@ typeSVG.selectAll("rect")
         return i * barheight;
      })
      .attr("x", function(d) { return 0; })
-     .attr("height", barheight - barPadding).transition().duration(750)
-     .attr("width", function(d, i, j){if (width -x(d[1])<5){return 5} else{return width - x(d[1])}}).transition().duration(750)
+     .attr("height", barheight - barPadding)
+     .attr("width", function(d, i, j){if (width -x(d[1])<5){return 5} else{return width - x(d[1])}})
      //.attr("class", function(d, i){ if (i == 0){return data.id}})
      .attr("fill", function(d, i) {
           return document.getElementsByClassName(data.id)["exporter"].style.fill
@@ -2971,7 +2944,8 @@ function EXPpositions (data, base){
 }
 
 function mapDisplay(){ //show steady state of system - ports, importers, and exporters
-  d3.select(".mapDisplay").remove(); 
+  d3.select(".mapDisplay").remove();
+  $(".mapDisplayShell").height($(".barWrap").height()/10)
   d3.select(".mapDisplayShell")
         .append("div")
         .attr("class", "mapDisplay")
@@ -3007,7 +2981,7 @@ function mapDisplay(){ //show steady state of system - ports, importers, and exp
     .style("fill", function(d){return d[1]})
     .style(defaultStroke)
     .attr("r", function(d){return radiusFlannery(d[0])})
-    .attr("cy", 34) 
+    .attr("cy", 40) 
     .attr("cx", function(d, i){
       if (i <= 2) {return w/4} else {return w/1.5}
       })
@@ -3026,14 +3000,14 @@ function mapDisplay(){ //show steady state of system - ports, importers, and exp
      .attr("x",  function(d, i){
       if (i == 0) {return w/4} else {return w/1.5}
       })
-     .attr("y", 80)
+     .attr("y", 90)
       .attr("class", "raceLabel")
 }
 
 function updateDisplay(data){ //function is called whether system change occurs and displays the new state of the system
   if (data.depth == 0) {return mapDisplay()}
   	
-  //lookup data.name console.log(data)
+  //lookup data.name 
   var name = data.name
   if (mgmtTypeKey[data.name]) {data.desc, name = mgmtTypeKey[data.name]}
   if (UNtypeKey[data.name]) {data.desc, name = UNtypeKey[data.name]}
@@ -3052,6 +3026,7 @@ function updateDisplay(data){ //function is called whether system change occurs 
     var result = colorKey.filter(function( obj ) {return obj.name == data.name;});
     result = result[0];
     results.splice(0,0,result)
+    console.log(results)
 
     if (data.depth == 1){
       if (mgmtTypeKey[data.name]) {data.desc = mgmtTypeKey[data.name]}
@@ -3066,11 +3041,11 @@ function updateDisplay(data){ //function is called whether system change occurs 
         .enter()
         .append("circle")
         //.attr("class", function(d) {return data.name})
-        .style("fill", function(d,i) {return results[i].color})
+        .style("fill", function(d,i) {console.log(d,i);return results[i].color})
         .style(defaultStroke)
-        .attr("r", 6)
-        .attr("cy", function(d,i){return i*20 + 6}) 
-        .attr("cx", 6)
+        .attr("r", 12)
+        .attr("cy", function(d,i){return i*25 + 12}) 
+        .attr("cx", 12)
 
 
       displaySVG.selectAll("text")
@@ -3079,8 +3054,8 @@ function updateDisplay(data){ //function is called whether system change occurs 
          .append("text")
          .text(function(d){return d})
          //.attr("text-anchor", "right")
-         .attr("x", 20)
-         .attr("y", function (d, i){return 10+i*20})
+         .attr("x", 30)
+         .attr("y", function (d, i){return 12+i*25})
          .attr("class", "raceLabel")
     }
 }
