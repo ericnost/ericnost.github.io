@@ -574,7 +574,7 @@ var x = d3.scale.linear()
     .domain([d3.min(color.domain()), d3.max(color.domain())])
     .range([0, width-margin.right*3]) //margin.left
 
-var y = d3.scale.linear().range([height, 0]);
+//var y = d3.scale.linear().range([height, 0]);
 
 var ex = targets ? targets : [d3.min(color.domain()), d3.max(color.domain())] //calculate the extent
 
