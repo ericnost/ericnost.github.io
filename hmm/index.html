@@ -114,7 +114,7 @@
 //global variables
 
 var svg, sum, zoomer, projection, facilitySum,exporterSum, typeByFacility, typeSum;
-var latlongReset
+var importersReset
 var Isvg;
 var width100, height100;
 var povertydata = [];
@@ -123,13 +123,14 @@ var stringwork1= [], results = []//["other sites"];
 var liquidChecker = false; //checks to see whether we've just switched to liquids
 var povSVG, displaySVG;
 var zoomed = false;
-var firstTime = true, otherTimes = false, filter, currentYears, siteCount=[];
+var firstTime = true, otherTimes = false, currentYears, siteCount=[];
 var icicleDump;
 var filterDomain = "Site"
 var margin = {top: 10, right: 10, bottom: 25, left: 10};
 var phase = "Solids";
 var view = "Sites";
 var viewToggle = "Weight (kg)"
+var unit
 var chemical = undefined;
 var defaultColor = "#f7f7f7", exDefaultColor = "#969696"
 var tooltip, stateTool;
@@ -144,12 +145,9 @@ var UNtypeKey = {}, mgmtTypeKey = {}, siteKey = {};
 var flanneryScale;
 var lineStroke
 var u, c, m, b, imp, exp, arcGroup;
-var filterTypesYear, filterTypesSignal;/*
-var lambda = "260px"; lambdaNOPX = 260
-var lambdaPlus = "300px"; lambdaplusNOPX = 300*/
-var realchorodump;
+var filterTypesYear, filterTypesSignal;
 var format = d3.format(",.0f")	;
-var phaseformat = {"Solids": "kg", "Liquids": "liters"}
+var phaseformat = {"Weight (kg)": "kg", "Volume (l)": "liters", "# of Shipments": "shipments"}
 var ECHOdata
 /*var descriptionsStyle = {"bottom": lambdaNOPX/1+"px", "height": (lambdaNOPX/1.15)-(lambdaNOPX/2)+"px"} //descriptions positioning
 */var importerManifests, exporterManifests, globalManifests, globalExManifests, mansbyDestination, mansbyExporter
@@ -291,8 +289,7 @@ var filterPhases = ["Solids", "Liquids"]
       phase = d
       if (phase == "Liquids"){liquidChecker = true}
       Isvg.selectAll("rect, div, g").remove();
-      d3.selectAll(".arc").remove()
-      d3.select(".descriptions").remove()
+      d3.selectAll(".arc, .descriptions").remove()
       svg.selectAll("circle").transition().duration(1200).attr("r", 0).remove()//chain below so that removal only happens after r = 0
       zoom.translate([0,0]).scale(1)
       setData(d, currentYears, view) 
@@ -309,15 +306,13 @@ var filterNormalizers = ["Weight (kg)", "Volume (l)", "# of Shipments"]
      .attr("class", function(d){if (d==filterNormalizers[0]){return "active"}})
      .attr("role", "presentation")
      .on('click', function(d){
-      d3.selectAll(".norm-options").selectAll("li").attr("class", function(e){if (e==d){return "active"}})
-      if (zoomed){reset()}
-      zoom.translate([0,0]).scale(1)
-      Isvg.selectAll("rect, div, g").remove();
-      d3.selectAll(".arc").remove()
-      d3.select(".descriptions").remove()
-      svg.selectAll("circle").transition().duration(1200).attr("r", 0).remove()//chain below so that removal only happens after r = 0
-      viewToggle = d
-      setData(phase, currentYears, view, viewToggle) 
+        d3.selectAll(".norm-options").selectAll("li").attr("class", function(e){if (e==d){return "active"}})
+        reset()
+        Isvg.selectAll("rect, div, g").remove();
+        d3.selectAll(".arc, .descriptions").remove()
+        svg.selectAll("circle").transition().duration(1200).attr("r", 0).remove()//chain below so that removal only happens after r = 0
+        viewToggle = d
+        setData(phase, currentYears, view) 
     })
 
 
@@ -332,10 +327,7 @@ var filterView = ["Sites", "States"]
      .attr("role", "presentation")
      .on('click', function(d){
         d3.selectAll(".agg-options").selectAll("li").attr("class", function(e){if (e==d){return "active"}})
-        d3.select(".viewerText").remove()
-        d3.select(".descriptions").remove()
-        d3.select(".povertyChart").remove()
-        d3.selectAll(".yearData").remove()
+        d3.select(".viewerText, .descriptions, .povertyChart, .yearData").remove()
 
         if (zoomed){reset()}
         filterDomain = "Site" // set type to Site when switching
@@ -384,7 +376,6 @@ var filterView = ["Sites", "States"]
         d3.selectAll(".chart-options").selectAll("li").attr("class", function(e){if (e==d){return "active"}})
         results = []//[{"name": "other sites", "color": defaultColor}];
         stringwork1= []//["other sites"];
-        filter = d
         Isvg.selectAll("rect, div, g").remove();
         svg.selectAll("#importer")
           .style({"fill": defaultColor, "fill-opacity": "1"})
@@ -393,7 +384,7 @@ var filterView = ["Sites", "States"]
         d3.select(".descriptions").remove()
         d3.selectAll(".arc").remove()
         filterDomain = d
-        icicle(window[d])
+        icicle()
     })
 
 
@@ -423,8 +414,8 @@ var filterView = ["Sites", "States"]
 
 
   //filter years selector
-  filterTypesYear = ['2007', '2008', '2009', '2010', '2011', '2012']
   filterTypesSignal = {"2007": "on","2008": "on","2009": "on","2010": "on","2011": "on","2012": "on"}
+  filterTypesYear = d3.keys(filterTypesSignal)
   var show = d3.select(".yearDiv").html("<span class='viewerCategory'>Filter year(s):</span>")
   var yearform = d3.select(".yearDiv").append("form");
 
@@ -492,7 +483,8 @@ function yearChange(){
   setData(phase, currentYears, view)
 }
 
-function setData(phase, years, view, viewToggle){
+function setData(phase, years, view){
+unit = viewToggle == "# of Shipments" ? "total_shipments" : "total_waste"  
 d3.csv("data/data.csv", function(data) {
   data.forEach(function(d){
     d.totalQuantityinShipment = +d.totalQuantityinShipment // convert the quantity of waste from string to number
@@ -548,11 +540,11 @@ d3.csv("data/data.csv", function(data) {
     mgmtTypeKey[d.mgmt] = d.ExpectedManagementMethod;
   });
 
-
   siteKey={}
   data.forEach(function(d) {
     siteKey[d.ReceivingFacilityEPAIDNumber] = d.importer_name;
   });
+
 
   var facilitySum = d3.nest()
   .key(function(d) { return d.ReceivingFacilityEPAIDNumber; }) // EPA ID number
@@ -561,6 +553,12 @@ d3.csv("data/data.csv", function(data) {
 
   var key = d3.keys(facilitySum)
   var importers = facilitySum
+
+  siteCount = d3.nest()
+  .key(function(d) { return d.importer_state }) // switch
+  .key(function(d) { return d.ReceivingFacilityEPAIDNumber})
+  .rollup(function(leaves) { return  d3.sum(leaves, function(d) {return d.totalQuantityinShipment;}) }) // 
+  .map(data);
 
   var typeByFacility = d3.nest() //could cut for fly filter calc of types per facility
   .key(function(d) { return d.ReceivingFacilityEPAIDNumber; }) // switch
@@ -586,13 +584,36 @@ d3.csv("data/data.csv", function(data) {
   .rollup(function(leaves) {return {"name": leaves[0].exporter_key, "lat": leaves[0].exporterLAT, "long": leaves[0].exporterLONG, "total_waste": d3.sum(leaves, function(d) {return d.totalQuantityinShipment;})} }) // 
   .map(data);
 
+  var quantByExporterMans =d3.nest() //calculate for each importer, how much each exporter ships
+  .key(function(d) { return d.ReceivingFacilityEPAIDNumber; }) // EPA ID number
+  .key(function(d) { return d.exporter_key})
+  .rollup(function(leaves) {
+    var x = d3.nest()
+    .key(function(e){return e.rcra })
+    .map(leaves)
+    return {"name": leaves[0].exporter_key, "lat": leaves[0].exporterLAT, "long": leaves[0].exporterLONG, "total_waste": leaves.length} 
+  }) // 
+  .map(data);
+
   var importByYear =d3.nest() //calculate for each importer, how much they get per year
   .key(function(d) { return d.ReceivingFacilityEPAIDNumber; }) // EPA ID number
   .key(function(d) { return d.Year})
   .rollup(function(leaves) { return d3.sum(leaves, function(d) {return d.totalQuantityinShipment;}) }) // 
   .map(data);
+
+  var importByYearMans =d3.nest() //calculate for each importer, how much they get per year
+  .key(function(d) { return d.ReceivingFacilityEPAIDNumber; }) // EPA ID number
+  .key(function(d) { return d.Year})
+  .rollup(function(leaves) {
+    var x = d3.nest()
+    .key(function(e){return e.rcra })
+    .map(leaves)//leaves.map(function(d){ return d.ReceivingFacilityEPAIDNumber}); 
+    //console.log(x); 
+    return leaves.length }) // 
+  .map(data);
+
  // if (firstTime) {flowByYearGlobal.importer.Solids = importByYear}
-  if (liquidChecker) {flowByYearGlobal.importer.Liquids = importByYear}
+  //if (liquidChecker) {flowByYearGlobal.importer.Liquids = importByYear}
 
   var methByFacility = d3.nest() //could cut if can filter by meth....
   .key(function(d) { return d.ReceivingFacilityEPAIDNumber; }) // EPA ID number
@@ -656,7 +677,6 @@ d3.csv("data/data.csv", function(data) {
       var EJkeys = d3.keys(povdata[0])
       var EJaddresses = EJkeys.splice(EJkeys.length-4, 4) 
       var EJzips = EJkeys.splice(3, EJkeys.length-3)
-      console.log(EJkeys, EJaddresses, EJzips)
       //console.log(EJkeys, EJaddresses, EJzips, povdata)
       zipMap  = d3.nest()
         .key(function(d) { return d.receivingzipcode})
@@ -680,12 +700,13 @@ d3.csv("data/data.csv", function(data) {
         .map(povdata);
 
 
+        
         //append type by facility to main object
         key.forEach(function(d){
           importers[d]["name"] = facilityDetails[d][0]["ReceivingFacilityEPAIDNumber"] //additional naming variable for compatibility in icicle
           importers[d]["types"] = typeByFacility[d]
-          importers[d]["exporters"] = quantByExporter[d]
-          importers[d]["years"] = importByYear[d]
+          importers[d]["exporters"]  = unit == "total_shipments" ? quantByExporterMans[d]:quantByExporter[d]
+          importers[d]["years"] = unit == "total_shipments" ? importByYearMans[d]:importByYear[d]
           importers[d]["methods"] = methByFacility[d]
           importers[d]["company"] = company[d]
           importers[d]["total_shipments"] = globalManifests[d]
@@ -693,7 +714,7 @@ d3.csv("data/data.csv", function(data) {
           importers[d]["meth"] = d3.values(meth)
           importers[d]["typeOverall"] = d3.values(typeOverall)
           importers[d]["companies"] = d3.values(companies)
-          importers[d]["units"] = phaseformat[phase]
+          importers[d]["units"] = phaseformat[viewToggle]
           details.forEach(function(e){
             importers[d][e] = facilityDetails[d][0][e]
           })
@@ -701,14 +722,16 @@ d3.csv("data/data.csv", function(data) {
           importers[d]["EJ"]=obj
         })
 
+        
+        
         importers = d3.values(importers) //no longer need to be able to easily pop to importers
-        importers.sort(function(a,b){return b.total_waste-a.total_waste})
+        importers.sort(function(a,b){return b[unit]-a[unit]})
         importers.forEach(function(d,i){
             d.rank = (i+1)+"/"+importers.length
         })
-        latlongReset = importers
+        importersReset = importers
 
-        importByState=d3.nest() //calculate for each importer, how much they get per year
+        importByState=d3.nest() //could be duplicative of siteCount
         .key(function(d) { return d.importer_state; }) // EPA ID number
         .rollup(function(leaves) { return d3.sum(leaves, function(d) {return d.totalQuantityinShipment;}) }) // 
         .entries(data);
@@ -753,7 +776,6 @@ d3.csv("data/data.csv", function(data) {
         .key(function(d) {return d.ReceivingFacilityEPAIDNumber})
         .key(function(d) {return d.rcra})
         .map(data);
-        console.log(mansbyExporter)
 
         var facilityDetailz = d3.nest()
         .key(function(d) { return d.exporter_key; }) // EPA ID number
@@ -770,7 +792,7 @@ d3.csv("data/data.csv", function(data) {
           exporters[d]["years"] = exportByYear[d]
           exporters[d]["total_shipments"] = globalExManifests[d]
           exporters[d]["shipments"] = mansbyExporter[d]
-          exporters[d]["units"] = phaseformat[phase]
+          exporters[d]["units"] = phaseformat[viewToggle]
           detailz.forEach(function(e){
            exporters[d][e] = facilityDetailz[d][0][e]
           })
@@ -781,17 +803,19 @@ d3.csv("data/data.csv", function(data) {
         exporters.forEach(function(d,i){
             d.rank = (i+1)+"/"+exporters.length
         })
-
+        
         sum = d3.sum(data, function(d) {return d.totalQuantityinShipment})
         globalMean = sum/importers.length, exglobalMean = sum/exporters.length
-        var max = d3.max(exporters, function(d) {return d.total_waste}), min = d3.min(exporters, function(d) {return d.total_waste})
+
+       
+        var max = d3.max(exporters, function(d) {return d[unit]}), min = d3.min(exporters, function(d) {return d[unit]})
         exGlobalMax = max, exGlobalMin = min;
-        var max = d3.max(importers, function(d) {return d.total_waste}),min = d3.min(importers, function(d) {return d.total_waste})
+        var max = d3.max(importers, function(d) {return d[unit]}),min = d3.min(importers, function(d) {return d[unit]})
         globalMax = max, globalMin = min;
 
         //if (firstTime) {flowByYearGlobal.exporter.Solids = exportByYear};
         firstTime=false
-        if (liquidChecker) {flowByYearGlobal.exporter.Liquids = exportByYear};liquidChecker = false  
+        //if (liquidChecker) {flowByYearGlobal.exporter.Liquids = exportByYear};liquidChecker = false  
 
         
 
@@ -833,7 +857,7 @@ function shader(data){
     mapDisplay()
 
     var type = data == "Poverty" ? "povTractFinal": "raceTractFinal"
-    var dump = latlongReset.map(function(d){return {"name": d.name, "value": d.EJ[type]}})
+    var dump = importersReset.map(function(d){return {"name": d.name, "value": d.EJ[type]}})
 
     var max = d3.max(dump, function(d){return +d.value}),min = d3.min(dump, function(d){return +d.value});
     dump.sort(function(a,b) {return a.value-b.value})
@@ -902,7 +926,6 @@ function shadeLegend(color, max, min, type){
           .attr("class", "mapDisplay")
 
   var results = color.quantiles()
-  console.log(results)
     
   for (p = 0; p<results.length; p++){
     results[p]=d3.round(results[p], 1)
@@ -938,29 +961,29 @@ function shadeLegend(color, max, min, type){
 
 function icicle(data){
 
-filterDomain="Type"
+//filterDomain="Type"
 
-var dataStore = data
+var dataStore = importersReset
 
 var color = d3.scale.ordinal()
   .range(['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f','#ff7f00','#cab2d6','#6a3d9a','#ffff99','#b15928']);
 
 if (filterDomain == "Company"){ //finish
-  dataStore = data[0].companies //change to store data[0].x globally rather than in main data object?
+  dataStore = dataStore[0].companies //change to store data[0].x globally rather than in main data object?
 }
 else if (filterDomain == "Disposal"){
-  dataStore = data[0].meth
+  dataStore = dataStore[0].meth
  /* x = "ARD069748192"
   p = data[0].meth.filter( function(d){return d.sites.includes(x)})
     console.log(p)*/
 }
 else if (filterDomain == "Type"){
-  dataStore = data[0].typeOverall
+  dataStore = dataStore[0].typeOverall
 }
 
-var icesum= d3.sum(dataStore, function(d){return d.total_waste})
-dataStore = dataStore.sort(function(a,b){return b.total_waste-a.total_waste})
-color.domain(dataStore.map(function(d){return d.total_waste}))
+var icesum= d3.sum(dataStore, function(d){return d[unit]})
+dataStore = dataStore.sort(function(a,b){return b[unit]-a[unit]})
+color.domain(dataStore.map(function(d){return d[unit]}))
 
 var height = $(".map").height()/2, width = $(".barWrap").width()/2
 
@@ -985,46 +1008,32 @@ var position;
 Isvg.selectAll("rects")
     .data(dataStore)
   .enter().append("rect")
-    .attr ("class",  function(d) { return d.name} )
+    .attr ("class",  function(d) {return d.name} )
     .attr("y", function(d, i) {
-      var place = dataStore[i - 1] ? position + y((dataStore[i-1].total_waste/icesum)*100) : 0 
+      var place = dataStore[i - 1] ? position + y((dataStore[i-1][unit]/icesum)*100) : 0 
       position = place
       return place; //change to fit for company etc.
     })
     .attr("x", width/2)
-    .attr("height", function(d) { return y((d.total_waste/icesum)*100); })
+    .attr("height", function(d) { return y((d[unit]/icesum)*100); })
     .attr("width", 50)
     .style({"cursor": "pointer", "fill": function(d) { 
-      colorKey.push({"name": d.name, "color": color(d.total_waste)});
-      return color(d.total_waste)}, "stroke": "black", "stroke-width": "1px", "opacity": 1})
-/*    .on("mouseover", function (d) { 
-      if (filterDomain == "Type"){
-        var show = {"name": UNtypeKey[d.name]}
-        tip.show(show)
-      }
-      if (filterDomain == "Disposal"){
-        var show = {"name": mgmtTypeKey[d.name]}
-        tip.show(show)
-      }
-      if (filterDomain == "Site" || filterDomain == undefined){
-      	var show = {"name": siteKey[d.name]}
-        tip.show(show)
-      }      
-      if (filterDomain == "Company"){
-        tip.show(d)
-      }
+      colorKey.push({"name": d.name, "color": color(d[unit])});
+      return color(d[unit])}, "stroke": "black", "stroke-width": "1px", "opacity": 1})
+    .on("mouseover", function (d) { 
+
 
       //if (d.depth === 1 && d.name[0] != "H" || d.depth === 3 && d.name[0] !="H"){
       icicleHighlight(d);
       //};  
     })
-    .on("mouseout", function(d){ icicleDehighlight(d); tip.hide(d);}) */
+    .on("mouseout", function(d){ icicleDehighlight(d)}) 
     .on('click', function(d){
         //results = [];
         //stringwork1= [];
         if (filterDomain != "Site" && filterDomain != undefined){
           //find matching sites and color them
-          var f = data.filter(function(e){return d.sites.includes(e.ReceivingFacilityEPAIDNumber)}) 
+          var f = importersReset.filter(function(e){return d.sites.includes(e.ReceivingFacilityEPAIDNumber)}) 
           colorize(f, d.name)
           updateDisplay(f, d.name)
         } else {
@@ -1060,38 +1069,22 @@ Isvg.append("g")
     .attr("transform", "translate("+30+","+ height/2+")rotate(-90)")
     .style("text-anchor", "middle")
     .text("Proportion of Total Waste")
-};
+
 
 function icicleHighlight(data){
-  if (filterDomain != "Site" && filterDomain != undefined){
-  Isvg.selectAll("rect")
-    .transition().duration(500)
-    .style({"opacity": ".2"});
-  Isvg.selectAll("."+data.name)
-    .transition().duration(500) 
-    .style({"opacity": "1"});
-    var icicleDump =[]
-    //get the importers
-  for (var k=0; k<data.children.length; k++){
-      for (var l=0; l<data.children[k].children.length; l++){
-        for (var m=0; m<data.children[k].children[l].children.length; m++){
-        icicleDump.push(data.children[k].children[l].children[m])
-       }
-     }
-    }
-    svg.selectAll("circle")
-      .transition().duration(500)
-      .style(highlighted)
+  if (filterDomain == "Type" || filterDomain == "Company"){
+    tip.show(data)
+    multipleHighlight(data)
+  }
+  if (filterDomain == "Disposal"){
+    var show = {"name": mgmtTypeKey[data.name]}
+    tip.show(show)
+    multipleHighlight(data)
+  }
+  if (filterDomain == "Site" || filterDomain == undefined){
+    var show = {"name": siteKey[data.name]}
+    tip.show(show)
 
-    var yyy = icicleDump.map( function(d){return d.name;})
-    //console.log(yyy)
-    for (var n = 0; n<yyy.length; n++){
-      svg.selectAll("."+yyy[n])
-        .transition().duration(500)
-        .style(defaultStroke)
-    }
-  } else { 
-    // if importer highlighted
     Isvg.selectAll("rect")
       .transition().duration(500)
       .style({"opacity": ".2"});
@@ -1104,10 +1097,31 @@ function icicleHighlight(data){
     svg.selectAll("."+data.name)
       .transition().duration(500)
       .style(defaultStroke)
-  }
-}; 
+  }      
 
-function icicleDehighlight(data){
+  function multipleHighlight(d){
+      //highlight on the icicle
+     /* Isvg.selectAll("rect")
+        .transition().duration(500)
+        .style({"opacity": ".2"});
+      Isvg.selectAll("."+d.name)
+        .transition().duration(500) 
+        .style({"opacity": "1"});*/
+      var x = d3.values(d.sites)
+      svg.selectAll("circle")
+        .transition().duration(500)
+        .style(highlighted)
+      for (y in x){ 
+        svg.selectAll("."+x[y])
+          .transition().duration(500)
+          .style(defaultStroke)
+      }
+    }
+}
+
+
+function icicleDehighlight(){
+  tip.hide();
   Isvg.selectAll("rect")
       .transition().duration(500)
       .style({"opacity": "1"});
@@ -1115,8 +1129,7 @@ function icicleDehighlight(data){
     .transition().duration(500)
     .style(defaultStroke)
   };
-
-
+};
 
 function setMap() {
 var path = d3.geo.path()
@@ -1143,7 +1156,7 @@ function callback(error, na, epa, borders){
   .attr('class', 'd3-tip')
   .offset([0, 0])
   .html(function(d) {
-    return "<span style='color:white'>" + name + ": " + sum + " " + phaseformat[phase] + " at " + length+ " sites</span>";
+    return "<span style='color:white'>" + name + ": " + sum + " " + phaseformat[viewToggle] + " at " + length+ " sites</span>";
   })
   svg.call(stateTool)
 
@@ -1203,11 +1216,11 @@ function callback(error, na, epa, borders){
     function statez(data){
      name = data.properties.gn_name
      ddd = data.properties.postal
-     sum = realchorodump[ddd]
-     if (sum == undefined){sum = 0}
+     sum = d3.sum(d3.values(siteCount[ddd]))
+     sum == undefined ? 0 : sum
      sum = format(sum)
-     length = siteCount[ddd]
-     if (length == undefined){length = 0} 
+     length = d3.keys(siteCount[ddd]).length
+     length == undefined ? 0 : length
     }
   };
 };
@@ -1223,7 +1236,7 @@ t[0] = Math.max(-(width100/2 - s*55), Math.min(t[0], width100/2 - s*55));
 t[1] = Math.max(-(height100/2 - s*55), Math.min(t[1], height100/2 - s*55));
   */
   if(arcGroup){arcGroup.attr("transform", "translate(" +  zoom.translate() + ")scale(" + zoom.scale() + ")")
-      .selectAll(".arc").style('stroke-width', function(d) { return lineStroke(d.total_waste)/zoom.scale()})
+      .selectAll(".arc").style('stroke-width', function(d) { return lineStroke(d[unit])/zoom.scale()})
   u.attr("transform", "translate(" +  zoom.translate() + ")scale(" + zoom.scale() + ")")
       .selectAll("path").style("stroke-width", 1 / zoom.scale() + "px" );
   b.attr("transform", "translate(" +  zoom.translate() + ")scale(" + zoom.scale() + ")")
@@ -1237,7 +1250,7 @@ t[1] = Math.max(-(height100/2 - s*55), Math.min(t[1], height100/2 - s*55));
       .attr("r", function (d){
       	var flanMax = calcFlanneryRadius(globalMax)
   		flanneryScale = d3.scale.linear().domain([0, flanMax]).range([10, 35]);
-  		return (viewToggle != "# of Shipments") ? radiusFlannery(d.total_waste)/(zoom.scale()) : radiusFlannery(d3.values(importerManifests[d.id]).length)/(zoom.scale())
+  		return radiusFlannery(d[unit])/(zoom.scale())
       })
       .style("stroke-width", 1 / zoom.scale() + "px" ) 
   exp.attr("transform", "translate(" +  zoom.translate() + ")scale(" + zoom.scale() + ")")
@@ -1245,7 +1258,7 @@ t[1] = Math.max(-(height100/2 - s*55), Math.min(t[1], height100/2 - s*55));
       .attr("r", function (d){
        	var flanMax = calcFlanneryRadius(exGlobalMax)
   		flanneryScale = d3.scale.linear().domain([0, flanMax]).range([10, 35]);
-  		return (viewToggle != "# of Shipments") ? radiusFlannery(d.total_waste)/(zoom.scale()) : radiusFlannery(d3.values(exporterManifests[d.long]).length)/(zoom.scale())
+  		return radiusFlannery(d[unit])/(zoom.scale())
       })
       .style("stroke-width", 1 / zoom.scale() + "px" ) //may need to fix to calculate based on import max?
 
@@ -1268,6 +1281,8 @@ function reset() {
   svg.selectAll(".arc").remove()
 
   d3.select(".descriptions").remove()
+
+  d3.select("#viewShowHide").style("display", "none")
   
   if (view == "Sites") {d3.select(".mapDisplay").remove(); mapDisplay();}
 
@@ -1284,15 +1299,15 @@ function reset() {
       .attr("r", function (d){
       	var flanMax = calcFlanneryRadius(globalMax)
   		flanneryScale = d3.scale.linear().domain([0, flanMax]).range([10, 35]);
-      	return (viewToggle != "# of Shipments") ? radiusFlannery(d.total_waste)/(zoom.scale()) : radiusFlannery(d3.values(importerManifests[d.id]).length)/(zoom.scale())
-      })
+      	return radiusFlannery(d[unit])/(zoom.scale())
+        })
       .style("stroke-width", 1 / zoom.scale() + "px" ) 
   exp.attr("transform", "translate(" +  zoom.translate() + ")scale(" + zoom.scale() + ")")
       .selectAll("circle")
        .attr("r", function (d){
        	var flanMax = calcFlanneryRadius(exGlobalMax)
   		flanneryScale = d3.scale.linear().domain([0, flanMax]).range([10, 35]);
-      	return (viewToggle != "# of Shipments") ? radiusFlannery(d.total_waste)/(zoom.scale()) : radiusFlannery(d3.values(exporterManifests[d.long]).length)/(zoom.scale())
+      	return radiusFlannery(d[unit])/(zoom.scale())
       })
 }
 
@@ -1324,7 +1339,8 @@ function setImporters(data){
   .attr('class', 'd3-tip')
   .offset([-5, 0])
   .html(function(d) {
-    return "<span style='color:white'>" + d.name + "</span>";
+    var x = siteKey[d.name] ? siteKey[d.name] : d.exporter_name
+    return "<span style='color:white'>" + x + "</span>";
   })
 
   svg.call(tooltip)
@@ -1361,7 +1377,7 @@ function setImporters(data){
     .transition()
     .duration(1000)
     .attr("r", function(d) {
-      return (viewToggle != "# of Shipments") ? radiusFlannery(d.total_waste) : radiusFlannery(d3.values(importerManifests[d.id]).length)
+     return radiusFlannery(d[unit])/(zoom.scale())
     })
 
   //exporters();
@@ -1405,8 +1421,8 @@ function setImporters(data){
 function IMPpositions (data, base){
   //bring forward importer and exporters
 
-  svg.selectAll("#importer").sort(function (a,b) {return b.total_waste-a.total_waste;})
-  svg.selectAll("#exporter").sort(function (a,b) {return b.total_waste-a.total_waste;})
+  svg.selectAll("#importer").sort(function (a,b) {return b[unit]-a[unit];})
+  svg.selectAll("#exporter").sort(function (a,b) {return b[unit]-a[unit];})
 
   svg.selectAll("circle").sort(function (a, b) {
     if (a != data) return 0;               // a is not the hovered element, send "a" to the back
@@ -1609,8 +1625,8 @@ $("#tags").keypress(function(e) {
     .transition()
     .duration(1000)
     .attr("r", function(d) {
-      return (viewToggle != "# of Shipments") ? radiusFlannery(d.total_waste) : radiusFlannery(d3.values(exporterManifests[d.long]).length)
-    })
+     return radiusFlannery(d[unit])/(zoom.scale())
+   })
   //ports();
 
   //this is the position the flow lines will be draw in - after (above) the exporters
@@ -1630,7 +1646,6 @@ function viewer(data){
 }
 
   function viewerHelp(data, latlongdump){
-    console.log(data)
   d3.select(".viewer")
     .append("div").attr("class", "viewerText")
    // .append("div")
@@ -1663,7 +1678,7 @@ function importCharts(data){
 
   d3.select(".viewerText")
     .append('div')
-    .html("<br><span class = 'povLabel'>Total imports and rank for selected year(s) </span><span class ='viewerData'><br>"+format(data.total_waste)+" "+data.units+"..........."+data.rank+"</span><p>");
+    .html("<br><span class = 'povLabel'>Total imports and rank for selected year(s) </span><span class ='viewerData'><br>"+format(data[unit])+" "+data.units+"..........."+data.rank+"</span><p>");
   
   yearCharts(data, "importer")
 
@@ -1706,7 +1721,7 @@ function importCharts(data){
     .direction('e')
     .offset([0, 0])
     .html(function(d) {
-      return "<span style='color:white' style='font-size:4px'>"+ mgmtTypeKey[d.name] + ": " + format(d.total) + " " + data.units +"</span>";
+      return "<span style='color:white' style='font-size:4px'>"+ mgmtTypeKey[d.name] + ": " + format(d.total) + " " + units[viewToggle] +"</span>";
     })
 
   typeSVG.call(tooltipBarsType)
@@ -1868,7 +1883,6 @@ function stories(data){
       .append('div')
       .html("<br><span class = 'povLabel'>Stories about this site</span>")
 
-    console.log(storiesdata)
     for (a = 0; storiesdata.length; a++){
       if (storiesdata[a].epaNumber == data.name){
         //print year, file name
@@ -1971,14 +1985,13 @@ function exportViewer(data){
   viewerHelp(data)
  
 function viewerHelp(data){
-  console.log(data)
   d3.selectAll(".viewerText")
     .append("div")
   .html("<span class='importerName'>"+data.exporter_name+"</span><br><span class ='viewerData'>"+data.exporter_address+", "+data.exporter_city+"</span><br><a href='http://maps.google.com/?q="+data.exporter_address+" "+data.exporter_city+"' target='_blank'>Open in Google Maps</a>")
 
 d3.select(".viewerText")
 .append("div")
-    .html("<br><span class = 'povLabel'>Total exports and rank for selected year(s) </span><span class ='viewerData'><br>"+format(data.total_waste)+" "+data.units+"..........."+data.rank+"</span><p>");
+    .html("<br><span class = 'povLabel'>Total exports and rank for selected year(s) </span><span class ='viewerData'><br>"+format(data[unit])+" "+data.units+"..........."+data.rank+"</span><p>");
 
 //exports by year
 yearCharts(data, "exporter")
@@ -2208,7 +2221,7 @@ for(var i=0, len=partners.length; i<len; i++){
         links.push({
             type: "LineString",
             coordinates: coords,
-            total_waste: (viewToggle != "# of Shipments") ? tw : d3.values(mansbyDestination[data[i].id][base[0].long]).length,
+            total_waste: tw,
             name: partners[i].name,
             units: units
         });
@@ -2249,8 +2262,8 @@ var pathArcs = arcGroup.selectAll(".arc")
 function EXPpositions (data, base){
   //bring forward importer and exporters
   
-  svg.selectAll("#importer").sort(function (a,b) {return b.total_waste-a.total_waste;})
-  svg.selectAll("#exporter").sort(function (a,b) {return b.total_waste-a.total_waste;})
+  svg.selectAll("#importer").sort(function (a,b) {return b[unit]-a[unit];})
+  svg.selectAll("#exporter").sort(function (a,b) {return b[unit]-a[unit];})
 
   svg.selectAll("circle").sort(function (a, b) {
     if (a.id != base[0].id) return 0;               // a is not the hovered element, send "a" to the back
@@ -2289,7 +2302,7 @@ function mapDisplay(){ //show steady state of system - ports, importers, and exp
   var legendtooltip = d3.tip()
   .attr('class', 'd3-tip')
   .html(function(d,i) {
-    return "<span style='color:white' style='font-size:4px'>"+legendKey[i]+": " + format(d[0]) +" "+ phaseformat[phase] + "</span>";
+    return "<span style='color:white' style='font-size:4px'>"+legendKey[i]+": " + format(d[0]) +" "+ phaseformat[viewToggle] + "</span>";
   })
   displaySVG.call(legendtooltip)
 
@@ -2328,8 +2341,7 @@ function mapDisplay(){ //show steady state of system - ports, importers, and exp
 }
 
 function updateDisplay(data, name){ //function is called whether system change occurs and displays the new state of the system
-
-  if (filterDomain != "Site" && filterDomain != undefined){
+  //if (filterDomain != "Site" && filterDomain != undefined){
     d3.select(".descriptions").remove()
     d3.select(".descriptionsShell").append("div").attr("class", "descriptions")
       .html("<span class = 'importerName'>"+name+"</span>....<span class = 'viewerData'>"+descriptors[name]+"</span>")
@@ -2341,6 +2353,7 @@ function updateDisplay(data, name){ //function is called whether system change o
 
     var result = colorKey.filter(function( obj ) {return obj.name == name;});
     result = result[0];
+    results.push(result)
     
     var preposition = filterDomain == "Company" ? "owned by" : "with"
     tempString = "sites " + preposition + " " + name
@@ -2368,7 +2381,7 @@ function updateDisplay(data, name){ //function is called whether system change o
        .attr("y", function (d, i){return 12+i*25})
        .attr("class", "raceLabel")
     //}
-}
+//}
 }
 function prettify (d){
   d  = d.length > 50 ? d.slice(0,47)+"..." : d

@@ -1,0 +1,120 @@
+
+.navbar-default .navbar-toggle:hover {
+  background-color: #685544;
+}
+.navbar-default .navbar-brand {
+  color: white;
+  font-family: 'Bitter', serif;
+  font-size: 30px;
+  text-align: center;
+  float:none;
+}
+.navbar-default .navbar-brand:hover {
+  color: white;
+}
+.navbar-default .navbar-nav > li > a  {
+  color: white;
+  font-family: 'Bitter', serif;
+  font-size: 20px;
+}
+.navbar-default .navbar-nav:hover > li > a:hover  {
+  color: white;
+
+}
+.navbar-collapse {
+  background-color: #685544;
+}
+.navbar-header {
+    background-color: #685544;
+    float: left;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+}
+.welcome, .filter{
+  height: 70px;
+  line-height: 20px; 
+  margin: 1px;
+  text-align: center;
+}
+.col-md-6{
+  height: 10%;
+}
+/*FROM CODECADEMY*/
+
+html, body {
+  background: #fff;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  margin: 0;
+   padding-top: 30px; 
+  text-transform: lowercase;
+}
+
+.container {
+  padding: 0;
+  width: 100%;
+}
+.header {
+  margin: 0;
+  padding: 0;
+}
+.header img {
+  margin: 0 20px 0 0;
+  height: 80px;
+  width: 80px;
+}
+.header a {
+  color: #000;
+  font-size: 20px;  
+  text-decoration: none; 
+}
+.main {
+  position: absolute;
+  
+}
+.item {
+  width:100%;
+  cursor: pointer;
+  margin: 0;  
+  padding: 0;
+}
+.item:hover {
+  background: #000; 
+  text-decoration: none;
+  transition: background 500ms;
+}
+.item img{
+  width: 33%;
+  height: 33%;
+  vertical-align: middle;
+}
+p.author {
+  color: #000;
+  padding: 24px;
+  text-align: left;
+}
+.item:hover p.author, .item:hover a {
+  color: #fff;
+  text-decoration: none;
+}
+.photo {
+  margin: 0 0 80px;  
+  position:absolute;
+}
+.photo img {
+  width: 100%;
+}
+.photo h2 {
+  color: #000;
+  padding: 20px 108px;
+}
+.photo p {
+  color: #6f6f6f;
+  margin: 0;
+  padding: 0 108px 0;
+}
+.photo h6{
+  color: #000;
+  padding: 20px 108px;
+}
