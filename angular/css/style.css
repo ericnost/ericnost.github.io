@@ -1,0 +1,95 @@
+.content{
+	margin-top: 60px;
+}
+.bar100{
+    background-color: #e9e9e9;
+    border-radius: 3px;
+    font-size: 6px;
+    color: white;
+}
+.bar{
+	background-color: #3f3f3f;
+    border-radius: 3px;
+
+}
+p.detail{
+    font-size: 11px;
+}
+svg .state {
+    stroke-width: 1;
+    stroke: #000;
+    fill: #d3d3d3;
+
+    -webkit-transition: stroke 0.5s, stroke-width 0.5s;
+    -o-transition: stroke 0.5s, stroke-width 0.5s;
+    transition: stroke 0.5s, stroke-width 0.5s;
+}
+svg .site.active {
+    cursor: pointer;
+    stroke-width: 4;
+    stroke: #000;
+    opacity: 1;
+}
+.sitelist {
+    -webkit-column-count: 5; /* Chrome, Safari, Opera */
+    -moz-column-count: 5; /* Firefox */
+    column-count: 1;
+}
+.sitelist > div {
+    display: inline-block;
+    width: 100%;
+    border-bottom: 1px solid grey;
+}
+.sitelist > div > div {
+    display: inline-block;
+    width: 100%;
+
+}
+.sitelist > div > a{
+    color: #000;
+    font-size: 11px;
+
+}
+div.active {
+    font-weight: bold;
+    background-color: lightblue;
+}
+
+circle{
+  stroke: #000;
+  stroke-width: 1px;
+}
+.nav-pills>li>a{
+    padding: 2px;
+}
+
+
+.navbar-default .navbar-toggle:hover {
+  background-color: #685544;
+
+}
+.navbar-default .navbar-brand {
+  color: #b3a580;
+  font-family: 'Bitter', serif;
+  font-size: 30px;
+}
+
+.navbar-default .navbar-brand:hover {
+  color: white;
+}
+
+.navbar-default .navbar-nav > li > a  {
+  color: #b3a580;
+  font-family: 'Bitter', serif;
+  font-size: 20px;
+}
+
+.navbar-default .navbar-nav:hover > li > a:hover  {
+  color: white;
+
+}
+
+.navbar-collapse {
+  background-color: #685544;
+
+}

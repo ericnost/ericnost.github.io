@@ -1,0 +1,44 @@
+<div class="main container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<h3> {{detail.importer_name}}</h3>
+		</div>
+		<div class="col-md-12">
+			<ul class="nav nav-pills nav-stacked">
+			  <li ng-repeat="value in ['Overview', 'Demographics', 'Manifests', 'Stories', 'Enforcement']" role="presentation"><a ui-sref="display({ show:value, id:detail.importer_name })">{{value}}</a></li>
+			</ul>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<p class="detail"/>Address: {{detail.importer_address}} {{detail.importer_city}}, {{detail.importer_state}} 
+			<p class="detail"/>Amount of waste: {{detail.total_waste}} {{detail.units}}
+			<p class="detail"/>Rank: {{detail.rank}}
+		</div>
+	
+		<div class="col-md-12"><p class="detail" /> Total waste by year
+			<div ng-repeat="(key, value) in detail.years" class="col-md-12">
+				<div class="col-md-6">
+					<p class="detail">{{key}}</p>
+				</div>
+				<div class="col-md-6">
+					<div class="bar100">
+							<div class='bar' ng-style='{width:"{{{value, detail} | barDetail}}"}'>&nbsp</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="col-md-12"><p class="detail" /> Total waste by type
+			<div ng-repeat="(key, value) in detail.types" class="col-md-12">
+				<div class="col-md-6">
+					<p class="detail">{{key}}</p> <!-- orderBy(value) need to make array-->
+				</div>
+				<div class="col-md-6">
+					<div class="bar100">
+							<div class='bar' ng-style='{width:"{{{value, detail} | barDetail}}"}'>&nbsp</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+

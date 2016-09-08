@@ -48,7 +48,7 @@
                   <li role="menuitem"><a href ng-click="searchText1 = 'Spring'">Spring</a></li>
                   <li role="menuitem"><a href ng-click="searchText1 = 'Summer'">Summer</a></li>
                   <li role="menuitem"><hr></li>
-                  <li role="menuitem"><a href ng-click="searchText2 = ''">All seasons</a></li>
+                  <li role="menuitem"><a href ng-click="searchText1 = ''">All seasons</a></li>
                 </ul>
               </div>
               <div class="btn-group" uib-dropdown is-open="status.isopen2">
@@ -64,35 +64,37 @@
                   <li role="menuitem"><a href ng-click="searchText2 = ''">All meals</a></li>
                 </ul>
               </div>
+              <div class="btn-group">
+              <label class="btn btn-success" ng-model="checkModel.veg" uib-btn-checkbox>Vegetaraian <img src="data/vegetarian-mark.svg" width="15" height="15"/></label>
+              <label class="btn btn-success" ng-model="checkModel.vegan" uib-btn-checkbox>Vegan<img src="data/vegan.svg" width="15" height="15"/></label>
+              <label class="btn btn-success" ng-model="checkModel.GF" uib-btn-checkbox>Gluten free<img src="data/gf.png" width="15" height="15"/></label>
+              </div>
             </div>
 
-            <div class="col-md-12 welcome">
-              <h2>Welcome! We love you.</h2>
-            </div>
           </div>
           <div ng-view></div>
 
   <script>
 $('#seasonUL li a').on('click', function(){
-  $(".welcome").remove()
   var x = $(this).html()
   $('#season').html(x+" <span class='caret'></span>");
 });
 $('#mealUL li a').on('click', function(){
-  $(".welcome").remove()
   var x = $(this).html()
   $('#meal').html(x+" <span class='caret'></span>");
 });
   </script>
   <!-- Modules -->
   <script src="js/app.js"></script>
-
+<script src="js/filters/filters.js"></script>
   <!-- Controllers -->
   <script src="js/controllers/HomeController.js"></script>
   <script src="js/controllers/PhotoController.js"></script>
 
   <!-- Services -->
   <script src="js/services/photos.js"></script>
+
+  
 
   </body>
 

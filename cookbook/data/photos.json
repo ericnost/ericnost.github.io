@@ -9,9 +9,10 @@
     "text": "",
     "pubdate": "",
     "author": "http://www.food.com/recipe/quick-sourdough-pancakes-329255",
-    "veg": "yes",
-    "vegan": "no",
-    "GF": "no"
+    "veg": "true",
+    "vegan": "false",
+    "GF": "false",
+    "textShort": ""
   },
   {
     "title": "cheesy grits and tomato gravy",
@@ -25,7 +26,8 @@
     "author": "http://southernhospitalityblog.com/grits-and-tomato-gravy/ | http://www.foodnetwork.com/recipes/alton-brown/cheese-grits-recipe.html",
     "veg": "yes",
     "vegan": "no",
-    "GF": "yes"
+    "GF": "yes",
+    "textShort": ""
   },
   {
     "title": "Pumpkin choc chips pancake",
@@ -39,7 +41,8 @@
     "author": "http://pinchofyum.com/best-ever-whole-wheat-pumpkin-pancakes",
     "veg": "yes",
     "vegan": "no",
-    "GF": "no"
+    "GF": "no",
+    "textShort": ""
   },
   {
     "title": "buttermilk pancakes bittman",
@@ -65,9 +68,9 @@
     "text": "",
     "pubdate": "",
     "author": "#N/A",
-    "veg": "yes",
-    "vegan": "yes",
-    "GF": "yes"
+    "veg": "true",
+    "vegan": "true",
+    "GF": "true"
   },
   {
     "title": "Ramp spinach egg benedict",
@@ -653,8 +656,8 @@
     "text": "",
     "pubdate": "",
     "author": "Kennedy",
-    "veg": "",
-    "vegan": "",
+    "veg": "false",
+    "vegan": "false",
     "GF": ""
   },
   {
@@ -1845,7 +1848,8 @@
     "author": "#N/A",
     "veg": "",
     "vegan": "",
-    "GF": ""
+    "GF": "",
+    "textShort": ""
   },
   {
     "title": "corn mush with apples",
@@ -1859,7 +1863,8 @@
     "author": "#N/A",
     "veg": "",
     "vegan": "",
-    "GF": ""
+    "GF": "",
+    "textShort": ""
   },
   {
     "title": "paw paw pancakes",

@@ -1,0 +1,39 @@
+
+<div class="col-md-2">
+		<div class="sitelist"> 
+			<div ng-repeat="(key, value) in dummyData" ng-mouseenter="changeHoverSite(value.importer_name)" ng-mouseleave="changeHoverSite(null)" ng-click="siteClick(value.importer_name)" ng-class="{active:hoverSite==value.importer_name}">
+				<a ui-sref="detail({ id:value.importer_name })">
+					<div class='col-md-5'>{{value.importer_name}}</div> 
+					<div class='col-md-2'><svg width="30" height="30"><circle cx="10" cy="10" ng-attr-r= "{{value.total_waste| radiusSmall }}" ng-attr-fill = "{{value.total_waste | map_colour}}"></circle></svg></div>
+					<div class='col-md-5'>
+						<div class="bar100">
+							<div class='bar' ng-style='{width:"{{value.total_waste | bar}}"}'>&nbsp</div>
+
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+</div> 
+
+<div class="col-md-8 map">
+	<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 959 593">
+<g id="outlines">
+		<path class="state" ng-repeat="(key, value) in geography" ng-attr-d="{{value | projection}}"></path> 
+	</g>
+	<g id="points">
+		<circle ng-repeat="(key, value) in dummyData" class="site" ng-id="{{value.importer_name}}" 
+				ng-class = "{active:hoverSite==value.importer_name}")
+				fill = "white"
+	            ng-attr-cx= "{{value | lat}}"
+	            ng-attr-cy= "{{value | long}}"
+	            ng-attr-r= "{{value.total_waste| radius }}" ng-mouseenter="changeHoverSite(value.importer_name)" ng-mouseleave="changeHoverSite(null)" ng-click="siteClick(value.importer_name)" 
+	            >
+	    </circle>
+    </g>
+</svg>
+</div>
+
+
+<!-- {{value.total_waste | bar}} -->	

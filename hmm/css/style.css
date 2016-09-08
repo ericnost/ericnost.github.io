@@ -18,49 +18,23 @@ a.about{
   cursor: pointer;
 }*/
 /*this is the class for all of the filter buttons*/
-label {
-  font-size: 10px;
-  fill: #685544;
-}
-.legendText{
-  font-size: 10px;
-  fill: #685544;
-}
-.percentLabel{
-  font-size: 10px;
-  fill: #685544;
-}
-.yaxis{
-  font-size: 10px;
-  fill: #685544;
-}
-.axis text{
-  font-size: 10px;
-  fill: #685544;
-}
-.label {
-  font-size: 10px;
-  fill: #685544;
 
-}
-.raceLabel, .povLabel{
-  font-size: 10px;
-  fill: #685544;
-}
-.importerName{
-  font-size: 12px;
-  fill: #685544;
-}
-.viewerCategory{
-  font-size: 10px;
-  fill: #685544;
-}
-.viewerData{
+.raceLabel, .povLabel, .percentLabel, .legendText, label, .yaxis, .axis text, .label, .viewerCategory, .viewerData{
   font-size: 10px;
   fill: #685544;
 }
 
 
+#viewShowHide{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+#x{
+  position: absolute;
+  top:0;
+  left:0;
+}
 
 .footer{
   position: absolute;
@@ -131,13 +105,13 @@ label {
 
 
 
-#resetter:hover{
+.resetter:hover{
   cursor:pointer;
 }
 
 .intro{
   font-size: 12px;
-font-family: 'Rockwell';
+  font-family: 'Rockwell';
   color: white;
 }
 .viewerText{
@@ -247,6 +221,7 @@ div{
     border-radius: 0px;
     border: 1px solid black;
     height: 0 0 30px;
+    font-size: 10px;
 }
 
 .ui-autocomplete {
@@ -279,6 +254,8 @@ ul.ui-autocomplete {
   padding: 5px;
 }
 
+
+
 /*CSS styling for the website*/
 /*Color scheme from http://power20method.com/minimalist/*/
 
@@ -290,12 +267,7 @@ ul.ui-autocomplete {
   border-color: #685544;
   overflow: hidden;
 }
-
 .jumbotron h1 {
-  font-size: 50px;
-}
-
-.jumbotron p {
   font-size: 30px;
 }
 
@@ -340,10 +312,7 @@ body {
   color: #685544;
   background: #b8c68b;
   text-align: center;
-   padding-top: 80px;
-  padding-bottom: 40px;
-  margin-top: 12px;
-
+  margin-bottom: 5px;
  }
 
 

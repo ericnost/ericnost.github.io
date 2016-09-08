@@ -1,6 +1,6 @@
 <div class="main">
   <div class="container-fluid">
-    <div class="row" ng-repeat="photo in photos  | filter:{'title': searchText, 'season': searchText1, 'meal': searchText2}">
+    <div class="row" ng-repeat="photo in photos  | filter:{'title': searchText, 'season': searchText1, 'meal': searchText2, 'veg': $parent.checkModel.veg,'vegan': $parent.checkModel.vegan, 'GF':$parent.checkModel.gf}">
      <a href="#/photos/{{photo.title}}">
       <div class="item col-md-12" >
        
@@ -11,13 +11,19 @@
             <h4 class="author">{{ photo.title }}</h4>
           </div>
            <div class="col-md-1">
-            <h4 class="author">{{ photo.veg }}</h4>
+            <img class="pull-right" ng-src="{{ photo.veg | vegFilter}}">
           </div>
           <div class="col-md-1">
-            <h4 class="author">{{ photo.vegan }}</h4>
+           <img class="pull-right" ng-src="{{ photo.vegan | veganFilter}}">
           </div>
           <div class="col-md-1">
-            <h4 class="author">{{ photo.GF }}</h4>
+            <img class="pull-right" ng-src="{{ photo.GF | gfFilter}}">
+          </div>
+          <div class="row col-md-6">
+          {{$parent.checkModel.veg}}
+          {{$parent.checkModel.vegan}}
+          {{$parent.checkModel.gf}}
+            <h6>{{photo.textShort}}</h6>
           </div>
         
     </div>
