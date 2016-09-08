@@ -13,7 +13,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: '/photos/:id?show',
       views:{"details": {templateUrl: 
         function ($stateParams){
-          var link = $stateParams.show == "Overview" ? 'views/photo.html' : 'views/' + $stateParams.show + '.html'
+          var link = $stateParams.show == "Overview" ? 'views/photo.html' : 'views/' + $stateParams.show.toLowerCase() + '.html'
           return link;
         },
         controller: "DetailCtrl"},"main": {templateUrl: "views/home.html", controller: "mainCtrl"}}
