@@ -1,61 +1,47 @@
 
-a{
-  color: red;
-  font-size: 10px;
-}
-a.about{
-  color: yellow;
-  font-size: 12px;
-  text-decoration: none;
+
+html {
+  position: relative;
+  min-height: 100%;
 }
 
-/*#showHide{
+.footer {
   position: absolute;
-  bottom: 175px;
-  right: 200px;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 20px;
+  background-color: #685544;
 }
-#showHide:hover{
-  cursor: pointer;
-}*/
-/*this is the class for all of the filter buttons*/
+
 
 .raceLabel, .povLabel, .percentLabel, .legendText, label, .yaxis, .axis text, .label, .viewerCategory, .viewerData{
   font-size: 10px;
   fill: #685544;
 }
+  .main{
+    margin-top: 60px; 
+  }
 
+  .zoomBox{
+    position: absolute;
+    top: 15px;
+    left: 5px;
+    width: 7%;
+  }
 
 #viewShowHide{
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 10px;
+  right: 5px;
 }
 #x{
   position: absolute;
-  top:0;
-  left:0;
+  top:0px;
+  left:-10px;
+  fill: #7C7B7D;
 }
 
-.footer{
-  position: absolute;
-  bottom: 0%;
-  height: 15px;
-  background-color: #252525;
-  color: yellow;
-  font-size:12px;
-  border-radius: 5px;
-  padding: 5px;
-}
-.aboutFooter, {
-  position:absolute;
-  cursor: pointer; 
-  left: 0%;
-  width: 5%;
-}
-.help{
-  font-size:12px;
-  color: black;
-}
 
 
 
@@ -75,50 +61,17 @@ a.about{
   fill: none;
 }
 
-/*.introTitle{
-  color: yellow;
-}
-.introButton{
-  width:100%;
-  height:10%;
-  background: #252525;
-  opacity: .3;
-  text-shadow:none;
-  border: none;
-  box-shadow:none;
-  color: white;
-}
-.introButton:hover{
-  border: solid yellow 2px;
-  cursor: pointer;
-}
-*/
-
-
-#importer, #exporter{
-  /*stroke: red;
-  stroke-width:.5px;*/
-  cursor: pointer;
-}
 
 
 
 
-
-.resetter:hover{
+.resetter, .zoomIn, .zoomOut, #importer, #exporter{
   cursor:pointer;
 }
 
-.intro{
-  font-size: 12px;
-  font-family: 'Rockwell';
-  color: white;
-}
 .viewerText{
   margin: 5px;
 }
-
-
 
 
 div.manifests, div.typeChart, div.povertyChart {
@@ -131,41 +84,6 @@ div.manifests, div.typeChart, div.povertyChart {
 
 
 
-.textdiv { /* text in the boxes */
-display: inline-block;
-font-size: medium;
-text-align: center;
-width: 50%;
-vertical-align: middle;
-font-family: 'Rockwell';
-color:white;
-}
-
-h3{
-  color: black;
-}
-
-
-
-
-
-
-
-.something{
-  width: 85%;
-  text-align: center;
-  vertical-align: middle;
-  background-color: #252525;
-  border: solid 1px black;
-}
-
-.greyedOut{
-  height: 100vh;
-  width: 100vw;
-}
-
-
-
 .node {
   fill: #ddd;
   stroke: pink;
@@ -173,26 +91,9 @@ h3{
 }
 
 
-.introBox{
-  position: absolute;
-  top:20%;
-  left:20%;
-  width:60%;
-  height:35%;
-}
 
 
-.background {
-    fill: transparent;
-}
-
-.background:hover{
-  cursor: pointer;
-
-}
-
-
-.d3-tip {
+.d3-tip, #infotip {
   font-size: 10px;
   line-height: 1;
   font-weight: lighter;
@@ -304,7 +205,7 @@ ul.ui-autocomplete {
 body {
   background-color: #f4f0cb;
   font-family: 'Bitter', serif;
-
+  margin-bottom: 5px;
 }
 
 .jumbotron {
@@ -380,6 +281,10 @@ display: block
 
 a {
   color: gray ;
+  font-size: 10px;
+}
+a#foot{
+  font-size: 14px;
 }
 
 a:hover {

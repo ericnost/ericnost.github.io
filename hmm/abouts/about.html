@@ -1,34 +1,78 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>HazMatMapper: About</title>
-<head>
-	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
- <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-<style>
-html {
-  max-width: 100%;
-}
-body {
-  font-family: 'Rockwell';
-  color: white;
-  background-color: white;
-  max-width: 100%;
-}
-a{
-  color: red;
-  font-size: 10px;
-}
-.help{
-  font-size:12px;
-  color: black;
-}
-h3{
-  color: black;
-}
-</style>
-</head>
-<body>
+<!DOCTYPE HTML>
+<html lang="en">
+
+  <head>
+      <!-- <link href='https://fonts.googleapis.com/css?family=Ruda:400,700|Cantarell:400,700,400italic,700italic' rel='stylesheet' type='text/css'> -->
+      <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <meta name="keywords" content="maps,cartography, hazardous waste trade"/>
+      <title>HazMatMapper</title>
+
+      <!--put Bootstrap stylesheet links above style.css-->
+      <link rel="stylesheet" href="../css/bootstrap.min.css">
+      <link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/style.css">
+      <script type="text/javascript" src="../lib/jquery-1.11.3.min.js"></script>
+      <script type="text/javascript" src="../lib/bootstrap.min.js"></script>
+
+  </head>
+  <style>
+  .col-md-12, .col-md-8, .col-md-4, .col-md-6, .col-md-2{
+    padding: 5px;
+  }
+  body{
+    overflow-x: hidden;
+  }
+
+
+  </style>
+  <body>
+
+    <nav class="navbar navbar-default navbar-fixed-top main-navbar"> <!--creates navbar-->
+
+            <div class="navbar-header"> <!--creates the navbar header-->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span><!--used for screen readers for accessibility-->
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                    <span class="menu">Menu</span>
+                </button> <!--hamburger button for smaller devices-->
+                <a class="navbar-brand" href="../../index.html">HazMatMapping</a><!--our website brand name-->
+                <h6 class="navbar-text"><font color="#cccccc">US Imports of Hazardous Waste from Canada and Mexico<br> 2007-2012</font></h6>
+            </div>
+            
+            <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="nav1">
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Enter Keyword">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="../../AboutUs.html">About Us</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="../index.html">HazMatMapper</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Content<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="Visual Form">Stories</a></li>
+            <li><a href="Story Content">Visuals</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+
+    </nav><!--end navigation bar-->
+
+    <div class="container-fluid"></div>
+    <div class="container-fluid main">
+
 <h3>What is this site?</h3>
 <p class = "help">This is a tool for exploring transnational flows of hazardous waste. While we typically think the US exports all of its most toxic waste to poorer countries, the US actually imports much waste from these countries and other rich countries, for disposal. Many of these are transnational corporations shifting between subsidiaries. 
 <p class = "help"> All of the sites in the US that receive waste are mapped, the size indicating the relative amount they are importing. To begin exploring, <b>hover over</b> or <b>click</b> on a site.
@@ -44,15 +88,18 @@ h3{
 <p class = "help">The EPA was only able to provide us manifests for 2010-2013 and already compiled data for 2007 and 2009. We are currently trying to access 2008 data through a Freedom of Information Act request.
 <h3>Why is there liquid and solid waste?</h3>
 <p class = "help">We maintain the separation between solid and liquid waste in HazMatMapper given ambiguity in conversions between different hazardous elements. While this distinction is useful for analysis of the dataset, it does not reflect the regulatory definition of hazardous waste, which hinges on different notions of “solid” (40 USC. Sec 261.2. 2012).</p>
-<h3>Who are you?</h3>
+<h3> </h3>
+<p class = "help"></p>
 
 
- <!--<script src="lib/d3.v3.js"></script>-->
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>  
-<script src="js/tip.js"></script>
-<!--<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>-->
-<script src="lib/queue.js"></script>
-<script src="lib/topojson.v1.min.js"></script>
+    </div>
+   <footer class="footer">
+      <div class="container">
 
-</body>
+        <div class="pull-right"><font color="#cccccc">Last updated: 9/13/16</font></div>
+        <a id="foot" href="about.html" target="_blank">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+        <a id="foot" href="help.html" target="_blank">Help</a>
+      </div>
+    </footer>
+  </body>
 </html>
