@@ -5,20 +5,51 @@
 <html>
     <head>
         <title>Armchair geographer.</title>
-		<link rel='stylesheet' type='text/css' href='stylesheet.css'/>
-		<script src="../js/jquery.js" ></script>
-		<script type="text/javascript" src="script.js"></script>
+		
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+			<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+			<script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
+			<script type="text/javascript" src="lib/bootstrap.min.js"></script>
+		<link rel='stylesheet' type='text/css' href='css/stylesheet.css'/>
+		
 	</head>
-   <body>
-<div class="title">Armchair geographer. v. 0.00002 BETA</div>
-<div class="button" onClick="history.go(0)" onmouseover="" style="cursor: pointer;">Moose!</div>
-<div class="break"></div>
-<div class="text"></div>
-<div class="break"></div>
-<div class="slide-title"></div>
-<div class="images"></div>
-<div class="map"></div>
-<div class="tweet"></div>
-<div class="bug2 "></div>
-<div class="bug3 "></div></body>
+   	<body>
+
+		<nav class="navbar navbar-default navbar-fixed-top main-navbar"> <!--creates navbar-->
+
+						<div class="navbar-header"> <!--creates the navbar header-->
+								<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+										<span class="sr-only">Toggle navigation</span><!--used for screen readers for accessibility-->
+										<span class="glyphicon glyphicon-menu-hamburger"></span>
+										<span class="menu">Menu</span>
+								</button> <!--hamburger button for smaller devices-->
+								<a class="navbar-brand" href="index.html">Armchair geographer 2.0</a><!--our website brand name-->
+								<h6 class="navbar-text"><font color="#cccccc">Making live easier since 2014<br> Now with more bells and whistles!</font></h6>
+						</div>
+						
+
+		</nav><!--end navigation bar-->
+
+		<div class="container-fluid main">
+			<div class="col-md-12 slide-title"></div>
+			<div class="col-md-8 images"></div>
+			<div class="col-md-4 map"></div>
+			<div class="col-md-8 text"></div>
+			<div class="col-md-4 tweet"></div>
+			<div class="button"><a href="#" id="get-data">Next slide, please!</a></div>
+			
+			 <!-- <div class="col-md-12 printer"></div> -->
+		</div>
+   <footer class="footer">
+      <div class="container">
+
+       	<div class="pull-right"><font color="#cccccc">Last updated: 9/16/16</font></div>
+        <a id="foot" target="_blank">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+        <a id="foot" target="_blank">Help</a>
+      </div>
+    </footer>
+	</body>
+	<script src="script.js"></script>
+
+</body>
 </html>

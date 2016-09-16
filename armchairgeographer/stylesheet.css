@@ -1,73 +1,23 @@
 body {
-    background-color:#B8CAFF;
 }
 img {
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
+.main{
+    margin-top: 60px;
+}
 .button {
-    transition:width 1s;
-    -webkit-transition:width 1s;
-    border-radius: 5px;
     background-color: #818DB2;
-    height: 25px;
-    line-height: 25px;
-    vertical-align: middle;
-    width: 10%;
-    float: right;
-    text-align: center;
-    font-family: Arial;
-    font-weight: bold;
-    font-size: 100%;
-    position: fixed;
-    right:0%;
-    top:5%;
-    z-index:1;
+
 }
-.button:hover {
-    width: 33%;
-    height:50px;
-    line-height: 50px;
-    vertical-align: middle;
-    z-index:1;
-}
-.title {
-    float: 1eft;
-    font-family: Arial;
-    font-weight: bold;
-    font-size: 250%;
-    width: 66%;
-}
-.images {
-    background-color: white;
-    padding-bottom:5%;
-    width: 75%;
-    float: left;
-}
-.slide-title {
-    background-color: white;
-    width: 75%;
-    float: left;
-    height: 45px;
-    text-align: center;
-    font-family: Tahoma;
-    font-weight: bold;
-    font-size: 200%;
-    z-index: 1;
-}
-.map {
-    float: right;
-    position: absolute;
-    right:0%;
-}
-.break {
-    height:25px;
-}
-.text {
-    font-family: Tahoma;
-    font-size: 150%;
-	width: 100%;
-    z-index:1;
-	height: 50px;
+
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 20px;
 }
