@@ -10,9 +10,10 @@
             var bbox = "" + minlon + "%2C" + minlat + "%2C" + maxlon + "%2C" + maxlat + "";
             var i = Math.round((Math.random() * 10));
             var j = Math.round((Math.random() * 17));
-            var url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=cb3e1b37d4499316689286975a99d763&bbox="+bbox+"&format=json";
+            var url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=cb3e1b37d4499316689286975a99d763&bbox="+bbox+"&format=json&nojsoncallback=1";
             var moose = "http://i167.photobucket.com/albums/u154/imhch/cid.jpg";
-            var map = "https://maps.googleapis.com/maps/api/staticmap?center="+marklat+","+marklon+"&zoom=16&size=640x400&path=weight:3%7Ccolor:blue%7Cenc:{coaHnetiVjM??_SkM??~R&key=AIzaSyDiXt58emjY-8prg72wmpWuJYKs3O76KL8"
+            var width =$(".col-md-4").width()
+            var map = "https://maps.googleapis.com/maps/api/staticmap?center="+marklat+","+marklon+"&zoom=5&size="+width+"x"+200+"&markers=color:blue%7C&key=AIzaSyDiXt58emjY-8prg72wmpWuJYKs3O76KL8"
             //console.log(map)
             var pic;
             var item;
@@ -23,9 +24,9 @@
             //$("div.bug1").html(url);
             $("div.slide-title").html(slide[j]);
             //console.log(url)
-            
-            $.ajax(url, function (data) {
-                console.log(url, data)
+            $("div.map").html("<img src="+map+"></img>")
+            $.getJSON(url, function (data) {
+                //console.log(url, data)
                 //$("div.bug2").html(data.photos.photo.length);
                 item = data.photos.photo[i];
                 if (data.photos.photo.length < i) {
@@ -36,14 +37,14 @@
                     console.log(pic)
                     //$("div.bug3").html(pic);
                     $("div.images").html("<img src="+pic+"></img>");
-                    $("div.map").html("<img src="+map+"></img>");
+                    ;
                 };
             });
             $.get(text, function (data) {
                 var quotes = data.split(".");
                 var idx = Math.floor(quotes.length * Math.random());
                 var quote = quotes[idx];
-                $('div.text').html("\""+quote+".\"");
+                $('div.text').html("Takehome message:<span class='quote'>"+quote+".");
             });
     })
 })

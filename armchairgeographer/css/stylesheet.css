@@ -9,23 +9,27 @@ img {
     transition:width 1s;
     -webkit-transition:width 1s;
     border-radius: 5px;
-    background-color: #818DB2;
-    height: 25px;
+    background-color: steelblue;
     line-height: 25px;
     vertical-align: middle;
-    width: 10%;
-    float: right;
     text-align: center;
     font-family: Arial;
     font-weight: bold;
     font-size: 100%;
-    position: fixed;
-    right:0%;
-    top:5%;
     z-index:1;
+    margin: 10px;
 }
 .title {
 
+}
+a{
+    color: white;
+}
+div{
+    padding: 10px;
+}
+.quote{
+    font-size: 75%;
 }
 .footer {
   position: absolute;
@@ -33,18 +37,15 @@ img {
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 20px;
-  background-color: #685544;
+  background-color: #f8f8f8;
 }
 .main{
-    margin-top: 60px;
+    margin-top: 100px;
 }
 .images {
 }
 .slide-title {
     background-color: white;
-    width: 75%;
-    float: left;
-    height: 45px;
     text-align: center;
     font-family: Tahoma;
     font-weight: bold;
@@ -52,12 +53,11 @@ img {
     z-index: 1;
 }
 .map {
+    padding-right: 15px;
 }
 
 .text {
     font-family: Tahoma;
     font-size: 150%;
-	width: 100%;
     z-index:1;
-	height: 50px;
 }
