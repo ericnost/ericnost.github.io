@@ -36,8 +36,6 @@ div{
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 20px;
-  background-color: #f8f8f8;
 }
 .main{
     margin-top: 100px;

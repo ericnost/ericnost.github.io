@@ -9,7 +9,7 @@ angular.module('myApp').filter('map_colour', [function () {
 
 angular.module('myApp').filter('projection', [function () {
     return function (path) {
-             var width = $(".map").width()
+        var width = $(".col-md-8").width()
         var height = $(".map").height()
       
        var proj = d3.geo.albers()
@@ -24,8 +24,8 @@ angular.module('myApp').filter('projection', [function () {
 
 angular.module('myApp').filter('lat', [function () {
     return function (input) {
-
-      var width = $(".map").width()
+      console.log("lat")
+      var width = $(".col-md-8").width()
       var height = $(".map").height()
 
       var projection = d3.geo.albers()
@@ -41,7 +41,7 @@ angular.module('myApp').filter('lat', [function () {
 angular.module('myApp').filter('long', [function () {
     return function (input) {
 
-      var width = $(".map").width()
+      var width = $(".col-md-8").width()
       var height = $(".map").height()
 
       var projection = d3.geo.albers()
@@ -72,7 +72,7 @@ angular.module('myApp').filter("radius", [function(){
 
 angular.module('myApp').filter("radiusSmall", [function(){
     return function (input) {
-      //console.log(input)
+      console.log(input)
       var flanMax = calcFlanneryRadius(40000000); //change 10,000 dynamically to max
       var flanneryScale = d3.scale.linear().domain([30, flanMax]).range([10, 35]);
       function calcFlanneryRadius(x){

@@ -19,7 +19,7 @@
           <script type="text/javascript" src="lib/d3.v3.js"></script>
           <script type="text/javascript" src="js/angular.min.js"></script>
         <script type="text/javascript" src="lib/topojson.v1.min.js"></script>
-           <script type="text/javascript" src="js/router.js"></script>
+           <script src="//npmcdn.com/angular-ui-router/release/angular-ui-router.min.js"></script>
           <script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
 
     </head>
@@ -69,8 +69,8 @@
     <div class="row"> <!-- search and config tools--></div>
     <div class="row" > <!-- main content -->
         <!-- <parent-directive></parent-directive> -->
-        <div ui-view="map"></div><div ui-view="main"></div> 
-        <div class="col-md-2"><div ui-view="details"></div></div>
+        <ui-view></ui-view> 
+        
     </div>
 </div>
 

@@ -2,13 +2,59 @@
 var app = angular.module('myApp', ['ui.router']);
 
 
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider) {
   //
   // For any unmatched url, redirect to /state1
  // $urlRouterProvider.when("photos/", "/photos?id");
   //
+
+  var mainState ={
+    name: 'main',
+    url: '',
+   component: 'first',
+    resolve: {
+      main: function(Resource) {
+        return Resource.getAllPeople()
+      },
+      appPromiseObj2: function(Resource2) { //loads base map
+        return Resource2.getApps()
+      }
+    }
+  },
+    detailState = {
+    name: 'main.viewer',
+    url: '/{siteID}',
+    component: 'second',
+      resolve: {
+        site: function(main, $stateParams) {
+          console.log($stateParams)
+          return main.find(function(site) { 
+            return site.importer_name === $stateParams.siteID;
+          });
+        }
+      }
+  },
+    displayState = {
+    name: 'main.viewer.display',
+    url: '/{siteID}/{detail}',
+    component: 'third',
+    resolve:{
+      deet: function(site, $stateParams){
+        console.log(site, $stateParams)
+        return site.EJ
+       //get ECHO or other data depending on view data
+      }
+      }
+    
+  }
+
+
+
+    $stateProvider.state(mainState)
+  $stateProvider.state(detailState);
+  $stateProvider.state(displayState);
   // Now set up the states
-  $stateProvider
+ /* $stateProvider
      .state('display', {
       url: '/photos/:id?show',
       views:{"details": {templateUrl: 
@@ -27,17 +73,34 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: "",
       views:{"main": {templateUrl: "views/home.html", controller: "mainCtrl"}}
       
-    })
-});
-app.factory('Resource', function($http){
-  var Resource = {};
-  Resource.loadData = function(){
-    return $http.get('data/data.json');
-  }
-
-  return Resource;
+    })*/
 })
-app.factory('Resource2', function($http){
+app.factory('Resource', function ($http) {
+      var service = {
+    getAllPeople: function() {
+      return $http.get('data/data.json', { cache: true }).then(function(resp) {
+        //console.log(resp)
+        return resp.data;
+      });
+    },
+    
+    getPerson: function(id) {
+      function siteMatchesParam(site) {
+        console.log(site, id)
+        return site.importer_name === id;
+      }
+      
+      return service.getAllPeople().then(function (main) {
+
+        return main.find(siteMatchesParam)
+      });
+    }
+  }
+  
+  return service;
+})
+
+/*app.factory('Resource2', function($http){
   var Resource2 = {};
   Resource2.loadData = function(){
     return $http.get('data/nam.json');
@@ -45,6 +108,39 @@ app.factory('Resource2', function($http){
 
   return Resource2;
 })
+*/
+
+app.factory('Resource2', function ($http) {
+    var appFac = {
+        apps: []
+    };
+
+    /*
+    appFac.getApps1 = function () {
+        promiseObj = $http.get('http://localhost:4567/applications')
+          .success(function (data) {
+           console.log("success calling http");
+           angular.copy(data, appFac.apps);
+        });
+        
+        return promiseObj;
+    */
+        
+    appFac.getApps = function () {
+        return $http
+          //.get('http://localhost:4567/applications')
+          .get('data/nam.json')
+          .success(function (result) {
+           console.log("success calling nam");
+           angular.copy(result.data, appFac.apps);
+           return appFac.apps
+        });
+        
+        //return promiseObj;
+         
+    };
+    return appFac;
+});
 
 app.factory('ECHO', function($http){
   var ECHO = {};
@@ -56,15 +152,10 @@ app.factory('ECHO', function($http){
   return ECHO;
 })
 
-app.controller('mainCtrl', function ($http, $scope, Resource, Resource2) {
-     Resource.loadData().then(function(result){
-        var data = result.data
-        $scope.dummyData = data
-      });
-      Resource2.loadData().then(function(result){
-        var data = result.data
-        $scope.geography = data.features
-      });
+app.controller('mainCtrl', function ($scope, appPromiseObj) {
+     $scope.dummyData = appPromiseObj.data;
+
+     console.log($scope)
 
      $scope.changeHoverSite = function (site) { 
         $scope.hoverSite = site;              
@@ -76,9 +167,77 @@ app.controller('mainCtrl', function ($http, $scope, Resource, Resource2) {
  
   })
 
+
+app.component('first', {
+  bindings: { main: '<' , appPromiseObj2: '<' },
+  templateUrl: 'views/home.html',
+  controller: function () {
+    console.log(this)
+    this.geography = this.appPromiseObj2.data.features
+    this.dummyData = this.main
+    this.changeHoverSite = function (site) { 
+      console.log(site)
+          this.hoverSite = site;              
+        };
+    this.siteClick = function (site) {
+          window.location = "#/"+site
+     }
+/*      $scope.dummyData = appPromiseObj.data;
+
+    
+
+     $scope.changeHoverSite = function (site) { 
+        $scope.hoverSite = site;              
+      };
+      
+     $scope.siteClick = function (site) {
+        window.location = "#/photos?id="+site
+     };*/
+
+ 
+  }//,templateUrl: 'views/home.html'
+})
+app.component('second', {
+  templateUrl: 'views/photo.html',
+     bindings: { site: '<' },      
+  controller: function () {
+  //console.log($stateParams)
+  console.log(this)
+
+    }
+  })
+
+app.component('third', {
+  templateUrl: 'views/{detail}.html',
+     bindings: { deet: '<' },      
+  controller: function () {
+  //console.log($stateParams)
+  console.log(this)
+
+    }
+  })
+    
+app.component('displayDetailedStuff', {
+  templateUrl: 
+        function ($stateParams){
+          var link = $stateParams.show == "Overview" ? 'views/photo.html' : 'views/' + $stateParams.show.toLowerCase() + '.html'
+          return link;
+        },
+           
+  controller: function ($http, $scope, $stateParams, Resource, ECHO) {
+  //console.log($stateParams)
+      Resource.loadData().then(function(result){
+        var data = result.data
+        $scope.detail = data.filter(function(d){return d.importer_name == $stateParams.id})[0]; //access it
+        $scope.id = $stateParams.id
+        $scope.show = $stateParams.show
+      });
+    }
+  })
+
 app.controller('DetailCtrl', function ($http, $scope, $stateParams, Resource, ECHO) {
   //console.log($stateParams)
-  console.log("detail")
+
       Resource.loadData().then(function(result){
         var data = result.data
         $scope.detail = data.filter(function(d){return d.importer_name == $stateParams.id})[0]; //access it
