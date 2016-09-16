@@ -17,7 +17,7 @@
             //console.log(map)
             var pic;
             var item;
-            var allTexts = ["dg.txt", "nost.txt", "grammatology.txt", "foucault.txt", "marx.txt", "butler.txt", "haraway.txt", "rand.jpg"];
+            var allTexts = ["viz.txt", "dg.txt", "nost.txt", "grammatology.txt", "foucault.txt", "marx.txt", "butler.txt", "haraway.txt", "rand.jpg"];
             var k = Math.round((Math.random() * 8));
             var text = allTexts[k];
             var TUrl = "https://api.twitter.com/1.1/search/tweets.json?q=%20&geocode=43%2C-89%2C10mi";
