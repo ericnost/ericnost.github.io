@@ -87,18 +87,68 @@ app.component('home', {
   templateUrl: 'views/home.html', //this is the html that we will plug our data into
   controller: function () {
     console.log(this)
+
     this.geography = this.geoData.features
     this.data = this.main
-    //calculate colors for the circles
+
+    //variables for geo calculations
+    var width = $(".col-md-8").width()
+    var height = $(".map").height()
+    var proj = d3.geo.albers() //we call on d3 to make our projections for us.
+      .center([0,40])
+      .scale(height*2) 
+      .translate([width/2, height/2]);
+    var path = d3.geo.path().projection(proj);
+
+    //variables for circle size
+    var totals = this.data.map(function(d){return d.total_waste}) //get all the total waste values 
+    var max = d3.max(totals)
+    var sum = d3.sum(totals)
+    var flanMax = calcFlanneryRadius(max);
+    var flanneryScale = d3.scale.linear().domain([30, flanMax]).range([10, 35]);
+    function calcFlanneryRadius(x){
+      var flannery = 0.57;
+      var log = Math.log(x);
+      var r = log * flannery;
+      r = Math.exp(r)
+      return r
+    }
+
+    //calculate paths for basemap
+    this.geography.forEach(function(d){
+      d.calculatedPath = path(d)
+    })
+
+    
+    //calculate colors, positions, radii, for the circles, widths for the chart
     this.data.forEach(function(d){
+      //colors
       var b = Math.floor(Math.random() * 255);
       var g = Math.floor(Math.random() * 255);
       d.color = "rgba(255," + g + "," + b + ",1)";
+
+      //positions
+      d.x = proj([d.longitude, d.latitude])[0]
+      d.y = proj([d.longitude, d.latitude])[1]
+
+      //radii
+      d.chartCircle = flanneryScale(calcFlanneryRadius(d.total_waste))/4
+      d.mapCircle = flanneryScale(calcFlanneryRadius(d.total_waste))
+
+      //width for bar chart
+            
+      var input = Math.floor((d.total_waste/sum)*100) 
+      input = input.toString()
+      d.barChartWidth = input + "%"
     })
+
+
     //generate functions that we will bind as objects to each data object so that they can be accessed
     this.changeHoverSite = function (site) { 
-          this.hoverSite = site;  //make the hover site active         
-        };
+      this.hoverSite = site;  //make the hover site active         
+    };
+
+
     this.siteClick = function (site) {
       this.selectedSite = null //clear selected sites
       this.selectedSite = site //make the clicked site selected
