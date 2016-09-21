@@ -11,18 +11,18 @@
 
   <body>
   <div id="map" style="width: 80%; height: 600px"></div>
-    <!-- turf library -->
-    <script src="https://npmcdn.com/@turf/turf@3.5.1/turf.min.js"></script>
-    <!-- Leaflet library -->
-    <script src="https://npmcdn.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
-    <!-- jQuery library -->
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <!-- TopoJson to convert geo data  -->
-    <script src="http://d3js.org/topojson.v1.min.js"></script>
-    <!-- stylesheets-->
-    <link rel="stylesheet" href="css/main.css" />
-    <script src="js/libs/zoom.js"></script>
+  <!-- turf library -->
+  <script src="https://npmcdn.com/@turf/turf@3.5.1/turf.min.js"></script>
+  <!-- Leaflet library -->
+  <script src="https://npmcdn.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
+  <!-- jQuery libraries -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <!-- TopoJson to convert geo data  -->
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <!-- stylesheets-->
+  <link rel="stylesheet" href="css/main.css" />
+  <script src="js/libs/zoom.js"></script>
 
   
   <script>
@@ -118,7 +118,12 @@ function installSearch(){
       autoFocus: true,  
       source: db,
       select: function(e, ui) {
-        event.preventDefault()
+        //need to handle preventDefault() different for Firefox. Prevent default prevents the page from reloading
+        if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+          e.preventDefault()
+        } else{
+          event.preventDefault()
+        }
         if(e.keyCode == 13) {return false} // prevent users from just entering in a number
         var zip = ui.item.value
         removeLayers()//remove any layers 
@@ -176,7 +181,6 @@ function installSearch(){
 
       //create labels for nearby layers
       label = new L.FeatureGroup()
-
       nearbyData.forEach(function(d){
         var centroid = turf.centroid(d); 
         centroid=centroid.geometry.coordinates.reverse(); 
@@ -195,7 +199,7 @@ function installSearch(){
   }
 
   function finder(data, type){
-     removeLayers("notDragged") //remove any already loaded layers
+     removeLayers("notDragged") //remove any already loaded layers if we're not dragging
      check = true
      
      var geo = type == "click" ? [data.latlng.lng, data.latlng.lat] : data
@@ -214,13 +218,9 @@ function installSearch(){
           fillColor: 'red'
         },
         onEachFeature: onEachFeature
-        //if popup wanted, replace onEachFeature: onEachFeature with
-        //      onEachFeature: function(feature, marker) {
-        //      marker.bindPopup('<h4 style="color:'+feature.properties.color+'">'+ feature.properties.name +'</h4>');
-        //    }
       }).addTo(map)
 
-      //add a marker to the clicked location/county
+      //add a marker to the clicked location
       var mark = turf.centroid(thisData).geometry.coordinates.reverse() //can change so that on click, marker is where clicked
       marker = L.marker(mark).addTo(map)
       marker.bindPopup('<h4>'+ thisData.properties.NAME +'</h4>');
@@ -235,7 +235,6 @@ function installSearch(){
         map.fitBounds(mainLayer.getBounds()); 
         var bounds = map.getBounds()
       };
-
       reloadBounds(bounds)
   }
 
@@ -282,16 +281,11 @@ function installSearch(){
   function onEachFeature(feature, layer) {
     layer.on({
       mouseover: highlightFeature,
-      mouseout: resetHighlight/*,
-      click: function(e){
-        //zoomToFeature(e);//resetHighlight(e); activeStyle(e)
-      }*/
+      mouseout: resetHighlight
     });
 
   }
-
-
   </script>
 
-  </body>
-  </html>
+</body>
+</html>
