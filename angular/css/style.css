@@ -24,7 +24,7 @@ svg .state {
     -o-transition: stroke 0.5s, stroke-width 0.5s;
     transition: stroke 0.5s, stroke-width 0.5s;
 }
-svg .site.active {
+svg .site.active, .site.selected {
     cursor: pointer;
     stroke-width: 4;
     stroke: #000;
@@ -50,11 +50,13 @@ svg .site.active {
     font-size: 11px;
 
 }
-div.active {
+div.active, div.selected{
     font-weight: bold;
     background-color: lightblue;
 }
-
+div .divItem{
+  cursor:pointer;
+}
 circle{
   stroke: #000;
   stroke-width: 1px;
@@ -62,7 +64,6 @@ circle{
 .nav-pills>li>a{
     padding: 2px;
 }
-
 
 .navbar-default .navbar-toggle:hover {
   background-color: #685544;

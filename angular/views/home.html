@@ -1,17 +1,19 @@
 
 <div class="col-md-2">
 		<div class="sitelist"> 
-			<div ng-repeat="value in $ctrl.dummyData" ng-mouseenter="$ctrl.changeHoverSite(value.importer_name)" ng-mouseleave="$ctrl.changeHoverSite(null)" ng-class="{active:$ctrl.hoverSite==value.importer_name}">
-				<a ui-sref="main.viewer({ siteID: value.importer_name })">
-					<div class='col-md-5'>{{value.importer_name}}</div> 
-					<div class='col-md-2'><svg width="30" height="30"><circle cx="10" cy="10" ng-attr-r= "{{value.total_waste| radiusSmall }}" ng-attr-fill = "{{value.total_waste | map_colour}}"></circle></svg></div>
-					<div class='col-md-5'>
-						<div class="bar100">
-							<div class='bar' ng-style='{width:"{{value.total_waste | bar}}"}'>&nbsp</div>
+			<div ng-repeat="value in $ctrl.data" 
+				ng-mouseenter="$ctrl.changeHoverSite(value.importer_name)"
+				ng-mouseleave="$ctrl.changeHoverSite(null)"
+				ng-class="['divItem',{active:$ctrl.hoverSite==value.importer_name, selected:$ctrl.selectedSite==value.importer_name}]"
+				ng-click="$ctrl.siteClick(value.importer_name)"> <!-- we're going to create a div for each site we have. $ctrl is how we access the data we passed into the template from the component. "ng" is a way of binding attributes to the div. We'll bind a function for each mouseenter/leave, classes, and clicks. -->
+						<div class='col-md-5'>{{value.importer_name}}</div>  <!-- {{}} is how we call data in angular. these are called expressions for each site, we will express the name here. -->
+						<div class='col-md-2'><svg width="30" height="30"><circle cx="10" cy="10" ng-attr-r= "{{value.total_waste| radius: 'chart' }}" ng-attr-fill = "{{value.color}}"></circle></svg></div> <!-- We create small circles here as legends to the main maps. For each site, we generate an svg circle with a radius based on the total waste at the site. The expression is piped to a filter in filter.js called 'radius' and passed the parameter 'chart' so that we know to make the circle smaller for our chart. We color the circle base on the color we generated for it in the component. -->
+						<div class='col-md-5'>
+							<div class="bar100">
+								<div class='bar' ng-style='{width:"{{value.total_waste | bar}}"}'>&nbsp</div> <!-- We create a gray bar at 100% width and then a greenish one at whatever percent of the largest importer the current importer is at. We do so by piping the totalwaste value to a filter, 'bar' that calculates this percentage-->
 
+							</div>
 						</div>
-					</div>
-				</a>
 			</div>
 		</div>
 </div> 
@@ -19,23 +21,24 @@
 <div class="col-md-8 map">
 	<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 	<svg xmlns="http://www.w3.org/2000/svg" widht = "100%" height = "100%" viewbox="0 0 959 593">
-<g id="outlines">
-		<path class="state" ng-repeat="value in $ctrl.geography" ng-attr-d="{{::value | projection}}"></path> 
+	<g id="outlines">
+		<path class="state" ng-repeat="value in $ctrl.geography" ng-attr-d="{{::value | projection}}"></path> <!-- For each feature in the topojson data we have, we're going to pass it to a filter called projection. Because Angular is always watching expressed values that get filter, this can cause problems with our mouseenters - Every time we hover over something, Angular will recalculate the projections. We can stop this with the "::" syntax. --> 
 	</g>
 	<g id="points">
-		<circle ng-repeat="value in $ctrl.dummyData" class="site" ng-id="{{value.importer_name}}" 
-				ng-class = "{active:$ctrl.hoverSite==value.importer_name}")
-				fill = "white"
-	            ng-attr-cx= "{{::value | lat}}"
-	            ng-attr-cy= "{{::value | long}}"
-	            ng-attr-r= "{{::value.total_waste| radius }}" ng-mouseenter="$ctrl.changeHoverSite(value.importer_name)" ng-mouseleave="$ctrl.changeHoverSite(null)" ng-click="$ctrl.siteClick(value.importer_name)" 
-	            >
+		<circle ng-repeat="value in $ctrl.data" class="site" 
+				fill="white"
+				ng-class = "[value.importer_name, 'mapCircles', {active:$ctrl.hoverSite==value.importer_name, selected:$ctrl.selectedSite==value.importer_name}]")
+	            ng-attr-cx= "{{::value | coords: 'lat'}}"
+	            ng-attr-cy= "{{::value | coords: 'long'}}"
+	            ng-attr-r= "{{::value.total_waste| radius: 'map' }}"
+	            ng-mouseenter="$ctrl.changeHoverSite(value.importer_name)"
+	            ng-mouseleave="$ctrl.changeHoverSite(null)"
+	            ng-click="$ctrl.siteClick(value.importer_name)" 
+	            > <!-- We create, for each site, a circle. We calculate each circle's position on the map by piping the data to a coords filter. -->
 	    </circle>
     </g>
 </svg>
 </div>
 <div class="col-md-2"> 
-<ui-view></ui-view>
+<ui-view></ui-view> <!-- We tell ui.router that we're going to place the views that are dependent on this one - that we create by clicking on site circles or sites in the chart - here. -->
 </div>
-
-<!-- {{value.total_waste | bar}} -->	

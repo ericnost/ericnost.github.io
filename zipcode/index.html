@@ -11,38 +11,57 @@
 
   <body>
   <div id="map" style="width: 80%; height: 600px"></div>
-    <!-- d3 library -->
+    <!-- turf library -->
     <script src="https://npmcdn.com/@turf/turf@3.5.1/turf.min.js"></script>
     <!-- Leaflet library -->
     <script src="https://npmcdn.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
     <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <!-- TopoJson to convert geo data  -->
     <script src="http://d3js.org/topojson.v1.min.js"></script>
-    <!-- Search libraries  -->
-    <script src="js/libs/leaflet-search.src.js"></script>
-    <link rel="stylesheet" href="js/libs/leaflet-search.src.css" />
-    <script src='js/libs/leaflet-omnivore.min.js'></script>
-    <link rel="stylesheet" href="css/zipcodemap.css" />
+    <!-- stylesheets-->
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="js/libs/zoom.js"></script>
 
   
   <script>
   //global variables
-  var allData, marker
+  var allData, marker, label, db
   var check = false; //checks whether we've loaded layers before, in order to clear them
 
+   //load topojson data for later use
   loadData()
-  //load topojson data for later use
   function loadData (){
     $.getJSON("data/USZipCodes.topo.json", function(zipTopo) {
       allData = topojson.feature(zipTopo, zipTopo.objects.zips)
+      db = allData.features.map(function(d){return d.properties.NAME})
+      installSearch();
     })
   }
 
-  //set map
+  //set map and map events
   var map = L.map('map').setView([39.333333, -97.583333], 4);
   map.on('click', function(e){finder(e, "click")})
-
+  map.on('dragend', function(e) {
+    if (check && e.target._zoom >8){  //prevent load at low zoom level
+        var bounds = map.getBounds();
+        removeLayers("dragged") //remove any already loaded layers
+        check = true
+        reloadBounds(bounds)
+      }
+  });
+/*  //zoomend conflicts with zoom to clicked location
+  map.on('zoomend', function(e) {
+    console.log(e)
+    if (check && e.target._zoom >8){
+      removeLayers() //remove any already loaded layers
+      check = true
+      var bounds = map.getBounds();
+      reloadBounds(bounds)
+      //prevent load at low zoom level
+    }
+  });*/
     
   //basemap
   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -68,7 +87,7 @@
   };
   info.update = function(codenum) {
     this._div.innerHTML = '<h4>Zip Code</h4>' + (codenum ?
-      '<b>' + codenum.NAME  : 'Hover over zip code<br>or use search button above');
+      '<b>' + codenum.NAME  : 'Click on the map<br>or use search button above');
   };
   info.addTo(map);
 
@@ -80,33 +99,103 @@
   srch.onAdd = function(map) {
     this._div = L.DomUtil.create('div', 'srch');
     L.DomEvent.disableClickPropagation(this._div)
-     this._div.innerHTML = '<h4>Search: </h4><form><input type="text" size="15" id="zipSearch" placeholder="Enter a zip code" required></form>';
+     this._div.innerHTML = '<h4>Search: </h4><form><input type="text" size="15" id="zipSearch" placeholder="Enter a zip code" required></form><p id="noResults">';
     return this._div;
   };
   srch.addTo(map);
-  $("#zipSearch").on("keydown",function search(e) {     //jquery for search functionality
-      if(e.keyCode == 13) { //if enter. instead, could do button
-        zip = $( "#zipSearch" ).val()  
+
+//search functionality
+function installSearch(){
+    // Filter overrides the default autocomplete filter function to search only from the beginning of the string. Instead of return 023666 and 66644 when searching 666, it only returns 66644. http://blog.miroslavpopovic.com/2012/06/23/jqueryui-autocomplete-filter-words-starting-with-term/
+    $.ui.autocomplete.filter = function (array, term) {
+        var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(term), "i");
+        return $.grep(array, function (value) {
+            return matcher.test(value.label || value.value || value);
+        });
+    };
+    $( "#zipSearch" ).autocomplete({
+      minLength: 3, //user must enter three numbers before we look up anything
+      autoFocus: true,  
+      source: db,
+      select: function(e, ui) {
+        event.preventDefault()
+        if(e.keyCode == 13) {return false} // prevent users from just entering in a number
+        var zip = ui.item.value
         removeLayers()//remove any layers 
-        check=true; 
         finder(zip, "search")
-        event.preventDefault();
+      },
+      response: function(event, ui) {
+        if (ui.content.length === 0) {
+            $("#noResults").html("<h6>No results found</h6>"); //if nothing found, give a message
+        } else {
+            $("#noResults").empty(); //clear the message
+        }
+      }
+    });
+  // prevent users from just entering in a number    
+  $("#zipSearch").keypress(function(e) {
+      var code = (e.keyCode ? e.keyCode : e.which);
+      if(code == 13) { 
+          return false;
       }
   });
-
+}
 
   //remove layers
-  function removeLayers(){
+  function removeLayers(arg){
     if (check){
-        map.removeLayer(mainLayer)
+        if (arg == "notDragged"){map.removeLayer(mainLayer);map.removeLayer(marker)} //only clear main layer and marker if not panning
         map.removeLayer(nearLayer)
-        map.removeLayer(marker)
+        label.clearLayers()
     }
   }
 
-  //find and display data
+  //load new layers on pan
+  function reloadBounds(bounds){
+      //adjust the bounds by which we look for zip codes
+      bounds._northEast.lng = bounds._northEast.lng + .5
+      bounds._northEast.lat = bounds._northEast.lat + .5
+      bounds._southWest.lng = bounds._southWest.lng - .5
+      bounds._southWest.lat = bounds._southWest.lat - .5
+    
+      var filterBounds = turf.bboxPolygon([bounds.getSouthWest().lng, bounds.getSouthWest().lat, bounds.getNorthEast().lng, bounds.getNorthEast().lat]) //convert bounds back into GeoJSON format for Turf
+
+      //grab data within bounds
+      var nearbyData = allData.features.filter(function(d) {
+        if (d.geometry && d.geometry.coordinates && d.geometry.coordinates[0]){ //for some reason, need to control for null geometry
+          var centroid = turf.centroid(d) //calculate a centroid for the zip
+          return turf.inside(centroid, filterBounds)
+        }
+      })
+
+      //load all nearby layers
+      nearLayer = L.geoJson(nearbyData, {
+        style: style,
+        onEachFeature: onEachFeature
+      }).addTo(map)
+
+      //create labels for nearby layers
+      label = new L.FeatureGroup()
+
+      nearbyData.forEach(function(d){
+        var centroid = turf.centroid(d); 
+        centroid=centroid.geometry.coordinates.reverse(); 
+        var lon = centroid[1];
+        var lat = centroid[0];
+        thisLabel = L.marker([lat,lon], {
+          icon: new L.DivIcon({
+          className: 'my-div-icon',
+          html: '<span class="zipLabel">'+d.properties.NAME+'</span>'
+          })
+        })
+        label.addLayer(thisLabel)
+        label.addTo(map)
+      })
+
+  }
+
   function finder(data, type){
-     removeLayers() //remove any already loaded layers
+     removeLayers("notDragged") //remove any already loaded layers
      check = true
      
      var geo = type == "click" ? [data.latlng.lng, data.latlng.lat] : data
@@ -134,6 +223,7 @@
       //add a marker to the clicked location/county
       var mark = turf.centroid(thisData).geometry.coordinates.reverse() //can change so that on click, marker is where clicked
       marker = L.marker(mark).addTo(map)
+      marker.bindPopup('<h4>'+ thisData.properties.NAME +'</h4>');
       
       //set display area
       if (type == "click"){
@@ -142,33 +232,11 @@
         var bounds = L.latLngBounds(southWest, northEast);
         map.fitBounds(bounds)
       } else{ 
-        map.fitBounds(mainLayer.getBounds()); var bounds = map.getBounds()
+        map.fitBounds(mainLayer.getBounds()); 
+        var bounds = map.getBounds()
       };
 
-      //make our search area a bit bigger
-      bounds._northEast.lng = bounds._northEast.lng + .5
-      bounds._northEast.lat = bounds._northEast.lat + .5
-      bounds._southWest.lng = bounds._southWest.lng - .5
-      bounds._southWest.lat = bounds._southWest.lat - .5
-    
-      var filterBounds = turf.bboxPolygon([bounds.getSouthWest().lng, bounds.getSouthWest().lat, bounds.getNorthEast().lng, bounds.getNorthEast().lat])
-
-      //grab data within bounds
-      var nearbyData = allData.features.filter(function(d) {
-        if (d.geometry && d.geometry.coordinates && d.geometry.coordinates[0]){ //for some reason, need to control for null geometry
-          var centroid = turf.centroid(d)
-          return turf.inside(centroid, filterBounds)
-        }
-      })
-
-      nearLayer = L.geoJson(nearbyData, {
-        style: style,
-        onEachFeature: onEachFeature
-        //if popup wanted, replace onEachFeature: onEachFeature with
-        //      onEachFeature: function(feature, marker) {
-        //      marker.bindPopup('<h4 style="color:'+feature.properties.color+'">'+ feature.properties.name +'</h4>');
-        //    }
-      }).addTo(map)
+      reloadBounds(bounds)
   }
 
   function style(feature) {

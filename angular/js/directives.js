@@ -11,7 +11,7 @@ app.config(function($stateProvider) {
   var mainState ={
     name: 'main',
     url: '',
-   component: 'first',
+   component: 'home',
     resolve: {
       main: function(Resource) {
         return Resource.getAllPeople()
@@ -24,7 +24,7 @@ app.config(function($stateProvider) {
     detailState = {
     name: 'main.viewer',
     url: '/{siteID}',
-    component: 'second',
+    component: 'infoPanel',
       resolve: {
         site: function(main, $stateParams) {
           console.log($stateParams)
@@ -36,21 +36,17 @@ app.config(function($stateProvider) {
   },
     displayState = {
     name: 'main.viewer.display',
-    url: '/{siteID}/{detail}',
-    component: 'third',
+    url: '/{detail}',
+    component: 'display',
     resolve:{
-      deet: function(site, $stateParams){
-        console.log(site, $stateParams)
-        return site.EJ
-       //get ECHO or other data depending on view data
+      ej: function(site, $stateParams){
+        return site
       }
       }
     
   }
 
-
-
-    $stateProvider.state(mainState)
+  $stateProvider.state(mainState)
   $stateProvider.state(detailState);
   $stateProvider.state(displayState);
   // Now set up the states
@@ -168,7 +164,7 @@ app.controller('mainCtrl', function ($scope, appPromiseObj) {
   })
 
 
-app.component('first', {
+app.component('home', {
   bindings: { main: '<' , appPromiseObj2: '<' },
   templateUrl: 'views/home.html',
   controller: function () {
@@ -176,7 +172,6 @@ app.component('first', {
     this.geography = this.appPromiseObj2.data.features
     this.dummyData = this.main
     this.changeHoverSite = function (site) { 
-      console.log(site)
           this.hoverSite = site;              
         };
     this.siteClick = function (site) {
@@ -197,7 +192,7 @@ app.component('first', {
  
   }//,templateUrl: 'views/home.html'
 })
-app.component('second', {
+app.component('infoPanel', {
   templateUrl: 'views/photo.html',
      bindings: { site: '<' },      
   controller: function () {
@@ -207,11 +202,11 @@ app.component('second', {
     }
   })
 
-app.component('third', {
-  templateUrl: 'views/{detail}.html',
-     bindings: { deet: '<' },      
+app.component('display', {
+  templateUrl: 'views/demographics.html',
+     bindings: { ej: '<' },      
   controller: function () {
-  //console.log($stateParams)
+  $(".info").remove()
   console.log(this)
 
     }

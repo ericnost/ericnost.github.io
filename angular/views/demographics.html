@@ -1,23 +1,23 @@
-<div class="main container-fluid">
+<div class="main container-fluid demographics">
 	<div class="row">
 		<div class="col-md-12">
-			<h3> {{detail.importer_name}}</h3>
+			<h3>{{$ctrl.ej.importer_name}}</h3>
 		</div>
 		<div class="col-md-12">
 			<ul class="nav nav-pills nav-stacked">
-			  <li ng-repeat="value in ['Overview', 'Demographics', 'Manifests', 'Stories', 'Enforcement']" role="presentation"><a ui-sref="display({ id:detail.importer_name, show:value })">{{value}}</a></li>
+			  <li ng-repeat="value in ['Overview', 'Demographics', 'Manifests', 'Stories', 'Enforcement']" role="presentation" ng-class="{active:value=='Demographics'}"><a ui-sref="main.viewer.display({ detail:value, siteID:$ctrl.ej.importer_name })">{{value}}</a></li> 
 			</ul>
 			</div>
 		</div>
 		
-		<div class="col-md-12"><p class="detail" /> Poverty and Race
-			<div ng-repeat="(key, value) in detail.EJ" class="col-md-12">
+		<div class="col-md-12"><p class="detail" /> Socioeconomics: Poverty and Race
+			<div ng-repeat="(key, value) in $ctrl.ej.EJ" class="col-md-12">
 				<div class="col-md-6">
 					<p class="detail">{{key}}</p>
 				</div>
 				<div class="col-md-6">
 					<div class="bar100">
-							<div class='bar' ng-style='{width:{{value}}+"%"}'> {{value}}%</div>
+							<div class='bar' ng-style='{width:{{value}}+"%"}'> &nbsp</div>
 					</div>
 				</div>
 			</div>
