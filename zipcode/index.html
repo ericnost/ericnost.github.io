@@ -96,9 +96,11 @@
   var srch = L.control({
       position: 'topright',
   });
-  function prepareZip (form) {
+  function prepareZip (form, event) {
+    console.log(form,event)
   	if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
-      e.preventDefault()
+      console.log("firefox")
+      event.preventDefault()
 
     } else{
         event.preventDefault()
@@ -117,7 +119,7 @@
   srch.onAdd = function(map) {
     this._div = L.DomUtil.create('div', 'srch');
     L.DomEvent.disableClickPropagation(this._div)
-     this._div.innerHTML = '<h4>Search: </h4><form ><input name="inputbox" type="text" size="10" id="zipSearch"><button type="submit" onClick="prepareZip(this.form)">Enter</button></form><h6 id="noResults">Enter a five-digit zip code</h6>';
+     this._div.innerHTML = '<h4>Search: </h4><form ><input name="inputbox" type="text" size="10" id="zipSearch"><button type="submit" onClick="prepareZip(this.form, event)">Enter</button></form><h6 id="noResults">Enter a five-digit zip code</h6>';
     return this._div;
   };
   srch.addTo(map);
@@ -218,7 +220,8 @@ function installSearch(){
 
   function finder(data, type){
       //handle enter events
-     if (data.originalEvent && data.originalEvent.key == "Enter") {return} //let the button function handle enter events
+      console.log(data)
+     if (data.originalEvent && data.originalEvent.keyCode == "13") {return} //let the button function handle enter events
 
      removeLayers("notDragged") //remove any already loaded layers if we're not dragging
      check = true
