@@ -42,7 +42,7 @@
 
   //set map and map events
   var map = L.map('map').setView([39.333333, -97.583333], 4);
-  map.on('click', function(e){finder(e, "click")})
+  map.on('click', function(e){console.log("clicked");finder(e, "click")})
   map.on('dragend', function(e) {
     if (check && e.target._zoom >8){  //prevent load at low zoom level
         var bounds = map.getBounds();
@@ -99,30 +99,30 @@
   function prepareZip (form) {
   	if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
       e.preventDefault()
+
     } else{
-      event.preventDefault()
-    }
-  	//check if zip is valid
-    zip =form.inputbox.value;
-    console.log(db.includes(zip))
+        event.preventDefault()
+      }
+    //check if zip is valid
+    var zip =form.inputbox.value;
     var valid = zip.length == 5 ? true : false
     valid = db.includes(zip) ? true: false
     if (valid){
-    	$("#noResults").text("")
-    	finder(zip, "search")
-	} else {
-		$("#noResults").text("Please enter a valid five-digit zip code")
-	}
-}
+      $("#noResults").text("")
+      finder(zip, "search")
+    } else {
+      $("#noResults").text("Please enter a valid five-digit zip code")
+    }
+  }
   srch.onAdd = function(map) {
     this._div = L.DomUtil.create('div', 'srch');
     L.DomEvent.disableClickPropagation(this._div)
-     this._div.innerHTML = '<h4>Search: </h4><form ><input name="inputbox" type="text" size="10" id="zipSearch"><input type="submit" onClick="prepareZip(this.form)" value="Enter"></form><h6 id="noResults">Enter a five-digit zip code</h6>';
+     this._div.innerHTML = '<h4>Search: </h4><form ><input name="inputbox" type="text" size="10" id="zipSearch"><button type="submit" onClick="prepareZip(this.form)">Enter</button></form><h6 id="noResults">Enter a five-digit zip code</h6>';
     return this._div;
   };
   srch.addTo(map);
 
-//search functionality
+/*//old search functionality
 function installSearch(){
     // Filter overrides the default autocomplete filter function to search only from the beginning of the string. Instead of return 023666 and 66644 when searching 666, it only returns 66644. http://blog.miroslavpopovic.com/2012/06/23/jqueryui-autocomplete-filter-words-starting-with-term/
     $.ui.autocomplete.filter = function (array, term) {
@@ -162,7 +162,7 @@ function installSearch(){
           return false;
       }
   });
-}
+}*/
 
   //remove layers
   function removeLayers(arg){
@@ -217,9 +217,12 @@ function installSearch(){
   }
 
   function finder(data, type){
+      //handle enter events
+     if (data.originalEvent && data.originalEvent.key == "Enter") {return} //let the button function handle enter events
+
      removeLayers("notDragged") //remove any already loaded layers if we're not dragging
      check = true
-     
+
      var geo = type == "click" ? [data.latlng.lng, data.latlng.lat] : data
 
       var thisData = type == "click" ?  allData.features.filter(function(d) {
