@@ -36,7 +36,7 @@
     $.getJSON("data/USZipCodes.topo.json", function(zipTopo) {
       allData = topojson.feature(zipTopo, zipTopo.objects.zips)
       db = allData.features.map(function(d){return d.properties.NAME})
-      installSearch();
+      //installSearch();
     })
   }
 
@@ -96,10 +96,28 @@
   var srch = L.control({
       position: 'topright',
   });
+  function prepareZip (form) {
+  	if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+      e.preventDefault()
+    } else{
+      event.preventDefault()
+    }
+  	//check if zip is valid
+    zip =form.inputbox.value;
+    console.log(db.includes(zip))
+    var valid = zip.length == 5 ? true : false
+    valid = db.includes(zip) ? true: false
+    if (valid){
+    	$("#noResults").text("")
+    	finder(zip, "search")
+	} else {
+		$("#noResults").text("Please enter a valid five-digit zip code")
+	}
+}
   srch.onAdd = function(map) {
     this._div = L.DomUtil.create('div', 'srch');
     L.DomEvent.disableClickPropagation(this._div)
-     this._div.innerHTML = '<h4>Search: </h4><form><input type="text" size="15" id="zipSearch" placeholder="Enter a zip code" required></form><p id="noResults">';
+     this._div.innerHTML = '<h4>Search: </h4><form ><input name="inputbox" type="text" size="10" id="zipSearch"><input type="submit" onClick="prepareZip(this.form)" value="Enter"></form><h6 id="noResults">Enter a five-digit zip code</h6>';
     return this._div;
   };
   srch.addTo(map);
