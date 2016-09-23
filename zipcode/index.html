@@ -104,7 +104,6 @@
     //check if zip is valid
 
     var zip = document.getElementById('zipSearch').value
-    console.log(db.indexOf(zip) != -1)
     var valid = zip.length == 5 ? true : false //is it five digits?
     valid = db.indexOf(zip) != -1 ? true: false //is it in our database?
     if (valid){
@@ -125,12 +124,12 @@
     return this._div;
   };
   srch.addTo(map);
-   $("#zipSearch").keypress(function(e) {
-      console.log(e)
+  //add preventDefault handling to the input form
+  $("#zipSearch").keypress(function(e) {
       e = e || window.event
       var code = (e.keyCode ? e.keyCode : e.which);
-      if(code == 13) {
-        e.preventDefault ? e.preventDefault() : e.returnValue = false;
+      if(code == 13) { 
+        e.preventDefault ? e.preventDefault() : e.returnValue = false; //prevent the page from treating button as a fetch from server
         prepareZip()
         return false
       }
