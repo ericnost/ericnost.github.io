@@ -7,6 +7,7 @@
             <meta name="keywords" content="map"/>
             <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
             <title>Angular map</title>
+
             <!--put Bootstrap stylesheet links above style.css-->
 
       
@@ -14,51 +15,14 @@
             <link rel="stylesheet" href="css/style.css">
             <script type="text/javascript" src="lib/d3.v3.js"></script> <!-- used for cartography -->
             <script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script> <!-- could delete -->
-            <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-            <script src="//npmcdn.com/angular-ui-router/release/angular-ui-router.min.js"></script> <!-- used to route views -->
-
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+            <script src="//unpkg.com/angular-ui-router@0.3.1/release/angular-ui-router.js"></script> <!-- used to route views -->
+            <script src="js/components.js"></script><!-- 
+            <script src="js/filters.js"></script> -->
     </head>
-<script src="js/components.js"></script>
-<script src="js/filters.js"></script>
+
 <body ng-app="myApp">
-<nav class="navbar navbar-default navbar-fixed-top main-navbar"> <!--creates navbar-->
 
-    <div class="navbar-header"> <!--creates the navbar header-->
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span><!--used for screen readers for accessibility-->
-                    <span class="glyphicon glyphicon-menu-hamburger"></span>
-                    <span class="menu">Menu</span>
-            </button> <!--hamburger button for smaller devices-->
-            <a class="navbar-brand" href="index.html">HazMatMapping</a><!--our website brand name-->
-    </div>
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="nav1">
-      <form class="navbar-form navbar-right" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Enter Keyword">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="AboutUs.html">About Us</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="http://geography.wisc.edu/hazardouswaste/map" target="blank">HazMatMapper</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Content<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="Visual Form">Stories</a></li>
-            <li><a href="Story Content">Visuals</a></li>
-          </ul>
-        </li>
-
-      </ul>
-    </div><!-- /.navbar-collapse -->
-
-        </nav><!--end navigation bar-->
 
 <div class="container-fluid content">
     <div class="row" > <!-- main content -->
