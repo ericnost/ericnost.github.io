@@ -93,29 +93,28 @@
 
 
   // search control
-  var srch = L.control({
-      position: 'topright',
-  });
   function prepareZip (form, event) {
-    console.log(form,event)
-  	if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
-      console.log("firefox")
-      event.preventDefault()
+/*    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1){ 
+      event.preventDefault() //more recent versions of firefox handle event.preventDefault(), older versions maybe not
 
     } else{
         event.preventDefault()
-      }
+      }*/
+    event.preventDefault ? event.preventDefault() : (even.returnValue = false)  
     //check if zip is valid
-    var zip =form.inputbox.value;
-    var valid = zip.length == 5 ? true : false
-    valid = db.includes(zip) ? true: false
+    var zip = form.inputbox.value;
+    var valid = zip.length == 5 ? true : false //is it five digits?
+    valid = db.includes(zip) ? true: false //is it in our database?
     if (valid){
       $("#noResults").text("")
       finder(zip, "search")
     } else {
-      $("#noResults").text("Please enter a valid five-digit zip code")
+      $("#noResults").text("Please enter a valid five-digit zip code") 
     }
   }
+  var srch = L.control({
+      position: 'topright',
+  });
   srch.onAdd = function(map) {
     this._div = L.DomUtil.create('div', 'srch');
     L.DomEvent.disableClickPropagation(this._div)
