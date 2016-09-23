@@ -127,6 +127,7 @@
   srch.addTo(map);
    $("#zipSearch").keypress(function(e) {
       console.log(e)
+      e = e || window.event
       var code = (e.keyCode ? e.keyCode : e.which);
       if(code == 13) {
         e.preventDefault ? e.preventDefault() : e.returnValue = false;
