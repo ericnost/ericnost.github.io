@@ -1,23 +1,22 @@
 var app = angular.module('myApp', ['ui.router']); //makes a call to the Angular API to create our app, configured with the ui.router plug-in
 
-//configure our view router
 app.config(function($stateProvider) { 
 
   //create our different views as objects
-  var mainState = {
+  var mainState ={
     name: 'main', //name of the object
     url: '', //url to point to, or that causes this view to be triggered
     component: 'home', //component that works with the data, loads the template
     resolve: { //data to bind to our component
-      main: function(Resource) {
-        console.log("hi")
+      xxx: function(Resource) {
+        //console.log(Resource.getAllData())
         return Resource.getAllData() //make an async call to get our site data from data.json
       },
       geoData: function(Resource) { 
         return Resource.getGeoData() //loads base map geo data
       }
     }
-  }/*,
+  },
     detailState = {
     name: 'main.viewer', //create the right hand info panel as an object/child of the main view
     url: '/{siteID}', //point to this url when this view is triggered
@@ -39,26 +38,24 @@ app.config(function($stateProvider) {
         return site
         }
       }
-  }*/
+  }
   //call the states
-  $stateProvider.state(mainState); /*
+  $stateProvider.state(mainState); 
   $stateProvider.state(detailState);
-  $stateProvider.state(displayState);*/
+  $stateProvider.state(displayState);
 })
 
 //factories make our http requests for us (including local ones) to handle data promises
 app.factory('Resource', function ($http) {
   var service = {
     getAllData: function() {
-      console.log("hello")
       return $http.get('data/data.json', { cache: true }).then(function(resp) {
-        console.log(resp)
+        console.log(resp.data)
         return resp.data;
       });
     },
     getGeoData: function() {
       return $http.get('data/nam.json', { cache: true }).then(function(resp) {
-        console.log(resp)
         return resp.data;
       });
     },   
@@ -87,11 +84,11 @@ app.factory('Resource', function ($http) {
 })*/
 
 app.component('home', {
-  bindings: { main: '<' , geoData: '<' }, //make the data we loaded into the view from the factory available to this component
-  template: '<p> Hello', //this is the html that we will plug our data into
+  bindings: { xxx: '<' , geoData: '<' }, //make the data we loaded into the view from the factory available to this component
+  templateUrl: 'views/home.html', //this is the html that we will plug our data into
   controller: function () {
     console.log(this)
-/*
+
     this.geography = this.geoData.features
     this.data = this.main
 
@@ -140,7 +137,6 @@ app.component('home', {
       d.mapCircle = flanneryScale(calcFlanneryRadius(d.total_waste))
 
       //width for bar chart
-            
       var input = Math.floor((d.total_waste/sum)*100) 
       input = input.toString()
       d.barChartWidth = input + "%"
@@ -166,9 +162,10 @@ app.component('home', {
       selection.css('fill', color)
 
       window.location = "#/"+site
-     }*/
+     }
   }
-})/*
+})
+
 app.component('infoPanel', {
   templateUrl: 'views/site.html',
   bindings: { site: '<' },      
@@ -182,4 +179,4 @@ app.component('display', {
   controller: function () {
     $(".info").remove() //remove the info panel's previous view and load the demographics view
   }
-})*/
+})
