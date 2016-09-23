@@ -100,9 +100,11 @@
     } else{
         event.preventDefault()
       }*/
-    event.preventDefault ? event.preventDefault() : event.returnValue = false;
+    //event.preventDefault ? event.preventDefault() : event.returnValue = false;
     //check if zip is valid
-    var zip = form.inputbox.value;
+
+    var zip = document.getElementById('zipSearch').value
+    console.log(zip)
     var valid = zip.length == 5 ? true : false //is it five digits?
     valid = db.includes(zip) ? true: false //is it in our database?
     if (valid){
@@ -112,16 +114,25 @@
       $("#noResults").text("Please enter a valid five-digit zip code") 
     }
   }
+
   var srch = L.control({
       position: 'topright',
   });
   srch.onAdd = function(map) {
     this._div = L.DomUtil.create('div', 'srch');
     L.DomEvent.disableClickPropagation(this._div)
-     this._div.innerHTML = '<h4>Search: </h4><form ><input name="inputbox" type="text" size="10" id="zipSearch"><button type="submit" onClick="prepareZip(this.form, event)">Enter</button></form><h6 id="noResults">Enter a five-digit zip code</h6>';
+     this._div.innerHTML = '<h4>Search: </h4><form><input name="inputbox" type="text" size="10" id="zipSearch"><input type="button" value="Enter" onClick="prepareZip()"></form><h6 id="noResults">Enter a five-digit zip code</h6>';
     return this._div;
   };
   srch.addTo(map);
+   $("#zipSearch").keypress(function(e) {
+      console.log(e)
+      var code = (e.keyCode ? e.keyCode : e.which);
+      if(code == 13) {
+        prepareZip() 
+        return false;
+      }
+  });
 
 /*//old search functionality
 function installSearch(){
@@ -219,7 +230,7 @@ function installSearch(){
 
   function finder(data, type){
       //handle enter events
-      console.log(data)
+      //console.log(data)
      if (data.originalEvent && data.originalEvent.keyCode == "13") {return} //let the button function handle enter events
 
      removeLayers("notDragged") //remove any already loaded layers if we're not dragging
