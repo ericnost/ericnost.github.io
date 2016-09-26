@@ -29,29 +29,21 @@
   <script>
   NProgress.start();
   //global variables
-  var allData, marker, label, db
+  var allData, marker, label, db, db2
   var check = false; //checks whether we've loaded layers before, in order to clear them
 
    //load topojson data for later use
   loadData()
   function loadData (){
-  	
+  	 $.ajaxSetup({ cache: true })
     $.getJSON("data/USZipCodes.topo.json", function(zipTopo) {
     //	console.log(zipTopo)
       allData = topojson.feature(zipTopo, zipTopo.objects.zips)
      // console.log(allData)
-      db = allData.features.map(function(d){return d.properties.NAME})
+      //db = allData.features.map(function(d){return d.properties.NAME})
       setMap()
     })
-     /*$.getJSON("data/zips.json", function(zipDB) {
-    	zipDB.map(function(d){
-    		if (db[d.State] != undefined){db[d.State].push(d.Zipcode)}
-    			else db[d.State] = [d.Zipcode]
-    	})
-    	console.log(db)
-    	setMap()
-      //db = allData.features.map(function(d){return d.properties.NAME})
-    })*/
+     
   }
 function prepareZip (form, event) {
 /*    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1){ 
@@ -134,11 +126,41 @@ function setMap(){
   srch.onAdd = function(map) {
     this._div = L.DomUtil.create('div', 'srch');
     L.DomEvent.disableClickPropagation(this._div)
-     this._div.innerHTML = '<h4>Search: </h4><form><input name="inputbox" type="text" size="10" id="zipSearch"><input type="button" value="Enter" onClick="prepareZip()"></form><h6 id="noResults">Enter a five-digit zip code</h6>';
+     this._div.innerHTML = '<h4>Search: </h4><div id="myDiv"></div>';
     return this._div;
   };
   srch.addTo(map);
-  //add preventDefault handling to the input form
+
+
+/*<input name="inputbox" type="text" size="10" id="zipSearch"><input type="button" value="Enter" onClick="prepareZip()">
+<h6 id="noResults">Enter a five-digit zip code</h6>*/
+
+  var myDiv = document.getElementById("myDiv");
+
+//Create array of options to be added
+/*var array = Object.keys(db2)
+array.splice(0,0,"---")*/
+var array = ["IA", "WI"]
+array.splice(0,0,"---")
+//Create and append select list
+var selectList = document.createElement("select");
+selectList.id = "mySelect";
+myDiv.appendChild(selectList);
+selectList.onchange = function(){
+    $("#searcher").remove()
+    var selectedString = selectList.options[selectList.selectedIndex].value;
+    //load states?
+    $.getJSON("data/zips.json", function(zipDB) {
+      zipDB=zipDB.filter(function(d){return d.State == selectedString})
+      console.log(zipDB)
+      db = zipDB.map(function(d){
+        return d.Zipcode
+      })
+     
+    })
+    //append search box
+    myDiv.insertAdjacentHTML('beforeend', '<form id="searcher"><input name="inputbox" type="text" size="10" id="zipSearch"><input type="button" value="Enter" onClick="prepareZip()"><h6 id="noResults">Enter a five-digit zip code</h6></form>')
+      //add preventDefault handling to the input form
   $("#zipSearch").keypress(function(e) {
       e = e || window.event
       var code = (e.keyCode ? e.keyCode : e.which);
@@ -148,6 +170,19 @@ function setMap(){
         return false
       }
   });
+}
+
+
+//Create and append the options
+for (var i = 0; i < array.length; i++) {
+    var option = document.createElement("option");
+    option.value = array[i];
+    option.text = array[i];
+    selectList.appendChild(option);
+}
+
+
+
 	// search control
   
 /*//old search functionality
