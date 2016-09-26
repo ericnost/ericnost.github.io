@@ -10,16 +10,9 @@
       <title>HazMatMapper</title>
 
       <!--put Bootstrap stylesheet links above style.css-->
-      <link rel="stylesheet" href="css/bootstrap.min.css">
-      <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-      <link rel="stylesheet" href="css/style.css">
       <script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
-      <script type="text/javascript" src="lib/bootstrap.min.js"></script>
       <script type="text/javascript" src="lib/d3.js" charset="utf-8"></script>
-      <script type="text/javascript" src="lib/queue.js"></script>
-      <script type="text/javascript" src="lib/topojson.v1.min.js"></script>
-      <script type="text/javascript" src="lib/tip.js"></script>
-
+     
 
   </head>
   
@@ -32,6 +25,7 @@
   
 
 <script>
+
 console.log('hi')
 setData()
 function setData(){
@@ -286,10 +280,10 @@ d3.csv("data/data.csv", function(data) {
          importers[d]["methods"] = methByFacility[d]
           importers[d]["company"] = company[d]
           importers[d]["total_shipments"] = globalManifests[d]
-          importers[d]["shipments"] = mansbyDestination[d]
+         // importers[d]["shipments"] = mansbyDestination[d]
          // importers[d]["meth"] = d3.values(meth)
          // importers[d]["typeOverall"] = d3.values(typeOverall)
-          importers[d]["companies"] = d3.values(companies)
+          //importers[d]["companies"] = d3.values(companies)
           importers[d]["units"] = phaseformat[viewToggle]
           details.forEach(function(e){
             importers[d][e] = facilityDetails[d][0][e]
@@ -297,14 +291,95 @@ d3.csv("data/data.csv", function(data) {
           var obj = addMap[importers[d]["importer_address"]] ? Object.assign(addMap[importers[d]["importer_address"]],zipMap[importers[d]["receivingFacilityZipCode"]]) : "No data"
           importers[d]["EJ"]=obj
         })
-        
-      var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(importers));
+        importers = d3.values(importers)
+        importers.sort(function(a,b){return b[unit]-a[unit]})
+        importers.forEach(function(d,i){
+            d.rank = (i+1)+"/"+importers.length
+        })
+        //x = JSON.stringify(importers)
+       // print(x)
 
-    $('<a href="data:' + data + '" download="data.json">download JSON</a>').appendTo('.container-fluid');
+        //exporters object constructor
+        var exporterSum = d3.nest()
+        .key(function(d) {return d.exporter_key;})
+        .rollup(function(leaves) { return {"total_waste": d3.sum(leaves, function(d) {return d.totalQuantityinShipment;})} }) // sum by state code
+        .map(data);
+
+        var typeByExporter = d3.nest()
+        .key(function(d) { return d.exporter_key; })
+        .key(function(d) { return d.hazWasteDesc; })
+        .rollup(function(leaves) { return d3.sum(leaves, function(d) {return d.totalQuantityinShipment;}) }) // 
+        .map(data);
+
+        var quantByDesination =d3.nest() //calculate for each exporter, how much each desination gets
+        .key(function(d) { return d.exporter_key })
+        .key(function(d) { return d.ReceivingFacilityEPAIDNumber; }) // EPA ID number
+        .rollup(function(leaves) { return {"name": leaves[0].ReceivingFacilityEPAIDNumber, "latitude": leaves[0].latitude, "longitude": leaves[0].longitude, "total_waste": d3.sum(leaves, function(d) {return d.totalQuantityinShipment;})} }) // 
+        .map(data);
+
+        var exportByYear =d3.nest() //calculate for each exporter, how much they get per year
+        .key(function(d) { return d.exporter_key; }) // EPA ID number
+        .key(function(d) { return d.Year})
+        .rollup(function(leaves) { return d3.sum(leaves, function(d) {return d.totalQuantityinShipment;}) }) // 
+        .map(data);
+
+        var exporterManifests = d3.nest()
+        .key(function(d) {return d.exporter_key;})
+        .key(function(d) {return d.rcra})
+        //.rollup(function(leaves) { return {"manifest_count": leaves.length}}) // sum by state code
+        .map(data);
+
+        var s = d3.keys(exporterManifests), t=[]
+        for (o=0; o<s.length; o++) {t[s[o]]=d3.values(exporterManifests[s[o]]).length}
+        globalExManifests = t
+
+        var mansbyExporter= d3.nest()
+        .key(function(d) {return d.exporter_key;})
+        .key(function(d) {return d.ReceivingFacilityEPAIDNumber})
+        .key(function(d) {return d.rcra})
+        .map(data);
+
+        var facilityDetailz = d3.nest()
+        .key(function(d) { return d.exporter_key; }) // EPA ID number
+        //.rollup(function(leaves) { return {"total_waste": d3.count(leaves, function(d) {return d.totalQuantityinShipment;})} }) // sum by receiving facility code
+        .map(data); //.entries(data)
+
+        var detailz = ["exporterLAT","exporterLONG","exporter_address","exporter_city","exporter_country","exporter_name", "exporter_key"]
+
+        var keyz = d3.keys(exporterSum)
+        var exporters = exporterSum
+        keyz.forEach(function(d){
+          exporters[d]["types"] = typeByExporter[d]
+          exporters[d]["importers"] = quantByDesination[d]
+          exporters[d]["years"] = exportByYear[d]
+          exporters[d]["total_shipments"] = globalExManifests[d]
+          exporters[d]["shipments"] = mansbyExporter[d]
+          exporters[d]["units"] = phaseformat[viewToggle]
+          detailz.forEach(function(e){
+           exporters[d][e] = facilityDetailz[d][0][e]
+          })
+        })
+
+        exporters = d3.values(exporters) //no longer need to be able to easily pop to importers
+        exporters.sort(function(a,b){return b.total_waste-a.total_waste})
+        exporters.forEach(function(d,i){
+            d.rank = (i+1)+"/"+exporters.length
+        })
+        y = JSON.stringify(exporters)
+        //$(".container-fluid").text(y)
+        console.log(exporters)
+        //print(y)
 
 
 })
 })
+
+}
+function print(thing){
+  //console.log(thing)
+  var data = "text/json;charset=utf-8," + encodeURIComponent(thing);
+
+$('<a href="data:' + data + '" download="exporters.json">download JSONaaaa</a>').appendTo('.container-fluid');
 }
   </script>
   </body>

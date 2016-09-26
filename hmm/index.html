@@ -520,8 +520,8 @@ var filterView = ["Sites", "States"]
 	  .on('mouseout', function(d){d3.selectAll("#infotip").remove()})
     labelEnter.append("br")
 
-  //these only run first time
-  //setMap();
+  
+  setMap(); //only run first time
   setData(phase); 
 }
 
@@ -800,10 +800,6 @@ d3.csv("data/data.csv", function(data) {
           importers[d]["EJ"]=obj
         })
 
-
-        var json = JSON.stringify(importers)
-    	$(".map").html(json) 
-
         importers = d3.values(importers) //no longer need to be able to easily pop to importers
         importers.sort(function(a,b){return b[unit]-a[unit]})
         importers.forEach(function(d,i){
@@ -816,10 +812,6 @@ d3.csv("data/data.csv", function(data) {
         .rollup(function(leaves) { return d3.sum(leaves, function(d) {return d.totalQuantityinShipment;}) }) // 
         .entries(data);
 
-        var json = JSON.stringify(importers)
-    	$(".map").text(json)    	
-
-        
         //exporters object constructor
         var exporterSum = d3.nest()
         .key(function(d) {return d.exporter_key;})
@@ -902,7 +894,7 @@ d3.csv("data/data.csv", function(data) {
 
         
 
-        //if (view == "States") {choropleth(importByState)} else{setImporters(importers);setExporters(exporters);mapDisplay(); icicle(importers)}
+        if (view == "States") {choropleth(importByState)} else{setImporters(importers);setExporters(exporters);mapDisplay(); icicle(importers)}
 
         
       })//end demo data

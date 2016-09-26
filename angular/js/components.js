@@ -10,8 +10,10 @@ app.config(function($stateProvider) {
     component: 'home', //component that works with the data, loads the template
     resolve: { //data to bind to our component
       data: function(Resource) {
-        console.log(Resource.getAllData())
-        return Resource.getAllData() //make an async call to get our site data from data.json
+        return Resource.getImporters() //make an async call to get our site data from data.json
+      },
+      exporters: function(Resource) {
+        return Resource.getExporters() //make an async call to get our site data from data.json
       },
       geoData: function(Resource) { 
         return Resource.getGeoData() //loads base map geo data
@@ -49,15 +51,18 @@ app.config(function($stateProvider) {
 //factories make our http requests for us (including local ones) to handle data promises
 app.factory('Resource', function ($http) {
   var service = {
-    getAllData: function() {
-      return $http.get('data/data.json', { cache: true }).then(function(resp) {
-        console.log(resp.data)
+    getImporters: function() {
+      return $http.get('data/importers.json', { cache: true }).then(function(resp) {
+        return resp.data;
+      });
+    },
+    getExporters: function() {
+      return $http.get('data/exporters.json', { cache: true }).then(function(resp) {
         return resp.data;
       });
     },
     getGeoData: function() {
       return $http.get('data/nam.json', { cache: true }).then(function(resp) {
-        console.log(resp)
         return resp.data;
       });
     },   
@@ -65,7 +70,7 @@ app.factory('Resource', function ($http) {
       function siteMatchesParam(site) {
         return site.importer_name === id;
       }
-      return service.getAllData().then(function (main) {
+      return service.getImporters().then(function (main) {
         return data.find(siteMatchesParam)
       });
     }
@@ -86,7 +91,7 @@ app.factory('Resource', function ($http) {
 })*/
 
 app.component('home', {
-  bindings: { data: '<' , geoData: '<' }, //make the data we loaded into the view from the factory available to this component
+  bindings: { data: '<' , exporters: '<', geoData: '<' }, //make the data we loaded into the view from the factory available to this component
   templateUrl: 'views/home.html', //this is the html that we will plug our data into
   controller: function () {
     console.log(this)
@@ -142,6 +147,20 @@ app.component('home', {
       var input = Math.floor((d.total_waste/sum)*100) 
       input = input.toString()
       d.barChartWidth = input + "%"
+    })
+
+    //calculations for exporters
+    this.exporters.forEach(function(d){
+      d.color = "#969696"
+
+      //positions
+      d.x = proj([d.exporterLONG, d.exporterLAT])[0]
+      d.y = proj([d.exporterLONG, d.exporterLAT])[1]
+
+      //radii
+      d.chartCircle = flanneryScale(calcFlanneryRadius(d.total_waste))/4 //will need to change flan scale for exporters
+      d.mapCircle = flanneryScale(calcFlanneryRadius(d.total_waste))
+
     })
 
 

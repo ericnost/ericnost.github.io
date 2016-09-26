@@ -25,7 +25,17 @@
 	<g id="outlines">
 		<path class="state" ng-repeat="value in $ctrl.geography" ng-attr-d="{{value.calculatedPath}}"></path>
 	</g>
-	<g id="points">
+	<g id="exporters">
+		<circle ng-repeat="value in $ctrl.exporters" class="site" 
+				ng-attr-fill ="{{value.color}}"
+				ng-class = "[value.exporter_name]"
+	            ng-attr-cx= "{{value.x}}"
+	            ng-attr-cy= "{{value.y}}"
+	            ng-attr-r= "{{value.mapCircle}}" 
+	            >
+	    </circle>
+    </g>
+	<g id="importers">
 		<circle ng-repeat="value in $ctrl.data | filter:{'importer_name': siteSearch}" class="site" 
 				fill="white"
 				ng-class = "[value.importer_name, 'mapCircles', {active:$ctrl.hoverSite==value.importer_name, selected:$ctrl.selectedSite==value.importer_name}]")
@@ -38,6 +48,7 @@
 	            >
 	    </circle>
     </g>
+
 </svg>
 </div>
 <div class="col-md-2"> 
