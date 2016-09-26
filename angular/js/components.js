@@ -23,8 +23,8 @@ app.config(function($stateProvider) {
     url: '/{siteID}', //point to this url when this view is triggered
     component: 'infoPanel',
       resolve: {
-        site: function(main, $stateParams) {
-          return main.find(function(site) { 
+        site: function(data, $stateParams) {
+          return data.find(function(site) { 
             return site.importer_name === $stateParams.siteID; //pull only the site data for the site clicked on
           });
         }
@@ -66,7 +66,7 @@ app.factory('Resource', function ($http) {
         return site.importer_name === id;
       }
       return service.getAllData().then(function (main) {
-        return main.find(siteMatchesParam)
+        return data.find(siteMatchesParam)
       });
     }
   }

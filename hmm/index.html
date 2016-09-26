@@ -521,7 +521,7 @@ var filterView = ["Sites", "States"]
     labelEnter.append("br")
 
   //these only run first time
-  setMap();
+  //setMap();
   setData(phase); 
 }
 
@@ -800,8 +800,10 @@ d3.csv("data/data.csv", function(data) {
           importers[d]["EJ"]=obj
         })
 
-        
-        
+
+        var json = JSON.stringify(importers)
+    	$(".map").html(json) 
+
         importers = d3.values(importers) //no longer need to be able to easily pop to importers
         importers.sort(function(a,b){return b[unit]-a[unit]})
         importers.forEach(function(d,i){
@@ -813,6 +815,9 @@ d3.csv("data/data.csv", function(data) {
         .key(function(d) { return d.importer_state; }) // EPA ID number
         .rollup(function(leaves) { return d3.sum(leaves, function(d) {return d.totalQuantityinShipment;}) }) // 
         .entries(data);
+
+        var json = JSON.stringify(importers)
+    	$(".map").text(json)    	
 
         
         //exporters object constructor
@@ -897,7 +902,7 @@ d3.csv("data/data.csv", function(data) {
 
         
 
-        if (view == "States") {choropleth(importByState)} else{setImporters(importers);setExporters(exporters);mapDisplay(); icicle(importers)}
+        //if (view == "States") {choropleth(importByState)} else{setImporters(importers);setExporters(exporters);mapDisplay(); icicle(importers)}
 
         
       })//end demo data
