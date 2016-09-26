@@ -37,14 +37,20 @@ h6 {
 }
 
 /*css for zoom-dependent zip code label*/
+.zipLabel{
+  font-weight: bold;
+}
 .z1 .zipLabel, .z2 .zipLabel, .z3 .zipLabel, .z4 .zipLabel, .z5 .zipLabel, .z6 .zipLabel{
 	display: none;
 }
 .z7 .zipLabel, .z8 .zipLabel, .z9 .zipLabel, .z10 .zipLabel{
-	font-size: 8px;
+	font-size: 10px;
 }
 .z11 .zipLabel, .z12 .zipLabel{
-	font-size: 12px;
+	font-size: 14px;
+}
+.z13 .zipLabel, .z14 .zipLabel, .z15 .zipLabel, .z16 .zipLabel{
+  font-size: 20px;
 }
 
 

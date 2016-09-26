@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -34,11 +33,43 @@
   loadData()
   function loadData (){
     $.getJSON("data/USZipCodes.topo.json", function(zipTopo) {
+    //	console.log(zipTopo)
       allData = topojson.feature(zipTopo, zipTopo.objects.zips)
+     // console.log(allData)
       db = allData.features.map(function(d){return d.properties.NAME})
-      //installSearch();
+      setMap()
     })
+     /*$.getJSON("data/zips.json", function(zipDB) {
+    	zipDB.map(function(d){
+    		if (db[d.State] != undefined){db[d.State].push(d.Zipcode)}
+    			else db[d.State] = [d.Zipcode]
+    	})
+    	console.log(db)
+    	setMap()
+      //db = allData.features.map(function(d){return d.properties.NAME})
+    })*/
   }
+function prepareZip (form, event) {
+/*    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1){ 
+      event.preventDefault() //more recent versions of firefox handle event.preventDefault(), older versions maybe not
+
+    } else{
+        event.preventDefault()
+      }*/
+    //event.preventDefault ? event.preventDefault() : event.returnValue = false;
+    //check if zip is valid
+    console.log(db)
+    var zip = document.getElementById('zipSearch').value
+    var valid = zip.length == 5 ? true : false //is it five digits?
+    valid = db.indexOf(zip) != -1 ? true: false //is it in our database?
+    if (valid){
+      $("#noResults").text("")
+      finder(zip, "search")
+    } else {
+      $("#noResults").text("Please enter a valid five-digit zip code") 
+    }
+  } 
+function setMap(){
 
   //set map and map events
   var map = L.map('map').setView([39.333333, -97.583333], 4);
@@ -66,7 +97,7 @@
   //basemap
   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     minZoom: 4,
-    maxZoom: 12,
+    maxZoom: 16,
     attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> ' + ' Contributors | &copy;' + '<a href="http://www.mappingspecialists.com/">  Mapping Specialists, Ltd.</a>' 
   }).addTo(map);
 
@@ -92,27 +123,6 @@
   info.addTo(map);
 
 
-  // search control
-  function prepareZip (form, event) {
-/*    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1){ 
-      event.preventDefault() //more recent versions of firefox handle event.preventDefault(), older versions maybe not
-
-    } else{
-        event.preventDefault()
-      }*/
-    //event.preventDefault ? event.preventDefault() : event.returnValue = false;
-    //check if zip is valid
-
-    var zip = document.getElementById('zipSearch').value
-    var valid = zip.length == 5 ? true : false //is it five digits?
-    valid = db.indexOf(zip) != -1 ? true: false //is it in our database?
-    if (valid){
-      $("#noResults").text("")
-      finder(zip, "search")
-    } else {
-      $("#noResults").text("Please enter a valid five-digit zip code") 
-    }
-  }
 
   var srch = L.control({
       position: 'topright',
@@ -134,7 +144,8 @@
         return false
       }
   });
-
+	// search control
+  
 /*//old search functionality
 function installSearch(){
     // Filter overrides the default autocomplete filter function to search only from the beginning of the string. Instead of return 023666 and 66644 when searching 666, it only returns 66644. http://blog.miroslavpopovic.com/2012/06/23/jqueryui-autocomplete-filter-words-starting-with-term/
@@ -229,31 +240,37 @@ function installSearch(){
 
   }
 
-  function finder(data, type){
+  finder = function (data, type){
       //handle enter events
       //console.log(data)
-     if (data.originalEvent && data.originalEvent.keyCode == "13") {return} //let the button function handle enter events
+     if (data.originalEvent && data.originalEvent.keyCode == "13") {return false} //this cancels the call to "OnClick" made by the map when user presses enter in search form. let the button function handle enter events
 
-     removeLayers("notDragged") //remove any already loaded layers if we're not dragging
-     check = true
+     
 
      var geo = type == "click" ? [data.latlng.lng, data.latlng.lat] : data
 
-      var thisData = type == "click" ?  allData.features.filter(function(d) {
-          if (d.geometry && d.geometry.coordinates && d.geometry.coordinates[0]){ //for some reason, need to control for null geometry
-            return turf.inside(geo, d)
-          }
-      })[0] : allData.features.filter(function(d) {return d.properties.NAME === geo; })[0];
 
-      mainLayer = L.geoJson(thisData, {
-        style: { 
-          color: '#000',
-          weight: 1.5,
-          opacity: 1,
-          fillColor: 'red'
-        },
-        onEachFeature: onEachFeature
-      }).addTo(map)
+     var thisData = type == "click" ?  allData.features.filter(function(d) {
+      if (d.geometry && d.geometry.coordinates && d.geometry.coordinates[0]){ //for some reason, need to control for null geometry
+        return turf.inside(geo, d)
+      }
+     })[0] : allData.features.filter(function(d) {return d.properties.NAME === geo; })[0];
+
+     //did we click somewhere where there isn't a zip code? If so, don't remove layers and end
+     if (thisData == undefined){return false}
+	  
+	  removeLayers("notDragged") //remove any already loaded layers if we're not dragging
+      check = true
+
+	  mainLayer = L.geoJson(thisData, {
+	    style: { 
+	      color: '#000',
+	      weight: 1.5,
+	      opacity: 1,
+	      fillColor: 'red'
+	    },
+	    onEachFeature: onEachFeature
+	  }).addTo(map)
 
       //add a marker to the clicked location
       var mark = turf.centroid(thisData).geometry.coordinates.reverse() //can change so that on click, marker is where clicked
@@ -320,6 +337,7 @@ function installSearch(){
     });
 
   }
+}
   </script>
 
 </body>
