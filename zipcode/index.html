@@ -15,8 +15,7 @@
   <!-- Leaflet library -->
   <script src="https://npmcdn.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
   <!-- jQuery libraries -->
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
   <!-- TopoJson to convert geo data  -->
   <script src="http://d3js.org/topojson.v1.min.js"></script>
   <!-- stylesheets-->
@@ -36,33 +35,16 @@
   loadData()
   function loadData (){
   	
-    $.getJSON("data/USZipCodes.topo.json", function(zipTopo) {
+    $.getJSON("data/USZips.json", function(zipTopo) {
     //	console.log(zipTopo)
       allData = topojson.feature(zipTopo, zipTopo.objects.zips)
      // console.log(allData)
       db = allData.features.map(function(d){return d.properties.NAME})
       setMap()
     })
-     /*$.getJSON("data/zips.json", function(zipDB) {
-    	zipDB.map(function(d){
-    		if (db[d.State] != undefined){db[d.State].push(d.Zipcode)}
-    			else db[d.State] = [d.Zipcode]
-    	})
-    	console.log(db)
-    	setMap()
-      //db = allData.features.map(function(d){return d.properties.NAME})
-    })*/
   }
 function prepareZip (form, event) {
-/*    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1){ 
-      event.preventDefault() //more recent versions of firefox handle event.preventDefault(), older versions maybe not
-
-    } else{
-        event.preventDefault()
-      }*/
-    //event.preventDefault ? event.preventDefault() : event.returnValue = false;
     //check if zip is valid
-    console.log(db)
     var zip = document.getElementById('zipSearch').value
     var valid = zip.length == 5 ? true : false //is it five digits?
     valid = db.indexOf(zip) != -1 ? true: false //is it in our database?
