@@ -35,7 +35,7 @@
   loadData()
   function loadData (){
   	
-    $.getJSON("data/USZips.json", function(zipTopo) {
+    $.getJSON("data/USzips.json", function(zipTopo) {
     //	console.log(zipTopo)
       allData = topojson.feature(zipTopo, zipTopo.objects.zips)
      // console.log(allData)
