@@ -10,6 +10,8 @@
 
   <body>
   <div id="map" style="width: 80%; height: 600px"></div>
+  <p>
+  <div id="searchBar" style="width: 25%;""></div>
   <!-- turf library -->
   <script src="https://npmcdn.com/@turf/turf@3.5.1/turf.min.js"></script>
   <!-- Leaflet library -->
@@ -26,7 +28,8 @@
 
   
   <script>
-  NProgress.start();
+  NProgress.start();//start the loading 'spinner'
+
   //global variables
   var allData, marker, label, db
   var check = false; //checks whether we've loaded layers before, in order to clear them
@@ -34,22 +37,15 @@
    //load topojson data for later use
   loadData()
   function loadData (){
-  	 $.getJSON("data/zips.json", function(zipDB) {
+  	$.getJSON("data/zips.json", function(zipDB) {
     	db = zipDB.map(function(d){
     		return d.Zipcode
     	})
-    	console.log(db)
     	setMap()
     	NProgress.done();
-      //db = allData.features.map(function(d){return d.properties.NAME})
     })
     $.getJSON("data/USzips.json", function(zipTopo) {
-    //	console.log(zipTopo)
-
       allData = topojson.feature(zipTopo, zipTopo.objects.zips)
-     // console.log(allData)
-      //db = allData.features.map(function(d){return d.properties.NAME})
-      //setMap()
     })
 
   }
@@ -71,30 +67,19 @@ function setMap(){
   var map = L.map('map').setView([39.333333, -97.583333], 4);
   map.on('click', function(e){console.log("clicked");finder(e, "click")})
   map.on('dragend', function(e) {
-    if (check && e.target._zoom >8){  //prevent load at low zoom level
+    if (check && e.target._zoom >8){  //prevent reload at low zoom level when nearby layers are already loaded
         var bounds = map.getBounds();
         removeLayers("dragged") //remove any already loaded layers
         check = true
         reloadBounds(bounds)
       }
   });
-/*  //zoomend conflicts with zoom to clicked location
-  map.on('zoomend', function(e) {
-    console.log(e)
-    if (check && e.target._zoom >8){
-      removeLayers() //remove any already loaded layers
-      check = true
-      var bounds = map.getBounds();
-      reloadBounds(bounds)
-      //prevent load at low zoom level
-    }
-  });*/
     
   //basemap
-  L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
     minZoom: 4,
     maxZoom: 16,
-    attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> ' + ' Contributors | &copy;' + '<a href="http://www.mappingspecialists.com/">  Mapping Specialists, Ltd.</a>' 
+     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a> ' + ' | &copy;' + '<a href="http://www.mappingspecialists.com/">  Mapping Specialists, Ltd.</a>' 
   }).addTo(map);
 
   //scale bar
@@ -114,22 +99,14 @@ function setMap(){
   };
   info.update = function(codenum) {
     this._div.innerHTML = '<h4>Zip Code</h4>' + (codenum ?
-      '<b>' + codenum.NAME  : 'Click on the map<br>or use search button above');
+      '<b>' + codenum.NAME  : 'Click on the map<br>or use search bar below');
   };
   info.addTo(map);
 
 
+  // search control
+  $("#searchBar").html('<h4>Search: </h4><form><input name="inputbox" type="text" size="10" id="zipSearch"><input type="button" value="Enter" onClick="prepareZip()"></form><h6 id="noResults">Enter a five-digit zip code</h6>')
 
-  var srch = L.control({
-      position: 'topright',
-  });
-  srch.onAdd = function(map) {
-    this._div = L.DomUtil.create('div', 'srch');
-    L.DomEvent.disableClickPropagation(this._div)
-     this._div.innerHTML = '<h4>Search: </h4><form><input name="inputbox" type="text" size="10" id="zipSearch"><input type="button" value="Enter" onClick="prepareZip()"></form><h6 id="noResults">Enter a five-digit zip code</h6>';
-    return this._div;
-  };
-  srch.addTo(map);
   //add preventDefault handling to the input form
   $("#zipSearch").keypress(function(e) {
       e = e || window.event
@@ -140,50 +117,8 @@ function setMap(){
         return false
       }
   });
-	// search control
-  
-/*//old search functionality
-function installSearch(){
-    // Filter overrides the default autocomplete filter function to search only from the beginning of the string. Instead of return 023666 and 66644 when searching 666, it only returns 66644. http://blog.miroslavpopovic.com/2012/06/23/jqueryui-autocomplete-filter-words-starting-with-term/
-    $.ui.autocomplete.filter = function (array, term) {
-        var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(term), "i");
-        return $.grep(array, function (value) {
-            return matcher.test(value.label || value.value || value);
-        });
-    };
-    $( "#zipSearch" ).autocomplete({
-      minLength: 3, //user must enter three numbers before we look up anything
-      autoFocus: true,  
-      source: db,
-      select: function(e, ui) {
-        //need to handle preventDefault() different for Firefox. Prevent default prevents the page from reloading
-        if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
-          e.preventDefault()
-        } else{
-          event.preventDefault()
-        }
-        if(e.keyCode == 13) {return false} // prevent users from just entering in a number
-        var zip = ui.item.value
-        removeLayers()//remove any layers 
-        finder(zip, "search")
-      },
-      response: function(event, ui) {
-        if (ui.content.length === 0) {
-            $("#noResults").html("<h6>No results found</h6>"); //if nothing found, give a message
-        } else {
-            $("#noResults").empty(); //clear the message
-        }
-      }
-    });
-  // prevent users from just entering in a number    
-  $("#zipSearch").keypress(function(e) {
-      var code = (e.keyCode ? e.keyCode : e.which);
-      if(code == 13) { 
-          return false;
-      }
-  });
-}*/
 
+ 
   //remove layers
   function removeLayers(arg){
     if (check){
