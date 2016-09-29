@@ -1,5 +1,5 @@
 .content{
-	margin-top: 60px;
+	margin-top: 50px;
 }
 .bar100{
     background-color: #e9e9e9;
@@ -30,10 +30,9 @@ svg .site.active, .site.selected {
     stroke: #000;
     opacity: 1;
 }
-.sitelist {
-    -webkit-column-count: 5; /* Chrome, Safari, Opera */
-    -moz-column-count: 5; /* Firefox */
-    column-count: 1;
+.sitelist, .info {
+    max-height: 600px;
+    overflow-y: auto;
 }
 .sitelist > div {
     display: inline-block;

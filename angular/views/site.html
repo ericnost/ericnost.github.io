@@ -1,4 +1,4 @@
-<div class="main container-fluid info">
+<div class="container-fluid ">
 	<div class="row">
 		<div class="col-md-12">
 			<h3> {{$ctrl.site.importer_name}}</h3>
@@ -9,12 +9,13 @@
 			</ul>
 			</div>
 		</div>
-		<div class="col-md-12">
+		<div class="info">
+		<div class="col-md-12 ">
 			<p class="detail"/>Address: {{$ctrl.site.importer_address}} {{$ctrl.site.importer_city}}, {{$ctrl.site.importer_state}} 
 			<p class="detail"/>Amount of waste: {{$ctrl.site.total_waste}} {{$ctrl.site.units}}
 			<p class="detail"/>Rank: {{$ctrl.site.rank}}
 		</div>
-	
+		
 		<div class="col-md-12"><p class="detail" /> Total waste by year
 			<div ng-repeat="(key, value) in $ctrl.site.years" class="col-md-12">
 				<div class="col-md-6">
@@ -39,6 +40,7 @@
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 </div>
 <ui-view></ui-view>

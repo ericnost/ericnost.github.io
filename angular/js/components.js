@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ui.router']); //makes a call to the Angular API to create our app, configured with the ui.router plug-in
+var app = angular.module('myApp', ['ui.router', 'ui.bootstrap']); //makes a call to the Angular API to create our app, configured with the ui.router plug-in
 
 //configure our view router
 app.config(function($stateProvider) { 
@@ -17,6 +17,9 @@ app.config(function($stateProvider) {
       },
       geoData: function(Resource) { 
         return Resource.getGeoData() //loads base map geo data
+      },
+      toggle: function(){
+        return "importer"
       }
     }
   },
@@ -91,11 +94,10 @@ app.factory('Resource', function ($http) {
 })*/
 
 app.component('home', {
-  bindings: { data: '<' , exporters: '<', geoData: '<' }, //make the data we loaded into the view from the factory available to this component
+  bindings: { data: '<' , exporters: '<', geoData: '<', toggle:'<'}, //make the data we loaded into the view from the factory available to this component
   templateUrl: 'views/home.html', //this is the html that we will plug our data into
   controller: function () {
     console.log(this)
-
     this.geography = this.geoData.features
     //this.data = this.main
 
@@ -161,8 +163,14 @@ app.component('home', {
       d.chartCircle = flanneryScale(calcFlanneryRadius(d.total_waste))/4 //will need to change flan scale for exporters
       d.mapCircle = flanneryScale(calcFlanneryRadius(d.total_waste))
 
+      //width for bar chart
+      var input = Math.floor((d.total_waste/sum)*100) 
+      input = input.toString()
+      d.barChartWidth = input + "%"
+
     })
 
+    this.radioModel='importer'
 
     //generate functions that we will bind as objects to each data object so that they can be accessed
     this.changeHoverSite = function (site) { 
@@ -178,7 +186,7 @@ app.component('home', {
       selection.css('fill', "white") 
       
       selection = angular.element(document.getElementsByClassName(site)) //find the site we clicked and color it
-      var color = this.data.filter(function(d){return d.importer_name==site})[0]
+      var color = this.radioModel == 'importer' ? this.data.filter(function(d){return d.importer_name==site})[0] : this.exporters.filter(function(d){return d.exporter_name==site})[0]
       color=color.color
       selection.css('fill', color)
 
