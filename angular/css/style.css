@@ -16,7 +16,7 @@ p.detail{
     font-size: 11px;
 }
 svg .state {
-    stroke-width: 1;
+    stroke-width: .5;
     stroke: #000;
     fill: #d3d3d3;
 
@@ -31,7 +31,7 @@ svg .site.active, .site.selected {
     opacity: 1;
 }
 .sitelist, .info {
-    max-height: 600px;
+    max-height: 80vh;
     overflow-y: auto;
 }
 .sitelist > div {
@@ -58,7 +58,7 @@ div .divItem{
 }
 circle{
   stroke: #000;
-  stroke-width: 1px;
+  stroke-width: .5px;
 }
 .nav-pills>li>a{
     padding: 2px;
