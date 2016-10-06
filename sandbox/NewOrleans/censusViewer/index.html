@@ -10,16 +10,21 @@
       <title>New Orleans Census Viewer</title>
 
       <!--put Bootstrap stylesheet links above style.css-->
-      <script type="text/javascript" src="lib/bootstrap.min.js"></script>
+     
       <link rel="stylesheet" href="css/bootstrap.min.css">
       <link rel="stylesheet" href="css/bootstrap-theme.min.css">
       <link rel="stylesheet" href="css/sitewide.css">
       <link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="css/leaflet.css">
+
       <script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
+       <script type="text/javascript" src="lib/bootstrap.min.js"></script>
       <script type="text/javascript" src="lib/d3.js" charset="utf-8"></script>
       <script type="text/javascript" src="lib/queue.js"></script>
       <script type="text/javascript" src="lib/topojson.v1.min.js"></script>
       <script type="text/javascript" src="lib/tip.js"></script>
+      <script type="text/javascript" src="lib/leaflet.js"></script>
+
 
 
 </head>
@@ -57,7 +62,7 @@
           </div>
       </div> 
       <div class="col-md-8">
-          <div class="row map text-left">
+          <div class="row map text-left" id="map">
           </div>
           <div class="col-md-12">
               <div class="histogram well">
@@ -169,6 +174,7 @@ function setData(){
       .rollup(function(leaves) {return {"Median Household Income": leaves[0]["income"], "Median Rent":leaves[0]["rent"], "% Earning Non-Traditional Income": leaves[0]["otherIncome"], "% Receiving Public Assistance": leaves[0]["assistance"]} })
       .map(income);
 
+
       //loop through csv to assign each csv values to json province
       for (var i=0; i<years.length; i++) {
         for (var j=0; j<years[i].length; j++){
@@ -221,6 +227,28 @@ function setData(){
     svg.call(tooltip)
 
   //map
+    var OpenStreetMap_BlackAndWhite = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+  });
+   
+   var map = L.map('map', { 
+      center: [31.14, -91.13],
+    zoom: 8, 
+    minZoom: 8,
+    layers: [OpenStreetMap_BlackAndWhite]
+    //maxBounds: bounds
+   }); 
+
+
+    overlay = L.geoJson(topojson.feature(blocks, blocks.objects.blocks).features, {
+        style: function(d){
+          var color = choropleth(d, colorize)
+          return {"color": color, "weight": 1, "opacity":.5}
+        }
+    });
+    overlay.addTo(map);
+
+/*
     var fakeblocks = svg.selectAll(".blocks")
       .data(topojson.feature(blocks, blocks.objects.blocks).features)
       .enter() //create elements
@@ -271,7 +299,7 @@ function setData(){
         .attr("d", path);
 
 
-
+*/
 
 //table selector
 //create button
