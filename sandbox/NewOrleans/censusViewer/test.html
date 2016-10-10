@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+      <!-- <link href='https://fonts.googleapis.com/css?family=Ruda:400,700|Cantarell:400,700,400italic,700italic' rel='stylesheet' type='text/css'> -->
+      <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <meta name="keywords" content="maps,cartography, hazardous waste trade"/>
+      <title>New Orleans Census Viewer</title>
+
+      <!--put Bootstrap stylesheet links above style.css-->
+     
+      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <link rel="stylesheet" href="css/leaflet.css">
+      <link rel="stylesheet" href="css/sitewide.css">
+      <link rel="stylesheet" href="css/style.css">
+
+      <script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
+       <script type="text/javascript" src="lib/bootstrap.min.js"></script>
+      <script type="text/javascript" src="lib/d3.js" charset="utf-8"></script>
+      <script type="text/javascript" src="lib/topojson.v1.min.js"></script>
+      <script type="text/javascript" src="lib/tip.js"></script>
+      <script type="text/javascript" src="lib/leaflet.js"></script>
+      <script type="text/javascript" src="lib/angular.min.js"></script>
+     <!--  <script type="text/javascript" src="lib/router.js"></script> -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-beta.3/angular-ui-router.js"></script>
+      <script type="text/javascript" src="lib/angular-leaflet-directive.min.js"></script>
+
+
+</head>
+
+  <body ng-app="demoapp">
+    <nav class="navbar navbar-default navbar-fixed-top main-navbar"> <!--creates navbar-->
+            <div class="navbar-header"> <!--creates the navbar header-->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span><!--used for screen readers for accessibility-->
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                    <span class="menu">Menu</span>
+                </button> <!--hamburger button for smaller devices-->
+                <a class="navbar-brand" href="#">Programming Resilience</a><!--our website brand name-->
+            </div>
+            <h5 class="navbar-text"><font color="#cccccc">New Orleans Census Viewer</font></h5>
+            <div id="navbar" class="collapse navbar-collapse"><!--links in navbar-->
+                <ul class="nav navbar-nav navbar-right"><!--unordered list for links on navbar-->
+
+                    <li><a href="AboutUs.html">About</a></li>
+                    <li><a href="Stories.html">Stories</a></li>
+                </ul>
+            </div><!--end navbar=collapse-->
+
+    </nav><!--end navigation bar-->
+  <div class="center">
+
+  </div>
+<div class="col-md-12 container" id="main">
+<ui-view></ui-view>
+</div>
+
+
+
+<script>
+
+var app = angular.module("demoapp", ['ui.router', 'leaflet-directive']);
+app.config(function($logProvider){
+  $logProvider.debugEnabled(false);
+});       
+app.config(function($stateProvider) { 
+
+  //create our different views as objects
+  var mainState ={
+    name: 'main', //name of the object
+    url: '', //url to point to, or that causes this view to be triggered
+    component: 'home', //component that works with the data, loads the template
+    resolve: { //data to bind to our component
+      geography: function(Resource) {
+        return Resource.getBlocks() //make an async call to get our site data from data.json
+      }
+    }
+  }, 
+   yearState ={
+    name: 'main.year', //name of the object
+    url: '/{year}', //url to point to, or that causes this view to be triggered
+    component: 'year', //component that works with the data, loads the template
+    resolve: { //data to bind to our component
+      deet: function($stateParams, Resource) {
+          return Resource.getYear($stateParams.year)
+      }
+    }
+  }
+  //call the states
+  $stateProvider.state(mainState); 
+  $stateProvider.state(yearState); 
+})
+
+//factories make our http requests for us (including local ones) to handle data promises
+app.factory('Resource', function ($http) {
+  var service = {
+    getBlocks: function() {
+      return $http.get('data/blocks.json').then(function(resp) {
+        return resp.data;
+      });
+    },
+    getYear: function(year) {
+      console.log(year)
+      return $http.get('data/race/'+year+'.json').then(function(resp) {
+        console.log(resp)
+        return resp.data;
+      });
+    }
+  }
+  return service;
+})
+
+
+app.component('year', {
+  bindings: { deet: '<' }, //make the data we loaded into the view from the factory available to this component
+  templateUrl: 'year.html', //this is the html that we will plug our data into
+  controller: function () {
+    console.log(this)
+    $("#map").remove()
+    var color; 
+    var data = this.data //dump data in order to bind
+    var expressed = "Estimate; Total: - White alone"
+    //expression change function here
+    var colorize = colorScale(); 
+    colorScale();
+    var colors = color.copy().range()
+    var labels = color.copy().quantiles()
+
+    //console.log(this)
+    //bind data
+    this.geography = topojson.feature(this.geography, this.geography.objects.blocks).features
+
+    this.geography.forEach(function(d){
+      var thisData = data.filter(function(e){return e.Id == d.properties.AFFGEOID}) //handle 1990 differently?
+      console.log(thisData)
+      d.properties[expressed] = thisData[0] ? (thisData[0][expressed]/thisData[0]["Estimate; Total:"]) : undefined
+      //d.properties.data.fill = choropleth(d) //bind color changing event somewhere
+    })
+    
+    function style(d){
+      //get data value
+      var value = d.properties[expressed] ? colorize (d.properties[expressed]) : "#ddd";
+      value == undefined ? value = "#ddd" : value = value
+      return {
+                    fillColor: value,
+                    weight: 2,
+                    opacity: 1,
+                    color: 'white',
+                    dashArray: '3',
+                    fillOpacity: 0.7
+                }
+
+    };
+
+    function colorScale(){
+      var domArray = data.map(function(d){return d[expressed]/d["Estimate; Total:"]})
+
+      var scheme = {"Estimate; Total: - White alone": ['#edf8e9','#bae4b3','#74c476','#31a354','#006d2c'], "Estimate; Total: - Black or African American alone": ['#eff3ff','#bdd7e7','#6baed6','#3182bd','#08519c'], "Estimate; Total: - American Indian and Alaska Native alone": ['#feedde','#fdbe85','#fd8d3c','#e6550d','#a63603'], "Estimate; Total: - Asian alone": ['#f2f0f7','#cbc9e2','#9e9ac8','#756bb1','#54278f'], "Estimate; Total: - Native Hawaiian and Other Pacific Islander alone": ['#fee5d9','#fcae91','#fb6a4a','#de2d26','#a50f15'], "Estimate; Total: - Hispanic": ['#f7f7f7','#cccccc','#969696','#636363','#252525']}
+      var range = scheme[expressed]
+
+      color = d3.scale.quantile() //designate quantile scale generator
+      .range(range)
+
+      d3.mean(domArray) > .3 ? color.domain(domArray) : color.domain([d3.min(domArray), d3.max(domArray)]);
+      
+      return color; //return the color scale generator
+    }
+
+
+    angular.extend(this, {
+            geojson: {
+                data: this.geography,
+                style: style
+            }
+        });
+    angular.extend(this, {
+        center: {
+            lat: 29.977835,
+            lng: -90.096786,
+            zoom: 12
+        },
+        defaults: {
+            scrollWheelZoom: false
+        },
+        legend:{
+          position: 'bottomleft',
+            colors: colors,
+            labels: labels
+        }
+    });
+
+
+  }
+})
+
+app.component('home', {
+  bindings: { geography: '<'}, //make the data we loaded into the view from the factory available to this component
+  templateUrl: 'map.html', //this is the html that we will plug our data into
+  controller: function () {
+   
+    this.geography = topojson.feature(this.geography, this.geography.objects.blocks).features
+
+    angular.extend(this, {
+            geojson: {
+                data: this.geography,
+                style: {
+                    fillColor: "none",
+                    weight: 2,
+                    opacity: 1,
+                    color: 'black',
+                    dashArray: '3',
+                    fillOpacity: 0.1
+                }
+            }
+        });
+    angular.extend(this, {
+        center: {
+            lat: 29.977835,
+            lng: -90.096786,
+            zoom: 12
+        },
+        defaults: {
+            scrollWheelZoom: false
+        }
+    });
+
+
+  }
+})
+  
+
+
+</script>
+</body>
+</html>

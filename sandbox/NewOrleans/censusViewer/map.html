@@ -1,0 +1,6 @@
+
+<ul class="nav nav-pills">
+  <li role="presentation" ng-repeat="value in ['1990', '2000', '2010', '2013', '2014']"><a ui-sref-active="active" ui-sref="main.year({ year:value  })" >{{value}}</a></li>
+</ul>
+<leaflet id="map" center="$ctrl.center" width="100%" height="480px" geojson="$ctrl.geojson"></leaflet>
+<!-- buttons here -->

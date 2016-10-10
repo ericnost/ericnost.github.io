@@ -1,0 +1,6 @@
+
+<leaflet id="map" legend="$ctrl.legend" center="$ctrl.center" width="100%" height="480px" geojson="$ctrl.geojson"></leaflet>
+<!-- buttons here -->
+<ul class="nav nav-pills">
+  <li role="presentation" ng-repeat="(key, value) in $ctrl.data[0]"><a href="#">{{key}}</a></li>
+</ul>
