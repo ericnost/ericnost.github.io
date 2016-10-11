@@ -1,6 +1,8 @@
-
-<leaflet id="map" legend="$ctrl.legend" center="$ctrl.center" width="100%" height="480px" geojson="$ctrl.geojson"></leaflet>
+<div>
+<leaflet legend="$ctrl.legend" center="$ctrl.center" width="100%" height="480px" geojson="$ctrl.geojson"></leaflet>
 <!-- buttons here -->
 <ul class="nav nav-pills">
-  <li role="presentation" ng-repeat="(key, value) in $ctrl.data[0]"><a href="#">{{key}}</a></li>
+  <li role="presentation" ng-repeat="(key, value) in $ctrl.data[0].properties"><a ui-sref-active="active" ui-sref="main.year({ year:$ctrl.year, expressed:key  })" >{{key}}</a></li>
 </ul>
+</div>
+<ui-view></ui-view>
