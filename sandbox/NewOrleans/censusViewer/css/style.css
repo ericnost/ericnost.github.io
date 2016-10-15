@@ -143,6 +143,135 @@ circle {
   shape-rendering: crispEdges;
 }
 
+* {box-sizing:border-box;}
 
+h1 {
+  color: #D07371;
+}
+
+
+
+p {
+  width:60%;
+  margin:20px auto;
+}
+
+.graph {
+  position:relative;
+  margin:50px auto;
+  background:#D9F2E6; 
+}
+
+svg {
+  transform: rotateX(180deg);
+  position:relative;
+}
+
+.y {
+  font-weight:bold;
+  border-bottom:1px solid #71CBD0;
+  position:absolute;
+  text-align:center;
+  padding: 10px;
+  transform: rotate(-90deg);
+  transform-origin: bottom left;
+  bottom:0;
+  color: #D07371;
+}
+
+.x {
+  font-weight:bold;
+  border-top:1px solid #71CBD0;
+  position:absolute;
+  width: 100%;
+  text-align:center;
+  padding: 10px;
+  top:100%;
+  color:#D07371;
+}
+
+.dot {
+  border-radius:50%;
+  width:0px;
+  height:0px;
+  position:absolute;
+  background:#71CBD0;
+  cursor: pointer;
+  animation: dots 100ms linear forwards;
+  &:after {
+    content:attr(data-title);
+    display:inline-block;
+    white-space: nowrap;
+    overflow:hidden;
+    background:#D07371;
+    color:white;
+    position:absolute;
+    padding:10px;
+    left:150%;
+    top:-15px;
+    width:0;
+    opacity:0;
+    border-radius:3px;
+    font-weight:700;
+  }
+  
+  &:hover {
+    background:#D07371; 
+     
+    &:after {
+      width:auto;
+      opacity:1;
+      z-index:9999;
+    }
+  }
+}
+
+line {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  stroke:#D07371;
+  stroke-width:2;
+  animation: dash 500ms linear forwards;
+}
+
+.lines(11);
+
+.lines(@n, @i: 0, @a :0) when (@i =< @n) {
+  .line@{i} {
+    animation-delay:(@a+1000)*1ms;
+  }
+  .dot@{i} {
+    animation-delay:(@a+1150)*1ms;
+  }
+  .lines(@n, (@i + 1), (@a + 150));
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes dots {  
+  0% {
+    width:0px;
+    height:0px;
+  }
+  
+  50% {
+    width:10px;
+    height:10px;
+  }
+  
+  75% {
+    width:15px;
+    height:15px;
+  }
+  
+  100% {
+    width:10px;
+    height:10px;
+  }
+}
 
 

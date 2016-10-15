@@ -3,7 +3,7 @@
 
 <head>
       <!-- <link href='https://fonts.googleapis.com/css?family=Ruda:400,700|Cantarell:400,700,400italic,700italic' rel='stylesheet' type='text/css'> -->
-      <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+      <!-- <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'> -->
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1"/>
       <meta name="keywords" content="maps,cartography, hazardous waste trade"/>
@@ -11,22 +11,33 @@
 
       <!--put Bootstrap stylesheet links above style.css-->
      
-      <link rel="stylesheet" href="css/bootstrap.min.css">
-      <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="css/bootstrap.css">
+      <link rel="stylesheet" href="css/leaflet.css">
       <link rel="stylesheet" href="css/sitewide.css">
       <link rel="stylesheet" href="css/style.css">
 
       <script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
        <script type="text/javascript" src="lib/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://code.angularjs.org/1.5.5/angular.js"></script>
       <script type="text/javascript" src="lib/d3.js" charset="utf-8"></script>
-      <script type="text/javascript" src="lib/queue.js"></script>
       <script type="text/javascript" src="lib/topojson.v1.min.js"></script>
       <script type="text/javascript" src="lib/tip.js"></script>
+      <script type="text/javascript" src="lib/leaflet.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.2.0/ui-bootstrap-tpls.js"></script>
+
+     
+       <!-- <script type="text/javascript" src="lib/router.js"></script> -->
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-beta.3/angular-ui-router.js"></script> 
+     
+       <script type="text/javascript" src="lib/ui-leaflet.js"></script>
+        <script type="text/javascript" src="lib/log.js"></script>
+        <script src='lib/nprogress.js'></script>
+  <link rel='stylesheet' href='css/nprogress.css'/>
 
 
 </head>
 
-  <body>
+  <body ng-app="demoapp">
     <nav class="navbar navbar-default navbar-fixed-top main-navbar"> <!--creates navbar-->
             <div class="navbar-header"> <!--creates the navbar header-->
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -50,1030 +61,332 @@
 
   </div>
 <div class="col-md-12 container" id="main">
-      <div class="col-md-4">
-          <div class="row category">
-          </div>
-          <div class="row legend">
-          </div>
-          <div class="row chart text-left">
-          </div>
-      </div> 
-      <div class="col-md-8">
-          <div class="row map text-left">
-          </div>
-          <div class="col-md-12">
-              <div class="histogram well">
-              </div>
-          </div>
-          <div class="col-md-12">
-              <div class="timeSlider well">
-              </div>
-          </div>
-      </div>
+<ui-view></ui-view>
 </div>
 
 
 
 <script>
-//global variables
-//nola coordinates = 29.977835, -90.096786
-var svg, Hsvg, Ssvg, zoomer, path, projection, expressed, colorize, color, yearKey, brush, firstTime = true, domArray, rate = false, change = [], helper = {}, barHelp, centroids = {};
-var expressed2 = ""//deprecate old expressed for this - checks all things expressed
-var expressedHelp = []
-var MHI //really hacky way to do this
-var clickedBlockHelp = {"target": ""}
-var propStyle = {"fill": "#cccccc", "fill-opacity": ".75"}
-var zoom = d3.behavior.zoom()
-    .scaleExtent([1, 8])
-    .on("zoom",zoomer);
-var defaultStroke = {"stroke": "black", "stroke-width": .1} //{"stroke": "red", "stroke-width": ".5px"}
-var format = d3.format(",.2%")  ;
-var time = "2014"
-var siteData;
-var viewCheck = false;
-var files =  {"race": "Race"}
 
-//begin script when window loads 
-initialize(); 
+var app = angular.module("demoapp", ['ui.router', 'ui.bootstrap', 'nemLogging', 'ui-leaflet']);
+app.config(function($logProvider){
+  $logProvider.debugEnabled(false);
+});       
+app.config(function($stateProvider) { 
 
-//the first function called once the html is loaded 
-function initialize(){
-
-  var height100 = window.innerHeight/1.5
-  $(".map").height(height100)
-  var width100 = $(".map").width()
-
-  svg = d3.select(".map").append("svg")
-    .style({"height": height100, "width": width100, "position": "absolute"})
-
-
-  //create map projection
-  projection = d3.geo.mercator()
-    .center([-90.091020, 29.967810])
-    //.rotate([20, 0])  
-    //.parallels([29, 31]) 
-    .scale(100000) 
-    .translate([width100 / 2, height100 / 2]); 
-
-  function updateWindow(){
-    y = window.innerHeight/1.5
-    x = $(".map").width()
-    svg.style({"width": x, "height": y});
+  //create our different views as objects
+  var mainState ={
+    name: 'main', //name of the object
+    url: '', //url to point to, or that causes this view to be triggered
+    component: 'home', //component that works with the data, loads the template
+    resolve: { //data to bind to our component
+      geography: function(Resource) {
+        return Resource.getAll() //make an async call to get our site data from data.json
+      }
+    }
+  },
+   siteState ={
+    name: 'main.site', //name of the object
+    url: '/{site}', //url to point to, or that causes this view to be triggered
+    component: 'site', //component that works with the data, loads the template
+    resolve: { //data to bind to our component
+      //load all years....don't need new geography
+        data1990: function(Resource, $stateParams) {
+          return Resource.getSite($stateParams.site, "1990")
+      },/*
+            data2000: function(Resource, $stateParams) {
+          return Resource.getSite($stateParams.site)
+      },
+            data2010: function(Resource, $stateParams) {
+          return Resource.getSite($stateParams.site)
+      },*/
+            data2014: function(Resource, $stateParams) {
+          return Resource.getSite($stateParams.site, "2014")
+      }
+    }
   }
-  $(window).resize(function(e) {console.log(e);updateWindow(e); updateHSVG(e); updateSSVG(e); });
+  //call the states
+  $stateProvider.state(mainState); 
+  $stateProvider.state(siteState);
+})
 
-  path = d3.geo.path()
-    .projection(projection);
+//factories make our http requests for us (including local ones) to handle data promises
+app.factory('Resource', function ($http) {
+  var service = {
+    getBlocks: function() {
+      return $http.get('data/blocks.json').then(function(resp) {
+        return resp.data;
+      });
+    },
+    getAll: function() {
+      return $http.get('data/blocks.json').then(function(resp) {
+      	return $http.get('data/race/data.json').then(function(resp2) { //how to load multiple years. probably combine in json....
+        	var years =["1990", "2014"]
+      		var geo = topojson.feature(resp.data, resp.data.objects.blocks).features  
+      		var data = resp2.data
+		      geo.forEach(function(d){ // add census data to geggraohpy
+            d.properties.censusData ={}
+            years.forEach(function(yr){
+    		      var thisData = data.filter(function(e){return e.Id == d.properties.AFFGEOID && e.Year == yr}) //handle 1990 differently?
 
-  setData()
-}
+              
+    		      d.properties.censusData[yr] = thisData[0] ? thisData[0] : undefined
+		        })
+          //d.properties.data.fill = choropleth(d) //bind color changing event somewhere
+		      })
+          geo = geo.filter(function(d){return d.properties.censusData["2014"]})
 
-function setData(){
-  queue() 
-    .defer(d3.csv, "data/race/1990.csv") //load attributes from csv 
-    .defer(d3.csv, "data/race/2000.csv") //load attributes from csv 
-    .defer(d3.csv, "data/race/2010.csv") //load attributes from csv
-    .defer(d3.csv, "data/race/2013.csv") //load attributes from csv
-    .defer(d3.csv, "data/race/2014.csv") //load attributes from csv 
-    .defer(d3.csv, "data/income/2014.csv") //load attributes from csv 
-   // .defer(d3.csv, "data/"+selectedCSV+".2010.csv") //load attributes from csv 
-   // .defer(d3.csv, "data/"+selectedCSV+".2013.csv") //load attributes from csv 
-    .defer(d3.json, "data/blocks.json")
-    .defer(d3.json, "data/riversLA.json") //load geometry from topojson
-    .defer(d3.json, "data/water.json") //load geometry from topojson
-    .await(callback); //trigger callback function once data is loaded 
+        	return geo;
+        })
+      });
+    },    
+    getSite: function(site, year) { //this instead should filter geography, above, to return right id
+      return $http.get('data/race/data.json').then(function(resp) {
+        console.log(site)
+        var data = resp.data.filter(function(d){return d.Year == year})
+        data = data.filter(function(d){return d.Id == site})
+        return data;
+      });
+    }
+  }
+  return service;
+})
 
-//years = 1990. 2000. 2010, 2013 (acs 5 yr), 2014 (acs 5 yr)
-
-  function callback(error, blocks1990, blocks2000, blocks2010, blocks2013, blocks2014, income, blocks, riversLA, water){
-      //svg.call(zoom);
-      income.forEach(function(d){
-        d.income = +d["Estimate; Median household income in the past 12 months (in 2014 Inflation-adjusted dollars)"]
-        d.rent = +d["Estimate; Median gross rent"]
-        d.pop = +d["Estimate; Total:"]
-        d.otherIncome = +d["Estimate; with other types of income"]/d.pop
-        d.assistance = +d["Estimate; with public assistance income"]/d.pop
-      })
-      //start with 2014
-      expressed = d3.keys(blocks2014[0])[5] //white % of pop
-      expressedHelp.push(expressed)
-      colorize = colorScale(blocks2014);
-
-      //variables for csv to json data transfer
-      var censusblocks = blocks.objects.blocks.geometries;
-      
-      var years = [blocks1990, blocks2000, blocks2010, blocks2013, blocks2014]
-      escapade(blocks1990, blocks2000, blocks2010, blocks2013, blocks2014)
-      //var yearKey = {"1990":blocks1990, "2000":blocks2000, "2014":blocks2014}
-      var yearsArray = d3.keys(yearKey)
-
-      MHI = d3.nest()
-      .key(function(d) { return d.Id; })
-      .rollup(function(leaves) {return {"Median Household Income": leaves[0]["income"], "Median Rent":leaves[0]["rent"], "% Earning Non-Traditional Income": leaves[0]["otherIncome"], "% Receiving Public Assistance": leaves[0]["assistance"]} })
-      .map(income);
-
-
-      //loop through csv to assign each csv values to json province
-      for (var i=0; i<years.length; i++) {
-        for (var j=0; j<years[i].length; j++){
-          var block = years[i][j]; //the current block group row
-          if (i == 0){
-          var blockID = "1500000US"+block["Id"]
-          } else{var blockID = block["Id"];} //adm code
-          //loop through json provinces to find right province
-          for (var a=0; a<censusblocks.length; a++){
-              //where adm1 codes match, attach csv to json object
-              //console.log(blockID, censusblocks[a].properties.AFFGEOID)
-              if (censusblocks[a].properties.AFFGEOID == blockID){
-              // assign key/value pairs
-              censusblocks[a].properties[yearsArray[i]]={}
-
-
-              var keys = d3.keys(years[i][0]) //only for race here
-              keys = keys.filter(function(d){return d.indexOf("Margin")<0}) //get rid of margin estimates
-              keys = keys.filter(function(d){return d.indexOf("Id")<0}) //get rid of margin estimates
-              keys = keys.filter(function(d){return d.indexOf("Geography")<0}) //get rid of margin estimates
-
-              for (var n=0; n<keys.length; n++){
-                var attr = keys[n];
-                var val = parseFloat(block[attr]); //convert to number here
-                censusblocks[a].properties[yearsArray[i]][attr] = val;
-              };
-
-              if (yearsArray[i]=="2014"){ //because only have income data for 2014 right now
-                for (p=0; p<d3.keys(MHI[blockID]).length; p++){
-                  censusblocks[a].properties[yearsArray[i]][d3.keys(MHI[blockID])[p]] = MHI[blockID][d3.keys(MHI[blockID])[p]]
-                }
-              }
-            break; //stop looking through the json provinces
-            };
-          }
-        };
-      };
-
-    keys.splice(0,1)
-    keys.splice(6,4)
-    keys = {"race": keys, "income": d3.keys(MHI[d3.keys(MHI)[0]])} //add in income keys here
-
-    var tooltip = d3.tip()
-      .attr('class', 'd3-tip')
-      .offset([-50, 0])
-      .html(function(d) {
-        var h = helper["1500000US"+d.properties.GEOID] ? format(helper["1500000US"+d.properties.GEOID]) : "Not Available"
-          return "<span style='color:white'> Census block: " + d.properties.GEOID + "<br>" +format(d.properties[time][expressed]/d.properties[time]["Estimate; Total:"])+" " + expressed.replace("Estimate; Total: - ", "") + "<br> Change between 2000-2014: " +h+"</span>";
-      })
-    svg.call(tooltip)
-
-  /*//map
-    var OpenStreetMap_BlackAndWhite = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-  });
+app.filter('greaterThan', function () {
+    //our function will need three arguments 
+    return function(items, sift, expressed, filters, year) { 
+      //console.log(items, sift, expressed, filters)
+      var allItems=[];
+        //for (i=0; i<filters.length; i++){
+          //find neighborhoods higher than this
+          filters.forEach(function(obj){
+            console.log(year)
+            var temp = items.filter(function(item){
+            //if item price is included between the two boundaries we return true
+            var ret = item.properties.censusData[year] ? item.properties.censusData[year][expressed]/item.properties.censusData[year]["Total"] >= obj.base && item.properties.censusData[year][expressed]/item.properties.censusData[year]["Total"] <= obj.max : null
+            return ret
+              
+            });
+            temp.forEach(function(t){
+              allItems.push(t)
+            })
+          })
+        
+        //then we return the filtered items array
+        return allItems
+    };
+});
+app.filter('percentage', ['$filter', function ($filter) {
+  return function (input, decimals) {
+    return $filter('number')(input * 100, decimals) + '%';
+  };
+}]);
+app.component('home', {
+  bindings: { geography: '<'}, //make the data we loaded into the view from the factory available to this component
+  templateUrl: 'map.html', //this is the html that we will plug our data into
+  controller: function ($filter) {
+    console.log(this, $filter)
+     NProgress.start()
+    //is problem having two leaflet maps on page???
+    //what does angular.extend do?
+    this.radioModelYear = "2014"
+    var year ="2014"
    
-   var map = L.map('map', { 
-      center: [31.14, -91.13],
-    zoom: 8, 
-    minZoom: 8,
-    layers: [OpenStreetMap_BlackAndWhite]
-    //maxBounds: bounds
-   }); 
+    this.checkResults = {0:true, 1:true, 2:true, 3:true, 4: true}
+    this.update = function (sift, expressed) {
+     //NProgress.start()
+     console.log(this.quants)
+       var pos = this.quants.indexOf(sift)
+       var values = d3.values(this.checkResults)
+       var filters = []
+       for (j=0; j<values.length; j++){
+        if(values[j]){
+          var plusOne = this.quants[j+1] ? this.quants[j+1] : 100
+          filters.push({"base": this.quants[j], "max": plusOne})
+        }
+       }
+      this.geojson.data = this.geography //reset data
+      this.geojson.data = $filter('greaterThan')(this.geojson.data, sift, expressed, filters, this.radioModelYear); //pipe to filter
+    //NProgress.done()
+    };
+
+    //console.log(this)
+    //bind data
+    var expressed = "White"
+     this.radioModelExpressed="White"
+      var domArray = this.geography.map(function(d){var value = d.properties.censusData[year] ? d.properties.censusData[year][expressed]/d.properties.censusData[year]["Total"] : null; return value}) //dynamize
+
+  var scheme = {"White": ['#edf8e9','#bae4b3','#74c476','#31a354','#006d2c'], "Black or African American": ['#eff3ff','#bdd7e7','#6baed6','#3182bd','#08519c'], "American Indian and Alaska Native": ['#feedde','#fdbe85','#fd8d3c','#e6550d','#a63603'], "Asian": ['#f2f0f7','#cbc9e2','#9e9ac8','#756bb1','#54278f'], "Native Hawaiian and Other Pacific Islander": ['#fee5d9','#fcae91','#fb6a4a','#de2d26','#a50f15'], "Hispanic": ['#f7f7f7','#cccccc','#969696','#636363','#252525']}
+  var range = scheme[expressed]
+  
+ 
+  var color = d3.scale.quantile() //designate quantile scale generator
+    .range(range)
+  d3.mean(domArray) > .3 ? color.domain(domArray) : color.domain([d3.min(domArray), d3.max(domArray)]);
+console.log(d3.mean(domArray))
+  angular.extend(this, {quants: color.copy().quantiles(),expressed: expressed, ranger: range})
+  
+  //console.log(domArray)
+    this.quants.splice(0,0,0)
+    function style(d){
+      //get data value
+      var value = d.properties.censusData ? color(d.properties.censusData[year][expressed]/d.properties.censusData[year]["Total"]) : "#ddd";
+      //console.log(d, expressed, value)
+      return {
+                    fillColor: value,
+                    weight: 2,
+                    opacity: 1,
+                    color: 'white',
+                    dashArray: '3',
+                    fillOpacity: 0.7
+                }
+
+    };
+
+     var layers = [];
+    //add click behavior
+    this.reExpressAtt = function (att){
+                  //NProgress.start()
+      console.log(att)
+      expressed = att
+      this.expressed = expressed
+      domArray = this.geography.map(function(d){var value = d.properties.censusData ? d.properties.censusData[year][expressed]/d.properties.censusData[year]["Total"] : null; return value})
+      range = scheme[expressed]
+      color = d3.scale.quantile() //designate quantile scale generator
+        .range(range)
+      d3.mean(domArray) > .3 ? color.domain(domArray) : color.domain([d3.min(domArray), d3.max(domArray)]);
+      //this.quants = color.quantiles()
+      angular.extend(this, {quants: color.copy().quantiles()})
+     this.quants.splice(0,0,0)
+     this.ranger = range
+     layers.forEach(function(d){
+     	var value = d.feature.properties.censusData ? color(d.feature.properties.censusData[year][expressed]/d.feature.properties.censusData[year]["Total"]) : "#ddd";
+     	d.setStyle({	
+     					fillColor: value,
+                        weight: 2,
+                    opacity: 1,
+                    color: 'white',
+                    dashArray: '3',
+                    fillOpacity: 0.7
+                    });
+     })
+
+    //NProgress.done()
+    }
 
 
-    overlay = L.geoJson(topojson.feature(blocks, blocks.objects.blocks).features, {
-        style: function(d){
-          var color = choropleth(d, colorize)
-          return {"color": color, "weight": 1, "opacity":.5}
+        this.reExpressYear = function (yr){
+                  //NProgress.start()
+     console.log(yr,expressed, this.radioModelYear)
+      domArray = this.geography.map(function(d){var value = d.properties.censusData[yr] ? d.properties.censusData[yr][expressed]/d.properties.censusData[yr]["Total"] : null; return value})
+      range = scheme[expressed]
+      console.log(d3.mean(domArray))
+      color = d3.scale.quantile() //designate quantile scale generator
+        .range(range)
+      d3.mean(domArray) > .3 ? color.domain(domArray) : color.domain([d3.min(domArray), d3.max(domArray)]);
+      //this.quants = color.quantiles()
+      angular.extend(this, {quants: color.copy().quantiles()})
+     this.quants.splice(0,0,0)
+     this.ranger = range
+     layers.forEach(function(d){
+
+      var value = d.feature.properties.censusData[yr] ? color(d.feature.properties.censusData[yr][expressed]/d.feature.properties.censusData[yr]["Total"]) : "#ddd";
+      
+      d.setStyle({  
+              fillColor: value,
+                        weight: 2,
+                    opacity: 1,
+                    color: 'white',
+                    dashArray: '3',
+                    fillOpacity: 0.7
+                    });
+     })
+
+    //NProgress.done()
+    }
+
+    angular.extend(this, {
+            geojson: {
+                data: this.geography,
+                style:style, 
+                onEachFeature: function(feature, layer){
+                  layers.splice(0,0,layer);
+                  layer.on("click", function() {
+                    window.location = "#/"+feature.properties.AFFGEOID
+                  });
+                  
+                }
+            },
+        center: {
+            lat: 29.977835,
+            lng: -90.096786,
+            zoom: 12
+        },
+        defaults: {
+            scrollWheelZoom: false
         }
     });
-    overlay.addTo(map);
-*/
 
-    var fakeblocks = svg.selectAll(".blocks")
-      .data(topojson.feature(blocks, blocks.objects.blocks).features)
-      .enter() //create elements
-      .append("g")
-      .attr("class", "blocks") //assign class for additional styling
-      //.attr("id", function(d) { return d.properties.LSAD+d.properties.GEOID })
-      .append("path") //append elements to svg
-      .attr("d", path) //project data as geometry in svg
-      .style({"fill": function(d) { //color enumeration units
-        return choropleth(d, colorize);
-      }, "fill-opacity": 1})
-
-    var realblocks = svg.selectAll(".fakeblocks")
-      .data(topojson.feature(blocks, blocks.objects.blocks).features)
-      .enter() //create elements
-      .append("g")
-      .attr("class", function(d) { return "strokeblocks "+d.properties.LSAD+d.properties.GEOID }) //assign class for additional styling
-      //.attr("id", function(d) { return d.properties.LSAD+d.properties.GEOID })
-      .append("path") //append elements to svg
-      .attr("d", path) //project data as geometry in svg
-      .style({"fill": function(d) { //color enumeration units
-        return choropleth(d, colorize);
-      }, "fill-opacity": 0})
-      .style(defaultStroke)
-      .on("mouseover", function(d){if (d.properties[time][expressed]){highlight(d); tooltip.show(d)}})
-      .on("mouseout", function(d){ dehighlight(d); tooltip.hide(d)})
-      .on("click", function(d){
-        if (d.properties[time][expressed]){
-          siteData = d; 
-          viewCheck = true; 
-          viewer(d);
-          clickedBlockHelp["target"] = d;
-          clickedBlock(d);
-        }
-      })
-
-    var rivers = svg.append("path")
-        .datum(topojson.feature(riversLA, riversLA.objects.riversLA2))
-        .attr("class", "rivers")
-        .attr("d", path);
-    var lakes = svg.append("path")
-        .datum(topojson.feature(water, water.objects.lakes))
-        .attr("class", "water")
-        .attr("d", path);
-    var ocean = svg.append("path")
-        .datum(topojson.feature(water, water.objects.ocean))
-        .attr("class", "water")
-        .attr("d", path);
-
-
-//table selector
-//create button
-     d3.select(".col-md-3").append("div").attr("class", "dropdown").style("overflow","visible").selectAll("input").data(d3.keys(files)).enter().append("input").attr("type","button").attr("class","button btn btn-default dropdown-toggle").attr("id", "dropdown1")
-      .attr("value", function (d){return d;} )
-      .attr("data-toggle", "dropdown")
-      .attr("aria-haspopup", "true")
-      .style("fill", function (d){if (d == csvname){return "grey"}else{return "d3d3d3"}})
-     .on('click', function(d){
-        d3.selectAll(".blocks, rect, text").remove()
-        setData(d)
-      })
-    d3.select(".category").append("div").attr("class", "race col-md-4").append("div").attr("class", "panel panel-default ").append("div").attr("class", "panel-body").html("Race") 
-    d3.select(".category").append("div").attr("class", "income col-md-4").append("div").attr("class", "panel panel-default ").append("div").attr("class", "panel-body").html("Income") 
-    d3.select(".category").append("div").attr("class", "x col-md-4").append("div").attr("class", "panel panel-default ").append("div").attr("class", "panel-body").html("Other things to map") 
-
-  legend()
-  controls()
-  timer()
-  attributes(keys)
+ NProgress.done()
   }
-}
+})
 
-function clickedBlock(data) {
-  svg.selectAll(".strokeblocks") 
-    .select('path')
-    //.transition().duration(500) 
-    .style(defaultStroke)
-  svg.select("."+data.properties.LSAD+data.properties.GEOID) 
-    .select('path')
-    //.transition().duration(500) 
-    .style({"stroke": "red", "stroke-width": "5px", 'cursor': 'pointer'})
-}
+app.component('site', {
+  bindings: { data2014: '<', data1990: '<'}, //make the data we loaded into the view from the factory available to this component
+  templateUrl: 'site.html', //this is the html that we will plug our data into
+  controller: function () {
+    console.log(this)
 
-function viewer (data){
-  d3.select(".viewer").remove()
-
-  d3.select(".chart").append("div").attr("class", "viewer col-md-12").append("div").attr("class", "panel panel-default").append("div").attr("class", "panel-body")
-    .html(function(){
-          return "% "+prettify(expressed)+" over time in this neighborhood"
-    }) 
-
-  var margin = 35
-  var width = $(".col-md-4").width() - margin * 2
-  var height = $(".legend").height()
-
-  var viewerSVG = d3.select(".viewer").append("svg")
-    .style({"height": height+margin*2, "width": width+margin*2})
-  
-    //get data
-    //lookup census block over the years
-
-  var c=d3.keys(yearKey)
-  var push = []
-
-  for (n=0;n<c.length;n++){
-    var percentage = data.properties[c[n]][expressed] //? data.properties[c[n]][expressed] : data.properties[c[n]]["Population of one race: - White alone"] // this is a problem for 2000/2010?
-    push.push({"date": c[n], "percentage": (percentage/data.properties[c[n]]["Estimate; Total:"])*100})
-  }
-
-  var r = [margin, (10/24)*width +margin, (20/24)*width +margin, (23/24)*width +margin, width +margin]
-
-  var x = d3.scale.ordinal()
-    .domain(push.map(function(d){return d.date}))
-    .range(r);
-
-
-  /*var xAxis = d3.svg.axis()
-      .scale(x)
-      .orient("bottom")
-      .tickValues(push.map(function(d){return d["date"]}))
-   
-      //.tickFormat(d3.time.format("%y"))*/
-  var y = d3.scale.linear()
-      .range([height+margin, margin]);
-
-  var yAxis = d3.svg.axis()
-      .scale(y)
-      .orient("left")
-      .tickFormat(function(d){return d+"%"})
-
-  var line = d3.svg.line()
-      .x(function(d) { return x(d.date); })
-      .y(function(d) { return y(d.percentage); });
-
-  y.domain(d3.extent(push, function(d) { return d.percentage; }));
-/* viewerSVG.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(" + 0+ "," + height+margin/2 + ")")
-      .call(xAxis)
-  .selectAll("text")
-    .attr("y", 3)
-    .attr("x", 3)
-    .attr("transform", "rotate(-90)")
-    .style("text-anchor", "start");*/
-
-  viewerSVG.append("g")
-      .attr("class", "y axis")
-      .attr("transform", "translate(" + margin+ "," + 0 + ")")
-      .call(yAxis)
-
-  viewerSVG.append("path")
-      .datum(push)
-      .attr("class", "line")
-     // .attr("transform", "translate(" + margin + "," + margin + ")")
-      .attr("d", line);
-
-  viewerSVG.selectAll(".dot")
-    .data(push)
-      .enter().append("circle")
-    .attr("class", "dot")
-   // .attr("transform", "translate(" + margin+ "," + margin + ")")
-    .attr("cx", line.x())
-    .attr("cy", line.y())
-    .attr("r", 3.5)
-   viewerSVG.selectAll("label")
-    .data(push)
-    .enter().append("text")
-    .attr("y", line.y())
-    .attr("x", line.x())
-    .attr("transform", "translate(" + 5+ "," + 5 + ")")
-    .text(function(d){return d.date})
-    .attr("class", "label")
-
-
-}
-
-function attributes(keys){
-//attribute selector
-  keys["race"].push("Rate of Change Between 2000-2014")
-  //keys.push("White/Black")
-
-  d3.selectAll(".atts").remove()
-    d3.select(".race").append("ul").attr("class", "nav nav-pills nav-stacked atts").selectAll("li").data(keys["race"]).enter().append("li")
-     .html(function (d){
-          return "<a href='#'>"+prettify(d)+"</a>";
-      } )
-     .attr("class", function(d){if (d==expressed){return "active"}})
-     .attr("role", "presentation")
-     .on('click', function(d){
-        if (d == "Rate of Change Between 2000-2014" && expressedHelp.length == 1) {
-          changer()
-        } 
-        else if (expressedHelp.length == 2 && d == "Rate of Change Between 2000-2014") {
-          expressedHelp.splice(0,1)
-          expressed = expressedHelp[0]
-          changer()
-        }
-        else if (expressedHelp.length == 2 && expressedHelp[0] == d || expressedHelp[1] == d) {
-          var index = expressedHelp.indexOf(d)
-          expressedHelp.splice(index, 1)
-          expressed = expressedHelp[0]
-          changeAttribute(expressed)
-          if (viewCheck){viewer(siteData)}
-          controls()
-        } //if we're at 2 and clicked on something we already were working with, go back to one attribute
-        else if (expressedHelp.length == 1 && expressedHelp[0] != d) {
-          expressedHelp[1] = d
-          expressed = expressedHelp[1]
-          changer2(expressedHelp)
-        } // else if we're at one and adding another...
-        else if (expressedHelp.length == 1 && expressedHelp[0] == d) {
-          return
-        } // else if we're at one and we clicked on what's already there
-        else if (expressedHelp.length == 2 && expressedHelp[0] != d && expressedHelp[1] != d) {
-          expressedHelp.splice(0,1)
-          expressedHelp[1] = d
-          expressed = expressedHelp[1]
-          changer2(expressedHelp)
-        } // else, if we're at two and adding a separate one. 
-
-       
-     })
-  d3.select(".income").append("ul").attr("class", "nav nav-pills nav-stacked atts").selectAll("li").data(keys["income"]).enter().append("li")
-    .html(function(d){
-        return "<a href='#'>"+d+"</a>";
-    })
-    .attr("class", function(d){ if (expressed2.includes(d)){return "active"}})
-    .attr("role", "presentation")
-    .on('click', function(d){
-      if(expressed2==d) {
-        svg.selectAll("circle").remove();
-        expressed2 = ""
-        d3.select(".incLeg").remove()
-        d3.selectAll(".atts")
-         .selectAll("li")
-         .attr("class", function(d){if (d==expressed || d==expressed2){return "active"}})
-      } else {
-          expressed2 = d
-          props()
-        }
+    //from: https://codepen.io/nickmoreton/pen/ByYZMB
+    this.w = 600;
+    this.h = 350;
+    this.yAxis = '% attribute';
+    this.xAxis = 'Year';
     
-    //set expressed, check for overlap
-    })   
- }
-
-function props(){
-
-  svg.selectAll("circle").remove()//clear existing circles
-
-  //calculate mid points for each census block
-  d3.selectAll(".blocks") //select every province
-    .select("path")
-    .attr("c", function (d){
-        centroids[d.properties.AFFGEOID] = path.centroid(d)
-      })
-
-  //relabel attributes
-   d3.selectAll(".atts")
-   .selectAll("li")
-   .attr("class", function(d){if (d==expressed || d==expressed2){return "active"}})
-
-  svg.selectAll("circles")
-    .data(d3.keys(centroids))
-    .enter().append("circle")
-    .attr("id", function(d){return "c"+d})
-    .attr('cx', function(d){return centroids[d][0]})
-    .attr('cy', function(d){ return centroids[d][1]})
-    .attr("r", function(d){if (MHI[d] && isFinite(MHI[d][expressed2])) {return radius(d)}})
-    .style(propStyle)
-
-  legend()
-}
-
-function legend(min){
-  //legend
-    min = isNaN(min) ? 0 : min
-    x = color.copy()
-   // l = x.quantiles() ? x.quantiles.unshift(0) : 
-    x.quantiles().unshift(min)
-    x.quantiles().sort(function(a,b){return b-a})
-   // console.log(x.quantiles().sort(function(a,b){return b-a}))
-    d3.selectAll('.raceLeg, .incLeg').remove()
-
-    if (expressedHelp.length == 1){var label = rate == true ? "Rate of change in %"+prettify(expressed)+"between 2000 and 2014" : "% "+prettify(expressedHelp[0])} 
-    label = expressedHelp.length > 1 ? "Ratio of"+prettify(expressedHelp[0])+" to"+prettify(expressedHelp[1]) : label
-
-    d3.select(".legend").append("div").attr("class", "raceLeg col-md-4").append("div").attr("class", "panel panel-default").append("div").attr("class", "panel-body").text(label+" | "+time) 
-    d3.select(".raceLeg").append("ul").attr("class", "list-group").selectAll("li").data(x.quantiles()).enter().append("li")
-      .attr("class", "list-group-item")
-      .style("background", function(d){return color(d)})
-    .text(function(d, i){
-            var ratio = d3.format(".2f")
-            var z = i == 0 ? format(d3.max(color.domain())) : format(x.quantiles()[i-1])
-            var y = i == 0 && expressedHelp.length > 1 ? ratio(d3.max(color.domain())) :  ratio(x.quantiles()[i-1])
-            var label = expressedHelp.length == 1 ? format(d)+" - "+z : ratio(d)+" - "+y
-            return label
-         })
-
-  if (expressed2){  
-    var max = d3.max(d3.values(MHI).map(function(d){return d[expressed2]})), min = d3.min(d3.values(MHI).map(function(d){return d[expressed2]})), mean = d3.mean(d3.values(MHI).map(function(d){return d[expressed2]}))
-    var data = [max, mean, min]
-    var scale = expressed2.includes("Rent") ? d3.scale.linear().domain([min, max]).range([1, 10]) : d3.scale.linear().domain([min, max]).range([1, 10]); //FIX RENT SCALING
-
-    d3.select(".legend").append("div").attr("class", "incLeg col-md-4").append("div").attr("class", "panel panel-default").append("div").attr("class", "panel-body").text(""+expressed2+" | "+time) 
-    d3.select(".incLeg").append("svg").attr("id", "incLegSVG").selectAll("circles").data(data).enter().append("circle").attr('cx', function(d){return $(".raceLeg").width()/2})
-      .attr('cy', function(d,i){ return $(".raceLeg").height()/15 + i * 20})
-      .attr("r", function(d){return scale(d)})
-      .style(propStyle)
-
-    d3.select("#incLegSVG")
-      .selectAll("text")
-      .data(data).enter().append("text")
-      .attr('x', $(".incLeg").width()/1.5)
-      .attr('y', function(d,i){return 25+i*20})
-      .text(function(d){
-        var pretty = expressed2.includes("%") ? format : d3.format(",.0f")
-        var modifier = expressed2.includes("%") ? "" : "$"
-        return modifier+pretty(d) 
-      })
-      .attr("class", "label")
-    }
-
- }
-
-function prettify (d){
-  d  = d.replace("Estimate; Total: -", "")
-  d  = d.replace("alone", "")
-  d  = d.length > 50 ? d.slice(0,47)+"..." : d
-  return d
-}
-
-function controls (targets){
-d3.select(".controls").remove()
-
-var margin = {top: 10, right: 30, bottom: 30, left: 30},
-    width = $(".map").width(),
-    height = $(".legend").height()/2 - margin.top - margin.bottom;
-
-d3.select(".histogram").append('div').attr('class', "controls")
-
-var Hsvg = d3.select('.controls').append('svg')
-    .attr("width", width)
-    .attr("height", height + margin.top + margin.bottom)
-   .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
-var x = d3.scale.linear()
-    .domain([d3.min(color.domain()), d3.max(color.domain())])
-    .range([0, width-margin.right*3]) //margin.left
-
-//var y = d3.scale.linear().range([height, 0]);
-
-var ex = targets ? targets : [d3.min(color.domain()), d3.max(color.domain())] //calculate the extent
-
-var bins = d3.layout.histogram()
-    .bins(x.ticks(20))
-   (barHelp.domain())
-
-var y = d3.scale.linear()
-    .domain([0, d3.max(bins, function(d) { return d.length; })])
-    .range([height, 0]);
-
-var bar = Hsvg.selectAll(".bar")
-    .data(bins)
-  .enter().append("g")
-    .attr("class", "bar")
-    .attr("fill", function(d){return color(d3.mean(d))})
-    .attr("transform", function(d) { return "translate(" + x(d.x) + "," + y(d.length) + ")"; });
-
-bar.append("rect")
-    .attr("x", 1)
-    .attr("width", x(bins[0].dx) - x(bins[0].x) - 1)
-    .attr("height", function(d) { return height - y(d.length); });
-
-bar.append("text")
-    .attr("dy", ".75em")
-    .attr("y", 6)
-    .attr("x", (x(bins[0].dx) - x(bins[0].x)) / 2)
-    .attr("text-anchor", "middle")
-    .text(function(d) { return d.length; })
-    .attr({"fill": "black", "font-size": "8px"});
-
-var label = expressedHelp.length > 1 ? d3.format("") : d3.format("%")
-
-Hsvg.append("g")
-    .attr("class", "axis axis--x")
-    .attr("id", "filterX")
-    .attr("transform", "translate("+0+"," + height + ")")
-    .call(d3.svg.axis().scale(x).orient("bottom").ticks(20).tickFormat(label));
-
-brush = d3.svg.brush()
-    .x(x)
-    .extent(ex)
-    .on("brushstart", brushstart)
-    .on("brush", brushmove)
-    .on("brushend", brushend);
-
-var arc = d3.svg.arc()
-    .outerRadius(height/10)
-    .startAngle(0)
-    .endAngle(function(d, i) { return i ? -Math.PI : Math.PI; });
-
-/*
-var circle = svg.append("g").selectAll("circles")
-    .data(domArray)
-  .enter().append("circle")
-    .attr('class', "filtercircles")
-    .attr("transform", function(d) { return "translate(" + x(d) + "," + height + ")"; })
-    .attr("fill", function(d){return color(d)})
-    .attr("r", circleScale);*/
-
-var brushg = Hsvg.append("g")
-    .attr("class", "brush")
-    .call(brush);
-
-var h = height - (height/10)
-brushg.selectAll(".resize").append("path")
-    .attr("transform", "translate("+0+"," + h + ")")
-    .attr("d", arc);
-
-brushstart();
-brushmove();
-
-function brushstart() {
-  Hsvg.classed("selecting", true);
-}
-
-function brushmove() {
-  var s = brush.extent();
-  bar.classed("selected", function(d) { return s[0] <= d && d <= s[1]; });
-  filter(s)
-}
-
-function brushend() {
-  Hsvg.classed("selecting", !d3.event.target.empty());
-}
-}
-
-function updateHSVG(){
-    console.log('yes')
-    y = $(".histogram").height()
-    x = $(".map").width()
-    Hsvg.style({"width": x, "height": y});
-}
-
-function timer(){
-//year legend here
-
-var margin = {top: 20, right: 25, left: 25},
-    width = $(".map").width(),
-    height = 20
-
-var Ssvg = d3.select(".timeSlider").append("svg")
-    .style({"height": height+margin.top, "width": width})
-
-var r = [0, (10/24)*width-margin.left*1, (20/24)*width-margin.left*2, (23/24)*width-margin.left*3, width-margin.left*4]
-
-var formatDate = d3.time.format("%y");
-var array =d3.keys(yearKey)
-var timeScale =  d3.scale.linear()
-    .domain(array)
-    .range(r);
-
-
-// initial value
-var brushT = d3.svg.brush()
-  .x(timeScale)
-  .extent([array[array.length-1],array[array.length-1]])
-  .on("brush", brushedT)
-
-//var heightx = height100-40
-var pad = 15
-
-Ssvg.append("g")
-  .attr("class", "x axis")
-// put in middle of screen
-  .attr("transform", "translate("+margin.left+"," + pad+ ")")
-// inroduce axis
-.call(d3.svg.axis()
-  .scale(timeScale)
-  .orient("bottom")
-  .tickFormat(function(d) {
-    return d;
-  })
-  .tickSize(5)
-  .tickPadding(12)
-  .tickValues([timeScale.domain()[0], timeScale.domain()[1], timeScale.domain()[2],  timeScale.domain()[3],  timeScale.domain()[4]]))
-  .select(".domain")
-  .select(function() {
-    return this.parentNode.appendChild(this.cloneNode(true));
-  })
-  .attr("class", "halo")
-
-
-
-var slider = Ssvg.append("g")
-  .attr("class", "slider")
-  .attr("transform", "translate("+margin.left+"," + pad+ ")")
-  .call(brushT);
-
-slider.selectAll(".extent,.resize")
-  .remove();
-
-slider.select(".background")
-.attr("transform", "translate("+0+"," +-10+ ")")
-  .attr("height", 20);
-
-var handle = slider.append("circle")
-    .attr("class", "handle")
-    .attr("transform", "translate(0," + pad + ")")
-    .attr("r", 9);
-
-slider
-  .call(brushT.event)
-
-function brushedT() {
-  var value = brushT.extent()[0];
-  value = Number(value)
-  var d0 = closest(value, array)
-  brushT.extent([d0,d0])
-
-  handle.attr("transform", "translate(" + timeScale(value) + ",0)");
-  handle.select('text').text(value);
-
-  
-  var keys = d3.keys(yearKey[time][0])
-  keys = keys.filter(function(d){return d.indexOf("Id")<=-1})
-  keys = keys.filter(function(d){return d.indexOf("Geography")<=-1})
-  keys = keys.filter(function(d){return d.indexOf("Margin")<=-1})
-  keys.length > 10 ? keys.splice(10, keys.length-10) : keys = keys
-  keys.splice(0,1)
-  var index = keys.indexOf(expressed)
-
-  time = d0
-
-  
-  //change expressed to White //CAN GET RID OF ALL THIS IF STANDARDIZE DATA ACROSS TIME
-  if (firstTime == false && rate == false){
-  var keys = d3.keys(yearKey[time][0])
-  keys = keys.filter(function(d){return d.indexOf("Id")<=-1})
-  keys = keys.filter(function(d){return d.indexOf("Geography")<=-1})
-  keys = keys.filter(function(d){return d.indexOf("Margin")<=-1})
-  keys.length > 10 ? keys.splice(10, keys.length-10) : keys = keys
-  keys.splice(0,1)
-  expressed = keys[index] //find currently expressed in new keys
-  keys = {"race": keys, "income": d3.keys(MHI[d3.keys(MHI)[0]])} //reset keys
-  }
-  
-  if (expressedHelp.length >1){changer2(expressedHelp)}else{changeAttribute(expressed)}
-
-  if (firstTime == true) {firstTime = false} else{if (expressedHelp == 1){attributes(keys);controls(brush.extent())}}
-
-  }
-}
-
-function updateSSVG(){
-    console.log('yes')
-    y = $(".slider").height()
-    x = $(".map").width()
-    Ssvg.style({"width": x, "height": y});
-}
-
-function changer (){
-  console.log(expressed, expressedHelp)
-  helper={}
-  for (r = 0; r<yearKey["2014"].length; r++){
-    for (p = 0; p<yearKey["2000"].length; p++){
-      if (yearKey["2014"][r]["Id"] == yearKey["2000"][p]["Id"]){
-      //yearKey["2000"][p]["Estimate; Total:"] == 0 ? 
-        push = ((yearKey["2014"][r][expressed]/yearKey["2014"][r]["Estimate; Total:"]) - (yearKey["2000"][p][expressed]/yearKey["2000"][p]["Estimate; Total:"])) / (yearKey["2000"][p][expressed]/yearKey["2000"][p]["Estimate; Total:"])
-        if (isFinite(push)){ 
-        helper[yearKey["2014"][r]["Id"]]=push
-        }
-        
+    // Data 
+    var expressed = "White" //change to dynamic
+    var total = "Total"
+
+    this.points = [
+      {
+      label: '1990',
+      xValue: 1,
+      yValue: (this.data1990[0][expressed]/this.data1990[0][total])*100
+      },
+      /*{
+      label: '2000',
+      xValue: 2,
+      yValue:  (this.data2000[0][expressed]/this.data2000[0][total])*100
+      },
+      {
+      label: '2010',
+      xValue: 3,
+      yValue:  (this.data2010[0][expressed]/this.data2010[0][total])*100
+      },*/
+      {
+      label: '2014',
+      xValue: 2,
+      yValue:  (this.data2014[0][expressed]/this.data2014[0][total])*100
       }
-    }
-  }
-  change = d3.values(helper)
-  domArray=change
-  color = d3.scale.quantile() //designate quantile scale generator
-    .range(['#ca0020','#f4a582','#f7f7f7','#92c5de','#0571b0'])
-  .domain(change)//color.domain([d3.min(change), d3.max(change)]);
-  //d3.selectAll(".blocks").select("path").style("fill",  "#ddd")
-
-  barHelp = color.copy()
-
-  svg.selectAll(".blocks")
-    .select("path")
-    .style("fill", function(d) {
-      e = helper[d.properties.AFFGEOID]
-        value = color(e)
-          value == undefined ? value = "#ddd" : value = value
-        return value
-       })
-
-  d3.selectAll(".atts")
-    .selectAll("li")
-    .attr("class", function(d){if (d==expressed || d=="Rate of Change Between 2000-2014" || d==expressed2){return "active"}})
-
-  rate = true
-  legend(d3.min(change))
-  controls()
-}
-
-function changer2 (data){
-  helper ={}
-  for (r = 0; r<yearKey[time].length; r++){
-        //console.log(yearKey[time][r])
-        push = (yearKey[time][r][data[0]])/(yearKey[time][r][data[1]])
-        if (isFinite(push)){ 
-        helper[yearKey[time][r]["Id"]]=push
-        }
-  }
-  change = d3.values(helper)
-  domArray=change
-  color = d3.scale.quantile() //designate quantile scale generator
-    .range(['#ca0020','#f4a582','#f7f7f7','#92c5de','#0571b0'])
-  .domain(change)//color.domain([d3.min(change), .8, 1.2, d3.max(change)]);
-  //d3.selectAll(".blocks").select("path").style("fill",  "#ddd")
-  
-  barHelp = color.copy()
-
-  svg.selectAll(".blocks")
-    .select("path")
-    .style("fill", function(d) {
-      e = helper[d.properties.AFFGEOID]
-        value = color(e)
-          value == undefined ? value = "#ddd" : value = value
-        return value
-       })
-
-  d3.selectAll(".atts")
-    .selectAll("li")
-    .attr("class", function(d){if (d==data[0] || d==data[1] || d==expressed2){return "active"}})
-
-  rate = true
-  legend(d3.min(change))
-  controls()
-}
-
-
-function changeAttribute(attribute, csvData){
-  rate = false
-  //change the expressed attribute
-  expressed = attribute;
-  colorize = colorScale(yearKey[time]);
-  
-  //recolor the map
-  d3.selectAll(".blocks") //select every province
-    .select("path")
-    .style("fill", function(d) { //color enumeration units
-      return choropleth(d, colorize); //->
-    })
-  d3.selectAll(".atts")
-    .selectAll("li")
-    .attr("class", function(d){if (d==expressed || d==expressed2){return "active"}})
-
-  legend(0)
-}
-
-function choropleth(d, colorize){
-
-  //get data value
-  var value = d.properties[time] ? colorize (d.properties[time][expressed]/d.properties[time]["Estimate; Total:"]) : "#ddd";
-  value == undefined ? value = "#ddd" : value = value
-  return value
-
-};
-
-function colorScale(csvData){
-  domArray = csvData.map(function(d){return d[expressed]/d["Estimate; Total:"]})
-
-  var scheme = {"Estimate; Total: - White alone": ['#edf8e9','#bae4b3','#74c476','#31a354','#006d2c'], "Estimate; Total: - Black or African American alone": ['#eff3ff','#bdd7e7','#6baed6','#3182bd','#08519c'], "Estimate; Total: - American Indian and Alaska Native alone": ['#feedde','#fdbe85','#fd8d3c','#e6550d','#a63603'], "Estimate; Total: - Asian alone": ['#f2f0f7','#cbc9e2','#9e9ac8','#756bb1','#54278f'], "Estimate; Total: - Native Hawaiian and Other Pacific Islander alone": ['#fee5d9','#fcae91','#fb6a4a','#de2d26','#a50f15'], "Estimate; Total: - Hispanic": ['#f7f7f7','#cccccc','#969696','#636363','#252525']}
-  var range = scheme[expressed]
-
-  color = d3.scale.quantile() //designate quantile scale generator
-  .range(range)
-  
-  color.domain(domArray)
-  barHelp = color.copy()
-
-  d3.mean(domArray) > .3 ? color.domain(domArray) : color.domain([d3.min(domArray), d3.max(domArray)]);
-  
-  return color; //return the color scale generator
-}
-
-
-function filter(data) {
-//return s[0] <= d && d <= s[1]; 
-//do math to get range
-if (rate){
-    svg.selectAll(".blocks")
-      .select("path")
-      .style("fill", function(d) {
-        e = helper[d.properties.AFFGEOID] //help
-        if (e < data[0] || e > data[1]){return "#ddd"}
-            else{value = color(e); value == undefined ? value = "#ddd" : value = value; return value}
-          
-         })
-
-}else{
- svg.selectAll('.blocks')
-    .select('path')
-    .style("fill", function(d){
-      //console.log(d)
-      if (d.properties[time]){
-        if (d.properties[time][expressed]/d.properties[time]["Estimate; Total:"] < data[0] || d.properties[time][expressed]/d.properties[time]["Estimate; Total:"] > data[1]){
-          svg.selectAll("#c"+d.properties.AFFGEOID)
-            .attr("r", function(d){return 0}) //  no radius
-          return "#ddd" //no fill
-        }else {
-          svg.selectAll("#c"+d.properties.AFFGEOID)
-            .attr("r", function(d){return radius(d)})//do radius radius
-          return choropleth(d, colorize) 
-        }
-      }
-      else{
-          svg.selectAll("#c"+d.properties.AFFGEOID)
-            .attr("r", function(d){ return 0}) //  no radius
-        return "#ddd" //no fill
-      } 
-    })
- }
-
-}
-
-function zoomer() {
-  if (zoom.translate()[0] >-700 && zoom.translate()[0] < 200 && zoom.translate()[1] <500 && zoom.translate()[1] > -400){
-    svg.selectAll(".blocks, .rivers").attr("transform", "translate(" +  zoom.translate() + ")scale(" + zoom.scale() + ")")
-        .selectAll("path").style("stroke-width", .1 / zoom.scale() + "px" );
-  }
- }
-
-function radius(data){
-  var dom = d3.values(MHI).map(function(d){return d[expressed2]})
-  dom = dom.filter(function(d){return isFinite(d)})
-  var max = d3.max(dom), min = d3.min(dom)
-  var scale = expressed2.includes("Rent") ? d3.scale.linear().domain([min, max]).range([1, 10]) : d3.scale.linear().domain([min, max]).range([1, 10]); //FIX RENT SCALING
-  var r = MHI[data] ? scale(MHI[data][expressed2]) : 0
-  return r
-}
-
-function highlight(data){
-  svg.selectAll(".strokeblocks")
-    .select("path")
-    .style(defaultStroke)
-  if (clickedBlockHelp["target"].properties){
-    svg.select("."+clickedBlockHelp["target"].properties.LSAD+clickedBlockHelp["target"].properties.GEOID) 
-      .select('path')
-      //.transition().duration(500) 
-      .style({"stroke": "red", "stroke-width": "3px", 'cursor': 'pointer'})
-  }
-  svg.select("."+data.properties.LSAD+data.properties.GEOID) 
-    .select('path')
-    //.transition().duration(500) 
-    .style({"stroke": "yellow", "stroke-width": "3px", 'cursor': 'pointer'})
- /*svg.select("#"+data.properties.LSAD+data.properties.GEOID) 
-    .select('path')
-    .style({"filter": "drop-shadow( 3px 3px 3px black )"})
-    .attr("id", "shadow")
-    .attr("transform", "translate("+-3+"," + -3+ ")")
-  console.log(  svg.select("#"+data.properties.LSAD+data.properties.GEOID))
-    //.transition().duration(500) */
+    ];
+    // Find Maximum X & Y Axis Values - this is used to position the points as a percentage of the maximum
+    this.maxY = 0;
+    this.maxX = 0;
     
-
-    
-}
-
-function dehighlight(data){
-  svg.selectAll(".strokeblocks")
-    .select("path")
-    .style(defaultStroke)
-  if (clickedBlockHelp["target"].properties){
-    svg.select("."+clickedBlockHelp["target"].properties.LSAD+clickedBlockHelp["target"].properties.GEOID) 
-      .select('path')
-      //.transition().duration(500) 
-      .style({"stroke": "red", "stroke-width": "3px", 'cursor': 'pointer'})
-  }
-/*    svg.select("#"+data.properties.LSAD+data.properties.GEOID) 
-    .select('path')
-    .attr("transform", "translate("+3+"," + 3+ ")")
-    //.transition().duration(500) 
-    .style({"box-shadow": "none"})*/
-};
-
-function redraw (base){
-  /*svg.selectAll("circle").sort(function (a, b) {
-    if (a != base) return 0;               // a is not the hovered element, send "a" to the back
-    else return 1;                             // a is the hovered element, bring "a" to the front
-  });*/
-}
-
-var calcFlanneryRadius = function(x, max) {
-  // Flannery Compensation formula as described here:
-  //http://www.scribd.com/doc/33408233/SUG243-Cartography-Proportional-Symbol#scribd
-  // log x * 0.57
-  // anti log
-  var flannery = 0.57;
-  var log = Math.log(x);
-  var r = log * flannery;
-  r = Math.exp(r);
-  return (r);
-};
-
-var radiusFlannery = function(x) {
-  return flanneryScale(calcFlanneryRadius(x));
-};
-
-
-//helper function from http://stackoverflow.com/questions/8584902/get-closest-number-out-of-array
-function closest (num, arr) {
-    var curr = arr[0];
-    var diff = Math.abs (num - curr);
-    for (var val = 0; val < arr.length; val++) {
-        var newdiff = Math.abs (num - arr[val]);
-        if (newdiff < diff) {
-            diff = newdiff;
-            curr = arr[val];
-        }
+    var arrLength = this.points.length;
+    for (var i = 0; i < arrLength; i++) {
+        // Find Maximum X Axis Value
+      	if (this.points[i].yValue > this.maxY)
+        this.maxY = this.points[i].yValue;
+      	// Find Maximum Y Axis Value
+      	if (this.points[i].xValue > this.maxX)
+        this.maxX = this.points[i].xValue;
     }
-    return curr;
-}
 
-function escapade (blocks1990, blocks2000, blocks2010, blocks2013, blocks2014){
-  yearKey = {"1990":blocks1990, "2000":blocks2000, "2010": blocks2010, "2013": blocks2013, "2014":blocks2014}
-}
+
+  }
+})  
+
 
 </script>
 </body>
