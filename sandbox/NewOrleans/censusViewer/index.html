@@ -45,9 +45,9 @@
                     <span class="glyphicon glyphicon-menu-hamburger"></span>
                     <span class="menu">Menu</span>
                 </button> <!--hamburger button for smaller devices-->
-                <a class="navbar-brand" href="#">Programming Resilience</a><!--our website brand name-->
-            </div>
-            <h5 class="navbar-text"><font color="#cccccc">New Orleans Census Viewer</font></h5>
+                <a class="navbar-brand" href="#">New Orleans Census Viewer</a><!--our website brand name-->
+            </div><!-- 
+            <h5 class="navbar-text"><font color="#cccccc">New Orleans Census Viewer</font></h5> -->
             <div id="navbar" class="collapse navbar-collapse"><!--links in navbar-->
                 <ul class="nav navbar-nav navbar-right"><!--unordered list for links on navbar-->
 
@@ -96,13 +96,10 @@ app.config(function($stateProvider) {
         },  
         data2000: function(Resource, $stateParams) {
           return Resource.getSite($stateParams.site, "2000")
-      },/*
-            data2000: function(Resource, $stateParams) {
-          return Resource.getSite($stateParams.site)
       },
             data2010: function(Resource, $stateParams) {
-          return Resource.getSite($stateParams.site)
-      },*/
+          return Resource.getSite($stateParams.site, "2010")
+      },
             data2014: function(Resource, $stateParams) {
           return Resource.getSite($stateParams.site, "2014")
       }
@@ -124,7 +121,7 @@ app.factory('Resource', function ($http) {
     getAll: function() {
       return $http.get('data/blocks.json').then(function(resp) {
       	return $http.get('data/race/data.json').then(function(resp2) { //how to load multiple years. probably combine in json....
-        	var years =["2000", "2014"]
+        	var years =["2000", "2010", "2014"]
       		var geo = topojson.feature(resp.data, resp.data.objects.blocks).features  
       		var data = resp2.data
 		      geo.forEach(function(d){ // add census data to geggraohpy
@@ -138,7 +135,7 @@ app.factory('Resource', function ($http) {
           //d.properties.data.fill = choropleth(d) //bind color changing event somewhere
 		      })
 
-          geo = geo.filter(function(d){return d.properties.censusData["2014"] && d.properties.censusData["2000"] })
+          geo = geo.filter(function(d){return d.properties.censusData["2014"] && d.properties.censusData["2000"] && d.properties.censusData["2010"]})
 
         	return geo;
         })
@@ -365,7 +362,7 @@ app.component('home', {
 })
 
 app.component('site', {
-  bindings: { data2014: '<', data2000: '<', expressed: '<'}, //make the data we loaded into the view from the factory available to this component
+  bindings: { data2014: '<', data2000: '<', data2010: '<', expressed: '<'}, //make the data we loaded into the view from the factory available to this component
   templateUrl: 'site.html', //this is the html that we will plug our data into
   controller: function () {
     console.log(this)
@@ -379,7 +376,7 @@ app.component('site', {
     this.w = $(".col-md-3").width();
     this.h = 100
     this.yAxis = '% '+expressed;
-    this.xAxis = ' '+"2000"+' '+"2014";
+    this.xAxis = ' '+"2000"+' '+"2010"+' '+"2014";
     
     // Data 
 
@@ -389,16 +386,11 @@ app.component('site', {
       xValue: 1,
       yValue: (this.data2000[0][expressed]/this.data2000[0][total])*100
       },
-      /*{
-      label: '2000',
-      xValue: 2,
-      yValue:  (this.data2000[0][expressed]/this.data2000[0][total])*100
-      },
       {
       label: '2010',
       xValue: 3,
       yValue:  (this.data2010[0][expressed]/this.data2010[0][total])*100
-      },*/
+      },
       {
       label: '2014',
       xValue: 2,
