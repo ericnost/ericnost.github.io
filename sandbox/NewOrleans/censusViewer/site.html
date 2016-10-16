@@ -2,10 +2,11 @@
     
     <div class="y" style="width:{{$ctrl.h}}px;">{{$ctrl.yAxis}}</div>
     
-    <div class="x">{{$ctrl.xAxis}}</div>
-    <svg height="{{$ctrl.h}}" width="100%">
-      <line class="line{{$index}}" ng-repeat="point in $ctrl.points" x1="{{$ctrl.width / $ctrl.maxX * $index }}" y1="{{$ctrl.points[$index - 1].yValue / $ctrl.maxY * $ctrl.h}}" x2="{{$ctrl.w / $ctrl.maxX * ($index + 1)}}" y2="{{point.yValue / $ctrl.maxY * $ctrl.h}}" />
+   	<div class="x">{{$ctrl.xAxis}}</div>
+      <svg height="{{$ctrl.h}}" width="100%">
+      <line class="line{{$index}}" ng-repeat="point in $ctrl.points" x1="{{$ctrl.w / $ctrl.maxX * $index }}" y1="{{$ctrl.points[$index - 1].yValue / $ctrl.maxY * $ctrl.h}}" x2="{{$ctrl.w / $ctrl.maxX * ($index + 1)}}" y2="{{point.yValue / $ctrl.maxY * $ctrl.h}}" />
     </svg>
-     <div class="dot dot{{$index}}" ng-repeat="point in $ctrl.points" style="bottom:calc({{point.yValue}}/{{$ctrl.maxY}}*{{$ctrl.h}}px - 5px); left:calc({{point.xValue}}/{{$ctrl.maxX}}*{{$ctrl.w}}px - 5px);" data-title="{{point.label}}: {{point.yValue}}"></div>
-   
+     <div class="dot dot{{$index}}" ng-repeat="point in $ctrl.points" style="bottom:calc({{point.yValue}}/{{$ctrl.maxY}}*{{$ctrl.h}}px - 5px); left:calc({{point.xValue}}/{{$ctrl.maxX}}*{{$ctrl.w}}px - 5px);" data-title="{{point.label}}: {{point.yValue}}">{{point.yValue | number:2}}%</div>
+   <!-- 	<div  class ="dot{{$index}}"  ng-repeat="point in $ctrl.points" ng-attr-width="25px" style="bottom:5px); left:calc({{point.xValue}}/{{$ctrl.maxX}}*{{$ctrl.w}}px -5px)">{{point.label}}</div>
+   -->
   </div>
