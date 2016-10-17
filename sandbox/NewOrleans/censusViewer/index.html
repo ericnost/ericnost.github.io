@@ -18,17 +18,16 @@
 
       <script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
        <script type="text/javascript" src="lib/bootstrap.min.js"></script>
-        <script type="text/javascript" src="https://code.angularjs.org/1.5.5/angular.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
       <script type="text/javascript" src="lib/d3.js" charset="utf-8"></script>
       <script type="text/javascript" src="lib/topojson.v1.min.js"></script>
       <script type="text/javascript" src="lib/tip.js"></script>
       <script type="text/javascript" src="lib/leaflet.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.2.0/ui-bootstrap-tpls.js"></script>
 
-     
-       <!-- <script type="text/javascript" src="lib/router.js"></script> -->
+      <!--  <script type="text/javascript" src="lib/router.js"></script>-->
        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-beta.3/angular-ui-router.js"></script> 
-     
+      
        <script type="text/javascript" src="lib/ui-leaflet.js"></script>
         <script type="text/javascript" src="lib/log.js"></script>
         <script src='lib/nprogress.js'></script>
@@ -236,6 +235,8 @@ app.component('home', {
   
   //console.log(domArray)
     this.quants.splice(0,0,0)
+
+
     function style(d){
       //get data value
       var value = d.properties.censusData ? color(d.properties.censusData[year][expressed]/d.properties.censusData[year]["Total"]) : "#ddd";
@@ -252,8 +253,10 @@ app.component('home', {
 
     };
 
+
      var layers = [];
-    //add click behavior
+
+
     this.reExpress = function (){ 
       
                   //NProgress.start()
@@ -376,8 +379,30 @@ app.component('site', {
     this.w = $(".col-md-3").width();
     this.h = 100
     this.yAxis = '% '+expressed;
-    this.xAxis = ' '+"2000"+' '+"2010"+' '+"2014";
+    this.xAxis = ' '+"2000"+'-------'+"2010"+'-------'+"2014";
     
+
+    //accordion
+    this.status = {
+	    isCustomHeaderOpen: false,
+	    isFirstOpen: true,
+	    isFirstDisabled: false
+  	};
+  	this.oneAtATime = true;
+  	this.groups = [
+    {
+      title: '2000',
+      content: this.data2000
+    },
+    {
+      title: '2010',
+      content: this.data2010
+    },
+    {
+      title: '2014',
+      content: this.data2014
+    }
+  ];
     // Data 
 
     this.points = [
@@ -388,12 +413,12 @@ app.component('site', {
       },
       {
       label: '2010',
-      xValue: 3,
+      xValue: 2,
       yValue:  (this.data2010[0][expressed]/this.data2010[0][total])*100
       },
       {
       label: '2014',
-      xValue: 2,
+      xValue: 3,
       yValue:  (this.data2014[0][expressed]/this.data2014[0][total])*100
       }
     ];

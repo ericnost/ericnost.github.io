@@ -13,16 +13,16 @@
 	 
 
 		<leaflet center="$ctrl.center" legend="$ctrl.legend" defaults="$ctrl.defaults" width="100%"  height="480px" geojson="$ctrl.geojson"></leaflet>
-	</div>
-<div class="col-md-3">
-<ui-view></ui-view>
-</div>
-<div class="col-md-9">
+
 Select an attribute:
 <div class="btn-group">
     <label type="button" class="btn btn-primary padright" ng-model="$ctrl.radioModelExpressed" ng-click="$ctrl.reExpress()" ng-repeat="value in ['White',	'Black or African American',	'American Indian or Alaskan Native',	'Asian',	'Native Hawaiian and Other Pacific Islander',	'Hispanic',	'Some other race',	'Two or more races']" uib-btn-radio="value">{{ value }}</label>
 </div>
+	</div>
+<div class="col-md-3">
+<ui-view></ui-view>
 </div>
+
  </div>
 
 <!-- buttons here -->
