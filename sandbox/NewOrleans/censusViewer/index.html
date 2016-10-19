@@ -119,25 +119,30 @@ app.factory('Resource', function ($http) {
     },
     getAll: function() {
       return $http.get('data/blocks.json').then(function(resp) {
-      	return $http.get('data/race/data.json').then(function(resp2) { //how to load multiple years. probably combine in json....
-        	var years =["2000", "2010", "2014"]
-      		var geo = topojson.feature(resp.data, resp.data.objects.blocks).features  
-      		var data = resp2.data
-		      geo.forEach(function(d){ // add census data to geggraohpy
-            d.properties.censusData ={}
-            years.forEach(function(yr){
-    		      var thisData = data.filter(function(e){return e.Id == d.properties.AFFGEOID && e.Year == yr}) //handle 1990 differently?
+      	return $http.get('data/income/data.json').then(function(resp3) {
+	      	return $http.get('data/race/data.json').then(function(resp2) { //how to load multiple years. probably combine in json....
+	        	var years =["2000", "2010", "2014"]
+	      		var geo = topojson.feature(resp.data, resp.data.objects.blocks).features  
+	      		var data = resp2.data
+	      		var incData = resp3.data
+	      		console.log(incData)
+			      geo.forEach(function(d){ // add census data to geggraohpy
+	            	d.properties.censusData ={}
+	            	d.properties.incData ={}
+	            	years.forEach(function(yr){
+	    		      var thisData = data.filter(function(e){return e.Id == d.properties.AFFGEOID && e.Year == yr}) //handle 1990 differently?
+	    		      d.properties.censusData[yr] = thisData[0] ? thisData[0] : undefined
+	    		      var thisInc = incData.filter(function(e){return e.Id == d.properties.AFFGEOID})
+	    		      d.properties.incData = thisInc[0] ? thisInc[0] : undefined
+			        })
+	          //d.properties.data.fill = choropleth(d) //bind color changing event somewhere
+			      })
 
-              
-    		      d.properties.censusData[yr] = thisData[0] ? thisData[0] : undefined
-		        })
-          //d.properties.data.fill = choropleth(d) //bind color changing event somewhere
-		      })
+	          	geo = geo.filter(function(d){return d.properties.censusData["2014"] && d.properties.censusData["2000"] && d.properties.censusData["2010"]})
 
-          geo = geo.filter(function(d){return d.properties.censusData["2014"] && d.properties.censusData["2000"] && d.properties.censusData["2010"]})
-
-        	return geo;
-        })
+	        	return geo;
+	        })
+	  	})
       });
     },    
     getSite: function(site, year) { //this instead should filter geography, above, to return right id
@@ -191,6 +196,7 @@ app.component('home', {
     //is problem having two leaflet maps on page???
     //what does angular.extend do?
     this.radioModelYear = "2014"
+    this.radioModelOverlay="None"
     var year ="2014"
    
     this.checkResults = {0:true, 1:true, 2:true, 3:true, 4: true}
@@ -221,17 +227,17 @@ app.component('home', {
     //console.log(this)
     //bind data
     var expressed = "White"
-     this.radioModelExpressed="White"
-      var temp = this.geography.filter(function(d){return d.properties.censusData[year]})
-      domArray = temp.map(function(d){var value = d.properties.censusData[year][expressed]/d.properties.censusData[year]["Total"]; return value})
-  var scheme = {"White": ['#edf8e9','#bae4b3','#74c476','#31a354','#006d2c'], "Black or African American": ['#eff3ff','#bdd7e7','#6baed6','#3182bd','#08519c'], "American Indian and Alaska Native": ['#feedde','#fdbe85','#fd8d3c','#e6550d','#a63603'], "Asian": ['#f2f0f7','#cbc9e2','#9e9ac8','#756bb1','#54278f'], "Native Hawaiian and Other Pacific Islander": ['#fee5d9','#fcae91','#fb6a4a','#de2d26','#a50f15'], "Hispanic": ['#f7f7f7','#cccccc','#969696','#636363','#252525']}
-  var range = scheme[expressed]
-  var textColor = ["#000000", "#333333", "#e5e5e5", "#e5e5e5", "#e5e5e5"]
- 
-  var color = d3.scale.quantile() //designate quantile scale generator
-    .range(range)
-  d3.mean(domArray) > .3 ? color.domain(domArray) : color.domain([d3.min(domArray), d3.max(domArray)]);
-  angular.extend(this, {quants: color.copy().quantiles(),expressed: expressed, ranger: {fill:range, text:textColor}})
+    this.radioModelExpressed="White"
+    var temp = this.geography.filter(function(d){return d.properties.censusData[year]})
+    domArray = temp.map(function(d){var value = d.properties.censusData[year][expressed]/d.properties.censusData[year]["Total"]; return value})
+  	var scheme = {"White": ['#edf8e9','#bae4b3','#74c476','#31a354','#006d2c'], "Black or African American": ['#eff3ff','#bdd7e7','#6baed6','#3182bd','#08519c'], "American Indian and Alaska Native": ['#feedde','#fdbe85','#fd8d3c','#e6550d','#a63603'], "Asian": ['#f2f0f7','#cbc9e2','#9e9ac8','#756bb1','#54278f'], "Native Hawaiian and Other Pacific Islander": ['#fee5d9','#fcae91','#fb6a4a','#de2d26','#a50f15'], "Hispanic": ['#f7f7f7','#cccccc','#969696','#636363','#252525']}
+	  var range = scheme[expressed]
+	  var textColor = ["#000000", "#333333", "#e5e5e5", "#e5e5e5", "#e5e5e5"]
+	 
+	  var color = d3.scale.quantile() //designate quantile scale generator
+	    .range(range)
+	  d3.mean(domArray) > .3 ? color.domain(domArray) : color.domain([d3.min(domArray), d3.max(domArray)]);
+	  angular.extend(this, {quants: color.copy().quantiles(),expressed: expressed, ranger: {fill:range, text:textColor}})
   
   //console.log(domArray)
     this.quants.splice(0,0,0)
@@ -271,13 +277,13 @@ app.component('home', {
       d3.mean(domArray) > .3 ? color.domain(domArray) : color.domain([d3.min(domArray), d3.max(domArray)]);
       //this.quants = color.quantiles()
       angular.extend(this, {quants: color.copy().quantiles(), ranger: {fill:range, text:textColor}})
-     this.quants.splice(0,0,0)
+      this.quants.splice(0,0,0)
      //this.ranger = {fill:range, text: textColor}
 
       var yr = this.radioModelYear
-       var values = d3.values(this.checkResults)
-       var filters = []
-       for (j=0; j<values.length; j++){
+      var values = d3.values(this.checkResults)
+      var filters = []
+      for (j=0; j<values.length; j++){
         if(values[j]){
           var plusOne = this.quants[j+1] ? this.quants[j+1] : 100
           filters.push({"base": this.quants[j], "max": plusOne})
@@ -285,20 +291,20 @@ app.component('home', {
        }
 
        var items = this.geography
-      var allItems=[];
+       var allItems=[];
         //for (i=0; i<filters.length; i++){
           //find neighborhoods higher than this
-          filters.forEach(function(obj){
-            var temp = items.filter(function(item){
-            //if item price is included between the two boundaries we return true
-            return item.properties.censusData[year][expressed]/item.properties.censusData[year]["Total"] > obj.base && item.properties.censusData[year][expressed]/item.properties.censusData[year]["Total"] < obj.max
-            
-              
-            });
-            temp.forEach(function(t){
-              allItems.push(t)
-            })
-          })
+      filters.forEach(function(obj){
+        var temp = items.filter(function(item){
+        //if item price is included between the two boundaries we return true
+        return item.properties.censusData[year][expressed]/item.properties.censusData[year]["Total"] > obj.base && item.properties.censusData[year][expressed]/item.properties.censusData[year]["Total"] < obj.max
+        
+          
+        });
+        temp.forEach(function(t){
+          allItems.push(t)
+        })
+      })
      //this.ranger = {fill:range, text: textColor}
      layers.forEach(function(e){
         var box = allItems.filter(function(d){return e.feature.properties.AFFGEOID == d.properties.AFFGEOID}) //is the layer part of allItems (the items we're keeping)?
@@ -317,8 +323,8 @@ app.component('home', {
         
 
       d.setStyle({	
-     					fillColor: value,
-                        weight: 2,
+ 					fillColor: value,
+                    weight: 2,
                    // opacity: opacity,
                     color: 'white',
                     dashArray: '3',
@@ -328,6 +334,54 @@ app.component('home', {
 
     //NProgress.done()
     }
+
+
+    angular.extend(this, {
+    	markers: null
+    })
+
+    function makeMark (clicked){
+    	var obj ={}
+    	layers.forEach(function(l){
+    		if (l.feature.properties.incData){
+	    		var bounds = l.getBounds();
+				var latLng = bounds.getCenter();
+				var factor = (clicked == "with other types of income" || clicked == "with public assistance income") ? l.feature.properties.incData.total : 1
+				var scale = (clicked == "with other types of income" || clicked == "with public assistance income") ? 100 : .02
+				scale = clicked == "Median household income in the past 12 months (in 2014 Inflation-adjusted dollars)" ? .0003 : scale 
+				var radius = (l.feature.properties.incData[clicked]/factor) * scale //30 will be largest circle size
+				var message = l.feature.properties.incData[clicked].toString()
+				var measure =  (clicked == "with other types of income" || clicked == "with public assistance income") ? "percent" : "dollars"
+	    		obj[l.feature.properties.AFFGEOID] = {
+	    			lat: latLng.lat,
+	    			lng: latLng.lng,
+	    			focus: false,
+	                message: message+" "+measure,
+	    			icon:{
+	    				type:'div',
+	    				iconSize: [radius, radius],
+	    				className: 'circle',
+	    			}
+	    		}
+    		}
+
+    	})
+       return obj
+
+    }
+
+    this.doMarkers = function() {
+    		var clicked = this.radioModelOverlay
+    		if (clicked != "None"){
+    			angular.extend(this, {
+                    markers: makeMark(clicked)//function that calls point to layer on layers
+                });
+    		} else{
+    			this.markers = {}
+    		}           
+    };
+
+
 
     angular.extend(this, {
             geojson: {

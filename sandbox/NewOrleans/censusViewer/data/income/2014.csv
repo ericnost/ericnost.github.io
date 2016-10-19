@@ -1,498 +1,498 @@
-Id,Id2,Geography,Estimate; Median household income in the past 12 months (in 2014 Inflation-adjusted dollars),Estimate; Median gross rent,Estimate; with other types of income,Estimate; with public assistance income,Estimate; Total:
-1500000US220710001001,2.21E+11,"Block Group 1, Census Tract 1, Orleans Parish, Louisiana",70625,857,22,12,435
-1500000US220710001002,2.21E+11,"Block Group 2, Census Tract 1, Orleans Parish, Louisiana",45195,864,31,29,571
-1500000US220710001003,2.21E+11,"Block Group 3, Census Tract 1, Orleans Parish, Louisiana",50417,1072,20,0,322
-1500000US220710002001,2.21E+11,"Block Group 1, Census Tract 2, Orleans Parish, Louisiana",26196,713,7,0,236
-1500000US220710002002,2.21E+11,"Block Group 2, Census Tract 2, Orleans Parish, Louisiana",22321,920,0,0,310
-1500000US220710003001,2.21E+11,"Block Group 1, Census Tract 3, Orleans Parish, Louisiana",28500,665,17,4,256
-1500000US220710003002,2.21E+11,"Block Group 2, Census Tract 3, Orleans Parish, Louisiana",21719,958,13,13,237
-1500000US220710004001,2.21E+11,"Block Group 1, Census Tract 4, Orleans Parish, Louisiana",31938,978,112,11,483
-1500000US220710004002,2.21E+11,"Block Group 2, Census Tract 4, Orleans Parish, Louisiana",25893,750,66,5,421
-1500000US220710006011,2.21E+11,"Block Group 1, Census Tract 6.01, Orleans Parish, Louisiana",9333,258,11,13,146
-1500000US220710006012,2.21E+11,"Block Group 2, Census Tract 6.01, Orleans Parish, Louisiana",18929,661,43,14,168
-1500000US220710006021,2.21E+11,"Block Group 1, Census Tract 6.02, Orleans Parish, Louisiana",27697,971,24,19,337
-1500000US220710006022,2.21E+11,"Block Group 2, Census Tract 6.02, Orleans Parish, Louisiana",32644,936,55,16,239
-1500000US220710006023,2.21E+11,"Block Group 3, Census Tract 6.02, Orleans Parish, Louisiana",30865,845,20,21,382
-1500000US220710006031,2.21E+11,"Block Group 1, Census Tract 6.03, Orleans Parish, Louisiana",19850,926,5,0,197
-1500000US220710006032,2.21E+11,"Block Group 2, Census Tract 6.03, Orleans Parish, Louisiana",17344,961,33,11,257
-1500000US220710006041,2.21E+11,"Block Group 1, Census Tract 6.04, Orleans Parish, Louisiana",31563,1040,114,20,453
-1500000US220710006042,2.21E+11,"Block Group 2, Census Tract 6.04, Orleans Parish, Louisiana",39167,816,31,13,738
-1500000US220710006043,2.21E+11,"Block Group 3, Census Tract 6.04, Orleans Parish, Louisiana",27105,945,22,5,324
-1500000US220710006051,2.21E+11,"Block Group 1, Census Tract 6.05, Orleans Parish, Louisiana",29265,696,20,0,378
-1500000US220710006052,2.21E+11,"Block Group 2, Census Tract 6.05, Orleans Parish, Louisiana",29167,1280,18,10,174
-1500000US220710006053,2.21E+11,"Block Group 3, Census Tract 6.05, Orleans Parish, Louisiana",45962,1491,37,4,230
-1500000US220710006061,2.21E+11,"Block Group 1, Census Tract 6.06, Orleans Parish, Louisiana",68409,1027,46,20,538
-1500000US220710006062,2.21E+11,"Block Group 2, Census Tract 6.06, Orleans Parish, Louisiana",50083,1398,19,0,567
-1500000US220710006063,2.21E+11,"Block Group 3, Census Tract 6.06, Orleans Parish, Louisiana",75117,-,51,32,531
-1500000US220710006071,2.21E+11,"Block Group 1, Census Tract 6.07, Orleans Parish, Louisiana",63523,-,36,0,307
-1500000US220710006072,2.21E+11,"Block Group 2, Census Tract 6.07, Orleans Parish, Louisiana",78971,1652,98,0,536
-1500000US220710006073,2.21E+11,"Block Group 3, Census Tract 6.07, Orleans Parish, Louisiana",58261,1288,108,0,706
-1500000US220710006111,2.21E+11,"Block Group 1, Census Tract 6.11, Orleans Parish, Louisiana",40917,583,41,10,536
-1500000US220710006112,2.21E+11,"Block Group 2, Census Tract 6.11, Orleans Parish, Louisiana",37659,962,89,38,974
-1500000US220710006121,2.21E+11,"Block Group 1, Census Tract 6.12, Orleans Parish, Louisiana",142000,625,54,0,538
-1500000US220710006131,2.21E+11,"Block Group 1, Census Tract 6.13, Orleans Parish, Louisiana",43459,1040,48,0,289
-1500000US220710006132,2.21E+11,"Block Group 2, Census Tract 6.13, Orleans Parish, Louisiana",29012,807,98,14,520
-1500000US220710006133,2.21E+11,"Block Group 3, Census Tract 6.13, Orleans Parish, Louisiana",12455,633,176,31,1243
-1500000US220710006151,2.21E+11,"Block Group 1, Census Tract 6.15, Orleans Parish, Louisiana",38705,777,105,18,621
-1500000US220710006152,2.21E+11,"Block Group 2, Census Tract 6.15, Orleans Parish, Louisiana",31891,755,123,0,1065
-1500000US220710006161,2.21E+11,"Block Group 1, Census Tract 6.16, Orleans Parish, Louisiana",46458,1319,38,0,348
-1500000US220710006162,2.21E+11,"Block Group 2, Census Tract 6.16, Orleans Parish, Louisiana",34232,846,65,0,491
-1500000US220710006163,2.21E+11,"Block Group 3, Census Tract 6.16, Orleans Parish, Louisiana",84891,-,79,0,636
-1500000US220710006171,2.21E+11,"Block Group 1, Census Tract 6.17, Orleans Parish, Louisiana",31850,820,116,0,750
-1500000US220710006172,2.21E+11,"Block Group 2, Census Tract 6.17, Orleans Parish, Louisiana",30861,893,47,0,1180
-1500000US220710006181,2.21E+11,"Block Group 1, Census Tract 6.18, Orleans Parish, Louisiana",143542,-,43,0,543
-1500000US220710006182,2.21E+11,"Block Group 2, Census Tract 6.18, Orleans Parish, Louisiana",68929,706,47,21,750
-1500000US220710007011,2.21E+11,"Block Group 1, Census Tract 7.01, Orleans Parish, Louisiana",14773,380,0,0,28
-1500000US220710007012,2.21E+11,"Block Group 2, Census Tract 7.01, Orleans Parish, Louisiana",13438,-,3,0,45
-1500000US220710007013,2.21E+11,"Block Group 3, Census Tract 7.01, Orleans Parish, Louisiana",19318,-,2,0,74
-1500000US220710007014,2.21E+11,"Block Group 4, Census Tract 7.01, Orleans Parish, Louisiana",20250,907,11,8,75
-1500000US220710007021,2.21E+11,"Block Group 1, Census Tract 7.02, Orleans Parish, Louisiana",17986,833,9,17,131
-1500000US220710007022,2.21E+11,"Block Group 2, Census Tract 7.02, Orleans Parish, Louisiana",25398,1190,2,0,252
-1500000US220710007023,2.21E+11,"Block Group 3, Census Tract 7.02, Orleans Parish, Louisiana",10000,789,5,10,52
-1500000US220710007024,2.21E+11,"Block Group 4, Census Tract 7.02, Orleans Parish, Louisiana",43304,988,0,26,176
-1500000US220710008001,2.21E+11,"Block Group 1, Census Tract 8, Orleans Parish, Louisiana",44792,818,0,14,149
-1500000US220710008002,2.21E+11,"Block Group 2, Census Tract 8, Orleans Parish, Louisiana",19531,869,0,47,165
-1500000US220710008003,2.21E+11,"Block Group 3, Census Tract 8, Orleans Parish, Louisiana",22321,1117,20,22,179
-1500000US220710009011,2.21E+11,"Block Group 1, Census Tract 9.01, Orleans Parish, Louisiana",27708,-,0,0,59
-1500000US220710009012,2.21E+11,"Block Group 2, Census Tract 9.01, Orleans Parish, Louisiana",24911,-,0,0,81
-1500000US220710009013,2.21E+11,"Block Group 3, Census Tract 9.01, Orleans Parish, Louisiana",31818,927,0,0,38
-1500000US220710009014,2.21E+11,"Block Group 4, Census Tract 9.01, Orleans Parish, Louisiana",18846,1038,0,0,124
-1500000US220710009021,2.21E+11,"Block Group 1, Census Tract 9.02, Orleans Parish, Louisiana",107813,-,0,0,14
-1500000US220710009022,2.21E+11,"Block Group 2, Census Tract 9.02, Orleans Parish, Louisiana",50688,-,0,0,35
-1500000US220710009023,2.21E+11,"Block Group 3, Census Tract 9.02, Orleans Parish, Louisiana",47644,-,3,0,67
-1500000US220710009024,2.21E+11,"Block Group 4, Census Tract 9.02, Orleans Parish, Louisiana",42417,-,7,0,29
-1500000US220710009031,2.21E+11,"Block Group 1, Census Tract 9.03, Orleans Parish, Louisiana",28594,692,4,0,55
-1500000US220710009032,2.21E+11,"Block Group 2, Census Tract 9.03, Orleans Parish, Louisiana",27333,731,15,1,88
-1500000US220710009033,2.21E+11,"Block Group 3, Census Tract 9.03, Orleans Parish, Louisiana",12292,-,0,0,22
-1500000US220710009034,2.21E+11,"Block Group 4, Census Tract 9.03, Orleans Parish, Louisiana",12639,-,0,0,41
-1500000US220710009041,2.21E+11,"Block Group 1, Census Tract 9.04, Orleans Parish, Louisiana",21927,536,4,8,193
-1500000US220710009042,2.21E+11,"Block Group 2, Census Tract 9.04, Orleans Parish, Louisiana",12188,950,10,13,161
-1500000US220710011001,2.21E+11,"Block Group 1, Census Tract 11, Orleans Parish, Louisiana",26071,794,0,0,274
-1500000US220710011002,2.21E+11,"Block Group 2, Census Tract 11, Orleans Parish, Louisiana",43153,924,33,31,639
-1500000US220710011003,2.21E+11,"Block Group 3, Census Tract 11, Orleans Parish, Louisiana",-,-,0,0,0
-1500000US220710012001,2.21E+11,"Block Group 1, Census Tract 12, Orleans Parish, Louisiana",47770,1008,37,0,322
-1500000US220710012002,2.21E+11,"Block Group 2, Census Tract 12, Orleans Parish, Louisiana",38906,1013,31,9,223
-1500000US220710012003,2.21E+11,"Block Group 3, Census Tract 12, Orleans Parish, Louisiana",53370,1030,13,0,342
-1500000US220710013011,2.21E+11,"Block Group 1, Census Tract 13.01, Orleans Parish, Louisiana",10250,822,8,42,307
-1500000US220710013012,2.21E+11,"Block Group 2, Census Tract 13.01, Orleans Parish, Louisiana",43309,1059,5,0,165
-1500000US220710013013,2.21E+11,"Block Group 3, Census Tract 13.01, Orleans Parish, Louisiana",26500,882,24,0,160
-1500000US220710013014,2.21E+11,"Block Group 4, Census Tract 13.01, Orleans Parish, Louisiana",17660,560,13,35,149
-1500000US220710013021,2.21E+11,"Block Group 1, Census Tract 13.02, Orleans Parish, Louisiana",20956,942,19,7,193
-1500000US220710013022,2.21E+11,"Block Group 2, Census Tract 13.02, Orleans Parish, Louisiana",11500,882,42,69,246
-1500000US220710014011,2.21E+11,"Block Group 1, Census Tract 14.01, Orleans Parish, Louisiana",15875,698,17,0,113
-1500000US220710014012,2.21E+11,"Block Group 2, Census Tract 14.01, Orleans Parish, Louisiana",23750,-,4,4,74
-1500000US220710014013,2.21E+11,"Block Group 3, Census Tract 14.01, Orleans Parish, Louisiana",32750,1069,9,7,145
-1500000US220710014014,2.21E+11,"Block Group 4, Census Tract 14.01, Orleans Parish, Louisiana",16406,1036,12,22,99
-1500000US220710014015,2.21E+11,"Block Group 5, Census Tract 14.01, Orleans Parish, Louisiana",18750,-,0,0,44
-1500000US220710014016,2.21E+11,"Block Group 6, Census Tract 14.01, Orleans Parish, Louisiana",16250,-,5,0,53
-1500000US220710014021,2.21E+11,"Block Group 1, Census Tract 14.02, Orleans Parish, Louisiana",30625,-,14,6,240
-1500000US220710014022,2.21E+11,"Block Group 2, Census Tract 14.02, Orleans Parish, Louisiana",16042,925,0,5,118
-1500000US220710014023,2.21E+11,"Block Group 3, Census Tract 14.02, Orleans Parish, Louisiana",28125,803,4,0,136
-1500000US220710014024,2.21E+11,"Block Group 4, Census Tract 14.02, Orleans Parish, Louisiana",17375,835,26,45,265
-1500000US220710015001,2.21E+11,"Block Group 1, Census Tract 15, Orleans Parish, Louisiana",19464,871,2,15,219
-1500000US220710015002,2.21E+11,"Block Group 2, Census Tract 15, Orleans Parish, Louisiana",28958,858,5,17,141
-1500000US220710016001,2.21E+11,"Block Group 1, Census Tract 16, Orleans Parish, Louisiana",-,-,0,0,0
-1500000US220710017011,2.21E+11,"Block Group 1, Census Tract 17.01, Orleans Parish, Louisiana",27386,1422,47,6,229
-1500000US220710017012,2.21E+11,"Block Group 2, Census Tract 17.01, Orleans Parish, Louisiana",45375,1514,32,0,155
-1500000US220710017013,2.21E+11,"Block Group 3, Census Tract 17.01, Orleans Parish, Louisiana",35000,1156,18,0,180
-1500000US220710017021,2.21E+11,"Block Group 1, Census Tract 17.02, Orleans Parish, Louisiana",42150,1406,27,0,313
-1500000US220710017022,2.21E+11,"Block Group 2, Census Tract 17.02, Orleans Parish, Louisiana",36579,805,17,0,306
-1500000US220710017023,2.21E+11,"Block Group 3, Census Tract 17.02, Orleans Parish, Louisiana",30417,1442,0,0,154
-1500000US220710017024,2.21E+11,"Block Group 4, Census Tract 17.02, Orleans Parish, Louisiana",36667,795,37,0,150
-1500000US220710017201,2.21E+11,"Block Group 1, Census Tract 17.20, Orleans Parish, Louisiana",36111,1333,34,6,192
-1500000US220710017202,2.21E+11,"Block Group 2, Census Tract 17.20, Orleans Parish, Louisiana",34940,1012,17,0,235
-1500000US220710017203,2.21E+11,"Block Group 3, Census Tract 17.20, Orleans Parish, Louisiana",23194,1077,38,18,445
-1500000US220710017204,2.21E+11,"Block Group 4, Census Tract 17.20, Orleans Parish, Louisiana",25368,843,41,0,321
-1500000US220710017221,2.21E+11,"Block Group 1, Census Tract 17.22, Orleans Parish, Louisiana",22446,990,66,12,167
-1500000US220710017222,2.21E+11,"Block Group 2, Census Tract 17.22, Orleans Parish, Louisiana",48750,1125,86,0,253
-1500000US220710017223,2.21E+11,"Block Group 3, Census Tract 17.22, Orleans Parish, Louisiana",23988,948,41,0,431
-1500000US220710017224,2.21E+11,"Block Group 4, Census Tract 17.22, Orleans Parish, Louisiana",34118,-,14,0,172
-1500000US220710017225,2.21E+11,"Block Group 5, Census Tract 17.22, Orleans Parish, Louisiana",19219,663,76,7,349
-1500000US220710017226,2.21E+11,"Block Group 6, Census Tract 17.22, Orleans Parish, Louisiana",25250,-,13,0,123
-1500000US220710017227,2.21E+11,"Block Group 7, Census Tract 17.22, Orleans Parish, Louisiana",26393,-,11,0,121
-1500000US220710017231,2.21E+11,"Block Group 1, Census Tract 17.23, Orleans Parish, Louisiana",31765,-,17,0,272
-1500000US220710017232,2.21E+11,"Block Group 2, Census Tract 17.23, Orleans Parish, Louisiana",30424,288,46,19,738
-1500000US220710017233,2.21E+11,"Block Group 3, Census Tract 17.23, Orleans Parish, Louisiana",28071,960,32,6,331
-1500000US220710017234,2.21E+11,"Block Group 4, Census Tract 17.23, Orleans Parish, Louisiana",21983,975,76,0,508
-1500000US220710017241,2.21E+11,"Block Group 1, Census Tract 17.24, Orleans Parish, Louisiana",30862,1055,46,27,268
-1500000US220710017242,2.21E+11,"Block Group 2, Census Tract 17.24, Orleans Parish, Louisiana",47500,591,38,0,356
-1500000US220710017243,2.21E+11,"Block Group 3, Census Tract 17.24, Orleans Parish, Louisiana",19919,896,50,7,612
-1500000US220710017244,2.21E+11,"Block Group 4, Census Tract 17.24, Orleans Parish, Louisiana",15500,1008,133,13,426
-1500000US220710017251,2.21E+11,"Block Group 1, Census Tract 17.25, Orleans Parish, Louisiana",20421,766,105,0,765
-1500000US220710017252,2.21E+11,"Block Group 2, Census Tract 17.25, Orleans Parish, Louisiana",38125,835,69,16,559
-1500000US220710017253,2.21E+11,"Block Group 3, Census Tract 17.25, Orleans Parish, Louisiana",31990,1055,50,0,521
-1500000US220710017254,2.21E+11,"Block Group 4, Census Tract 17.25, Orleans Parish, Louisiana",50284,730,39,16,569
-1500000US220710017301,2.21E+11,"Block Group 1, Census Tract 17.30, Orleans Parish, Louisiana",44583,1541,49,0,287
-1500000US220710017341,2.21E+11,"Block Group 1, Census Tract 17.34, Orleans Parish, Louisiana",60859,-,25,0,333
-1500000US220710017351,2.21E+11,"Block Group 1, Census Tract 17.35, Orleans Parish, Louisiana",26429,907,64,26,454
-1500000US220710017352,2.21E+11,"Block Group 2, Census Tract 17.35, Orleans Parish, Louisiana",24167,1011,25,31,350
-1500000US220710017361,2.21E+11,"Block Group 1, Census Tract 17.36, Orleans Parish, Louisiana",15337,867,39,11,241
-1500000US220710017362,2.21E+11,"Block Group 2, Census Tract 17.36, Orleans Parish, Louisiana",33750,928,96,6,559
-1500000US220710017371,2.21E+11,"Block Group 1, Census Tract 17.37, Orleans Parish, Louisiana",20473,828,67,17,724
-1500000US220710017372,2.21E+11,"Block Group 2, Census Tract 17.37, Orleans Parish, Louisiana",48250,1262,18,0,322
-1500000US220710017373,2.21E+11,"Block Group 3, Census Tract 17.37, Orleans Parish, Louisiana",36477,1703,39,13,249
-1500000US220710017391,2.21E+11,"Block Group 1, Census Tract 17.39, Orleans Parish, Louisiana",39773,921,46,0,408
-1500000US220710017392,2.21E+11,"Block Group 2, Census Tract 17.39, Orleans Parish, Louisiana",50917,-,31,0,165
-1500000US220710017401,2.21E+11,"Block Group 1, Census Tract 17.40, Orleans Parish, Louisiana",44559,-,59,10,442
-1500000US220710017402,2.21E+11,"Block Group 2, Census Tract 17.40, Orleans Parish, Louisiana",30028,839,64,0,695
-1500000US220710017403,2.21E+11,"Block Group 3, Census Tract 17.40, Orleans Parish, Louisiana",35545,762,69,45,656
-1500000US220710017411,2.21E+11,"Block Group 1, Census Tract 17.41, Orleans Parish, Louisiana",40500,1258,77,3,480
-1500000US220710017431,2.21E+11,"Block Group 1, Census Tract 17.43, Orleans Parish, Louisiana",19322,875,45,14,625
-1500000US220710017432,2.21E+11,"Block Group 2, Census Tract 17.43, Orleans Parish, Louisiana",21286,858,19,0,314
-1500000US220710017441,2.21E+11,"Block Group 1, Census Tract 17.44, Orleans Parish, Louisiana",33385,789,11,11,489
-1500000US220710017442,2.21E+11,"Block Group 2, Census Tract 17.44, Orleans Parish, Louisiana",16058,1107,49,72,493
-1500000US220710017443,2.21E+11,"Block Group 3, Census Tract 17.44, Orleans Parish, Louisiana",25110,907,28,15,427
-1500000US220710017451,2.21E+11,"Block Group 1, Census Tract 17.45, Orleans Parish, Louisiana",20972,894,42,39,930
-1500000US220710017452,2.21E+11,"Block Group 2, Census Tract 17.45, Orleans Parish, Louisiana",28750,1321,57,17,409
-1500000US220710017461,2.21E+11,"Block Group 1, Census Tract 17.46, Orleans Parish, Louisiana",39286,903,34,9,482
-1500000US220710017462,2.21E+11,"Block Group 2, Census Tract 17.46, Orleans Parish, Louisiana",27850,929,21,0,578
-1500000US220710017463,2.21E+11,"Block Group 3, Census Tract 17.46, Orleans Parish, Louisiana",35797,1095,59,41,563
-1500000US220710017471,2.21E+11,"Block Group 1, Census Tract 17.47, Orleans Parish, Louisiana",78990,-,106,0,847
-1500000US220710017472,2.21E+11,"Block Group 2, Census Tract 17.47, Orleans Parish, Louisiana",68646,-,35,0,425
-1500000US220710017481,2.21E+11,"Block Group 1, Census Tract 17.48, Orleans Parish, Louisiana",60703,-,7,0,374
-1500000US220710017482,2.21E+11,"Block Group 2, Census Tract 17.48, Orleans Parish, Louisiana",29485,1246,38,0,409
-1500000US220710017483,2.21E+11,"Block Group 3, Census Tract 17.48, Orleans Parish, Louisiana",38015,666,86,24,445
-1500000US220710017484,2.21E+11,"Block Group 4, Census Tract 17.48, Orleans Parish, Louisiana",61958,-,52,0,273
-1500000US220710017491,2.21E+11,"Block Group 1, Census Tract 17.49, Orleans Parish, Louisiana",41563,636,59,5,369
-1500000US220710017492,2.21E+11,"Block Group 2, Census Tract 17.49, Orleans Parish, Louisiana",26844,743,47,3,471
-1500000US220710017501,2.21E+11,"Block Group 1, Census Tract 17.50, Orleans Parish, Louisiana",38750,922,3,0,397
-1500000US220710017502,2.21E+11,"Block Group 2, Census Tract 17.50, Orleans Parish, Louisiana",25189,658,69,0,322
-1500000US220710017503,2.21E+11,"Block Group 3, Census Tract 17.50, Orleans Parish, Louisiana",15767,715,11,18,434
-1500000US220710017511,2.21E+11,"Block Group 1, Census Tract 17.51, Orleans Parish, Louisiana",17059,716,6,21,268
-1500000US220710018001,2.21E+11,"Block Group 1, Census Tract 18, Orleans Parish, Louisiana",51023,1185,22,3,418
-1500000US220710018002,2.21E+11,"Block Group 2, Census Tract 18, Orleans Parish, Louisiana",62500,994,11,0,282
-1500000US220710019001,2.21E+11,"Block Group 1, Census Tract 19, Orleans Parish, Louisiana",26023,815,0,0,138
-1500000US220710019002,2.21E+11,"Block Group 2, Census Tract 19, Orleans Parish, Louisiana",19750,596,21,19,261
-1500000US220710019003,2.21E+11,"Block Group 3, Census Tract 19, Orleans Parish, Louisiana",26339,787,0,0,245
-1500000US220710020001,2.21E+11,"Block Group 1, Census Tract 20, Orleans Parish, Louisiana",10568,1057,3,32,212
-1500000US220710020002,2.21E+11,"Block Group 2, Census Tract 20, Orleans Parish, Louisiana",18323,814,28,14,197
-1500000US220710020003,2.21E+11,"Block Group 3, Census Tract 20, Orleans Parish, Louisiana",32292,891,5,10,107
-1500000US220710021001,2.21E+11,"Block Group 1, Census Tract 21, Orleans Parish, Louisiana",18587,897,2,15,158
-1500000US220710021002,2.21E+11,"Block Group 2, Census Tract 21, Orleans Parish, Louisiana",17039,706,18,36,209
-1500000US220710022001,2.21E+11,"Block Group 1, Census Tract 22, Orleans Parish, Louisiana",22708,718,7,1,125
-1500000US220710022002,2.21E+11,"Block Group 2, Census Tract 22, Orleans Parish, Louisiana",33875,832,44,15,181
-1500000US220710022003,2.21E+11,"Block Group 3, Census Tract 22, Orleans Parish, Louisiana",15833,1084,6,11,96
-1500000US220710023001,2.21E+11,"Block Group 1, Census Tract 23, Orleans Parish, Louisiana",52708,-,0,0,59
-1500000US220710023002,2.21E+11,"Block Group 2, Census Tract 23, Orleans Parish, Louisiana",9148,538,0,14,114
-1500000US220710023003,2.21E+11,"Block Group 3, Census Tract 23, Orleans Parish, Louisiana",30278,-,0,0,68
-1500000US220710023004,2.21E+11,"Block Group 4, Census Tract 23, Orleans Parish, Louisiana",24931,835,7,0,101
-1500000US220710023005,2.21E+11,"Block Group 5, Census Tract 23, Orleans Parish, Louisiana",23828,877,35,0,475
-1500000US220710024011,2.21E+11,"Block Group 1, Census Tract 24.01, Orleans Parish, Louisiana",41202,1119,36,5,414
-1500000US220710024012,2.21E+11,"Block Group 2, Census Tract 24.01, Orleans Parish, Louisiana",50750,856,43,6,355
-1500000US220710024021,2.21E+11,"Block Group 1, Census Tract 24.02, Orleans Parish, Louisiana",31800,941,9,0,168
-1500000US220710024022,2.21E+11,"Block Group 2, Census Tract 24.02, Orleans Parish, Louisiana",24511,695,44,0,355
-1500000US220710024023,2.21E+11,"Block Group 3, Census Tract 24.02, Orleans Parish, Louisiana",34022,987,26,0,276
-1500000US220710024024,2.21E+11,"Block Group 4, Census Tract 24.02, Orleans Parish, Louisiana",29205,1193,18,0,419
-1500000US220710025011,2.21E+11,"Block Group 1, Census Tract 25.01, Orleans Parish, Louisiana",38421,915,20,6,278
-1500000US220710025012,2.21E+11,"Block Group 2, Census Tract 25.01, Orleans Parish, Louisiana",40521,1278,14,1,161
-1500000US220710025013,2.21E+11,"Block Group 3, Census Tract 25.01, Orleans Parish, Louisiana",62125,1038,17,0,105
-1500000US220710025014,2.21E+11,"Block Group 4, Census Tract 25.01, Orleans Parish, Louisiana",49559,1010,17,0,130
-1500000US220710025021,2.21E+11,"Block Group 1, Census Tract 25.02, Orleans Parish, Louisiana",40114,1116,57,17,320
-1500000US220710025022,2.21E+11,"Block Group 2, Census Tract 25.02, Orleans Parish, Louisiana",26875,646,0,0,179
-1500000US220710025023,2.21E+11,"Block Group 3, Census Tract 25.02, Orleans Parish, Louisiana",26111,999,10,0,142
-1500000US220710025024,2.21E+11,"Block Group 4, Census Tract 25.02, Orleans Parish, Louisiana",36953,-,13,0,171
-1500000US220710025031,2.21E+11,"Block Group 1, Census Tract 25.03, Orleans Parish, Louisiana",53393,1377,12,5,150
-1500000US220710025032,2.21E+11,"Block Group 2, Census Tract 25.03, Orleans Parish, Louisiana",51979,1087,45,0,377
-1500000US220710025033,2.21E+11,"Block Group 3, Census Tract 25.03, Orleans Parish, Louisiana",57599,1277,13,0,281
-1500000US220710025041,2.21E+11,"Block Group 1, Census Tract 25.04, Orleans Parish, Louisiana",45733,1139,41,29,191
-1500000US220710025042,2.21E+11,"Block Group 2, Census Tract 25.04, Orleans Parish, Louisiana",51250,1188,29,0,328
-1500000US220710025043,2.21E+11,"Block Group 3, Census Tract 25.04, Orleans Parish, Louisiana",63036,-,18,0,181
-1500000US220710025044,2.21E+11,"Block Group 4, Census Tract 25.04, Orleans Parish, Louisiana",27950,1111,32,0,229
-1500000US220710026001,2.21E+11,"Block Group 1, Census Tract 26, Orleans Parish, Louisiana",62258,913,41,8,450
-1500000US220710026002,2.21E+11,"Block Group 2, Census Tract 26, Orleans Parish, Louisiana",22500,343,68,0,528
-1500000US220710027001,2.21E+11,"Block Group 1, Census Tract 27, Orleans Parish, Louisiana",18264,926,5,0,205
-1500000US220710027002,2.21E+11,"Block Group 2, Census Tract 27, Orleans Parish, Louisiana",47829,1071,16,4,261
-1500000US220710027003,2.21E+11,"Block Group 3, Census Tract 27, Orleans Parish, Louisiana",20912,842,0,11,149
-1500000US220710028001,2.21E+11,"Block Group 1, Census Tract 28, Orleans Parish, Louisiana",24423,869,0,0,170
-1500000US220710028002,2.21E+11,"Block Group 2, Census Tract 28, Orleans Parish, Louisiana",17330,793,31,5,269
-1500000US220710028003,2.21E+11,"Block Group 3, Census Tract 28, Orleans Parish, Louisiana",27632,932,15,6,202
-1500000US220710029001,2.21E+11,"Block Group 1, Census Tract 29, Orleans Parish, Louisiana",23542,912,35,6,209
-1500000US220710029002,2.21E+11,"Block Group 2, Census Tract 29, Orleans Parish, Louisiana",12552,635,7,0,147
-1500000US220710029003,2.21E+11,"Block Group 3, Census Tract 29, Orleans Parish, Louisiana",25172,637,18,0,208
-1500000US220710030001,2.21E+11,"Block Group 1, Census Tract 30, Orleans Parish, Louisiana",14148,978,10,6,213
-1500000US220710030002,2.21E+11,"Block Group 2, Census Tract 30, Orleans Parish, Louisiana",14942,922,13,5,268
-1500000US220710031001,2.21E+11,"Block Group 1, Census Tract 31, Orleans Parish, Louisiana",15346,529,12,0,147
-1500000US220710031002,2.21E+11,"Block Group 2, Census Tract 31, Orleans Parish, Louisiana",19188,920,12,10,303
-1500000US220710033011,2.21E+11,"Block Group 1, Census Tract 33.01, Orleans Parish, Louisiana",58913,1060,54,5,300
-1500000US220710033012,2.21E+11,"Block Group 2, Census Tract 33.01, Orleans Parish, Louisiana",48000,1112,0,14,252
-1500000US220710033013,2.21E+11,"Block Group 3, Census Tract 33.01, Orleans Parish, Louisiana",78839,"2,000+",4,0,129
-1500000US220710033021,2.21E+11,"Block Group 1, Census Tract 33.02, Orleans Parish, Louisiana",56513,-,33,0,231
-1500000US220710033022,2.21E+11,"Block Group 2, Census Tract 33.02, Orleans Parish, Louisiana",46154,1689,6,26,398
-1500000US220710033023,2.21E+11,"Block Group 3, Census Tract 33.02, Orleans Parish, Louisiana",54957,743,48,0,371
-1500000US220710033024,2.21E+11,"Block Group 4, Census Tract 33.02, Orleans Parish, Louisiana",62222,1290,0,0,214
-1500000US220710033031,2.21E+11,"Block Group 1, Census Tract 33.03, Orleans Parish, Louisiana",33500,1109,33,23,356
-1500000US220710033032,2.21E+11,"Block Group 2, Census Tract 33.03, Orleans Parish, Louisiana",20078,902,21,15,307
-1500000US220710033033,2.21E+11,"Block Group 3, Census Tract 33.03, Orleans Parish, Louisiana",38198,1087,25,4,176
-1500000US220710033041,2.21E+11,"Block Group 1, Census Tract 33.04, Orleans Parish, Louisiana",37375,1058,8,23,392
-1500000US220710033042,2.21E+11,"Block Group 2, Census Tract 33.04, Orleans Parish, Louisiana",18194,671,32,5,373
-1500000US220710033071,2.21E+11,"Block Group 1, Census Tract 33.07, Orleans Parish, Louisiana",45556,1168,20,5,334
-1500000US220710033072,2.21E+11,"Block Group 2, Census Tract 33.07, Orleans Parish, Louisiana",24299,665,13,0,231
-1500000US220710033081,2.21E+11,"Block Group 1, Census Tract 33.08, Orleans Parish, Louisiana",37411,-,0,0,131
-1500000US220710033082,2.21E+11,"Block Group 2, Census Tract 33.08, Orleans Parish, Louisiana",21146,780,23,10,269
-1500000US220710033083,2.21E+11,"Block Group 3, Census Tract 33.08, Orleans Parish, Louisiana",18704,382,58,0,500
-1500000US220710033084,2.21E+11,"Block Group 4, Census Tract 33.08, Orleans Parish, Louisiana",25859,-,22,0,215
-1500000US220710033085,2.21E+11,"Block Group 5, Census Tract 33.08, Orleans Parish, Louisiana",37788,1072,9,0,199
-1500000US220710033086,2.21E+11,"Block Group 6, Census Tract 33.08, Orleans Parish, Louisiana",112552,-,0,0,47
-1500000US220710034001,2.21E+11,"Block Group 1, Census Tract 34, Orleans Parish, Louisiana",27381,821,43,0,276
-1500000US220710034002,2.21E+11,"Block Group 2, Census Tract 34, Orleans Parish, Louisiana",20221,747,10,20,408
-1500000US220710035001,2.21E+11,"Block Group 1, Census Tract 35, Orleans Parish, Louisiana",21114,874,0,0,237
-1500000US220710035002,2.21E+11,"Block Group 2, Census Tract 35, Orleans Parish, Louisiana",17305,670,15,11,165
-1500000US220710035003,2.21E+11,"Block Group 3, Census Tract 35, Orleans Parish, Louisiana",35938,862,4,0,218
-1500000US220710036001,2.21E+11,"Block Group 1, Census Tract 36, Orleans Parish, Louisiana",30167,846,40,0,210
-1500000US220710036002,2.21E+11,"Block Group 2, Census Tract 36, Orleans Parish, Louisiana",21976,876,16,0,395
-1500000US220710036003,2.21E+11,"Block Group 3, Census Tract 36, Orleans Parish, Louisiana",30417,915,13,18,208
-1500000US220710037011,2.21E+11,"Block Group 1, Census Tract 37.01, Orleans Parish, Louisiana",45952,1163,63,0,782
-1500000US220710037012,2.21E+11,"Block Group 2, Census Tract 37.01, Orleans Parish, Louisiana",34167,1075,15,0,248
-1500000US220710037021,2.21E+11,"Block Group 1, Census Tract 37.02, Orleans Parish, Louisiana",27600,706,0,0,320
-1500000US220710037022,2.21E+11,"Block Group 2, Census Tract 37.02, Orleans Parish, Louisiana",18718,1041,13,0,293
-1500000US220710037023,2.21E+11,"Block Group 3, Census Tract 37.02, Orleans Parish, Louisiana",16563,888,0,4,179
-1500000US220710037024,2.21E+11,"Block Group 4, Census Tract 37.02, Orleans Parish, Louisiana",28787,1060,19,0,255
-1500000US220710037025,2.21E+11,"Block Group 5, Census Tract 37.02, Orleans Parish, Louisiana",78333,782,0,0,228
-1500000US220710037026,2.21E+11,"Block Group 6, Census Tract 37.02, Orleans Parish, Louisiana",37212,1064,46,0,380
-1500000US220710038001,2.21E+11,"Block Group 1, Census Tract 38, Orleans Parish, Louisiana",70074,1138,55,0,437
-1500000US220710038002,2.21E+11,"Block Group 2, Census Tract 38, Orleans Parish, Louisiana",62417,1095,33,0,420
-1500000US220710039001,2.21E+11,"Block Group 1, Census Tract 39, Orleans Parish, Louisiana",32188,827,45,6,303
-1500000US220710039002,2.21E+11,"Block Group 2, Census Tract 39, Orleans Parish, Louisiana",19821,1019,30,14,362
-1500000US220710040001,2.21E+11,"Block Group 1, Census Tract 40, Orleans Parish, Louisiana",21105,779,45,12,393
-1500000US220710040002,2.21E+11,"Block Group 2, Census Tract 40, Orleans Parish, Louisiana",22278,731,80,14,528
-1500000US220710041001,2.21E+11,"Block Group 1, Census Tract 41, Orleans Parish, Louisiana",44960,983,37,0,437
-1500000US220710041002,2.21E+11,"Block Group 2, Census Tract 41, Orleans Parish, Louisiana",70395,951,29,15,352
-1500000US220710044011,2.21E+11,"Block Group 1, Census Tract 44.01, Orleans Parish, Louisiana",14375,758,10,12,179
-1500000US220710044012,2.21E+11,"Block Group 2, Census Tract 44.01, Orleans Parish, Louisiana",13750,854,0,0,153
-1500000US220710044013,2.21E+11,"Block Group 3, Census Tract 44.01, Orleans Parish, Louisiana",14489,796,5,0,227
-1500000US220710044021,2.21E+11,"Block Group 1, Census Tract 44.02, Orleans Parish, Louisiana",-,-,0,0,37
-1500000US220710044022,2.21E+11,"Block Group 2, Census Tract 44.02, Orleans Parish, Louisiana",-,-,0,0,0
-1500000US220710045001,2.21E+11,"Block Group 1, Census Tract 45, Orleans Parish, Louisiana",15083,876,16,0,225
-1500000US220710045002,2.21E+11,"Block Group 2, Census Tract 45, Orleans Parish, Louisiana",15208,878,37,59,338
-1500000US220710045003,2.21E+11,"Block Group 3, Census Tract 45, Orleans Parish, Louisiana",36301,973,26,17,479
-1500000US220710046001,2.21E+11,"Block Group 1, Census Tract 46, Orleans Parish, Louisiana",49250,998,5,0,269
-1500000US220710046002,2.21E+11,"Block Group 2, Census Tract 46, Orleans Parish, Louisiana",51705,1039,78,18,804
-1500000US220710046003,2.21E+11,"Block Group 3, Census Tract 46, Orleans Parish, Louisiana",38000,1067,0,0,428
-1500000US220710048001,2.21E+11,"Block Group 1, Census Tract 48, Orleans Parish, Louisiana",8693,200,23,6,376
-1500000US220710049001,2.21E+11,"Block Group 1, Census Tract 49, Orleans Parish, Louisiana",9783,633,46,31,296
-1500000US220710049002,2.21E+11,"Block Group 2, Census Tract 49, Orleans Parish, Louisiana",16731,708,0,6,234
-1500000US220710049003,2.21E+11,"Block Group 3, Census Tract 49, Orleans Parish, Louisiana",-,-,0,0,12
-1500000US220710049004,2.21E+11,"Block Group 4, Census Tract 49, Orleans Parish, Louisiana",27625,876,6,6,119
-1500000US220710050001,2.21E+11,"Block Group 1, Census Tract 50, Orleans Parish, Louisiana",31333,1084,6,11,302
-1500000US220710050002,2.21E+11,"Block Group 2, Census Tract 50, Orleans Parish, Louisiana",24189,803,9,26,303
-1500000US220710054001,2.21E+11,"Block Group 1, Census Tract 54, Orleans Parish, Louisiana",41250,1005,97,4,329
-1500000US220710054002,2.21E+11,"Block Group 2, Census Tract 54, Orleans Parish, Louisiana",50915,1040,8,0,324
-1500000US220710054003,2.21E+11,"Block Group 3, Census Tract 54, Orleans Parish, Louisiana",48250,1236,16,4,350
-1500000US220710055001,2.21E+11,"Block Group 1, Census Tract 55, Orleans Parish, Louisiana",54688,1145,18,0,437
-1500000US220710055002,2.21E+11,"Block Group 2, Census Tract 55, Orleans Parish, Louisiana",52554,1180,33,8,401
-1500000US220710055003,2.21E+11,"Block Group 3, Census Tract 55, Orleans Parish, Louisiana",50857,1132,18,6,370
-1500000US220710056011,2.21E+11,"Block Group 1, Census Tract 56.01, Orleans Parish, Louisiana",79712,1732,17,0,257
-1500000US220710056012,2.21E+11,"Block Group 2, Census Tract 56.01, Orleans Parish, Louisiana",99773,950,6,0,252
-1500000US220710056013,2.21E+11,"Block Group 3, Census Tract 56.01, Orleans Parish, Louisiana",83000,1620,11,0,176
-1500000US220710056014,2.21E+11,"Block Group 4, Census Tract 56.01, Orleans Parish, Louisiana",64453,1650,16,0,191
-1500000US220710056021,2.21E+11,"Block Group 1, Census Tract 56.02, Orleans Parish, Louisiana",74750,1464,14,0,156
-1500000US220710056022,2.21E+11,"Block Group 2, Census Tract 56.02, Orleans Parish, Louisiana",102539,1320,17,0,327
-1500000US220710056023,2.21E+11,"Block Group 3, Census Tract 56.02, Orleans Parish, Louisiana",76250,1356,6,0,295
-1500000US220710056024,2.21E+11,"Block Group 4, Census Tract 56.02, Orleans Parish, Louisiana",119779,1917,11,0,173
-1500000US220710056031,2.21E+11,"Block Group 1, Census Tract 56.03, Orleans Parish, Louisiana",81719,1250,39,0,215
-1500000US220710056032,2.21E+11,"Block Group 2, Census Tract 56.03, Orleans Parish, Louisiana",61875,1263,20,0,228
-1500000US220710056033,2.21E+11,"Block Group 3, Census Tract 56.03, Orleans Parish, Louisiana",70862,1275,16,0,168
-1500000US220710056041,2.21E+11,"Block Group 1, Census Tract 56.04, Orleans Parish, Louisiana",103250,1419,23,0,195
-1500000US220710056042,2.21E+11,"Block Group 2, Census Tract 56.04, Orleans Parish, Louisiana",102708,1198,28,0,229
-1500000US220710056043,2.21E+11,"Block Group 3, Census Tract 56.04, Orleans Parish, Louisiana",69922,1208,17,0,174
-1500000US220710060001,2.21E+11,"Block Group 1, Census Tract 60, Orleans Parish, Louisiana",24375,1019,14,27,584
-1500000US220710063001,2.21E+11,"Block Group 1, Census Tract 63, Orleans Parish, Louisiana",21767,869,26,5,363
-1500000US220710063002,2.21E+11,"Block Group 2, Census Tract 63, Orleans Parish, Louisiana",22813,786,30,0,77
-1500000US220710063003,2.21E+11,"Block Group 3, Census Tract 63, Orleans Parish, Louisiana",19063,1071,8,0,229
-1500000US220710064001,2.21E+11,"Block Group 1, Census Tract 64, Orleans Parish, Louisiana",43625,978,32,15,253
-1500000US220710064002,2.21E+11,"Block Group 2, Census Tract 64, Orleans Parish, Louisiana",54306,1129,8,0,331
-1500000US220710064003,2.21E+11,"Block Group 3, Census Tract 64, Orleans Parish, Louisiana",28636,1099,20,14,202
-1500000US220710064004,2.21E+11,"Block Group 4, Census Tract 64, Orleans Parish, Louisiana",27292,993,0,0,242
-1500000US220710065001,2.21E+11,"Block Group 1, Census Tract 65, Orleans Parish, Louisiana",39063,979,20,20,418
-1500000US220710065002,2.21E+11,"Block Group 2, Census Tract 65, Orleans Parish, Louisiana",52452,1109,44,17,375
-1500000US220710065003,2.21E+11,"Block Group 3, Census Tract 65, Orleans Parish, Louisiana",25110,895,21,6,391
-1500000US220710069001,2.21E+11,"Block Group 1, Census Tract 69, Orleans Parish, Louisiana",18438,304,0,3,103
-1500000US220710069002,2.21E+11,"Block Group 2, Census Tract 69, Orleans Parish, Louisiana",11042,625,0,0,19
-1500000US220710069003,2.21E+11,"Block Group 3, Census Tract 69, Orleans Parish, Louisiana",12440,329,22,0,153
-1500000US220710070001,2.21E+11,"Block Group 1, Census Tract 70, Orleans Parish, Louisiana",7917,1091,16,0,70
-1500000US220710070002,2.21E+11,"Block Group 2, Census Tract 70, Orleans Parish, Louisiana",13125,781,4,0,136
-1500000US220710071011,2.21E+11,"Block Group 1, Census Tract 71.01, Orleans Parish, Louisiana",33750,1030,12,9,329
-1500000US220710071012,2.21E+11,"Block Group 2, Census Tract 71.01, Orleans Parish, Louisiana",13371,565,36,0,790
-1500000US220710072001,2.21E+11,"Block Group 1, Census Tract 72, Orleans Parish, Louisiana",20000,968,31,33,630
-1500000US220710072002,2.21E+11,"Block Group 2, Census Tract 72, Orleans Parish, Louisiana",23160,714,21,0,278
-1500000US220710072003,2.21E+11,"Block Group 3, Census Tract 72, Orleans Parish, Louisiana",14219,690,19,8,119
-1500000US220710075011,2.21E+11,"Block Group 1, Census Tract 75.01, Orleans Parish, Louisiana",19643,850,14,0,206
-1500000US220710075012,2.21E+11,"Block Group 2, Census Tract 75.01, Orleans Parish, Louisiana",34833,850,15,14,220
-1500000US220710075013,2.21E+11,"Block Group 3, Census Tract 75.01, Orleans Parish, Louisiana",20664,908,10,0,217
-1500000US220710075014,2.21E+11,"Block Group 4, Census Tract 75.01, Orleans Parish, Louisiana",19474,938,18,0,188
-1500000US220710075015,2.21E+11,"Block Group 5, Census Tract 75.01, Orleans Parish, Louisiana",19821,-,20,0,139
-1500000US220710075021,2.21E+11,"Block Group 1, Census Tract 75.02, Orleans Parish, Louisiana",26750,708,9,0,116
-1500000US220710075022,2.21E+11,"Block Group 2, Census Tract 75.02, Orleans Parish, Louisiana",14583,-,10,9,131
-1500000US220710075023,2.21E+11,"Block Group 3, Census Tract 75.02, Orleans Parish, Louisiana",12219,948,31,0,311
-1500000US220710075024,2.21E+11,"Block Group 4, Census Tract 75.02, Orleans Parish, Louisiana",13095,1083,30,0,162
-1500000US220710075025,2.21E+11,"Block Group 5, Census Tract 75.02, Orleans Parish, Louisiana",27386,842,0,9,287
-1500000US220710076041,2.21E+11,"Block Group 1, Census Tract 76.04, Orleans Parish, Louisiana",126607,1865,14,0,369
-1500000US220710076042,2.21E+11,"Block Group 2, Census Tract 76.04, Orleans Parish, Louisiana",191591,-,48,0,286
-1500000US220710076051,2.21E+11,"Block Group 1, Census Tract 76.05, Orleans Parish, Louisiana",14309,788,35,0,275
-1500000US220710076052,2.21E+11,"Block Group 2, Census Tract 76.05, Orleans Parish, Louisiana",22000,915,18,0,334
-1500000US220710076061,2.21E+11,"Block Group 1, Census Tract 76.06, Orleans Parish, Louisiana",75972,1175,31,0,761
-1500000US220710076062,2.21E+11,"Block Group 2, Census Tract 76.06, Orleans Parish, Louisiana",64306,990,18,0,432
-1500000US220710076063,2.21E+11,"Block Group 3, Census Tract 76.06, Orleans Parish, Louisiana",70667,1328,21,0,636
-1500000US220710077001,2.21E+11,"Block Group 1, Census Tract 77, Orleans Parish, Louisiana",85439,1361,9,9,877
-1500000US220710077002,2.21E+11,"Block Group 2, Census Tract 77, Orleans Parish, Louisiana",56523,1382,154,15,751
-1500000US220710078001,2.21E+11,"Block Group 1, Census Tract 78, Orleans Parish, Louisiana",66402,1169,73,13,671
-1500000US220710082001,2.21E+11,"Block Group 1, Census Tract 82, Orleans Parish, Louisiana",49185,875,28,0,454
-1500000US220710082002,2.21E+11,"Block Group 2, Census Tract 82, Orleans Parish, Louisiana",44018,894,40,0,482
-1500000US220710083001,2.21E+11,"Block Group 1, Census Tract 83, Orleans Parish, Louisiana",65139,1111,33,5,321
-1500000US220710083002,2.21E+11,"Block Group 2, Census Tract 83, Orleans Parish, Louisiana",93214,992,0,0,232
-1500000US220710084001,2.21E+11,"Block Group 1, Census Tract 84, Orleans Parish, Louisiana",34286,973,43,15,336
-1500000US220710084002,2.21E+11,"Block Group 2, Census Tract 84, Orleans Parish, Louisiana",26250,941,16,0,358
-1500000US220710085001,2.21E+11,"Block Group 1, Census Tract 85, Orleans Parish, Louisiana",9525,459,16,33,330
-1500000US220710085002,2.21E+11,"Block Group 2, Census Tract 85, Orleans Parish, Louisiana",17278,660,10,8,245
-1500000US220710086001,2.21E+11,"Block Group 1, Census Tract 86, Orleans Parish, Louisiana",16447,703,14,0,216
-1500000US220710086002,2.21E+11,"Block Group 2, Census Tract 86, Orleans Parish, Louisiana",17305,853,17,13,199
-1500000US220710088001,2.21E+11,"Block Group 1, Census Tract 88, Orleans Parish, Louisiana",67083,1137,45,9,411
-1500000US220710088002,2.21E+11,"Block Group 2, Census Tract 88, Orleans Parish, Louisiana",79038,1250,35,8,456
-1500000US220710090001,2.21E+11,"Block Group 1, Census Tract 90, Orleans Parish, Louisiana",88750,978,25,0,305
-1500000US220710090002,2.21E+11,"Block Group 2, Census Tract 90, Orleans Parish, Louisiana",158750,1166,10,0,286
-1500000US220710090003,2.21E+11,"Block Group 3, Census Tract 90, Orleans Parish, Louisiana",94545,1125,27,14,428
-1500000US220710091001,2.21E+11,"Block Group 1, Census Tract 91, Orleans Parish, Louisiana",43810,1074,9,0,342
-1500000US220710091002,2.21E+11,"Block Group 2, Census Tract 91, Orleans Parish, Louisiana",51389,859,6,0,186
-1500000US220710091003,2.21E+11,"Block Group 3, Census Tract 91, Orleans Parish, Louisiana",21875,601,0,8,181
-1500000US220710091004,2.21E+11,"Block Group 4, Census Tract 91, Orleans Parish, Louisiana",30125,804,50,0,409
-1500000US220710092001,2.21E+11,"Block Group 1, Census Tract 92, Orleans Parish, Louisiana",16250,846,0,5,150
-1500000US220710092002,2.21E+11,"Block Group 2, Census Tract 92, Orleans Parish, Louisiana",18750,574,61,10,216
-1500000US220710092003,2.21E+11,"Block Group 3, Census Tract 92, Orleans Parish, Louisiana",14375,758,0,5,243
-1500000US220710094001,2.21E+11,"Block Group 1, Census Tract 94, Orleans Parish, Louisiana",26538,869,13,0,164
-1500000US220710094002,2.21E+11,"Block Group 2, Census Tract 94, Orleans Parish, Louisiana",33235,-,2,0,74
-1500000US220710094003,2.21E+11,"Block Group 3, Census Tract 94, Orleans Parish, Louisiana",10682,805,5,0,114
-1500000US220710094004,2.21E+11,"Block Group 4, Census Tract 94, Orleans Parish, Louisiana",9643,917,6,5,150
-1500000US220710096001,2.21E+11,"Block Group 1, Census Tract 96, Orleans Parish, Louisiana",63784,1045,0,14,262
-1500000US220710096002,2.21E+11,"Block Group 2, Census Tract 96, Orleans Parish, Louisiana",52500,1063,10,0,246
-1500000US220710096003,2.21E+11,"Block Group 3, Census Tract 96, Orleans Parish, Louisiana",47500,767,50,3,228
-1500000US220710097001,2.21E+11,"Block Group 1, Census Tract 97, Orleans Parish, Louisiana",46250,1065,18,5,368
-1500000US220710097002,2.21E+11,"Block Group 2, Census Tract 97, Orleans Parish, Louisiana",35884,878,58,3,353
-1500000US220710099001,2.21E+11,"Block Group 1, Census Tract 99, Orleans Parish, Louisiana",52931,1015,32,0,520
-1500000US220710099002,2.21E+11,"Block Group 2, Census Tract 99, Orleans Parish, Louisiana",64583,1283,10,12,443
-1500000US220710099003,2.21E+11,"Block Group 3, Census Tract 99, Orleans Parish, Louisiana",45335,1041,36,0,475
-1500000US220710100001,2.21E+11,"Block Group 1, Census Tract 100, Orleans Parish, Louisiana",18977,725,10,0,142
-1500000US220710100002,2.21E+11,"Block Group 2, Census Tract 100, Orleans Parish, Louisiana",18102,911,6,5,193
-1500000US220710100003,2.21E+11,"Block Group 3, Census Tract 100, Orleans Parish, Louisiana",44394,894,21,0,308
-1500000US220710100004,2.21E+11,"Block Group 4, Census Tract 100, Orleans Parish, Louisiana",17750,819,8,0,121
-1500000US220710101001,2.21E+11,"Block Group 1, Census Tract 101, Orleans Parish, Louisiana",36136,1097,35,7,318
-1500000US220710101002,2.21E+11,"Block Group 2, Census Tract 101, Orleans Parish, Louisiana",67806,1377,53,0,607
-1500000US220710102001,2.21E+11,"Block Group 1, Census Tract 102, Orleans Parish, Louisiana",14297,881,53,0,151
-1500000US220710102002,2.21E+11,"Block Group 2, Census Tract 102, Orleans Parish, Louisiana",12143,947,0,21,102
-1500000US220710102003,2.21E+11,"Block Group 3, Census Tract 102, Orleans Parish, Louisiana",34000,538,0,5,128
-1500000US220710102004,2.21E+11,"Block Group 4, Census Tract 102, Orleans Parish, Louisiana",32083,1033,18,14,155
-1500000US220710102005,2.21E+11,"Block Group 5, Census Tract 102, Orleans Parish, Louisiana",37738,986,45,0,200
-1500000US220710103001,2.21E+11,"Block Group 1, Census Tract 103, Orleans Parish, Louisiana",16641,952,6,0,259
-1500000US220710103002,2.21E+11,"Block Group 2, Census Tract 103, Orleans Parish, Louisiana",17351,641,46,30,329
-1500000US220710103003,2.21E+11,"Block Group 3, Census Tract 103, Orleans Parish, Louisiana",37371,890,13,0,263
-1500000US220710103004,2.21E+11,"Block Group 4, Census Tract 103, Orleans Parish, Louisiana",16987,1175,11,0,182
-1500000US220710106001,2.21E+11,"Block Group 1, Census Tract 106, Orleans Parish, Louisiana",51875,989,37,12,316
-1500000US220710106002,2.21E+11,"Block Group 2, Census Tract 106, Orleans Parish, Louisiana",34808,928,12,0,366
-1500000US220710107001,2.21E+11,"Block Group 1, Census Tract 107, Orleans Parish, Louisiana",76111,1172,4,0,280
-1500000US220710107002,2.21E+11,"Block Group 2, Census Tract 107, Orleans Parish, Louisiana",68894,1076,8,0,593
-1500000US220710108001,2.21E+11,"Block Group 1, Census Tract 108, Orleans Parish, Louisiana",101250,1154,28,0,173
-1500000US220710108002,2.21E+11,"Block Group 2, Census Tract 108, Orleans Parish, Louisiana",85648,1318,12,0,492
-1500000US220710109001,2.21E+11,"Block Group 1, Census Tract 109, Orleans Parish, Louisiana",75268,794,54,0,269
-1500000US220710109002,2.21E+11,"Block Group 2, Census Tract 109, Orleans Parish, Louisiana",69054,1172,37,0,504
-1500000US220710109003,2.21E+11,"Block Group 3, Census Tract 109, Orleans Parish, Louisiana",69886,1386,52,0,381
-1500000US220710109004,2.21E+11,"Block Group 4, Census Tract 109, Orleans Parish, Louisiana",36250,1052,57,0,272
-1500000US220710111001,2.21E+11,"Block Group 1, Census Tract 111, Orleans Parish, Louisiana",15946,738,22,0,192
-1500000US220710111002,2.21E+11,"Block Group 2, Census Tract 111, Orleans Parish, Louisiana",37202,1048,17,0,291
-1500000US220710111003,2.21E+11,"Block Group 3, Census Tract 111, Orleans Parish, Louisiana",53839,1060,49,0,154
-1500000US220710112001,2.21E+11,"Block Group 1, Census Tract 112, Orleans Parish, Louisiana",58269,1375,10,0,288
-1500000US220710112002,2.21E+11,"Block Group 2, Census Tract 112, Orleans Parish, Louisiana",70250,1157,47,7,309
-1500000US220710114001,2.21E+11,"Block Group 1, Census Tract 114, Orleans Parish, Louisiana",112892,1266,34,0,445
-1500000US220710114002,2.21E+11,"Block Group 2, Census Tract 114, Orleans Parish, Louisiana",51648,1268,39,0,555
-1500000US220710115001,2.21E+11,"Block Group 1, Census Tract 115, Orleans Parish, Louisiana",106500,1704,12,0,286
-1500000US220710115002,2.21E+11,"Block Group 2, Census Tract 115, Orleans Parish, Louisiana",82857,1299,14,0,350
-1500000US220710116001,2.21E+11,"Block Group 1, Census Tract 116, Orleans Parish, Louisiana",114250,1309,5,0,354
-1500000US220710116002,2.21E+11,"Block Group 2, Census Tract 116, Orleans Parish, Louisiana",115714,1465,12,0,304
-1500000US220710117001,2.21E+11,"Block Group 1, Census Tract 117, Orleans Parish, Louisiana",128438,"2,000+",8,0,210
-1500000US220710117002,2.21E+11,"Block Group 2, Census Tract 117, Orleans Parish, Louisiana",123182,1191,17,0,240
-1500000US220710117003,2.21E+11,"Block Group 3, Census Tract 117, Orleans Parish, Louisiana",125795,"2,000+",8,0,315
-1500000US220710117004,2.21E+11,"Block Group 4, Census Tract 117, Orleans Parish, Louisiana",189667,1980,28,0,330
-1500000US220710119001,2.21E+11,"Block Group 1, Census Tract 119, Orleans Parish, Louisiana",101250,1283,26,0,226
-1500000US220710119002,2.21E+11,"Block Group 2, Census Tract 119, Orleans Parish, Louisiana",68438,1590,7,0,247
-1500000US220710119003,2.21E+11,"Block Group 3, Census Tract 119, Orleans Parish, Louisiana",39861,1631,22,0,225
-1500000US220710120001,2.21E+11,"Block Group 1, Census Tract 120, Orleans Parish, Louisiana",66333,1409,29,0,504
-1500000US220710120002,2.21E+11,"Block Group 2, Census Tract 120, Orleans Parish, Louisiana",138750,1483,20,0,176
-1500000US220710121011,2.21E+11,"Block Group 1, Census Tract 121.01, Orleans Parish, Louisiana",43548,1283,59,0,406
-1500000US220710121012,2.21E+11,"Block Group 2, Census Tract 121.01, Orleans Parish, Louisiana",77788,1323,52,0,429
-1500000US220710121021,2.21E+11,"Block Group 1, Census Tract 121.02, Orleans Parish, Louisiana",33897,1255,0,4,203
-1500000US220710121022,2.21E+11,"Block Group 2, Census Tract 121.02, Orleans Parish, Louisiana",123750,-,4,0,16
-1500000US220710121023,2.21E+11,"Block Group 3, Census Tract 121.02, Orleans Parish, Louisiana",85893,1458,11,0,219
-1500000US220710122001,2.21E+11,"Block Group 1, Census Tract 122, Orleans Parish, Louisiana",94432,1241,31,13,495
-1500000US220710122002,2.21E+11,"Block Group 2, Census Tract 122, Orleans Parish, Louisiana",76579,1574,31,7,426
-1500000US220710123001,2.21E+11,"Block Group 1, Census Tract 123, Orleans Parish, Louisiana",24934,970,17,19,229
-1500000US220710123002,2.21E+11,"Block Group 2, Census Tract 123, Orleans Parish, Louisiana",49333,1149,49,11,336
-1500000US220710123003,2.21E+11,"Block Group 3, Census Tract 123, Orleans Parish, Louisiana",76818,1409,47,0,344
-1500000US220710124001,2.21E+11,"Block Group 1, Census Tract 124, Orleans Parish, Louisiana",24511,736,0,0,267
-1500000US220710124002,2.21E+11,"Block Group 2, Census Tract 124, Orleans Parish, Louisiana",81750,918,22,10,405
-1500000US220710125001,2.21E+11,"Block Group 1, Census Tract 125, Orleans Parish, Louisiana",47262,1128,7,0,278
-1500000US220710125002,2.21E+11,"Block Group 2, Census Tract 125, Orleans Parish, Louisiana",41000,869,32,4,528
-1500000US220710126001,2.21E+11,"Block Group 1, Census Tract 126, Orleans Parish, Louisiana",55000,1106,36,0,294
-1500000US220710126002,2.21E+11,"Block Group 2, Census Tract 126, Orleans Parish, Louisiana",39297,970,10,0,317
-1500000US220710126003,2.21E+11,"Block Group 3, Census Tract 126, Orleans Parish, Louisiana",55000,1125,0,0,270
-1500000US220710127001,2.21E+11,"Block Group 1, Census Tract 127, Orleans Parish, Louisiana",40265,1059,0,0,343
-1500000US220710127002,2.21E+11,"Block Group 2, Census Tract 127, Orleans Parish, Louisiana",46625,1020,26,0,209
-1500000US220710127003,2.21E+11,"Block Group 3, Census Tract 127, Orleans Parish, Louisiana",51719,1167,0,7,220
-1500000US220710127004,2.21E+11,"Block Group 4, Census Tract 127, Orleans Parish, Louisiana",62188,1084,38,0,235
-1500000US220710128001,2.21E+11,"Block Group 1, Census Tract 128, Orleans Parish, Louisiana",51406,1003,30,0,253
-1500000US220710128002,2.21E+11,"Block Group 2, Census Tract 128, Orleans Parish, Louisiana",86923,1035,7,0,340
-1500000US220710128003,2.21E+11,"Block Group 3, Census Tract 128, Orleans Parish, Louisiana",70278,1260,31,0,378
-1500000US220710129001,2.21E+11,"Block Group 1, Census Tract 129, Orleans Parish, Louisiana",41894,886,13,6,470
-1500000US220710129002,2.21E+11,"Block Group 2, Census Tract 129, Orleans Parish, Louisiana",61736,1012,42,0,283
-1500000US220710130001,2.21E+11,"Block Group 1, Census Tract 130, Orleans Parish, Louisiana",23906,1023,42,0,293
-1500000US220710130002,2.21E+11,"Block Group 2, Census Tract 130, Orleans Parish, Louisiana",29837,835,51,0,239
-1500000US220710130003,2.21E+11,"Block Group 3, Census Tract 130, Orleans Parish, Louisiana",37222,909,18,0,214
-1500000US220710131001,2.21E+11,"Block Group 1, Census Tract 131, Orleans Parish, Louisiana",9489,839,0,10,115
-1500000US220710131002,2.21E+11,"Block Group 2, Census Tract 131, Orleans Parish, Louisiana",25469,657,20,11,146
-1500000US220710131003,2.21E+11,"Block Group 3, Census Tract 131, Orleans Parish, Louisiana",17098,850,4,0,157
-1500000US220710131004,2.21E+11,"Block Group 4, Census Tract 131, Orleans Parish, Louisiana",19327,923,24,0,143
-1500000US220710132001,2.21E+11,"Block Group 1, Census Tract 132, Orleans Parish, Louisiana",43409,1074,33,0,208
-1500000US220710132002,2.21E+11,"Block Group 2, Census Tract 132, Orleans Parish, Louisiana",19899,896,0,10,313
-1500000US220710132003,2.21E+11,"Block Group 3, Census Tract 132, Orleans Parish, Louisiana",80000,897,10,19,294
-1500000US220710132004,2.21E+11,"Block Group 4, Census Tract 132, Orleans Parish, Louisiana",58850,1578,47,0,245
-1500000US220710133011,2.21E+11,"Block Group 1, Census Tract 133.01, Orleans Parish, Louisiana",137396,1125,31,0,315
-1500000US220710133012,2.21E+11,"Block Group 2, Census Tract 133.01, Orleans Parish, Louisiana",137500,1813,32,0,504
-1500000US220710133013,2.21E+11,"Block Group 3, Census Tract 133.01, Orleans Parish, Louisiana",125278,-,9,0,180
-1500000US220710133014,2.21E+11,"Block Group 4, Census Tract 133.01, Orleans Parish, Louisiana",80682,1455,13,0,412
-1500000US220710133021,2.21E+11,"Block Group 1, Census Tract 133.02, Orleans Parish, Louisiana",62708,636,20,0,523
-1500000US220710133022,2.21E+11,"Block Group 2, Census Tract 133.02, Orleans Parish, Louisiana",144063,-,18,7,358
-1500000US220710134001,2.21E+11,"Block Group 1, Census Tract 134, Orleans Parish, Louisiana",80375,-,14,6,239
-1500000US220710134002,2.21E+11,"Block Group 2, Census Tract 134, Orleans Parish, Louisiana",17348,298,30,10,395
-1500000US220710134003,2.21E+11,"Block Group 3, Census Tract 134, Orleans Parish, Louisiana",52036,1418,37,12,815
-1500000US220710135001,2.21E+11,"Block Group 1, Census Tract 135, Orleans Parish, Louisiana",64615,1191,0,0,226
-1500000US220710135002,2.21E+11,"Block Group 2, Census Tract 135, Orleans Parish, Louisiana",89250,1422,30,0,342
-1500000US220710135003,2.21E+11,"Block Group 3, Census Tract 135, Orleans Parish, Louisiana",70385,1159,40,0,318
-1500000US220710135004,2.21E+11,"Block Group 4, Census Tract 135, Orleans Parish, Louisiana",60625,1043,8,0,416
-1500000US220710136001,2.21E+11,"Block Group 1, Census Tract 136, Orleans Parish, Louisiana",49948,860,4,0,261
-1500000US220710136002,2.21E+11,"Block Group 2, Census Tract 136, Orleans Parish, Louisiana",31818,809,22,21,166
-1500000US220710137001,2.21E+11,"Block Group 1, Census Tract 137, Orleans Parish, Louisiana",-,-,0,0,0
-1500000US220710137002,2.21E+11,"Block Group 2, Census Tract 137, Orleans Parish, Louisiana",13750,-,9,0,69
-1500000US220710137003,2.21E+11,"Block Group 3, Census Tract 137, Orleans Parish, Louisiana",9688,440,41,16,278
-1500000US220710137004,2.21E+11,"Block Group 4, Census Tract 137, Orleans Parish, Louisiana",20583,713,29,0,455
-1500000US220710138001,2.21E+11,"Block Group 1, Census Tract 138, Orleans Parish, Louisiana",26964,995,10,0,245
-1500000US220710138002,2.21E+11,"Block Group 2, Census Tract 138, Orleans Parish, Louisiana",19595,499,26,0,263
-1500000US220710138003,2.21E+11,"Block Group 3, Census Tract 138, Orleans Parish, Louisiana",30764,781,13,18,306
-1500000US220710139001,2.21E+11,"Block Group 1, Census Tract 139, Orleans Parish, Louisiana",65556,1091,31,0,282
-1500000US220710139002,2.21E+11,"Block Group 2, Census Tract 139, Orleans Parish, Louisiana",36250,895,16,0,590
-1500000US220710140001,2.21E+11,"Block Group 1, Census Tract 140, Orleans Parish, Louisiana",4402,496,17,6,93
-1500000US220710140002,2.21E+11,"Block Group 2, Census Tract 140, Orleans Parish, Louisiana",9503,244,34,13,422
-1500000US220710140003,2.21E+11,"Block Group 3, Census Tract 140, Orleans Parish, Louisiana",11444,846,14,40,302
-1500000US220710140004,2.21E+11,"Block Group 4, Census Tract 140, Orleans Parish, Louisiana",10625,635,0,0,50
-1500000US220710141001,2.21E+11,"Block Group 1, Census Tract 141, Orleans Parish, Louisiana",22685,768,22,0,492
-1500000US220710141002,2.21E+11,"Block Group 2, Census Tract 141, Orleans Parish, Louisiana",30714,1021,15,0,142
-1500000US220710141003,2.21E+11,"Block Group 3, Census Tract 141, Orleans Parish, Louisiana",19138,784,35,0,422
-1500000US220710142001,2.21E+11,"Block Group 1, Census Tract 142, Orleans Parish, Louisiana",29000,1026,0,4,204
-1500000US220710142002,2.21E+11,"Block Group 2, Census Tract 142, Orleans Parish, Louisiana",66042,1026,17,0,530
-1500000US220710142003,2.21E+11,"Block Group 3, Census Tract 142, Orleans Parish, Louisiana",28750,976,26,0,203
-1500000US220710143001,2.21E+11,"Block Group 1, Census Tract 143, Orleans Parish, Louisiana",15561,390,38,10,224
-1500000US220710143002,2.21E+11,"Block Group 2, Census Tract 143, Orleans Parish, Louisiana",12031,674,0,3,76
-1500000US220710143003,2.21E+11,"Block Group 3, Census Tract 143, Orleans Parish, Louisiana",14091,906,50,38,410
-1500000US220710144001,2.21E+11,"Block Group 1, Census Tract 144, Orleans Parish, Louisiana",29265,881,8,0,142
-1500000US220710144002,2.21E+11,"Block Group 2, Census Tract 144, Orleans Parish, Louisiana",44338,933,32,4,335
-1500000US220710144003,2.21E+11,"Block Group 3, Census Tract 144, Orleans Parish, Louisiana",40125,784,19,6,330
-1500000US220710145001,2.21E+11,"Block Group 1, Census Tract 145, Orleans Parish, Louisiana",-,-,0,0,0
-1500000US220719800001,2.21E+11,"Block Group 1, Census Tract 9800, Orleans Parish, Louisiana",-,-,0,0,0
-1500000US220719801001,2.21E+11,"Block Group 1, Census Tract 9801, Orleans Parish, Louisiana",-,-,0,0,0
-1500000US220719900000,2.21E+11,"Block Group 0, Census Tract 9900, Orleans Parish, Louisiana",-,-,0,0,0
+Id,Median household income in the past 12 months (in 2014 Inflation-adjusted dollars),Median gross rent,with other types of income,with public assistance income,total
+1500000US220710001001,70625,857,22,12,435
+1500000US220710001002,45195,864,31,29,571
+1500000US220710001003,50417,1072,20,0,322
+1500000US220710002001,26196,713,7,0,236
+1500000US220710002002,22321,920,0,0,310
+1500000US220710003001,28500,665,17,4,256
+1500000US220710003002,21719,958,13,13,237
+1500000US220710004001,31938,978,112,11,483
+1500000US220710004002,25893,750,66,5,421
+1500000US220710006011,9333,258,11,13,146
+1500000US220710006012,18929,661,43,14,168
+1500000US220710006021,27697,971,24,19,337
+1500000US220710006022,32644,936,55,16,239
+1500000US220710006023,30865,845,20,21,382
+1500000US220710006031,19850,926,5,0,197
+1500000US220710006032,17344,961,33,11,257
+1500000US220710006041,31563,1040,114,20,453
+1500000US220710006042,39167,816,31,13,738
+1500000US220710006043,27105,945,22,5,324
+1500000US220710006051,29265,696,20,0,378
+1500000US220710006052,29167,1280,18,10,174
+1500000US220710006053,45962,1491,37,4,230
+1500000US220710006061,68409,1027,46,20,538
+1500000US220710006062,50083,1398,19,0,567
+1500000US220710006063,75117,-,51,32,531
+1500000US220710006071,63523,-,36,0,307
+1500000US220710006072,78971,1652,98,0,536
+1500000US220710006073,58261,1288,108,0,706
+1500000US220710006111,40917,583,41,10,536
+1500000US220710006112,37659,962,89,38,974
+1500000US220710006121,142000,625,54,0,538
+1500000US220710006131,43459,1040,48,0,289
+1500000US220710006132,29012,807,98,14,520
+1500000US220710006133,12455,633,176,31,1243
+1500000US220710006151,38705,777,105,18,621
+1500000US220710006152,31891,755,123,0,1065
+1500000US220710006161,46458,1319,38,0,348
+1500000US220710006162,34232,846,65,0,491
+1500000US220710006163,84891,-,79,0,636
+1500000US220710006171,31850,820,116,0,750
+1500000US220710006172,30861,893,47,0,1180
+1500000US220710006181,143542,-,43,0,543
+1500000US220710006182,68929,706,47,21,750
+1500000US220710007011,14773,380,0,0,28
+1500000US220710007012,13438,-,3,0,45
+1500000US220710007013,19318,-,2,0,74
+1500000US220710007014,20250,907,11,8,75
+1500000US220710007021,17986,833,9,17,131
+1500000US220710007022,25398,1190,2,0,252
+1500000US220710007023,10000,789,5,10,52
+1500000US220710007024,43304,988,0,26,176
+1500000US220710008001,44792,818,0,14,149
+1500000US220710008002,19531,869,0,47,165
+1500000US220710008003,22321,1117,20,22,179
+1500000US220710009011,27708,-,0,0,59
+1500000US220710009012,24911,-,0,0,81
+1500000US220710009013,31818,927,0,0,38
+1500000US220710009014,18846,1038,0,0,124
+1500000US220710009021,107813,-,0,0,14
+1500000US220710009022,50688,-,0,0,35
+1500000US220710009023,47644,-,3,0,67
+1500000US220710009024,42417,-,7,0,29
+1500000US220710009031,28594,692,4,0,55
+1500000US220710009032,27333,731,15,1,88
+1500000US220710009033,12292,-,0,0,22
+1500000US220710009034,12639,-,0,0,41
+1500000US220710009041,21927,536,4,8,193
+1500000US220710009042,12188,950,10,13,161
+1500000US220710011001,26071,794,0,0,274
+1500000US220710011002,43153,924,33,31,639
+1500000US220710011003,-,-,0,0,0
+1500000US220710012001,47770,1008,37,0,322
+1500000US220710012002,38906,1013,31,9,223
+1500000US220710012003,53370,1030,13,0,342
+1500000US220710013011,10250,822,8,42,307
+1500000US220710013012,43309,1059,5,0,165
+1500000US220710013013,26500,882,24,0,160
+1500000US220710013014,17660,560,13,35,149
+1500000US220710013021,20956,942,19,7,193
+1500000US220710013022,11500,882,42,69,246
+1500000US220710014011,15875,698,17,0,113
+1500000US220710014012,23750,-,4,4,74
+1500000US220710014013,32750,1069,9,7,145
+1500000US220710014014,16406,1036,12,22,99
+1500000US220710014015,18750,-,0,0,44
+1500000US220710014016,16250,-,5,0,53
+1500000US220710014021,30625,-,14,6,240
+1500000US220710014022,16042,925,0,5,118
+1500000US220710014023,28125,803,4,0,136
+1500000US220710014024,17375,835,26,45,265
+1500000US220710015001,19464,871,2,15,219
+1500000US220710015002,28958,858,5,17,141
+1500000US220710016001,-,-,0,0,0
+1500000US220710017011,27386,1422,47,6,229
+1500000US220710017012,45375,1514,32,0,155
+1500000US220710017013,35000,1156,18,0,180
+1500000US220710017021,42150,1406,27,0,313
+1500000US220710017022,36579,805,17,0,306
+1500000US220710017023,30417,1442,0,0,154
+1500000US220710017024,36667,795,37,0,150
+1500000US220710017201,36111,1333,34,6,192
+1500000US220710017202,34940,1012,17,0,235
+1500000US220710017203,23194,1077,38,18,445
+1500000US220710017204,25368,843,41,0,321
+1500000US220710017221,22446,990,66,12,167
+1500000US220710017222,48750,1125,86,0,253
+1500000US220710017223,23988,948,41,0,431
+1500000US220710017224,34118,-,14,0,172
+1500000US220710017225,19219,663,76,7,349
+1500000US220710017226,25250,-,13,0,123
+1500000US220710017227,26393,-,11,0,121
+1500000US220710017231,31765,-,17,0,272
+1500000US220710017232,30424,288,46,19,738
+1500000US220710017233,28071,960,32,6,331
+1500000US220710017234,21983,975,76,0,508
+1500000US220710017241,30862,1055,46,27,268
+1500000US220710017242,47500,591,38,0,356
+1500000US220710017243,19919,896,50,7,612
+1500000US220710017244,15500,1008,133,13,426
+1500000US220710017251,20421,766,105,0,765
+1500000US220710017252,38125,835,69,16,559
+1500000US220710017253,31990,1055,50,0,521
+1500000US220710017254,50284,730,39,16,569
+1500000US220710017301,44583,1541,49,0,287
+1500000US220710017341,60859,-,25,0,333
+1500000US220710017351,26429,907,64,26,454
+1500000US220710017352,24167,1011,25,31,350
+1500000US220710017361,15337,867,39,11,241
+1500000US220710017362,33750,928,96,6,559
+1500000US220710017371,20473,828,67,17,724
+1500000US220710017372,48250,1262,18,0,322
+1500000US220710017373,36477,1703,39,13,249
+1500000US220710017391,39773,921,46,0,408
+1500000US220710017392,50917,-,31,0,165
+1500000US220710017401,44559,-,59,10,442
+1500000US220710017402,30028,839,64,0,695
+1500000US220710017403,35545,762,69,45,656
+1500000US220710017411,40500,1258,77,3,480
+1500000US220710017431,19322,875,45,14,625
+1500000US220710017432,21286,858,19,0,314
+1500000US220710017441,33385,789,11,11,489
+1500000US220710017442,16058,1107,49,72,493
+1500000US220710017443,25110,907,28,15,427
+1500000US220710017451,20972,894,42,39,930
+1500000US220710017452,28750,1321,57,17,409
+1500000US220710017461,39286,903,34,9,482
+1500000US220710017462,27850,929,21,0,578
+1500000US220710017463,35797,1095,59,41,563
+1500000US220710017471,78990,-,106,0,847
+1500000US220710017472,68646,-,35,0,425
+1500000US220710017481,60703,-,7,0,374
+1500000US220710017482,29485,1246,38,0,409
+1500000US220710017483,38015,666,86,24,445
+1500000US220710017484,61958,-,52,0,273
+1500000US220710017491,41563,636,59,5,369
+1500000US220710017492,26844,743,47,3,471
+1500000US220710017501,38750,922,3,0,397
+1500000US220710017502,25189,658,69,0,322
+1500000US220710017503,15767,715,11,18,434
+1500000US220710017511,17059,716,6,21,268
+1500000US220710018001,51023,1185,22,3,418
+1500000US220710018002,62500,994,11,0,282
+1500000US220710019001,26023,815,0,0,138
+1500000US220710019002,19750,596,21,19,261
+1500000US220710019003,26339,787,0,0,245
+1500000US220710020001,10568,1057,3,32,212
+1500000US220710020002,18323,814,28,14,197
+1500000US220710020003,32292,891,5,10,107
+1500000US220710021001,18587,897,2,15,158
+1500000US220710021002,17039,706,18,36,209
+1500000US220710022001,22708,718,7,1,125
+1500000US220710022002,33875,832,44,15,181
+1500000US220710022003,15833,1084,6,11,96
+1500000US220710023001,52708,-,0,0,59
+1500000US220710023002,9148,538,0,14,114
+1500000US220710023003,30278,-,0,0,68
+1500000US220710023004,24931,835,7,0,101
+1500000US220710023005,23828,877,35,0,475
+1500000US220710024011,41202,1119,36,5,414
+1500000US220710024012,50750,856,43,6,355
+1500000US220710024021,31800,941,9,0,168
+1500000US220710024022,24511,695,44,0,355
+1500000US220710024023,34022,987,26,0,276
+1500000US220710024024,29205,1193,18,0,419
+1500000US220710025011,38421,915,20,6,278
+1500000US220710025012,40521,1278,14,1,161
+1500000US220710025013,62125,1038,17,0,105
+1500000US220710025014,49559,1010,17,0,130
+1500000US220710025021,40114,1116,57,17,320
+1500000US220710025022,26875,646,0,0,179
+1500000US220710025023,26111,999,10,0,142
+1500000US220710025024,36953,-,13,0,171
+1500000US220710025031,53393,1377,12,5,150
+1500000US220710025032,51979,1087,45,0,377
+1500000US220710025033,57599,1277,13,0,281
+1500000US220710025041,45733,1139,41,29,191
+1500000US220710025042,51250,1188,29,0,328
+1500000US220710025043,63036,-,18,0,181
+1500000US220710025044,27950,1111,32,0,229
+1500000US220710026001,62258,913,41,8,450
+1500000US220710026002,22500,343,68,0,528
+1500000US220710027001,18264,926,5,0,205
+1500000US220710027002,47829,1071,16,4,261
+1500000US220710027003,20912,842,0,11,149
+1500000US220710028001,24423,869,0,0,170
+1500000US220710028002,17330,793,31,5,269
+1500000US220710028003,27632,932,15,6,202
+1500000US220710029001,23542,912,35,6,209
+1500000US220710029002,12552,635,7,0,147
+1500000US220710029003,25172,637,18,0,208
+1500000US220710030001,14148,978,10,6,213
+1500000US220710030002,14942,922,13,5,268
+1500000US220710031001,15346,529,12,0,147
+1500000US220710031002,19188,920,12,10,303
+1500000US220710033011,58913,1060,54,5,300
+1500000US220710033012,48000,1112,0,14,252
+1500000US220710033013,78839,"2,000+",4,0,129
+1500000US220710033021,56513,-,33,0,231
+1500000US220710033022,46154,1689,6,26,398
+1500000US220710033023,54957,743,48,0,371
+1500000US220710033024,62222,1290,0,0,214
+1500000US220710033031,33500,1109,33,23,356
+1500000US220710033032,20078,902,21,15,307
+1500000US220710033033,38198,1087,25,4,176
+1500000US220710033041,37375,1058,8,23,392
+1500000US220710033042,18194,671,32,5,373
+1500000US220710033071,45556,1168,20,5,334
+1500000US220710033072,24299,665,13,0,231
+1500000US220710033081,37411,-,0,0,131
+1500000US220710033082,21146,780,23,10,269
+1500000US220710033083,18704,382,58,0,500
+1500000US220710033084,25859,-,22,0,215
+1500000US220710033085,37788,1072,9,0,199
+1500000US220710033086,112552,-,0,0,47
+1500000US220710034001,27381,821,43,0,276
+1500000US220710034002,20221,747,10,20,408
+1500000US220710035001,21114,874,0,0,237
+1500000US220710035002,17305,670,15,11,165
+1500000US220710035003,35938,862,4,0,218
+1500000US220710036001,30167,846,40,0,210
+1500000US220710036002,21976,876,16,0,395
+1500000US220710036003,30417,915,13,18,208
+1500000US220710037011,45952,1163,63,0,782
+1500000US220710037012,34167,1075,15,0,248
+1500000US220710037021,27600,706,0,0,320
+1500000US220710037022,18718,1041,13,0,293
+1500000US220710037023,16563,888,0,4,179
+1500000US220710037024,28787,1060,19,0,255
+1500000US220710037025,78333,782,0,0,228
+1500000US220710037026,37212,1064,46,0,380
+1500000US220710038001,70074,1138,55,0,437
+1500000US220710038002,62417,1095,33,0,420
+1500000US220710039001,32188,827,45,6,303
+1500000US220710039002,19821,1019,30,14,362
+1500000US220710040001,21105,779,45,12,393
+1500000US220710040002,22278,731,80,14,528
+1500000US220710041001,44960,983,37,0,437
+1500000US220710041002,70395,951,29,15,352
+1500000US220710044011,14375,758,10,12,179
+1500000US220710044012,13750,854,0,0,153
+1500000US220710044013,14489,796,5,0,227
+1500000US220710044021,-,-,0,0,37
+1500000US220710044022,-,-,0,0,0
+1500000US220710045001,15083,876,16,0,225
+1500000US220710045002,15208,878,37,59,338
+1500000US220710045003,36301,973,26,17,479
+1500000US220710046001,49250,998,5,0,269
+1500000US220710046002,51705,1039,78,18,804
+1500000US220710046003,38000,1067,0,0,428
+1500000US220710048001,8693,200,23,6,376
+1500000US220710049001,9783,633,46,31,296
+1500000US220710049002,16731,708,0,6,234
+1500000US220710049003,-,-,0,0,12
+1500000US220710049004,27625,876,6,6,119
+1500000US220710050001,31333,1084,6,11,302
+1500000US220710050002,24189,803,9,26,303
+1500000US220710054001,41250,1005,97,4,329
+1500000US220710054002,50915,1040,8,0,324
+1500000US220710054003,48250,1236,16,4,350
+1500000US220710055001,54688,1145,18,0,437
+1500000US220710055002,52554,1180,33,8,401
+1500000US220710055003,50857,1132,18,6,370
+1500000US220710056011,79712,1732,17,0,257
+1500000US220710056012,99773,950,6,0,252
+1500000US220710056013,83000,1620,11,0,176
+1500000US220710056014,64453,1650,16,0,191
+1500000US220710056021,74750,1464,14,0,156
+1500000US220710056022,102539,1320,17,0,327
+1500000US220710056023,76250,1356,6,0,295
+1500000US220710056024,119779,1917,11,0,173
+1500000US220710056031,81719,1250,39,0,215
+1500000US220710056032,61875,1263,20,0,228
+1500000US220710056033,70862,1275,16,0,168
+1500000US220710056041,103250,1419,23,0,195
+1500000US220710056042,102708,1198,28,0,229
+1500000US220710056043,69922,1208,17,0,174
+1500000US220710060001,24375,1019,14,27,584
+1500000US220710063001,21767,869,26,5,363
+1500000US220710063002,22813,786,30,0,77
+1500000US220710063003,19063,1071,8,0,229
+1500000US220710064001,43625,978,32,15,253
+1500000US220710064002,54306,1129,8,0,331
+1500000US220710064003,28636,1099,20,14,202
+1500000US220710064004,27292,993,0,0,242
+1500000US220710065001,39063,979,20,20,418
+1500000US220710065002,52452,1109,44,17,375
+1500000US220710065003,25110,895,21,6,391
+1500000US220710069001,18438,304,0,3,103
+1500000US220710069002,11042,625,0,0,19
+1500000US220710069003,12440,329,22,0,153
+1500000US220710070001,7917,1091,16,0,70
+1500000US220710070002,13125,781,4,0,136
+1500000US220710071011,33750,1030,12,9,329
+1500000US220710071012,13371,565,36,0,790
+1500000US220710072001,20000,968,31,33,630
+1500000US220710072002,23160,714,21,0,278
+1500000US220710072003,14219,690,19,8,119
+1500000US220710075011,19643,850,14,0,206
+1500000US220710075012,34833,850,15,14,220
+1500000US220710075013,20664,908,10,0,217
+1500000US220710075014,19474,938,18,0,188
+1500000US220710075015,19821,-,20,0,139
+1500000US220710075021,26750,708,9,0,116
+1500000US220710075022,14583,-,10,9,131
+1500000US220710075023,12219,948,31,0,311
+1500000US220710075024,13095,1083,30,0,162
+1500000US220710075025,27386,842,0,9,287
+1500000US220710076041,126607,1865,14,0,369
+1500000US220710076042,191591,-,48,0,286
+1500000US220710076051,14309,788,35,0,275
+1500000US220710076052,22000,915,18,0,334
+1500000US220710076061,75972,1175,31,0,761
+1500000US220710076062,64306,990,18,0,432
+1500000US220710076063,70667,1328,21,0,636
+1500000US220710077001,85439,1361,9,9,877
+1500000US220710077002,56523,1382,154,15,751
+1500000US220710078001,66402,1169,73,13,671
+1500000US220710082001,49185,875,28,0,454
+1500000US220710082002,44018,894,40,0,482
+1500000US220710083001,65139,1111,33,5,321
+1500000US220710083002,93214,992,0,0,232
+1500000US220710084001,34286,973,43,15,336
+1500000US220710084002,26250,941,16,0,358
+1500000US220710085001,9525,459,16,33,330
+1500000US220710085002,17278,660,10,8,245
+1500000US220710086001,16447,703,14,0,216
+1500000US220710086002,17305,853,17,13,199
+1500000US220710088001,67083,1137,45,9,411
+1500000US220710088002,79038,1250,35,8,456
+1500000US220710090001,88750,978,25,0,305
+1500000US220710090002,158750,1166,10,0,286
+1500000US220710090003,94545,1125,27,14,428
+1500000US220710091001,43810,1074,9,0,342
+1500000US220710091002,51389,859,6,0,186
+1500000US220710091003,21875,601,0,8,181
+1500000US220710091004,30125,804,50,0,409
+1500000US220710092001,16250,846,0,5,150
+1500000US220710092002,18750,574,61,10,216
+1500000US220710092003,14375,758,0,5,243
+1500000US220710094001,26538,869,13,0,164
+1500000US220710094002,33235,-,2,0,74
+1500000US220710094003,10682,805,5,0,114
+1500000US220710094004,9643,917,6,5,150
+1500000US220710096001,63784,1045,0,14,262
+1500000US220710096002,52500,1063,10,0,246
+1500000US220710096003,47500,767,50,3,228
+1500000US220710097001,46250,1065,18,5,368
+1500000US220710097002,35884,878,58,3,353
+1500000US220710099001,52931,1015,32,0,520
+1500000US220710099002,64583,1283,10,12,443
+1500000US220710099003,45335,1041,36,0,475
+1500000US220710100001,18977,725,10,0,142
+1500000US220710100002,18102,911,6,5,193
+1500000US220710100003,44394,894,21,0,308
+1500000US220710100004,17750,819,8,0,121
+1500000US220710101001,36136,1097,35,7,318
+1500000US220710101002,67806,1377,53,0,607
+1500000US220710102001,14297,881,53,0,151
+1500000US220710102002,12143,947,0,21,102
+1500000US220710102003,34000,538,0,5,128
+1500000US220710102004,32083,1033,18,14,155
+1500000US220710102005,37738,986,45,0,200
+1500000US220710103001,16641,952,6,0,259
+1500000US220710103002,17351,641,46,30,329
+1500000US220710103003,37371,890,13,0,263
+1500000US220710103004,16987,1175,11,0,182
+1500000US220710106001,51875,989,37,12,316
+1500000US220710106002,34808,928,12,0,366
+1500000US220710107001,76111,1172,4,0,280
+1500000US220710107002,68894,1076,8,0,593
+1500000US220710108001,101250,1154,28,0,173
+1500000US220710108002,85648,1318,12,0,492
+1500000US220710109001,75268,794,54,0,269
+1500000US220710109002,69054,1172,37,0,504
+1500000US220710109003,69886,1386,52,0,381
+1500000US220710109004,36250,1052,57,0,272
+1500000US220710111001,15946,738,22,0,192
+1500000US220710111002,37202,1048,17,0,291
+1500000US220710111003,53839,1060,49,0,154
+1500000US220710112001,58269,1375,10,0,288
+1500000US220710112002,70250,1157,47,7,309
+1500000US220710114001,112892,1266,34,0,445
+1500000US220710114002,51648,1268,39,0,555
+1500000US220710115001,106500,1704,12,0,286
+1500000US220710115002,82857,1299,14,0,350
+1500000US220710116001,114250,1309,5,0,354
+1500000US220710116002,115714,1465,12,0,304
+1500000US220710117001,128438,"2,000+",8,0,210
+1500000US220710117002,123182,1191,17,0,240
+1500000US220710117003,125795,"2,000+",8,0,315
+1500000US220710117004,189667,1980,28,0,330
+1500000US220710119001,101250,1283,26,0,226
+1500000US220710119002,68438,1590,7,0,247
+1500000US220710119003,39861,1631,22,0,225
+1500000US220710120001,66333,1409,29,0,504
+1500000US220710120002,138750,1483,20,0,176
+1500000US220710121011,43548,1283,59,0,406
+1500000US220710121012,77788,1323,52,0,429
+1500000US220710121021,33897,1255,0,4,203
+1500000US220710121022,123750,-,4,0,16
+1500000US220710121023,85893,1458,11,0,219
+1500000US220710122001,94432,1241,31,13,495
+1500000US220710122002,76579,1574,31,7,426
+1500000US220710123001,24934,970,17,19,229
+1500000US220710123002,49333,1149,49,11,336
+1500000US220710123003,76818,1409,47,0,344
+1500000US220710124001,24511,736,0,0,267
+1500000US220710124002,81750,918,22,10,405
+1500000US220710125001,47262,1128,7,0,278
+1500000US220710125002,41000,869,32,4,528
+1500000US220710126001,55000,1106,36,0,294
+1500000US220710126002,39297,970,10,0,317
+1500000US220710126003,55000,1125,0,0,270
+1500000US220710127001,40265,1059,0,0,343
+1500000US220710127002,46625,1020,26,0,209
+1500000US220710127003,51719,1167,0,7,220
+1500000US220710127004,62188,1084,38,0,235
+1500000US220710128001,51406,1003,30,0,253
+1500000US220710128002,86923,1035,7,0,340
+1500000US220710128003,70278,1260,31,0,378
+1500000US220710129001,41894,886,13,6,470
+1500000US220710129002,61736,1012,42,0,283
+1500000US220710130001,23906,1023,42,0,293
+1500000US220710130002,29837,835,51,0,239
+1500000US220710130003,37222,909,18,0,214
+1500000US220710131001,9489,839,0,10,115
+1500000US220710131002,25469,657,20,11,146
+1500000US220710131003,17098,850,4,0,157
+1500000US220710131004,19327,923,24,0,143
+1500000US220710132001,43409,1074,33,0,208
+1500000US220710132002,19899,896,0,10,313
+1500000US220710132003,80000,897,10,19,294
+1500000US220710132004,58850,1578,47,0,245
+1500000US220710133011,137396,1125,31,0,315
+1500000US220710133012,137500,1813,32,0,504
+1500000US220710133013,125278,-,9,0,180
+1500000US220710133014,80682,1455,13,0,412
+1500000US220710133021,62708,636,20,0,523
+1500000US220710133022,144063,-,18,7,358
+1500000US220710134001,80375,-,14,6,239
+1500000US220710134002,17348,298,30,10,395
+1500000US220710134003,52036,1418,37,12,815
+1500000US220710135001,64615,1191,0,0,226
+1500000US220710135002,89250,1422,30,0,342
+1500000US220710135003,70385,1159,40,0,318
+1500000US220710135004,60625,1043,8,0,416
+1500000US220710136001,49948,860,4,0,261
+1500000US220710136002,31818,809,22,21,166
+1500000US220710137001,-,-,0,0,0
+1500000US220710137002,13750,-,9,0,69
+1500000US220710137003,9688,440,41,16,278
+1500000US220710137004,20583,713,29,0,455
+1500000US220710138001,26964,995,10,0,245
+1500000US220710138002,19595,499,26,0,263
+1500000US220710138003,30764,781,13,18,306
+1500000US220710139001,65556,1091,31,0,282
+1500000US220710139002,36250,895,16,0,590
+1500000US220710140001,4402,496,17,6,93
+1500000US220710140002,9503,244,34,13,422
+1500000US220710140003,11444,846,14,40,302
+1500000US220710140004,10625,635,0,0,50
+1500000US220710141001,22685,768,22,0,492
+1500000US220710141002,30714,1021,15,0,142
+1500000US220710141003,19138,784,35,0,422
+1500000US220710142001,29000,1026,0,4,204
+1500000US220710142002,66042,1026,17,0,530
+1500000US220710142003,28750,976,26,0,203
+1500000US220710143001,15561,390,38,10,224
+1500000US220710143002,12031,674,0,3,76
+1500000US220710143003,14091,906,50,38,410
+1500000US220710144001,29265,881,8,0,142
+1500000US220710144002,44338,933,32,4,335
+1500000US220710144003,40125,784,19,6,330
+1500000US220710145001,-,-,0,0,0
+1500000US220719800001,-,-,0,0,0
+1500000US220719801001,-,-,0,0,0
+1500000US220719900000,-,-,0,0,0

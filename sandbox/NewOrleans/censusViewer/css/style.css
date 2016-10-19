@@ -1,4 +1,7 @@
-
+.circle {
+            background-color: rgba(204, 0, 102, 0);
+            border: 3px solid #000;
+        }
 
 .graph {
   position:relative;
