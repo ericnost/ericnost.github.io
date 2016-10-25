@@ -44,8 +44,8 @@
             <div id="navbar" class="collapse navbar-collapse"><!--links in navbar-->
                 <ul class="nav navbar-nav navbar-right"><!--unordered list for links on navbar-->
 
-                    <li><a href="AboutUs.html">About</a></li>
-                    <li><a href="Stories.html">Stories</a></li>
+<!--                     <li><a href="AboutUs.html">About</a></li>
+                    <li><a href="Stories.html">Stories</a></li> -->
                 </ul>
             </div><!--end navbar=collapse-->
 
@@ -54,13 +54,13 @@
 
   </div>
 <div class="col-md-12 container" id="main">
-	<div class = "col-md-6">
-		<div class = "row"><h5>Investigate how the oil/gas industry has contributed to land loss in Louisiana:</h5></div>
+	<div class = "col-md-4">
+		<div class = "row"><h5>Investigate how the oil and gas industry contributed to land loss in Louisiana:</h5></div>
 	</div>
-	<div class = "col-md-6">
+	<div class = "col-md-8">
 		<div class="row" id="header"></div>
 	</div>
-	<div class = "row col-md-12 text-center" id="text1"><h6>Over the past 80 years, oil/gas extraction in coastal Louisiana has contributed to unprecedented land loss. Here you can explore the spatial distribution of different components of oil/gas extraction (wells, pipelines, etc.) that are known factors.</h6></div>
+	<div class = "col-md-10" id="text1"><h6>Over the past 80 years, oil and gas extraction - along with sea level rise, subsidence, and flood control levees - has contributed to unprecedented land loss in coastal Louisiana. Here you can explore the spatial distribution of different components of hydrocarbon extraction.</h6></div>
 </div>
 	
 </div>
@@ -69,11 +69,7 @@
 						<div class="row map text-left">
 						</div>
 				</div>
-				<div class="col-md-4">
-						<div class="col-md-2 bars text-left">
-						</div>
-						<div class="col-md-2 chart">
-						</div>
+				<div class="col-md-4 chart">
 				</div> 
 	</div>
 	<div class="col-md-12 container" id="second">
@@ -108,6 +104,12 @@
 						</div>
 				</div> 
 	</div>
+	<div class="col-md-12 container" id="sources">
+				<div class="row col-md-12">
+						Sources: USGS (Couvillion et al. 2013) for land loss data; Dusty Pate, US NPS for spoil banks data; SONRIS for oil and gas well, pipeline, and levee data. 
+				</div>
+			
+	</div>
 
 <script>
 var keyArray = ["wellDensitySqMi", "pipelineDensity", "permitDensity", "leveesNormalizedSQMI", "spoilBanksAreaNormalizedSQMI"];
@@ -134,15 +136,15 @@ window.onload = initialize();
 function initialize(){ 
 
 	d3.select(".landLossText")
-		.html("<p>At some point in the past 80 years, every region in the coast has experienced some degree of land loss, with some areas more drastic than others. At points, basins will start to regain land, only to possibly lose it again from increased impacts. One notable exception is the Atchafalay basin, which has steadily been gaining land since coastal restoration came into full force in the 1980s. <a href='http://www.nola.com/environment/index.ssf/2014/07/wax_lake_outlets_growing_wetla.html' target='_blank'>The Wax Lake Delta</a> there has proven a model for the kinds of restoration projects the state wants to invest in.")
+		.html("<p>At some point in the past 80 years, every region in the coast has experienced some degree of land loss, with some areas more drastic than others. At points, basins will start to regain land, only to possibly lose it again from storms or further development. One notable exception is the Atchafalaya basin, which has steadily been gaining land. <a href='http://www.nola.com/environment/index.ssf/2014/07/wax_lake_outlets_growing_wetla.html' target='_blank'>The Wax Lake Delta</a> there has proven a model for the kinds of restoration projects the state wants to invest in.")
 	
 	d3.select(".canalText")
-		.html("Canals are at the center of what has been called <a href='http://www.nytimes.com/interactive/2014/10/02/magazine/mag-oil-lawsuit.html?_r=0' target='_blank'>'the most ambitious environmental lawsuit ever.'</a> The levee board responsible for protecting New Orleans has filed suit against nearly 100 oil and gas firms, claiming that they failed to meet the conditions of their environmental permits to fill-in canals after extraction operations ceased. The case of Delacroix has featured prominently in the suit.")
+		.html("Canals are at the center of what has been called <a href='http://www.nytimes.com/interactive/2014/10/02/magazine/mag-oil-lawsuit.html?_r=0' target='_blank'>'the most ambitious environmental lawsuit ever.'</a> The levee board responsible for protecting New Orleans has filed suit against over 90 oil and gas firms, claiming that they failed to meet the conditions of their environmental permits to fill-in canals after extraction operations ceased. The case of Delacroix has featured prominently in the suit.")
 	d3.select(".canalImg")
 		.html("<img src='img/SLFPRAE larger.gif'></img>")
 
 	d3.select("#text")
-		.html('Over the past century, the State of Louisiana has permitted hundreds of thousands of wells for extracting oil and gas. While in boom years these wells provided jobs and income to many, not only do modern wells operating today <a href="http://www.npr.org/2014/04/19/304707516/telltale-rainbow-sheens-show-thousands-of-spills-across-the-gulf" target="_blank">impact a variety of ecosystems</a>, old wells <a href="http://harpers.org/archive/2013/11/dirty-south/" target="_blank">have left their own legacy</a>. Many leak, contaminating nearby property, while others have been implicated in the <a href="http://projects.propublica.org/louisiana/" target="_blank">tremendous land loss the state is experiencing</a>. This map shows how many wells were permitted in each parish (or, county) in the state in the past 100 or so years. By clicking on the icons below, you can focus in on a particular "boom."')
+		.html('Over the past century, the State of Louisiana has permitted hundreds of thousands of wells for extracting oil and gas. While in boom years these wells provided jobs and incomes to many, not only do modern wells operating today <a href="http://www.npr.org/2014/04/19/304707516/telltale-rainbow-sheens-show-thousands-of-spills-across-the-gulf" target="_blank">impact a variety of ecosystems</a>, old wells <a href="http://harpers.org/archive/2013/11/dirty-south/" target="_blank">have left their own legacy</a>. Many leak, contaminating nearby property, while others have been implicated in the <a href="http://projects.propublica.org/louisiana/" target="_blank">tremendous land loss the state is experiencing</a>. This map shows how many wells were permitted in each parish (or, county) in the state in the past 100 or so years. By clicking on the icons below, you can focus in on a particular "boom."')
 
 	wellsMap();
 	
@@ -306,22 +308,9 @@ function setChart(csvData, colorize){
 		.attr("y", -15)
 		.attr("class", "chartTitle");
 
-	//set bars for each province
-	var barz = chart.selectAll(".barz")
-		.data(csvData)
-		.enter()
-		.append("rect")
-		.sort(function(a, b){return b[expressed]-a[expressed]})
-		.attr("class", function(d){
-			return "barz " + d.id;
-		})
-		.attr("height", chartHeight / csvData.length - 10)
-		.on("mouseover", highlight)
-		.on("mouseout", dehighlight)
-		.on("mousemove", moveLabel);
 
 	//adjust bars according to current attribute
-	updateChart(barz, csvData.length, csvData);
+	updateChart(csvData.length, csvData);
 };
 
 function colorScale(csvData){
@@ -391,26 +380,12 @@ function changeAttribute(attribute, csvData){
 	   .attr("class", function(d){if (d==expressed){return "active"}})
 
 	//update bars according to current attribute
-	updateChart(barz, csvData.length, csvData);
+	updateChart(csvData.length, csvData);
 	scatPlot(csvData);
 };
 
-function updateChart(barz, numbars, csvData){
-	//scale the chart size to fit the largest bar
-	var BxScale = d3.scale.linear().range([0, chartWidth]);
-  	BxScale.domain([0, d3.max(csvData, function(d) { return Number(d[expressed]); })]);
-
-	//style the bars according to currently expressed attribute
-	barz.attr("width", function(d, i){
-			return BxScale(Number(d[expressed]));
-		})
-		.attr("x", 0)
-		.attr("y", function(d, i){
-			return i * (chartHeight / numbars);
-		})
-		.style("fill", function(d){
-			return choropleth(d, colorize);
-		});
+function updateChart(numbars, csvData){
+	
 
 	//update chart title
 	d3.select(".chartTitle")
@@ -565,8 +540,8 @@ function landLossChart() {
 
 function scatPlot(data){
 	d3.select("#plot").remove()
-var margin = {top: 15, right: 35, bottom: 35, left: 15},
-    width = $(".col-md-8").width()/4	
+var margin = {top: 35, right: 15, bottom: 36, left: 0},
+    width = $(".col-md-8").width()/2	
     height = fullHeight/1.5
 
 /* 
@@ -578,7 +553,7 @@ var margin = {top: 15, right: 35, bottom: 35, left: 15},
 
 // setup x 
 var xValue = function(d) { return d[expressed];}, // data -> value
-    xScale = d3.scale.linear().range([width-margin.left, margin.left]), // value -> display
+    xScale = d3.scale.linear().range([width-margin.right, margin.left]), // value -> display
     xMap = function(d) { return xScale(xValue(d));}, // data -> display
     xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickSize(1).tickFormat(d3.format(",0f"));
 
@@ -626,7 +601,7 @@ data.forEach(function(d) {
   // y-axis
   Ssvg.append("g")
       .attr("class", "y axis")
-      .attr("transform", "translate(" + width + " ,0)")   
+      .attr("transform", "translate(" + (width-margin.right) + " ,0)")   
       .call(yAxis)
     .append("text")
       .attr("class", "label")
