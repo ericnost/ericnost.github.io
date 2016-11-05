@@ -206,10 +206,10 @@ var seaportButton = document.getElementById('seaport');
 map.on('locationfound', onLocationFound);
 function onLocationFound(e){
   console.log(e)
-  point.geometry.coordinates[0] = e.latitude
-  point.geometry.coordinates[1] = e.longitude
+  point.geometry.coordinates[0] = e.longitude
+  point.geometry.coordinates[1] = e.latitude
   map.removeLayer(mark)
-  mark= L.marker(point.geometry.coordinates).addTo(map);
+  mark= L.marker([point.geometry.coordinates[1], point.geometry.coordinates[0]]).addTo(map); //markers have to be lat, long. but for turf spatial comparison, need long, lat.
 }
 var point = {
   "type": "Feature",
@@ -229,7 +229,7 @@ cityButton.onclick = function (){
 	map.setView(defaultPoint.city, 16);
 	map.removeLayer(mark)
 	mark = L.marker(defaultPoint.city).addTo(map);
-	point.geometry.coordinates = defaultPoint.city.reverse()
+	point.geometry.coordinates = defaultPoint.city.reverse() //might need to copy....
 	active =wcitiesLayer
 };
 
@@ -275,33 +275,33 @@ function find (form, event) {
     })
     layers = jQuery.grep(layers, function( n, i ) {
     	return n.properties.title.toLowerCase().indexOf(stuff) != -1
-	});
-	//console.log(point,layers)
-	//if more than two, find closest with turf
-	layers = {
-	  "type": "FeatureCollection",
-	  "features": layers
-	}
-	var nearest = turf.nearest(point, layers);
-	layers = null //clear memory completely
-	//console.log(nearest)
-	//L.marker([nearest.geometry.coordinates[1], nearest.geometry.coordinates[0]]).addTo(map) //alternatively, make marker in Wclayers light up
-	$("#directions").show()
-	directions.setOrigin(point) //fix this?
-	directions.setDestination(nearest)
-	directions.query()
-  
-	//simulate click on icon to show modal
-	var id = nearest.properties.title
-  var layer = markers.getLayer(id);
-  layer.fireEvent('click');  
-   
-	//set map view to right extent
-	var point1 = jQuery.extend(true,{}, point) //deep copy of coordinates
-	point1=point1.geometry.coordinates
-	var point2 = nearest.geometry.coordinates
-	var x = L.latLngBounds(point1.reverse(), point2.reverse())
-	map.fitBounds(x)
+  	});
+  	//console.log(point,layers)
+  	//if more than two, find closest with turf
+  	layers = {
+  	  "type": "FeatureCollection",
+  	  "features": layers
+  	}
+  	var nearest = turf.nearest(point, layers);
+  	layers = null //clear memory completely
+  	//console.log(nearest)
+  	//L.marker([nearest.geometry.coordinates[1], nearest.geometry.coordinates[0]]).addTo(map) //alternatively, make marker in Wclayers light up
+  	$("#directions").show()
+  	directions.setOrigin(point) //fix this?
+  	directions.setDestination(nearest)
+  	directions.query()
+    
+  	//simulate click on icon to show modal
+  	var id = nearest.properties.title
+    var layer = markers.getLayer(id);
+    layer.fireEvent('click');  
+     
+  	//set map view to right extent
+  	var point1 = jQuery.extend(true,{}, point) //deep copy of coordinates
+  	point1=point1.geometry.coordinates
+  	var point2 = nearest.geometry.coordinates
+  	var x = L.latLngBounds(point1.reverse(), point2.reverse())
+  	map.fitBounds(x)
   } 
 
 
