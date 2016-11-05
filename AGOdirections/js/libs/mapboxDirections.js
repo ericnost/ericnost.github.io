@@ -1954,7 +1954,8 @@ var Layer = L.LayerGroup.extend({
             icon: L.mapbox.marker.icon({
                 'marker-size': 'medium',
                 'marker-color': '#3BB2D0',
-                'marker-symbol': 'a'
+                'marker-symbol': 'a',
+
             })
         }).on('drag', this._drag, this);
 
@@ -1964,7 +1965,6 @@ var Layer = L.LayerGroup.extend({
                 'marker-size': 'medium',
                 'marker-color': '#444',
                 'marker-symbol': 'b'
-            })
         }).on('drag', this._drag, this);
 
         this.stepMarker = L.marker([0, 0], {
@@ -2230,7 +2230,7 @@ var Layer = L.LayerGroup.extend({
 
     _waypointIcon: function() {
         return L.divIcon({
-            className: 'mapbox-marker-drag-icon',
+            className: 'mapbox-marker-drag-icon way',
             iconSize: new L.Point(12, 12)
         });
     }

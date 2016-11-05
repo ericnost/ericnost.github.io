@@ -1,5 +1,4 @@
 markers = L.markerClusterGroup({disableClusteringAtZoom: 2}); 
-      
 L.control.locate({locateOptions: {enableHighAccuracy: true}}).addTo(map);	
 	
 if (seaportData === undefined){
@@ -18,6 +17,8 @@ if (seaportData === undefined){
 				image = marker.toGeoJSON().properties.imageBelow,
 				popupImg = marker.toGeoJSON().properties.image,
 				googleLink = marker.toGeoJSON().properties.google_maps;
+
+			marker._leaflet_id = marker.feature.properties.title
 
         	if (marker.toGeoJSON().properties.type === 'Airport') {
         			marker.setIcon(L.icon({
@@ -193,6 +194,7 @@ if (airportData === undefined){
 				popupImg = marker.toGeoJSON().properties.image;
 				latlng = marker.toGeoJSON().properties.latlng;
 				
+				marker._leaflet_id = marker.feature.properties.title
 				
         		if (type === 'Security Checkpoint') {
         			marker.setIcon(L.icon({

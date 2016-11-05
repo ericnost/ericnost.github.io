@@ -47,6 +47,8 @@
 	<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.mapbox.css' rel='stylesheet' />
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">	
 
+  
+
 </head>
 
 
@@ -74,7 +76,8 @@
 <style>
 #inputs,
 #errors,
-#directions {
+#directions,
+#toggler {
     position: absolute;
     width: 33.3333%;
     max-width: 300px;
@@ -83,7 +86,7 @@
 
 #inputs {
     z-index: 10;
-    top: 20%;
+    top: 18%;
     left: 1%;
 }
 
@@ -95,9 +98,15 @@
     bottom: 0;
     overflow: auto;
     display: none;
-    font-color: green;
 }
-
+#toggler{
+    z-index: 99;
+    background: green;
+    top: 48%;
+    right:0%;
+    height:1%;
+    display: none;
+}
 #errors {
     z-index: 8;
     opacity: 0;
@@ -107,18 +116,18 @@
     top: 90px;
     left: 10px;
 }
-#actions{
-  width: 25%;
-  position: absolute;
-  left:1%;
-  top: 18%;
-}
 
 #searchBar{
-	width: 25%;
-	position: absolute;
-	left:1%;
-	top: 15%;
+  width: 35%;
+  position: absolute;
+  left:1%;
+  top: 15%;
+}
+#reset{
+  width: 22%;
+  position: absolute;
+  left:1%;
+  top: 25%;
 }
 
 .mapbox-directions-origin,
@@ -131,30 +140,30 @@
 .mapbox-close-icon,
 span.mapbox-directions-icon
 {
-	display: none;
+  display: none;
 }
 
 </style>
 
-<script src='https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.4.0/mapbox.directions.js'></script>
-<link rel='stylesheet' href='https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.4.0/mapbox.directions.css' type='text/css' />
-
+<script src="https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.4.0/mapbox.directions.js"></script>
+  <link rel='stylesheet' href='https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.4.0/mapbox.directions.css' type='text/css' />
+ 
 <div id="map"></div>
-<div id='actions'><a href='#'>Find me!</a></div>
 <div id="searchBar"></div>
+<div id="reset"></div>
 
 <div id="buttons">
-	<div id="city"><h2>city</h2></div>
-	<div id="airport"><h2>airport</h2></div>
-	<div id="seaport"><h2>seaport</h2></div>
+  <div id="city"><h2>city</h2></div>
+  <div id="airport"><h2>airport</h2></div>
+  <div id="seaport"><h2>seaport</h2></div>
 </div>
+<div id="toggler">Close Directions</div>
 <div id='directions'>
   <div id='routes'></div>
   <div id='instructions'></div>
 </div> 
 <div id='inputs'></div>
 <div id='errors'></div>
-
 
 
 <div id="popupModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
@@ -179,24 +188,25 @@ span.mapbox-directions-icon
 </div>
 </body>
 
+
 <script type='text/javascript'>
 
 //edit setView options, reset for finals
 L.mapbox.accessToken = 'pk.eyJ1IjoiYWlyZ3VpZGUiLCJhIjoiakgxYXYzayJ9.YXRafklbRVRelEXRLM0P0w';
 var map = L.mapbox.map('map', 'airguide.l575n6j3',{
-	attributionControl:true	
-	})
+  attributionControl:true 
+  })
   .setView([25.77313167630408, -80.19043207168579], 16);
 
 //airguide attribution
 map.attributionControl
-	.addAttribution('<a>&copy; MMXV AirGuide / PMG Inc.</a>');
+  .addAttribution('<a>&copy; MMXV AirGuide / PMG Inc.</a>');
 
-var wcitiesLayer, seaportLayer, airportLayer, active, mark, markers
+var wcitiesLayer, seaportLayer, airportLayer, active, mark, markers, geolocated
 var seaportData = "data/MIAseaport.csv";
 var airportData = "data/MIA.csv";
 var cityData = "data/MIAcity.csv";
-	
+  
 var cityButton = document.getElementById('city');
 var airportButton = document.getElementById('airport');
 var seaportButton = document.getElementById('seaport');
@@ -205,11 +215,11 @@ var seaportButton = document.getElementById('seaport');
 
 map.on('locationfound', onLocationFound);
 function onLocationFound(e){
-  console.log(e)
   point.geometry.coordinates[0] = e.longitude
   point.geometry.coordinates[1] = e.latitude
   map.removeLayer(mark)
   mark= L.marker([point.geometry.coordinates[1], point.geometry.coordinates[0]]).addTo(map); //markers have to be lat, long. but for turf spatial comparison, need long, lat.
+  geolocated = true
 }
 var point = {
   "type": "Feature",
@@ -226,30 +236,37 @@ var defaultPoint = {"city": [25.77313167630408, -80.19043207168579], "airport": 
 mark= L.marker(defaultPoint.city).addTo(map); //default marker
 
 cityButton.onclick = function (){
-	map.setView(defaultPoint.city, 16);
-	map.removeLayer(mark)
-	mark = L.marker(defaultPoint.city).addTo(map);
-	point.geometry.coordinates = defaultPoint.city.reverse() //might need to copy....
-	active =wcitiesLayer
+  map.setView(defaultPoint.city, 16);
+  map.removeLayer(mark)
+  mark = L.marker(defaultPoint.city).addTo(map);
+  point.geometry.coordinates = geolocated ? point.geometry.coordinates : defaultPoint.city.reverse() //might need to copy....
+  active =wcitiesLayer
 };
 
 airportButton.onclick = function (){
-	map.setView(defaultPoint.airport, 17);
-	map.removeLayer(mark)
-	mark =  L.marker(defaultPoint.airport).addTo(map);
-	point.geometry.coordinates = defaultPoint.airport.reverse()
-	active=airportLayer
+  map.setView(defaultPoint.airport, 17);
+  map.removeLayer(mark)
+  mark =  L.marker(defaultPoint.airport).addTo(map);
+  point.geometry.coordinates = geolocated ? point.geometry.coordinates : defaultPoint.airport.reverse()
+  active=airportLayer
 };
 
 seaportButton.onclick = function (){
-	map.setView(defaultPoint.seaport, 16);
-	map.removeLayer(mark)
-	mark= L.marker(defaultPoint.seaport).addTo(map);
-	point.geometry.coordinates = defaultPoint.seaport.reverse()
-	active = seaportLayer
+  map.setView(defaultPoint.seaport, 16);
+  map.removeLayer(mark)
+  mark= L.marker(defaultPoint.seaport).addTo(map);
+  point.geometry.coordinates = geolocated ? point.geometry.coordinates : defaultPoint.seaport.reverse()
+  active = seaportLayer
 };
 
+$("#reset").html('<button onclick="reset()">Reset</button>')
 
+function reset(){
+  directions.setOrigin(undefined);
+  directions.setDestination(undefined);
+  $("#directions").toggle()
+  $("#toggler").toggle()
+}
 $("#searchBar").html('<form><input name="inputbox" type="text" value="Find a place" size="30" id="stuffSearch"><input type="button" value="Enter" onClick="find()"></form>')
 
   //add preventDefault handling to the input form
@@ -263,6 +280,10 @@ $("#searchBar").html('<form><input name="inputbox" type="text" value="Find a pla
       }
   });
 
+$("#toggler").on("click", function(){
+  $("#directions").toggle()
+  $("#toggler").toggle()
+})
 
 function find (form, event) {
     //check if zip is valid
@@ -271,39 +292,45 @@ function find (form, event) {
     var layers = active //make dynamic to either airport or seaport
     layers = layers._layers
     layers = jQuery.map(layers, function(n,i){
-    	return n.feature
+      return n.feature
     })
     layers = jQuery.grep(layers, function( n, i ) {
-    	return n.properties.title.toLowerCase().indexOf(stuff) != -1
-  	});
-  	//console.log(point,layers)
-  	//if more than two, find closest with turf
-  	layers = {
-  	  "type": "FeatureCollection",
-  	  "features": layers
-  	}
-  	var nearest = turf.nearest(point, layers);
-  	layers = null //clear memory completely
-  	//console.log(nearest)
-  	//L.marker([nearest.geometry.coordinates[1], nearest.geometry.coordinates[0]]).addTo(map) //alternatively, make marker in Wclayers light up
-  	$("#directions").show()
-  	directions.setOrigin(point) //fix this?
-  	directions.setDestination(nearest)
-  	directions.query()
+      return n.properties.title.toLowerCase().indexOf(stuff) != -1
+    });
+    if (layers.length > 0){
+      layers = {
+        "type": "FeatureCollection",
+        "features": layers
+      }
+      var nearest = turf.nearest(point, layers);
+      layers = null //clear memory completely
+      //console.log(nearest)
+      //L.marker([nearest.geometry.coordinates[1], nearest.geometry.coordinates[0]]).addTo(map) //alternatively, make marker in Wclayers light up
+     $("#toggler").show()
+      $("#directions").show()
+      
+      directions.setOrigin(point) //fix this?
+      directions.setDestination(nearest)
+      directions.query()
+      
+      //simulate click on icon to show modal
+      var id = nearest.properties.title
+      var layer = markers.getLayer(id);
+      layer.fireEvent('click');  
+       
+      //set map view to right extent
+      var point1 = jQuery.extend(true,[], point.geometry.coordinates) //deep copy of coordinates
+      //console.log(point1, point)
+      var point2 = jQuery.extend(true,[], nearest.geometry.coordinates)
+      var x = L.latLngBounds(point1.reverse(), point2.reverse())
+      map.fitBounds(x)
+    }else{
+      alert("Sorry, we couldn't find anything like that") //or something fancier
+    }
     
-  	//simulate click on icon to show modal
-  	var id = nearest.properties.title
-    var layer = markers.getLayer(id);
-    layer.fireEvent('click');  
-     
-  	//set map view to right extent
-  	var point1 = jQuery.extend(true,{}, point) //deep copy of coordinates
-  	point1=point1.geometry.coordinates
-  	var point2 = nearest.geometry.coordinates
-  	var x = L.latLngBounds(point1.reverse(), point2.reverse())
-  	map.fitBounds(x)
   } 
 
+console.log(directions)
 
 //settings for directions functionality
 var directions = L.mapbox.directions();
@@ -323,9 +350,6 @@ var directionsRoutesControl = L.mapbox.directions.routesControl('routes', direct
 var directionsInstructionsControl = L.mapbox.directions.instructionsControl('instructions', directions)
     .addTo(map);
 
-
-	
 </script>
 <script src="main_city.js"></script>
-	
 </html>
