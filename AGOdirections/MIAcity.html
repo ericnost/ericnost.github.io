@@ -186,7 +186,7 @@ L.mapbox.accessToken = 'pk.eyJ1IjoiYWlyZ3VpZGUiLCJhIjoiakgxYXYzayJ9.YXRafklbRVRe
 var map = L.mapbox.map('map', 'airguide.l575n6j3',{
 	attributionControl:true	
 	})
-    .setView([25.77313167630408, -80.19043207168579], 16);
+  .setView([25.77313167630408, -80.19043207168579], 16);
 
 //airguide attribution
 map.attributionControl
@@ -203,17 +203,14 @@ var seaportButton = document.getElementById('seaport');
 
 
 
-$('#actions').find('a').on('click', function() {
-   locateUser();
-});
-function locateUser() {
-    map.locate({setView : true});
-    map.on('locationfound', onLocationFound);
-}
+map.on('locationfound', onLocationFound);
 function onLocationFound(e){
   console.log(e)
+  point.geometry.coordinates[0] = e.latitude
+  point.geometry.coordinates[1] = e.longitude
+  map.removeLayer(mark)
+  mark= L.marker(point.geometry.coordinates).addTo(map);
 }
-var defaultPoint = {"city": [25.77313167630408, -80.19043207168579], "airport": [25.79463636214593, -80.27778625488281], "seaport": [25.777923713875733, -80.16788005828857]}
 var point = {
   "type": "Feature",
   "properties": {
@@ -224,7 +221,9 @@ var point = {
     "coordinates": [-80.19043207168579, 25.77313167630408]
   }
 };
-mark= L.marker(defaultPoint.city).addTo(map);
+var defaultPoint = {"city": [25.77313167630408, -80.19043207168579], "airport": [25.79463636214593, -80.27778625488281], "seaport": [25.777923713875733, -80.16788005828857]}
+
+mark= L.marker(defaultPoint.city).addTo(map); //default marker
 
 cityButton.onclick = function (){
 	map.setView(defaultPoint.city, 16);
@@ -294,8 +293,8 @@ function find (form, event) {
   
 	//simulate click on icon to show modal
 	var id = nearest.properties.title
-    var layer = markers.getLayer(id);
-    layer.fireEvent('click');  
+  var layer = markers.getLayer(id);
+  layer.fireEvent('click');  
    
 	//set map view to right extent
 	var point1 = jQuery.extend(true,{}, point) //deep copy of coordinates
