@@ -107,6 +107,12 @@
     top: 90px;
     left: 10px;
 }
+#actions{
+  width: 25%;
+  position: absolute;
+  left:1%;
+  top: 18%;
+}
 
 #searchBar{
 	width: 25%;
@@ -174,12 +180,7 @@ span.mapbox-directions-icon
 </body>
 
 <script type='text/javascript'>
-$('#actions').find('a').on('click', function() {
-   locateUser();
-});
-function locateUser() {
-    map.locate({setView : true});
-}
+
 //edit setView options, reset for finals
 L.mapbox.accessToken = 'pk.eyJ1IjoiYWlyZ3VpZGUiLCJhIjoiakgxYXYzayJ9.YXRafklbRVRelEXRLM0P0w';
 var map = L.mapbox.map('map', 'airguide.l575n6j3',{
@@ -200,6 +201,18 @@ var cityButton = document.getElementById('city');
 var airportButton = document.getElementById('airport');
 var seaportButton = document.getElementById('seaport');
 
+
+
+$('#actions').find('a').on('click', function() {
+   locateUser();
+});
+function locateUser() {
+    map.locate({setView : true});
+    map.on('locationfound', onLocationFound);
+}
+function onLocationFound(e){
+  console.log(e)
+}
 var defaultPoint = {"city": [25.77313167630408, -80.19043207168579], "airport": [25.79463636214593, -80.27778625488281], "seaport": [25.777923713875733, -80.16788005828857]}
 var point = {
   "type": "Feature",
@@ -278,7 +291,7 @@ function find (form, event) {
 	directions.setOrigin(point) //fix this?
 	directions.setDestination(nearest)
 	directions.query()
-
+  
 	//simulate click on icon to show modal
 	var id = nearest.properties.title
     var layer = markers.getLayer(id);
