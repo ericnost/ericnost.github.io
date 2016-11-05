@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Miami, FL</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+		
+	<link href='css/screen.css' rel='stylesheet' />
+	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	
+	<!--libs-->
+	<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+	<link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+	
+	<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-label/v0.2.1/leaflet.label.js'></script>
+	<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-label/v0.2.1/leaflet.label.css' rel='stylesheet' />
+	
+	<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
+	
+	<script src="js/libs/leaflet.markercluster-src.js"></script>
+	<link rel="stylesheet" href="js/libs/MarkerCluster.css" />
+	<link rel="stylesheet" href="js/libs/MarkerCluster.Default.css" />
+	
+	<script src="js/libs/leaflet-search.src.js"></script>
+	<link rel="stylesheet" href="js/libs/leaflet-search.src.css" />
+	
+	<!--leaflet locate-->
+	<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.min.js'></script>
+	<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.mapbox.css' rel='stylesheet' />
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+
+
+
+<body>
+<!--
+    <nav class="navbar navbar-default ">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          
+          <a class="navbar-brand" href="#">Miami, FL</a>
+        </div>
+       <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav"></ul>
+        </div>/.nav-collapse 
+      </div>
+    </nav>
+ -->
+
+<div id="map"></div>
+
+<div id="buttons">
+	<div id="city"><h2>city</h2></div>
+	<div id="airport"><h2>airport</h2></div>
+	<div id="seaport"><h2>seaport</h2></div>
+</div>
+
+
+<div id="popupModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div id="iconImg"></div>
+        <h4 id=titleText class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        
+          <p id="address"></p>
+          <p id="urlLink"></p>
+          <p id="telLink"></p>
+          <div id="directionsButton" class="btn btn-default" href="#" role="button"></div>
+          <p id="mainText"></p>
+          <div id="mainImg"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+<script type='text/javascript'>
+	
+//edit setView options, reset for finals
+L.mapbox.accessToken = 'pk.eyJ1IjoiYWlyZ3VpZGUiLCJhIjoiakgxYXYzayJ9.YXRafklbRVRelEXRLM0P0w';
+var map = L.mapbox.map('map', 'airguide.l575n6j3',{
+	attributionControl:true	
+	})
+    .setView([25.77313167630408, -80.19043207168579], 16);
+
+//airguide attribution
+map.attributionControl
+	.addAttribution('<a>&copy; MMXV AirGuide / PMG Inc.</a>');
+
+
+var seaportData = "data/MIAseaport.csv";
+var airportData = "data/MIA.csv";
+var cityData = "data/MIAcity.csv";
+	
+var cityButton = document.getElementById('city');
+var airportButton = document.getElementById('airport');
+var seaportButton = document.getElementById('seaport');
+
+cityButton.onclick = function (){
+	map.setView([25.77313167630408, -80.19043207168579], 16);
+};
+
+airportButton.onclick = function (){
+	map.setView([25.79463636214593, -80.27778625488281], 17);
+};
+
+seaportButton.onclick = function (){
+	map.setView([25.777923713875733, -80.16788005828857], 16);
+};
+
+
+</script>
+<script src="js/main_city_clusters.js"></script>
+	
+</html>

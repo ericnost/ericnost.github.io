@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Miami, FL</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+		
+	<link href='css/screen.css' rel='stylesheet' />
+	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	
+	<!--libs-->
+	<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+	<link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+	
+	<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-label/v0.2.1/leaflet.label.js'></script>
+	<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-label/v0.2.1/leaflet.label.css' rel='stylesheet' />
+	
+	<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
+	
+	<script src="js/libs/leaflet.markercluster-src.js"></script>
+	<link rel="stylesheet" href="js/libs/MarkerCluster.css" />
+	<link rel="stylesheet" href="js/libs/MarkerCluster.Default.css" />
+	
+	<script src="js/libs/leaflet-search.src.js"></script>
+	<link rel="stylesheet" href="js/libs/leaflet-search.src.css" />
+	
+	<script src="https://npmcdn.com/@turf/turf@3.5.1/turf.min.js"></script>
+	<!--leaflet locate-->
+	<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.min.js'></script>
+	<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.mapbox.css' rel='stylesheet' />
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">	
+
+</head>
+
+
+
+<body>
+<!--
+    <nav class="navbar navbar-default ">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          
+          <a class="navbar-brand" href="#">Miami, FL</a>
+        </div>
+       <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav"></ul>
+        </div>/.nav-collapse 
+      </div>
+    </nav>
+ -->
+<style>
+#inputs,
+#errors,
+#directions {
+    position: absolute;
+    width: 33.3333%;
+    max-width: 300px;
+    min-width: 200px;
+}
+
+#inputs {
+    z-index: 10;
+    top: 20%;
+    left: 1%;
+}
+
+#directions {
+    z-index: 99;
+    background: rgba(0,0,0,.8);
+    top: 50%;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    display: none;
+    font-color: green;
+}
+
+#errors {
+    z-index: 8;
+    opacity: 0;
+    padding: 10px;
+    border-radius: 0 0 3px 3px;
+    background: rgba(0,0,0,.25);
+    top: 90px;
+    left: 10px;
+}
+
+#searchBar{
+	width: 25%;
+	position: absolute;
+	left:1%;
+	top: 15%;
+}
+
+.mapbox-directions-origin,
+.mapbox-directions-icon,
+.mapbox-reverse-icon,
+.mapbox-directions-reverse-input,
+.mapbox-directions-destination,
+#mapbox-directions-destination-input,
+.mapbox-directions-icon,
+.mapbox-close-icon,
+span.mapbox-directions-icon
+{
+	display: none;
+}
+
+</style>
+
+<script src='https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.4.0/mapbox.directions.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.4.0/mapbox.directions.css' type='text/css' />
+
+<div id="map"></div>
+<div id='actions'><a href='#'>Find me!</a></div>
+<div id="searchBar"></div>
+
+<div id="buttons">
+	<div id="city"><h2>city</h2></div>
+	<div id="airport"><h2>airport</h2></div>
+	<div id="seaport"><h2>seaport</h2></div>
+</div>
+<div id='directions'>
+  <div id='routes'></div>
+  <div id='instructions'></div>
+</div> 
+<div id='inputs'></div>
+<div id='errors'></div>
+
+
+
+<div id="popupModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div id="iconImg"></div>
+        <h4 id=titleText class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        
+          <p id="address"></p>
+          <p id="urlLink"></p>
+          <p id="telLink"></p>
+          <div id="directionsButton" class="btn btn-default" href="#" role="button"></div>
+          <p id="mainText"></p>
+          <div id="mainImg"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+<script type='text/javascript'>
+$('#actions').find('a').on('click', function() {
+   locateUser();
+});
+function locateUser() {
+    map.locate({setView : true});
+}
+//edit setView options, reset for finals
+L.mapbox.accessToken = 'pk.eyJ1IjoiYWlyZ3VpZGUiLCJhIjoiakgxYXYzayJ9.YXRafklbRVRelEXRLM0P0w';
+var map = L.mapbox.map('map', 'airguide.l575n6j3',{
+	attributionControl:true	
+	})
+    .setView([25.77313167630408, -80.19043207168579], 16);
+
+//airguide attribution
+map.attributionControl
+	.addAttribution('<a>&copy; MMXV AirGuide / PMG Inc.</a>');
+
+var wcitiesLayer, seaportLayer, airportLayer, active, mark, markers
+var seaportData = "data/MIAseaport.csv";
+var airportData = "data/MIA.csv";
+var cityData = "data/MIAcity.csv";
+	
+var cityButton = document.getElementById('city');
+var airportButton = document.getElementById('airport');
+var seaportButton = document.getElementById('seaport');
+
+var defaultPoint = {"city": [25.77313167630408, -80.19043207168579], "airport": [25.79463636214593, -80.27778625488281], "seaport": [25.777923713875733, -80.16788005828857]}
+var point = {
+  "type": "Feature",
+  "properties": {
+    "marker-color": "#0f0"
+  },
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-80.19043207168579, 25.77313167630408]
+  }
+};
+mark= L.marker(defaultPoint.city).addTo(map);
+
+cityButton.onclick = function (){
+	map.setView(defaultPoint.city, 16);
+	map.removeLayer(mark)
+	mark = L.marker(defaultPoint.city).addTo(map);
+	point.geometry.coordinates = defaultPoint.city.reverse()
+	active =wcitiesLayer
+};
+
+airportButton.onclick = function (){
+	map.setView(defaultPoint.airport, 17);
+	map.removeLayer(mark)
+	mark =  L.marker(defaultPoint.airport).addTo(map);
+	point.geometry.coordinates = defaultPoint.airport.reverse()
+	active=airportLayer
+};
+
+seaportButton.onclick = function (){
+	map.setView(defaultPoint.seaport, 16);
+	map.removeLayer(mark)
+	mark= L.marker(defaultPoint.seaport).addTo(map);
+	point.geometry.coordinates = defaultPoint.seaport.reverse()
+	active = seaportLayer
+};
+
+
+$("#searchBar").html('<form><input name="inputbox" type="text" value="Find a place" size="30" id="stuffSearch"><input type="button" value="Enter" onClick="find()"></form>')
+
+  //add preventDefault handling to the input form
+  $("#stuffSearch").keypress(function(e) {
+      e = e || window.event
+      var code = (e.keyCode ? e.keyCode : e.which);
+      if(code == 13) { 
+        e.preventDefault ? e.preventDefault() : e.returnValue = false; //prevent the page from treating button as a fetch from server
+        find()
+        return false
+      }
+  });
+
+
+function find (form, event) {
+    //check if zip is valid
+    var stuff = document.getElementById('stuffSearch').value
+   // console.log(wcitiesLayer._layers) 
+    var layers = active //make dynamic to either airport or seaport
+    layers = layers._layers
+    layers = jQuery.map(layers, function(n,i){
+    	return n.feature
+    })
+    layers = jQuery.grep(layers, function( n, i ) {
+    	return n.properties.title.toLowerCase().indexOf(stuff) != -1
+	});
+	//console.log(point,layers)
+	//if more than two, find closest with turf
+	layers = {
+	  "type": "FeatureCollection",
+	  "features": layers
+	}
+	var nearest = turf.nearest(point, layers);
+	layers = null //clear memory completely
+	//console.log(nearest)
+	//L.marker([nearest.geometry.coordinates[1], nearest.geometry.coordinates[0]]).addTo(map) //alternatively, make marker in Wclayers light up
+	$("#directions").show()
+	directions.setOrigin(point) //fix this?
+	directions.setDestination(nearest)
+	directions.query()
+
+	//simulate click on icon to show modal
+	var id = nearest.properties.title
+    var layer = markers.getLayer(id);
+    layer.fireEvent('click');  
+   
+	//set map view to right extent
+	var point1 = jQuery.extend(true,{}, point) //deep copy of coordinates
+	point1=point1.geometry.coordinates
+	var point2 = nearest.geometry.coordinates
+	var x = L.latLngBounds(point1.reverse(), point2.reverse())
+	map.fitBounds(x)
+  } 
+
+
+//settings for directions functionality
+var directions = L.mapbox.directions();
+
+var directionsLayer = L.mapbox.directions.layer(directions)
+    .addTo(map);
+
+var directionsInputControl = L.mapbox.directions.inputControl('inputs', directions)
+    .addTo(map);
+
+var directionsErrorsControl = L.mapbox.directions.errorsControl('errors', directions)
+    .addTo(map);
+
+var directionsRoutesControl = L.mapbox.directions.routesControl('routes', directions)
+    .addTo(map);
+
+var directionsInstructionsControl = L.mapbox.directions.instructionsControl('instructions', directions)
+    .addTo(map);
+
+
+	
+</script>
+<script src="main_city.js"></script>
+	
+</html>
