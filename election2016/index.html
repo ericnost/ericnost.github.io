@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Election 2016</title>
+    <meta charset="utf-8">
+   <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+      <script src="http://d3js.org/queue.v1.min.js"></script>
+      <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <!-- stylesheets-->
+     <style>
+     .d3-tip {
+      line-height: 1;
+      font-weight: bold;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      border-radius: 2px;
+    }
+    </style>
+  </head>
+ 
+  <body>
+  <div id="map"></div>
+  </body>
+  <script>
+    var height100, width100, svg, projection, path
+    var tooltip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-5, 0])
+            .html(function(d) {
+              var winner = d.properties.PERCENT_DE > d.properties.PERCENT_RE ? d.properties.PERCENT_DE : d.properties.PERCENT_RE
+              var name = d.properties.PERCENT_DE > d.properties.PERCENT_RE ? "Obama" : "Romney"
+              return name+": "+winner+"%"
+            })
+    initialize()
+    function initialize(){
+            height100 =  window.innerHeight
+            d3.select("#map").style("height", height100)
+            width100 = window.innerWidth
+
+            svg = d3.select("#map").classed("svg-container", true).append("svg")
+              .attr("id", "mapSVG")
+              //.style({"height": height100, "width": width100, "position": "absolute"})
+               .attr("preserveAspectRatio", "xMinYMin meet")
+               .attr("viewBox", "0 0 "+width100+ " "+height100+"")
+               //class to make it responsive
+               .classed("svg-content-responsive", true); 
+            //create map projection
+            projection = d3.geo.albers()
+            //.center([2,38])
+            .scale(height100*1.5)
+            .translate([(width100)/2, (height100)/2]);
+
+
+            path = d3.geo.path()
+              .projection(projection);
+
+            u = svg.append("g")
+
+            queue()
+              .defer(d3.json, "data/us.json")
+              .await(callback);
+    
+            function callback(error, us){
+                svg.call(tooltip)
+
+                //color scheme
+                var range=['#b2182b','#ef8a62','#fddbc7','#d1e5f0','#67a9cf','#2166ac']//['#b2182b','#ef8a62','#fddbc7','#f7f7f7','#d1e5f0','#67a9cf','#2166ac']
+                var color = d3.scale.threshold().domain([20,40,50,60,70]).range(range)
+
+                var data = topojson.feature(us, us.objects.elpo08p020).features
+
+                console.log(data)
+                var votes = data.map(function(d){return parseInt(d.properties.TOTAL_VOTE)})
+                votes = votes.filter(function(d){return d>0})
+                var min = d3.min(votes)
+                var max = d3.max(votes)
+                 var median = d3.median(votes)
+                 var mean = d3.mean(votes)
+                 console.log(votes, min, median, mean, max)
+                var alphaScale = d3.scale.threshold().domain([min, median, mean, max]).range([.1,.4,.5,1])
+
+                u.selectAll("path")
+                  .data(data)
+                  .enter().append("path")
+                    .attr("d", path)
+                    .attr("class", function (d){
+                      return d.states
+                    })
+                    .style("fill", function(d){
+                      //find winner
+                      //console.log(d)
+                      d.properties.PERCENT_DE = parseInt(d.properties.PERCENT_DE)
+                      //d.properties.PERCENT_RE = parseInt(d.properties.PERCENT_RE)
+                      //var winner = d.properties.PERCENT_DE > d.properties.PERCENT_RE ? d.properties.PERCENT_DE : d.properties.PERCENT_RE
+                      var value = color(d.properties.PERCENT_DE)
+                      
+                      value = hexToRgb(value)
+                      //console.log(value)
+                      var alpha = alphaScale(parseInt(d.properties.TOTAL_VOTE))
+                      console.log(alpha)
+                      var result = value?"rgba("+value.r+", "+value.g+", "+value.b+", "+alpha+")" : "white"
+                      return result
+
+                    })
+                    .attr("id", function (d){
+                      return "a"+d.id
+                    })
+                    .on("mouseover", function(d){
+                      tooltip.show(d)
+                    })
+                    .on("mouseout", function(d){
+                      tooltip.hide(d)
+                    })
+            };
+      }
+
+      function hexToRgb(hex) {
+      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16)
+      } : null;
+      }
+
+  </script>
+</html>
