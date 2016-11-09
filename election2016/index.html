@@ -9,6 +9,8 @@
 	<script src="http://d3js.org/topojson.v1.min.js"></script>
 	<script src="http://d3js.org/queue.v1.min.js"></script>
 	<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <script src="nprogress.js"></script> <!-- this loads the little spinny wheel -->
+  <link rel="stylesheet" href="nprogress.css">  <!-- this positions and styles the little spinny wheel -->
     
     <!-- stylesheets to style our map. We'll just style the tooltip here-->
      <style>
@@ -30,6 +32,7 @@
 
   </body>
   <script>
+    NProgress.start() //start the spinny wheel
     var height100, width100, svg, projection, path //we create some variables that we'll use throughout the script...
     var tooltip = d3.tip() //this is the tooltip that will popup when a user hovers over a  county.
             .attr('class', 'd3-tip')
@@ -111,7 +114,7 @@
                     })
             };
       }
-
+      NProgress.done() //we're done loading so we can stop the spinny wheel
       function hexToRgb(hex) { //this function converts a hex color like #ffffff into an rgb value like (255,255,255)
       var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
       return result ? {
