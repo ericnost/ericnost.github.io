@@ -3,120 +3,116 @@
   <head>
     <title>Election 2016</title>
     <meta charset="utf-8">
-   <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="http://d3js.org/topojson.v1.min.js"></script>
-      <script src="http://d3js.org/queue.v1.min.js"></script>
-      <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-    <!-- stylesheets-->
+
+    <!-- here we link to all the code we're going to use from outside sources to help us, including D3.JS -->
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script src="http://d3js.org/topojson.v1.min.js"></script>
+	<script src="http://d3js.org/queue.v1.min.js"></script>
+	<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    
+    <!-- stylesheets to style our map. We'll just style the tooltip here-->
      <style>
-     .d3-tip {
-      line-height: 1;
-      font-weight: bold;
-      padding: 12px;
-      background: rgba(0, 0, 0, 0.8);
-      color: #fff;
-      border-radius: 2px;
-    }
+	     .d3-tip {
+	        line-height: 1;
+	        font-weight: bold;
+	        padding: 12px;
+	        background: rgba(0, 0, 0, 0.8);
+	        color: #fff;
+	        border-radius: 2px;
+	      }
     </style>
   </head>
  
   <body>
+
+ <!--  we'll make a container to put the map in. -->
   <div id="map"></div>
+
   </body>
   <script>
-    var height100, width100, svg, projection, path
-    var tooltip = d3.tip()
+    var height100, width100, svg, projection, path //we create some variables that we'll use throughout the script...
+    var tooltip = d3.tip() //this is the tooltip that will popup when a user hovers over a  county.
             .attr('class', 'd3-tip')
-            .offset([-5, 0])
+            .offset([-15, 10])
             .html(function(d) {
-              var winner = d.properties.PERCENT_DE > d.properties.PERCENT_RE ? d.properties.PERCENT_DE : d.properties.PERCENT_RE
-              var name = d.properties.PERCENT_DE > d.properties.PERCENT_RE ? "Obama" : "Romney"
-              return name+": "+winner+"%"
+              var winner = d.properties.PERCENT_DE > d.properties.PERCENT_RE ? d.properties.PERCENT_DE : d.properties.PERCENT_RE //here we calculate who the winner of the mouseover'd county was and what percent of the vote they got
+              var name = d.properties.PERCENT_DE > d.properties.PERCENT_RE ? "Obama" : "Romney" //and provide their name
+              return name+": "+winner+"%" //this is what we actually show in the tooltip
             })
-    initialize()
+    initialize() // we call a function that containers most of what we'll do...
     function initialize(){
-            height100 =  window.innerHeight
-            d3.select("#map").style("height", height100)
+            height100 =  window.innerHeight 
+            d3.select("#map").style("height", height100) //the height of our map's container should be the height of the screen
             width100 = window.innerWidth
 
-            svg = d3.select("#map").classed("svg-container", true).append("svg")
+            svg = d3.select("#map").classed("svg-container", true).append("svg") //we'll make our map through SVG.
               .attr("id", "mapSVG")
-              //.style({"height": height100, "width": width100, "position": "absolute"})
                .attr("preserveAspectRatio", "xMinYMin meet")
-               .attr("viewBox", "0 0 "+width100+ " "+height100+"")
-               //class to make it responsive
-               .classed("svg-content-responsive", true); 
+               .attr("viewBox", "0 0 "+width100+ " "+height100+"") //height and width of map will be based on the size of the screen
+               .classed("svg-content-responsive", true); //the map will respond and scale based on the screen size
+
             //create map projection
             projection = d3.geo.albers()
-            //.center([2,38])
-            .scale(height100*1.5)
-            .translate([(width100)/2, (height100)/2]);
+            .scale(height100*2)
+            .translate([(width100)/2, (height100)/2]); //put the center of the map in the middle of the page
 
 
-            path = d3.geo.path()
+            path = d3.geo.path() //this defines the method for taking the geographic coordinates we have in our JSON and plotting them in screen-space.
               .projection(projection);
 
-            u = svg.append("g")
+            u = svg.append("g") // we'll create a "group" of svg items for drawing our map
 
-            queue()
-              .defer(d3.json, "data/us.json")
+            queue() //queue makes sure things load int he right order - the map won't appear until it's all loaded
+              .defer(d3.json, "data/us.json") //load our json
               .await(callback);
     
             function callback(error, us){
-                svg.call(tooltip)
+                svg.call(tooltip) //tells the tooltip to run
 
                 //color scheme
-                var range=['#b2182b','#ef8a62','#fddbc7','#d1e5f0','#67a9cf','#2166ac']//['#b2182b','#ef8a62','#fddbc7','#f7f7f7','#d1e5f0','#67a9cf','#2166ac']
-                var color = d3.scale.threshold().domain([20,40,50,60,70]).range(range)
+                var range=['#b2182b','#ef8a62','#fddbc7','#d1e5f0','#67a9cf','#2166ac'] //the colors we want to use
+                var color = d3.scale.threshold().domain([20,40,50,60,70]).range(range) //the scale at which we assign vote %s to color values. Think of it this way, 20% and below, you get #b2182b. 20-40 you get #ef8a62. etc.k
 
-                var data = topojson.feature(us, us.objects.elpo08p020).features
+                var data = topojson.feature(us, us.objects.elpo08p020).features //load our data
 
-                console.log(data)
-                var votes = data.map(function(d){return parseInt(d.properties.TOTAL_VOTE)})
-                votes = votes.filter(function(d){return d>0})
-                var min = d3.min(votes)
-                var max = d3.max(votes)
-                 var median = d3.median(votes)
-                 var mean = d3.mean(votes)
-                 console.log(votes, min, median, mean, max)
-                var alphaScale = d3.scale.threshold().domain([min, median, mean, max]).range([.1,.4,.5,1])
+                var votes = data.map(function(d){return parseInt(d.properties.TOTAL_VOTE)}) //get our data in a format Javascript can work with. We 'map' the total vote attribute of it into an an array thta we can do math on.
+                votes = votes.filter(function(d){return d>0}) //make sure we're only looking at counties where there were more than 0 votes. There's some weird, wrong data out there that could throw us for a loop.
 
-                u.selectAll("path")
-                  .data(data)
+                var min = d3.min(votes) //what's the minimum number of votes in a county?
+                var max = d3.max(votes) 
+                var median = d3.median(votes)
+                var mean = d3.mean(votes)
+                
+                var alphaScale = d3.scale.threshold().domain([min, median, mean, max]).range([.1,.4,.5,1]) //here we set up the scale which we will use to give an alpha value to the county, which is kind of a brightness measure. We're using it, in a way, to lessen the effect of spatially big counties that had few votes...
+
+                u.selectAll("path") //here we start drawing our map
+                  .data(data) //we give it our data
                   .enter().append("path")
-                    .attr("d", path)
-                    .attr("class", function (d){
-                      return d.states
-                    })
-                    .style("fill", function(d){
-                      //find winner
-                      //console.log(d)
-                      d.properties.PERCENT_DE = parseInt(d.properties.PERCENT_DE)
-                      //d.properties.PERCENT_RE = parseInt(d.properties.PERCENT_RE)
-                      //var winner = d.properties.PERCENT_DE > d.properties.PERCENT_RE ? d.properties.PERCENT_DE : d.properties.PERCENT_RE
-                      var value = color(d.properties.PERCENT_DE)
-                      
-                      value = hexToRgb(value)
-                      //console.log(value)
-                      var alpha = alphaScale(parseInt(d.properties.TOTAL_VOTE))
-                      console.log(alpha)
-                      var result = value?"rgba("+value.r+", "+value.g+", "+value.b+", "+alpha+")" : "white"
-                      return result
+                    .attr("d", path) //and for each county, we send it back to the path method, for turning geo coordinates into screen space.
+                    .style("stroke", "black") //give our counties a black outline
+                    .style("stroke-width", .2)  
+                    .style("fill", function(d){ //here's the fun part, where we color the counties
+                      d.properties.PERCENT_DE = parseInt(d.properties.PERCENT_DE) //we'll color based on the national winner
+                      var value = color(d.properties.PERCENT_DE) //we send the vote % Obama got to the color function. If it's below 50 (if he lost the county), thenit gets a redder shade...
+                      value = hexToRgb(value) //we turn that color into an rgb format
+                      var alpha = alphaScale(parseInt(d.properties.TOTAL_VOTE)) //then we calculate the alpha value based on the totalvote for the county
+                      var result = value?"rgba("+value.r+", "+value.g+", "+value.b+", "+alpha+")" : "white" //and we put them together. some counties that for whhatever reason had errors, we'll just make them white
+                      return result //deliver our final color for the county
 
                     })
                     .attr("id", function (d){
-                      return "a"+d.id
+                      return "a"+d.properties.OBJECTID //give the county an id so we can do other stuff with it if we want
                     })
                     .on("mouseover", function(d){
-                      tooltip.show(d)
+                      tooltip.show(d) //on mouseover the county, show the tooltip
                     })
                     .on("mouseout", function(d){
-                      tooltip.hide(d)
+                      tooltip.hide(d) //when the mouse leaves the county, close it
                     })
             };
       }
 
-      function hexToRgb(hex) {
+      function hexToRgb(hex) { //this function converts a hex color like #ffffff into an rgb value like (255,255,255)
       var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
       return result ? {
           r: parseInt(result[1], 16),
