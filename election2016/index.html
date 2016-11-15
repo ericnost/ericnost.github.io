@@ -16,8 +16,7 @@
      <style>
 	     .d3-tip {
 	        line-height: 1;
-	        font-weight: bold;
-	        padding: 12px;
+	        padding: 8px;
 	        background: rgba(0, 0, 0, 0.8);
 	        color: #fff;
 	        border-radius: 2px;
@@ -33,15 +32,16 @@
   </body>
   <script>
     NProgress.start() //start the spinny wheel
-    var height100, width100, svg, projection, path //we create some variables that we'll use throughout the script...
+    var height100, width100, svg, projection, path, data //we create some variables that we'll use throughout the script...
     var tooltip = d3.tip() //this is the tooltip that will popup when a user hovers over a  county.
             .attr('class', 'd3-tip')
             .offset([-15, 10])
             .html(function(d) {
-              var winner = d.properties.PERCENT_DE > d.properties.PERCENT_RE ? d.properties.PERCENT_DE : d.properties.PERCENT_RE //here we calculate who the winner of the mouseover'd county was and what percent of the vote they got
-              var name = d.properties.PERCENT_DE > d.properties.PERCENT_RE ? "Obama" : "Romney" //and provide their name
-              return name+": "+winner+"%" //this is what we actually show in the tooltip
+              var winner = d.properties.lead
+              return "County: "+d.properties.COUNTY+", "+d.properties.STATE+"<br>Winner: " +winner+ "<br>Trump's share: "+format(d.properties.pct2016)+"%<br>County population: "+formatpop(d.properties.pop) //this is what we actually show in the tooltip
             })
+    var format = d3.format(".4r")	
+    var formatpop = d3.format(",d")
     initialize() // we call a function that containers most of what we'll do...
     function initialize(){
             height100 =  window.innerHeight 
@@ -73,33 +73,65 @@
                 svg.call(tooltip) //tells the tooltip to run
 
                 //color scheme
-                var range=['#b2182b','#ef8a62','#fddbc7','#d1e5f0','#67a9cf','#2166ac'] //the colors we want to use
-                var color = d3.scale.threshold().domain([20,40,50,60,70]).range(range) //the scale at which we assign vote %s to color values. Think of it this way, 20% and below, you get #b2182b. 20-40 you get #ef8a62. etc.k
+                var range= [ "#ca0020", "#f4a582", "#92c5de", "#0571b0" ].reverse()//['#b2182b','#ef8a62','#fddbc7','#d1e5f0','#67a9cf','#2166ac'].reverse() //the colors we want to use
+                var color = d3.scale.threshold().domain([ 40, 50, 60 ]).range(range) //the scale at which we assign vote %s to color values. Think of it this way, 20% and below, you get #b2182b. 20-40 you get #ef8a62. etc.k
+				//[20,40,50,60,70]
+                data = topojson.feature(us, us.objects.elpo08p020).features //load our data
 
-                var data = topojson.feature(us, us.objects.elpo08p020).features //load our data
-
-                var votes = data.map(function(d){return parseInt(d.properties.TOTAL_VOTE)}) //get our data in a format Javascript can work with. We 'map' the total vote attribute of it into an an array thta we can do math on.
+                d3.csv("data/pres.elect16.results.csv", function(d){
+                	d3.csv("data/pop.csv", function(c){
+                	//console.log(d, data)
+                	data.forEach(function(e){
+                		var temp = d.filter(function(f){
+                			var fips = f.fips
+                			fips = fips.length <5 ? "0".concat(fips) : fips
+                			return e.properties.FIPS == fips 
+                		})
+                		//console.log(temp)
+                		if (temp.length != 0){
+                		e.properties["pct2016"] = temp[0].pct
+                		e.properties["totalvotes2016"] = temp[0].total_votes
+                		e.properties["lead"] = temp[0].lead
+                		}
+                		var temp = c.filter(function(f){
+                			var fips = f.fips
+                			fips = fips.length <5 ? "0".concat(fips) : fips
+                			return e.properties.FIPS == fips 
+                		})
+                		if (temp.length != 0){
+                		e.properties["pop"] = temp[0].pop
+                		}
+                	})
+               
+                var votes = data.map(function(d){return parseInt(d.properties.pop)}) //get our data in a format Javascript can work with. We 'map' the total vote attribute of it into an an array thta we can do math on.
+                //console.log(votes)
                 votes = votes.filter(function(d){return d>0}) //make sure we're only looking at counties where there were more than 0 votes. There's some weird, wrong data out there that could throw us for a loop.
 
                 var min = d3.min(votes) //what's the minimum number of votes in a county?
                 var max = d3.max(votes) 
                 var median = d3.median(votes)
                 var mean = d3.mean(votes)
+                console.log(min, median, mean, max)
                 
-                var alphaScale = d3.scale.threshold().domain([min, median, mean, max]).range([.1,.4,.5,1]) //here we set up the scale which we will use to give an alpha value to the county, which is kind of a brightness measure. We're using it, in a way, to lessen the effect of spatially big counties that had few votes...
+                var alphaScale = d3.scale.threshold() 
+				  .domain( [ 50000, 250000, 1000000 ] )
+				  .range( [ .15, .40, .80, 1 ] );
+                //.domain([min, median, mean, max]).range([.1,.3,.5, 1]) //here we set up the scale which we will use to give an alpha value to the county, which is kind of a brightness measure. We're using it, in a way, to lessen the effect of spatially big counties that had few votes...
 
                 u.selectAll("path") //here we start drawing our map
                   .data(data) //we give it our data
                   .enter().append("path")
                     .attr("d", path) //and for each county, we send it back to the path method, for turning geo coordinates into screen space.
                     .style("stroke", "black") //give our counties a black outline
-                    .style("stroke-width", .2)  
+                    .style("stroke-width", .1)  
                     .style("fill", function(d){ //here's the fun part, where we color the counties
-                      d.properties.PERCENT_DE = parseInt(d.properties.PERCENT_DE) //we'll color based on the national winner
-                      var value = color(d.properties.PERCENT_DE) //we send the vote % Obama got to the color function. If it's below 50 (if he lost the county), thenit gets a redder shade...
+                    //	console.log(d.properties.pct2016)
+                      d.properties.pct2016 = parseFloat(d.properties.pct2016)*100 //we'll color based on the national winner
+                      
+                      var value = color(d.properties.pct2016) //we send the vote % Obama got to the color function. If it's below 50 (if he lost the county), thenit gets a redder shade...
                       value = hexToRgb(value) //we turn that color into an rgb format
-                      var alpha = alphaScale(parseInt(d.properties.TOTAL_VOTE)) //then we calculate the alpha value based on the totalvote for the county
-                      var result = value?"rgba("+value.r+", "+value.g+", "+value.b+", "+alpha+")" : "white" //and we put them together. some counties that for whhatever reason had errors, we'll just make them white
+                      var alpha = alphaScale(parseInt(d.properties.pop)) //then we calculate the alpha value based on the totalvote for the county
+                      var result = value?"rgba("+value.r+", "+value.g+", "+value.b+", "+alpha+")" : "none" //and we put them together. some counties that for whhatever reason had errors, we'll just make them white
                       return result //deliver our final color for the county
 
                     })
@@ -112,6 +144,103 @@
                     .on("mouseout", function(d){
                       tooltip.hide(d) //when the mouse leaves the county, close it
                     })
+
+
+                  var dom = [ 40, 50, 60 ]
+                  var dom2 =[ 50000, 250000, 1000000 ]
+                  leg1 = svg.append("g")
+                  leg1.attr("transform", "translate(0,"+(height100-100)+")")
+				  leg1.selectAll("rect")
+				    .data(range)
+				    .enter()
+				    .append("rect")
+				    //.attr("class", function(d) {return data.parent.name})
+				    .style("fill", function(d){
+				      value = hexToRgb(d) //we turn that color into an rgb format
+                      var alpha = alphaScale(25000) //then we calculate the alpha value based on the totalvote for the county
+                      var result = value?"rgba("+value.r+", "+value.g+", "+value.b+", "+alpha+")" : "none"
+                      return result
+				    })
+				    .attr("width", 16)
+				    .attr("height", 16)
+				    .attr("y", function(d,i){return i * 16 })
+				    .attr("x", 36)
+				  leg1.selectAll("text")
+				    .data(range)
+				     .enter()
+				     .append("text")
+				     .text(function(d, i){var ret = i !=0 ? dom[i-1]:0; var second =  dom[i] == undefined ? 100 : dom[i]; return ret+"% - "+second+"%"})
+				     .attr("text-anchor", "left")
+				     .attr("x", 0)
+				     .attr("y", function(d,i){return i * 16 + 15})
+				     .style("font-size", "8px")
+				  leg1.selectAll("text1")
+				    .data(range)
+				     .enter()
+				     .append("text")
+				     .text(function(d, i){var ret = i !=0 ? dom2[i-1]: min; var second =  dom2[i] == undefined ? max : dom2[i]; return formatpop(ret)+" - "+formatpop(second)+""})
+				     .attr("text-anchor", "left")
+				     .attr("transform", function(d,i){
+					  var xText = i * 20 +  45;
+					  var yText = 0;
+					  return "translate(" + xText + "," + yText + ") rotate(-90)";
+					 })
+				     .style("font-size", "8px")
+
+				  leg1.selectAll("rect2")
+				    .data(range)
+				    .enter()
+				    .append("rect")
+				    //.attr("class", function(d) {return data.parent.name})
+				    .style("fill", function(d){
+				      value = hexToRgb(d) //we turn that color into an rgb format
+                      var alpha = alphaScale(100000) //then we calculate the alpha value based on the totalvote for the county
+                      var result = value?"rgba("+value.r+", "+value.g+", "+value.b+", "+alpha+")" : "none"
+                      return result
+				    })
+				    .attr("width", 16)
+				    .attr("height", 16)
+				    .attr("y", function(d,i){return i * 16 })
+				    .attr("x", 54)
+
+
+				  leg1.selectAll("rect3")
+				    .data(range)
+				    .enter()
+				    .append("rect")
+				    //.attr("class", function(d) {return data.parent.name})
+				    .style("fill", function(d){
+				      value = hexToRgb(d) //we turn that color into an rgb format
+                      var alpha = alphaScale(300000) //then we calculate the alpha value based on the totalvote for the county
+                      var result = value?"rgba("+value.r+", "+value.g+", "+value.b+", "+alpha+")" : "none"
+                      return result
+				    })
+				    .attr("width", 16)
+				    .attr("height", 16)
+				    .attr("y", function(d,i){return i * 16 })
+				    .attr("x", 72)
+
+
+				  leg1.selectAll("rect4")
+				    .data(range)
+				    .enter()
+				    .append("rect")
+				    //.attr("class", function(d) {return data.parent.name})
+				    .style("fill", function(d){
+				      value = hexToRgb(d) //we turn that color into an rgb format
+                      var alpha = alphaScale(1200000) //then we calculate the alpha value based on the totalvote for the county
+                      var result = value?"rgba("+value.r+", "+value.g+", "+value.b+", "+alpha+")" : "none"
+                      return result
+				    })
+				    .attr("width", 16)
+				    .attr("height", 16)
+				    .attr("y", function(d,i){return i * 16 })
+				    .attr("x", 90)
+				 
+
+
+                   })
+                })
             };
       }
       NProgress.done() //we're done loading so we can stop the spinny wheel
