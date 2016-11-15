@@ -38,7 +38,7 @@
             .offset([-15, 10])
             .html(function(d) {
               var winner = d.properties.lead
-              return "County: "+d.properties.COUNTY+", "+d.properties.STATE+"<br>Winner: " +winner+ "<br>Trump's share: "+format(d.properties.pct2016)+"%<br>County population: "+formatpop(d.properties.pop) //this is what we actually show in the tooltip
+              return "County: "+d.properties.COUNTY+", "+d.properties.STATE+"<br>Winner: " +winner+ "<br>Trump's share: "+format(d.properties.pct2016)+"%<br>Total votes: "+formatpop(d.properties.totalvotes2016) //this is what we actually show in the tooltip
             })
     var format = d3.format(".4r")	
     var formatpop = d3.format(",d")
@@ -79,7 +79,6 @@
                 data = topojson.feature(us, us.objects.elpo08p020).features //load our data
 
                 d3.csv("data/pres.elect16.results.csv", function(d){
-                	d3.csv("data/pop.csv", function(c){
                 	//console.log(d, data)
                 	data.forEach(function(e){
                 		var temp = d.filter(function(f){
@@ -93,17 +92,10 @@
                 		e.properties["totalvotes2016"] = temp[0].total_votes
                 		e.properties["lead"] = temp[0].lead
                 		}
-                		var temp = c.filter(function(f){
-                			var fips = f.fips
-                			fips = fips.length <5 ? "0".concat(fips) : fips
-                			return e.properties.FIPS == fips 
-                		})
-                		if (temp.length != 0){
-                		e.properties["pop"] = temp[0].pop
-                		}
+                		
                 	})
                
-                var votes = data.map(function(d){return parseInt(d.properties.pop)}) //get our data in a format Javascript can work with. We 'map' the total vote attribute of it into an an array thta we can do math on.
+                var votes = data.map(function(d){return parseInt(d.properties.totalvotes2016)}) //get our data in a format Javascript can work with. We 'map' the total vote attribute of it into an an array thta we can do math on.
                 //console.log(votes)
                 votes = votes.filter(function(d){return d>0}) //make sure we're only looking at counties where there were more than 0 votes. There's some weird, wrong data out there that could throw us for a loop.
 
@@ -114,7 +106,7 @@
                 console.log(min, median, mean, max)
                 
                 var alphaScale = d3.scale.threshold() 
-				  .domain( [ 50000, 250000, 1000000 ] )
+				  .domain( [ 15000, 60000, 1000000 ] )
 				  .range( [ .15, .40, .80, 1 ] );
                 //.domain([min, median, mean, max]).range([.1,.3,.5, 1]) //here we set up the scale which we will use to give an alpha value to the county, which is kind of a brightness measure. We're using it, in a way, to lessen the effect of spatially big counties that had few votes...
 
@@ -130,7 +122,7 @@
                       
                       var value = color(d.properties.pct2016) //we send the vote % Obama got to the color function. If it's below 50 (if he lost the county), thenit gets a redder shade...
                       value = hexToRgb(value) //we turn that color into an rgb format
-                      var alpha = alphaScale(parseInt(d.properties.pop)) //then we calculate the alpha value based on the totalvote for the county
+                      var alpha = alphaScale(parseInt(d.properties.totalvotes2016)) //then we calculate the alpha value based on the totalvote for the county
                       var result = value?"rgba("+value.r+", "+value.g+", "+value.b+", "+alpha+")" : "none" //and we put them together. some counties that for whhatever reason had errors, we'll just make them white
                       return result //deliver our final color for the county
 
@@ -147,7 +139,7 @@
 
 
                   var dom = [ 40, 50, 60 ]
-                  var dom2 =[ 50000, 250000, 1000000 ]
+                  var dom2 =[ 15000, 60000, 1000000 ]
                   leg1 = svg.append("g")
                   leg1.attr("transform", "translate(0,"+(height100-100)+")")
 				  leg1.selectAll("rect")
@@ -240,7 +232,6 @@
 
 
                    })
-                })
             };
       }
       NProgress.done() //we're done loading so we can stop the spinny wheel
