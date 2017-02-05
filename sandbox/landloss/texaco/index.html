@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+      <!-- <link href='https://fonts.googleapis.com/css?family=Ruda:400,700|Cantarell:400,700,400italic,700italic' rel='stylesheet' type='text/css'> -->
+      <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <meta name="keywords" content="maps,cartography, hazardous waste trade"/>
+      <title>Landloss - Texaco Canals</title>
+
+      <!--put Bootstrap stylesheet links above style.css-->
+     
+      <link rel="stylesheet" href="css/bootstrap.css">
+      <link rel="stylesheet" href="css/leaflet.css">
+      <link rel="stylesheet" href="css/sitewide.css">
+      <link rel="stylesheet" href="css/style.css">
+
+      <script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
+       <script type="text/javascript" src="lib/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+      <script type="text/javascript" src="lib/d3.js" charset="utf-8"></script>
+      <script type="text/javascript" src="lib/topojson.v1.min.js"></script>
+      <script type="text/javascript" src="lib/tip.js"></script>
+      <script type="text/javascript" src="lib/leaflet.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.2.0/ui-bootstrap-tpls.js"></script>
+
+      <!--  <script type="text/javascript" src="lib/router.js"></script>-->
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-beta.3/angular-ui-router.js"></script> 
+      
+       <script type="text/javascript" src="lib/ui-leaflet.js"></script>
+        <script type="text/javascript" src="lib/log.js"></script>
+        <script src='lib/nprogress.js'></script>
+  <link rel='stylesheet' href='css/nprogress.css'/>
+
+
+</head>
+
+  <body ng-app="demoapp">
+    <nav class="navbar navbar-default navbar-fixed-top main-navbar"> <!--creates navbar-->
+            <div class="navbar-header"> <!--creates the navbar header-->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span><!--used for screen readers for accessibility-->
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                    <span class="menu">Menu</span>
+                </button> <!--hamburger button for smaller devices-->
+                <a class="navbar-brand" href="#">Landloss at Texaco Canals</a><!--our website brand name-->
+            </div><!-- 
+            <h5 class="navbar-text"><font color="#cccccc">New Orleans Census Viewer</font></h5> -->
+            <div id="navbar" class="collapse navbar-collapse"><!--links in navbar-->
+                <ul class="nav navbar-nav navbar-right"><!--unordered list for links on navbar-->
+
+                    <li><a href="AboutUs.html">About</a></li>
+                    <li><a href="Stories.html">Stories</a></li>
+                </ul>
+            </div><!--end navbar=collapse-->
+
+    </nav><!--end navigation bar-->
+  <div class="center">
+
+  </div>
+<div class="col-md-12 container" id="main">
+<ui-view></ui-view>
+</div>
+
+
+
+<script>
+
+var app = angular.module("demoapp", ['ui.router', 'ui.bootstrap', 'nemLogging', 'ui-leaflet']);
+app.config(function($logProvider){
+  $logProvider.debugEnabled(false);
+});       
+app.config(function($stateProvider) { 
+
+  //create our different views as objects
+  var mainState ={
+    name: 'main', //name of the object
+    url: '', //url to point to, or that causes this view to be triggered
+    component: 'home', //component that works with the data, loads the template
+    resolve: { //data to bind to our component
+      geography: function(Resource) {
+        return Resource.getLand() //make an async call to get our site data from data.json
+      }
+    }
+  }
+  //call the states
+  $stateProvider.state(mainState); 
+})
+
+//factories make our http requests for us (including local ones) to handle data promises
+app.factory('Resource', function ($http) {
+  var service = {
+    getLand: function() {
+      return $http.get('land.geojson').then(function(resp) {
+        return resp.data;
+      });
+    }
+  }
+  return service;
+})
+
+
+
+app.component('home', {
+  bindings: { geography: '<'}, //make the data we loaded into the view from the factory available to this component
+  templateUrl: 'map.html', //this is the html that we will plug our data into
+  controller: function ($filter) {
+    console.log(this, $filter)
+    NProgress.start()
+    this.radioModelYear = "1932"
+    this.radioModelShow = 1
+    
+    var layers = [];
+
+    this.reExpress = function () { 
+      //console.log(items, sift, expressed, filters)
+        var times = {y1932 :[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16], y1956 : [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16], y1977 : [0,5,6,7,8,9,10,11,12,13,14,15,16], y1990 : [0,8,9,10,11,12,13,14,15,16], y2002 : [0,12,13,14,15,16], y2009 : [0,16]} //stroke black?
+       
+        var time = times["y"+this.radioModelYear]
+        console.log(time)
+       
+        var opacity = this.radioModelShow
+        console.log(opacity, this.radioModelShow)
+        //make loss pixels white
+        layers.forEach(function(e){
+            var color =  time.includes(e.feature.properties.DN)  ? "white" : "#A3DDE8"  //if DN is checked, make black
+            e.setStyle({
+              fillColor: color,
+              fillOpacity: opacity,
+              smoothFactor: 0
+            })
+         })
+        
+    };
+
+  function style(d){
+         
+      var time = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
+
+      var value = d.properties.DN <= 16 ? "white" : "#A3DDE8"
+      //console.log(d, expressed, value)
+      return {
+                    fillColor: value,
+                    weight: 1,
+                    fillOpacity: 1,
+                    color: 'none',
+                    smoothFactor: 0
+                }
+
+    };
+
+     //this.reExpress()
+    //goal = only show relevant DNs. Color them black. eliminate need for style function
+    angular.extend(this, {
+            geojson: {
+                data: this.geography,
+                style: style,
+                onEachFeature: function(feature, layer){
+                  layers.splice(0,0,layer);
+                }
+
+            },
+        center: {
+            lat: 29.68,
+            lng: -90,
+            zoom: 10
+        },
+        defaults: {
+            scrollWheelZoom: false
+        },
+        tiles: {
+                    name: 'OpenTopoMap',
+                    url: 'http://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+                    type: 'xyz'
+                }
+    });
+    NProgress.done()
+  }
+})
+
+
+
+</script>
+</body>
+</html>

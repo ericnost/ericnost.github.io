@@ -256,6 +256,7 @@ function setMap(){
 			.attr("class", function(d) { return d.properties.id })
 			.attr("d", path) //project data as geometry in svg
 			.style({"fill": function(d) { //color enumeration units
+				console.log(d)
 				return choropleth(d, colorize);
 			}, "fill-opacity": .75})
 			.on("mouseover", highlight)

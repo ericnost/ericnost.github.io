@@ -1,0 +1,138 @@
+@charset "utf-8";
+/* CSS Document */
+
+.rivers {
+	fill: none;
+	stroke: blue;
+	stroke-width: .2px;
+}
+
+.charttext {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.infolabel {
+	position: absolute;
+	width: 200px;
+	height: 100px;
+	color: #000;
+	background-color: #fff;
+	border: solid thin #000;
+	padding: 5px;
+}
+
+.infolabel h1 {
+	margin: 0px;
+	padding: 0px;
+	display: inline-block;
+	line-height: 1em;
+}
+
+.infolabel b {
+	float: left;
+}
+
+.labelname {
+	display: inline-block;
+	float: right;
+	margin: -25px 0px 0px 40px;
+	font-size: 1em;
+	font-weight: bold;
+	position: absolute;
+}
+
+.chartLabels {
+  	font: 10px Arial;
+}
+
+.axis {
+  font: 12px Arial;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.xaxis{
+	font: 12px Arial;
+}
+.xaxis path, line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.line {
+  fill: none;
+  stroke-width: 3.5px;
+}
+
+
+.gratBackground {
+  fill: #D5E3FF;
+}
+
+
+.states {
+  fill: #fff;
+  stroke: #ccc;
+  stroke-width: 2px;
+}
+
+.subbasins {
+  fill: none;
+  stroke: #000;
+  stroke-width: 0px;
+  stroke-linecap: round;
+}
+
+
+h2,div, span {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    border: 5px;
+}
+.legend, .temporal-legend {
+    padding: 6px 10px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+#legendTitle {
+    text-align: center;
+    margin-bottom: 15px;
+    font-variant: small-caps;
+}
+.symbolsContainer {
+    float: left;
+	margin-left: 75px;
+    width: 100px;
+}
+.legendCircle {
+     border-radius:50%; 
+     border: 1px solid #2E2E2E; 
+     background: #2E2E2E, .6;
+	 display: inline-block;
+}
+.legendValue {
+    position: absolute;
+    right: 8px;
+}
+.range-slider {
+    width: 250px;
+
+}
+.temporal-legend {
+    font-size: 2.2em;
+    text-align: center;
+}

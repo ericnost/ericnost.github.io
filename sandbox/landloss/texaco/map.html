@@ -1,0 +1,26 @@
+<div class="container-fluid">
+	<div class="col-md-9">
+		Select year: 
+		<div class="btn-group">
+
+		    <label type="button" class="btn btn-primary padright" ng-model="$ctrl.radioModelYear" ng-click="$ctrl.reExpress()" ng-repeat="value in ['1932', '1956', '1977', '1990', '2002', '2009']" uib-btn-radio="value">{{ value }}</label>
+		</div>
+		Opacity: 
+		<div class="btn-group">
+
+		    <label type="button" class="btn btn-primary padright" ng-model="$ctrl.radioModelShow" ng-click="$ctrl.reExpress()" ng-repeat="value in ['1', '.75', '0']" uib-btn-radio="value">{{ value }}</label>
+		</div>
+
+		<leaflet center="$ctrl.center" tiles="$ctrl.tiles" defaults="$ctrl.defaults" width="100%"  height="480px" geojson="$ctrl.geojson"></leaflet>
+		<div>
+		<h2>Coastal Land Loss in LOUISIANA’S Texaco Canals 1932–2009</h2>
+		Mangroves, marshes, and other coastal habitats provide important ecosystem services, such as buffering communities from storm surges. But coastal areas around the world are at threat from sea level rise, changing land use, geological subsidence, and intensified storms. Louisiana is the world’s fastest submerging place. More than 2,000 square miles of marshlands in Louisiana have eroded since the 1930s due in part to oil and gas wells and canals.
+		<p><h3>Drilled Oil and Gas Wells</h3>
+		The hydrocarbon industry dredged these canals in the middle of the twentieth century to position drilling equipment and lay pipelines. Canals have brought saltwater into formerly freshwater marshes, killing plants that cannot tolerate higher salinity levels and making the area more susceptible to tidal erosion.
+		<p><h3>Restoration: Spoil Bank</h3>
+		The industry typically placed dredged material—spoil—along canals’ banks, which funnels storm surges through marshes and impounds water up-gradient while drying out soils down-gradient. Some proposals for coastal restoration call for taking the dredged material left on the banks of canals and placing it back in the channel. The “Texaco Canals” area south of Lafitte starkly illustrates canals’ role in driving land loss.
+</div>
+
+ </div>
+
+<!-- buttons here -->
