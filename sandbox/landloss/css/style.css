@@ -43,11 +43,10 @@
 }
 
 .chartLabels {
-  	font: 10px Arial;
+  	font-size: 10px;
 }
 
 .axis {
-  font: 12px Arial;
 }
 
 .axis path,
@@ -76,7 +75,9 @@
   fill: #D5E3FF;
 }
 
-
+.space{
+  height: 25vh;
+}
 .states {
   fill: #fff;
   stroke: #ccc;
@@ -90,6 +91,13 @@
   stroke-linecap: round;
 }
 
+.subbasin:hover, .dot:hover{
+  cursor: pointer;
+}
+
+#sources{
+  font-size:10px;
+}
 
 h2,div, span {
 	-webkit-touch-callout: none;

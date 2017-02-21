@@ -25,42 +25,28 @@
 			<script type="text/javascript" src="lib/topojson.v1.min.js"></script>
 			<script type="text/javascript" src="lib/tip.js"></script>
 			<script type="text/javascript" src="lib/leaflet.js"></script>
+			<script src="lib/w3HTMLinclude.js"></script>
 
 
 
 </head>
 
 	<body>
-    <nav class="navbar navbar-default navbar-fixed-top main-navbar"> <!--creates navbar-->
-            <div class="navbar-header"> <!--creates the navbar header-->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span><!--used for screen readers for accessibility-->
-                    <span class="glyphicon glyphicon-menu-hamburger"></span>
-                    <span class="menu">Menu</span>
-                </button> <!--hamburger button for smaller devices-->
-                <a class="navbar-brand" href="#">Programming Resilience</a><!--our website brand name-->
-            </div>
-            <h5 class="navbar-text"><font color="#cccccc">Exploring Land Loss</font></h5>
-            <div id="navbar" class="collapse navbar-collapse"><!--links in navbar-->
-                <ul class="nav navbar-nav navbar-right"><!--unordered list for links on navbar-->
-
-<!--                     <li><a href="AboutUs.html">About</a></li>
-                    <li><a href="Stories.html">Stories</a></li> -->
-                </ul>
-            </div><!--end navbar=collapse-->
-
-    </nav><!--end navigation bar-->
+	<div w3-include-html="nav.html"></div>
+	<script>
+	w3IncludeHTML();
+	</script>
   <div class="center">
 
   </div>
 <div class="col-md-12 container" id="main">
-	<div class = "col-md-4">
-		<div class = "row"><h5>Investigate how the oil and gas industry contributed to land loss in Louisiana:</h5></div>
+	<div class = "col-md-6">
+		<div class = "row"><h3>Investigate factors contributing to land loss in Louisiana:</h3></div>
 	</div>
-	<div class = "col-md-8">
+	<div class = "col-md-6">
 		<div class="row" id="header"></div>
 	</div>
-	<div class = "col-md-10" id="text1"><h6>Over the past 80 years, oil and gas extraction - along with sea level rise, subsidence, and flood control levees - has contributed to unprecedented land loss in coastal Louisiana. Here you can explore the spatial distribution of different components of hydrocarbon extraction.</h6></div>
+	<div class = "col-md-10" id="text1"><h6>Over the past 80 years, development activities like oil and gas extraction, navigation canals, and flood control levees have contributed, alongside sea level rise and subsidence, to unprecedented land loss in coastal Louisiana. </h6></div>
 </div>
 	
 </div>
@@ -78,13 +64,21 @@
 						</div>
 				</div>
 				<div class="col-md-4">
+					<div class="space">
+					</div>
 						<div class="row landLossText">
 						</div>
+					<div class="space">
+					</div>
 				</div> 
 	</div>
 	<div class="col-md-12 container" id="third">
 				<div class="col-md-8">
-						<div class="row canalText text-left">
+						<div class="space">
+						</div>
+							<div class="row canalText text-left">
+							</div>
+						<div class="space">
 						</div>
 				</div> 
 				<div class="col-md-4">
@@ -100,13 +94,17 @@
 						</div>
 				</div>
 				<div class="col-md-4">
-						<div class="" id="text">
+						<div class="space">
+						</div>
+							<div class="" id="text">
+							</div>
+						<div class="space">
 						</div>
 				</div> 
 	</div>
 	<div class="col-md-12 container" id="sources">
 				<div class="row col-md-12">
-						Sources: USGS (Couvillion et al. 2013) for land loss data; Dusty Pate, US NPS for spoil banks data; SONRIS for oil and gas well, pipeline, and levee data. 
+						SOURCES: Land loss data - Couvillion et al., 2013 (USGS); Spoil banks data - Pate, 2014; Oil and gas well data - SONRIS; Texaco Canals - Marshall et al. 2014 (http://projects.propublica.org/louisiana/); Other background - Scaife et al., 1983; Cahoon and Turner, 1989; Barry, 1997; E. Turner, 1997; Ko and Day, 2004; Blum and Roberts, 2009; Engle, 2011; Batker et al., 2014; Goldenberg, 2014; Muth, 2014; Theriot, 2014;
 				</div>
 			
 	</div>
@@ -114,11 +112,11 @@
 <script>
 var keyArray = ["wellDensitySqMi", "pipelineDensity", "permitDensity", "leveesNormalizedSQMI", "spoilBanksAreaNormalizedSQMI"];
 var expressed = keyArray[0]; 
-var labelArray = {"wellDensitySqMi": "Wells per sq. mi.", "pipelineDensity": "Pipelines per sq. mi.", "permitDensity": "Drilling permits per sq. mi.", "leveesNormalizedSQMI": "Levee length per sq. mi.", "spoilBanksAreaNormalizedSQMI": "Spoil bank length per sq. mi."};
+var labelArray = {"wellDensitySqMi": "Oil/gas wells", "pipelineDensity": "Pipelines", "permitDensity": "Drilling permits", "leveesNormalizedSQMI": "Levee length", "spoilBanksAreaNormalizedSQMI": "Spoil bank length"};
 var textKey = {
-	"wellDensitySqMi": "Oil wells contribute to land loss through subsidence.",
-	"pipelineDensity": "Many offshore drilling operations have laid pipeline through coastal areas", 
-	"permitDensity": "Since the 1950s, oil/gas operators have been required to obtain various permits from the state.", 
+	"wellDensitySqMi": "Some researchers argue that oil wells directly contribute to land loss through subsidence.",
+	"pipelineDensity": "On and offshore operations have laid pipeline through coastal areas", 
+	"permitDensity": "Since the 1950s, oil/gas well operators have been required to obtain various permits from the state.", 
 	"leveesNormalizedSQMI": "The Army Corps of Engineers has built and maintained miles of levees in the region for flood and navigation purposes.", 
 	"spoilBanksAreaNormalizedSQMI": "Spoil banks are created from dredging canals. They change an area's hydrological regime, impounding water upgradient and drying soils downgradient."};
 var colorize;
@@ -136,15 +134,15 @@ window.onload = initialize();
 function initialize(){ 
 
 	d3.select(".landLossText")
-		.html("<p>At some point in the past 80 years, every region in the coast has experienced some degree of land loss, with some areas more drastic than others. At points, basins will start to regain land, only to possibly lose it again from storms or further development. One notable exception is the Atchafalaya basin, which has steadily been gaining land. <a href='http://www.nola.com/environment/index.ssf/2014/07/wax_lake_outlets_growing_wetla.html' target='_blank'>The Wax Lake Delta</a> there has proven a model for the kinds of restoration projects the state wants to invest in.")
+		.html("<h4>A coastwide problem</h4><p>At some point in the past 80 years, every region in the coast has experienced some degree of land loss, with some areas losing a much greater proportion of their land than others. As this chart shows, at various times, basins started to regain land, only to lose it again from storms or further development. One notable exception is the Atchafalaya basin, which has steadily been gaining land. <a href='http://www.nola.com/environment/index.ssf/2014/07/wax_lake_outlets_growing_wetla.html' target='_blank'>The Wax Lake Delta</a> there has proven a model for the kinds of restoration projects the state wants to invest in.")
 	
 	d3.select(".canalText")
-		.html("Canals are at the center of what has been called <a href='http://www.nytimes.com/interactive/2014/10/02/magazine/mag-oil-lawsuit.html?_r=0' target='_blank'>'the most ambitious environmental lawsuit ever.'</a> The levee board responsible for protecting New Orleans has filed suit against over 90 oil and gas firms, claiming that they failed to meet the conditions of their environmental permits to fill-in canals after extraction operations ceased. The case of Delacroix has featured prominently in the suit.")
+		.html("<h4>Legal controversy</h4>Canals are at the center of what has been called <a href='http://www.nytimes.com/interactive/2014/10/02/magazine/mag-oil-lawsuit.html?_r=0' target='_blank'>'the most ambitious environmental lawsuit ever.'</a> The levee board responsible for protecting New Orleans has filed suit against over 90 oil and gas firms, claiming that they failed to meet the conditions of their environmental permits to fill-in canals after extraction operations ceased. The case of Delacroix has featured prominently in the suit. The Texaco Canals area starkly illustrates the impact of industry operations. Click <a href='../texaco/index.html'>here</a> to explore.")
 	d3.select(".canalImg")
 		.html("<img src='img/SLFPRAE larger.gif'></img>")
 
 	d3.select("#text")
-		.html('Over the past century, the State of Louisiana has permitted hundreds of thousands of wells for extracting oil and gas. While in boom years these wells provided jobs and incomes to many, not only do modern wells operating today <a href="http://www.npr.org/2014/04/19/304707516/telltale-rainbow-sheens-show-thousands-of-spills-across-the-gulf" target="_blank">impact a variety of ecosystems</a>, old wells <a href="http://harpers.org/archive/2013/11/dirty-south/" target="_blank">have left their own legacy</a>. Many leak, contaminating nearby property, while others have been implicated in the <a href="http://projects.propublica.org/louisiana/" target="_blank">tremendous land loss the state is experiencing</a>. This map shows how many wells were permitted in each parish (or, county) in the state in the past 100 or so years. By clicking on the icons below, you can focus in on a particular "boom."')
+		.html('<h4>Boom and bust</h4>Over the past century, the State of Louisiana has permitted hundreds of thousands of wells for extracting oil and gas. While in boom years these wells provided jobs and incomes to many, not only do modern wells operating today <a href="http://www.npr.org/2014/04/19/304707516/telltale-rainbow-sheens-show-thousands-of-spills-across-the-gulf" target="_blank">impact a variety of ecosystems</a>, old wells <a href="http://harpers.org/archive/2013/11/dirty-south/" target="_blank">have left their own legacy</a>. Many leak, contaminating nearby property, while others have been implicated in the <a href="http://projects.propublica.org/louisiana/" target="_blank">tremendous land loss the state is experiencing</a>. This map shows how many wells were permitted in each parish (or, county) in the state in the past 100 or so years. By clicking on the icons below, you can focus in on a particular "boom."')
 
 	wellsMap();
 	
@@ -253,10 +251,9 @@ function setMap(){
 			.append("g")
 			.attr("class", "subbasins") //assign class for additional styling
 			.append("path") //append elements to svg
-			.attr("class", function(d) { return d.properties.id })
+			.attr("class", function(d) { return "subbasin "+d.properties.id })
 			.attr("d", path) //project data as geometry in svg
 			.style({"fill": function(d) { //color enumeration units
-				console.log(d)
 				return choropleth(d, colorize);
 			}, "fill-opacity": .75})
 			.on("mouseover", highlight)
@@ -402,7 +399,7 @@ function highlight(data){
 		.style({"stroke": "#ffff00", "stroke-width": "5px"}); //set the enumeration unit fill to black
 
 
-	var labelAttribute = "<h1>"+props[expressed]+"</h1><br><b>"+labelArray[expressed]+"</b><br>"; //label content
+	var labelAttribute = "<h1>"+props[expressed]+"</h1><br><b>"+labelArray[expressed]+"</b>&nbspper square mile<br>"; //label content
 	var labelName = props.basinName ? props.basinName : props.BASIN_NAME; //html string for name to go in child div
 	
 	//create info label div
@@ -501,12 +498,14 @@ function landLossChart() {
 		  ]);
 
 		svg.append("g")
-		      .attr("class", "xaxis")
+		      .attr("class", "axis")
 		      .attr("transform", "translate(0," + height + ")")
+		      .style("font-size", "12px")
 		      .call(xAxis);
 
 		svg.append("g")
 	      .attr("class", "y axis")
+	      .style("font-size", "12px")
 	      .call(yAxis)
 	    .append("text")
 	      .attr("transform", "rotate(-90)")
@@ -514,6 +513,7 @@ function landLossChart() {
 	      .attr("x", -150)
 	      .attr("dy", ".3em")
 	      .style("text-anchor", "end")
+	      .style("font-size", "12px")
 	      .text("% of 1932 Land Area");
 
 		var city = svg.selectAll(".city")
@@ -602,7 +602,8 @@ data.forEach(function(d) {
   // y-axis
   Ssvg.append("g")
       .attr("class", "y axis")
-      .attr("transform", "translate(" + (width-margin.right) + " ,0)")   
+      .attr("transform", "translate(" + (width-margin.right) + " ,0)")  
+      .style("font-size", "12px") 
       .call(yAxis)
     .append("text")
       .attr("class", "label")
@@ -610,6 +611,7 @@ data.forEach(function(d) {
       .attr("y", -10)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
+      .style("font-size", "12px")
       .text("% of 1932 land");
 
   // draw dots

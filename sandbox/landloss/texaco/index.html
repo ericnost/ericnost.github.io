@@ -47,13 +47,10 @@
                 <a class="navbar-brand" href="#">Landloss at Texaco Canals</a><!--our website brand name-->
             </div><!-- 
             <h5 class="navbar-text"><font color="#cccccc">New Orleans Census Viewer</font></h5> -->
-            <div id="navbar" class="collapse navbar-collapse"><!--links in navbar-->
-                <ul class="nav navbar-nav navbar-right"><!--unordered list for links on navbar-->
+           <div class="collapse navbar-collapse" id="nav1">
+     
 
-                    <li><a href="AboutUs.html">About</a></li>
-                    <li><a href="Stories.html">Stories</a></li>
-                </ul>
-            </div><!--end navbar=collapse-->
+                </div><!-- /.navbar-collapse -->
 
     </nav><!--end navigation bar-->
   <div class="center">
@@ -118,7 +115,6 @@ app.component('home', {
         var times = {y1932 :[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16], y1956 : [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16], y1977 : [0,5,6,7,8,9,10,11,12,13,14,15,16], y1990 : [0,8,9,10,11,12,13,14,15,16], y2002 : [0,12,13,14,15,16], y2009 : [0,16]} //stroke black?
        
         var time = times["y"+this.radioModelYear]
-        console.log(time)
        
         var opacity = this.radioModelShow
         console.log(opacity, this.radioModelShow)
