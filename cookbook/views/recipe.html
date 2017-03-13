@@ -1,0 +1,21 @@
+
+<div class="photo">
+  <div class="container">
+  	<div class="row">
+	  	<div class = "col-md-6">
+	    	<img class="pull-right" ng-src="{{ $ctrl.recipe.url }}">
+	    </div>
+	    <div class="col-md-6">
+		    <h2 class="photo-title"> {{$ctrl.recipe.title}}</h2>
+		    <p class="photo-author">From: {{$ctrl.recipe.author}} </p> <!-- link filter here -->
+		   <!--  <p class="photo-views"> {{detail.views | number}}</p>
+		    <p class="photo-upvotes"> {{detail.upvotes | number}}</p> -->
+		    <p class="photo-location">Where we first made it: {{$ctrl.recipe.location}} </p>
+		    <p class="photo-season">Season: {{$ctrl.recipe.season}} </p>
+		    <p class="photo-meal">Meal: {{$ctrl.recipe.meal}} </p>
+		    <p class="photo-specialty">Specialty? {{$ctrl.recipe.speciality}} </p>
+		    <h6 ng-repeat="line in $ctrl.recipe.text track by $index">{{line}}</h6>
+		</div>
+	</div>
+  </div>
+</div>

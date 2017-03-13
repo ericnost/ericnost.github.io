@@ -1,5 +1,5 @@
 app.factory('photos', ['$http', function($http) {
-  return $http.get('data/photos.json')
+  return $http.get('data/photosTest.json')
          .success(function(data) {
            return data;
          })

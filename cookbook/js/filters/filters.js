@@ -25,3 +25,15 @@ app.filter('gfFilter', function() {
             }
         };
 });
+app.filter('link', function() {      
+        return function(input) {
+            
+            if (typeof(input)=="string"){
+                console.log(input.slice(0,3))
+                var test = input.slice(0,3) == "htt" ? "<a href="+input+" target='_blank'>"+input+"</a>" : input
+                return test
+            } else {return "We're working on that"}
+            
+            
+        };
+});

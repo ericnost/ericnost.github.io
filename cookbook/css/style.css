@@ -6,7 +6,7 @@
   color: white;
   font-family: 'Bitter', serif;
   font-size: 30px;
-  text-align: center;
+  text-align: left;
   float:none;
 }
 .navbar-default .navbar-brand:hover {
@@ -26,95 +26,63 @@
 }
 .navbar-header {
     background-color: #685544;
-    float: left;
-    padding: 15px;
-    text-align: center;
+    text-align: left;
+    padding-top: 10px;
     width: 100%;
 }
-.filter{
-  height: 10%;
-  line-height: 20px; 
-  margin: 1px;
-  text-align: center;
+.pull-right{
+  padding: 5px;
 }
-.col-md-6{
-  height: 10%;
-}
-/*FROM CODECADEMY*/
 
 html, body {
   background: #fff;
-  font-family: Arial, sans-serif;
-  font-weight: bold;
+  font-family:'Bitter', serif;
   margin: 0;
-   padding-top: 30px; 
-  text-transform: lowercase;
+   padding-top: 40px; 
 }
+.dropdown-toggle{
+  color:white;
+  text-decoration: none
+}
+.btn-default{
+  background-image: none;
+  background-color: #967b62;
+border-radius: 0px;
+}
+label.btn{
+  color:white;
+}
+.panel > .panel-heading {
+    background-image: none;
+    background-color:   #445768;
 
-.container {
-  padding: 0;
-  width: 100%;
 }
-.header {
-  margin: 0;
-  padding: 0;
+.btn-default:hover{
+   background-image: none;
+    background-color:   #876e58;
+    color:white;
 }
-.header img {
-  margin: 0 20px 0 0;
-  height: 80px;
-  width: 80px;
+.btn:focus{
+   background-image: none;
+    background-color:   #967b62;
+    color:white;
 }
-.header a {
-  color: #000;
-  font-size: 20px;  
-  text-decoration: none; 
+.btn-default.active{
+   background-image: none;
+    background-color:   #876e58;
+    color:white;
 }
-.main {
-  position: absolute;
-  
-}
-.item {
-  width:100%;
-  cursor: pointer;
-  margin: 0;  
-  padding: 0;
-}
-.item:hover {
-  background: lightblue; 
-  text-decoration: none;
-  transition: background 500ms;
-}
-.item img{
-  width: 33%;
-  height: 33%;
-  vertical-align: middle;
-}
-p.author {
-  color: #000;
-  padding: 24px;
-  text-align: left;
-}
-.item:hover p.author, .item:hover a {
-  color: #fff;
-  text-decoration: none;
-}
-.photo {
-  margin: 0 0 80px;  
-  position:absolute;
-}
-.photo img {
-  width: 100%;
+.btn-default.active:hover{
+   background-image: none;
+    background-color:   #967b62;
+    color:white;
 }
 .photo h2 {
   color: #000;
-  padding: 20px 108px;
 }
-.photo p {
-  color: #6f6f6f;
-  margin: 0;
-  padding: 0 108px 0;
+.photo {
+  color: #445768;
 }
 .photo h6{
   color: #000;
-  padding: 20px 108px;
 }

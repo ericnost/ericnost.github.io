@@ -7,7 +7,9 @@ app.controller('HomeController', ['$scope', 'photos', function($scope, photos) {
     	//if ($scope.photos[x].veg == "yes") {$scope.photos[x].veg = "data/vegetarian-mark.svg"}  
     	//if ($scope.photos[x].vegan == "yes") {$scope.photos[x].vegan = "data/vegan.svg"}
     	//if ($scope.photos[x].GF == "yes") {$scope.photos[x].GF = "data/gf.png"} 
-    	if ($scope.photos[x].text.length > 150) {$scope.photos[x].textShort = $scope.photos[x].text.slice(0,147)+"..."} else {$scope.photos[x].textShort = $scope.photos[x].text} 
+      if ($scope.photos[x].text) {$scope.photos[x].text = $scope.photos[x].text.split(/\r\n|\r|\n/g);} else {$scope.photos[x].text = [" ","  "]}
+      $scope.photos[x].textShort = $scope.photos[x].text.slice()
+    	if ($scope.photos[x].text.length >2) {$scope.photos[x].textShort.splice(3,$scope.photos[x].text.length,"....")} else{$scope.photos[x].textShort.slice(0,1)}
     }
 
   });
