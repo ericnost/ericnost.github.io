@@ -1,44 +1,38 @@
 
 .navbar-default .navbar-toggle:hover {
-  background-color: #685544;
+  background-color: #493c30;
 }
 .navbar-default .navbar-brand {
   color: white;
   font-family: 'Bitter', serif;
-  font-size: 30px;
+  font-size: 28px;
   text-align: left;
-  float:none;
+  padding:10px;
 }
 .navbar-default .navbar-brand:hover {
-  color: white;
+ color: white
 }
-.navbar-default .navbar-nav > li > a  {
-  color: white;
-  font-family: 'Bitter', serif;
-  font-size: 20px;
-}
-.navbar-default .navbar-nav:hover > li > a:hover  {
-  color: white;
 
-}
 .navbar-collapse {
   background-color: #685544;
 }
 .navbar-header {
+	color:white;
     background-color: #685544;
     text-align: left;
-    padding-top: 10px;
     width: 100%;
-}
+    padding: 20px;
+}	
+
 .pull-right{
-  padding: 5px;
+  margin: 5px;
 }
 
 html, body {
   background: #fff;
   font-family:'Bitter', serif;
   margin: 0;
-   padding-top: 40px; 
+   padding-top: 50px; 
 }
 .dropdown-toggle{
   color:white;
@@ -54,12 +48,10 @@ label.btn{
 }
 .panel > .panel-heading {
     background-image: none;
-    background-color:   #445768;
-
 }
 .btn-default:hover{
    background-image: none;
-    background-color:   #876e58;
+    background-color:   #493c30;
     color:white;
 }
 .btn:focus{
@@ -69,7 +61,7 @@ label.btn{
 }
 .btn-default.active{
    background-image: none;
-    background-color:   #876e58;
+    background-color:   #493c30;
     color:white;
 }
 .btn-default.active:hover{
@@ -85,4 +77,7 @@ label.btn{
 }
 .photo h6{
   color: #000;
+}
+br{
+	padding: -5px;
 }

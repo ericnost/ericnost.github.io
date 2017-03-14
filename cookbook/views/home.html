@@ -1,5 +1,5 @@
   <script type="text/ng-template" id="group-template.html">
-    <div class="panel-heading" uib-accordion-transclude="heading" ng-style="{'background-color': 'recipe.bg'}">
+    <div class="panel-heading" uib-accordion-transclude="heading">
       <h4 class="panel-title" style="text-align: center;color:white;" >
         <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()">
           <span uib-accordion-header  >
@@ -9,7 +9,7 @@
       </h4>
     </div>
     <div class="panel-collapse collapse" uib-collapse="!isOpen">
-      <div class="panel-body" >
+      <div class="panel-body" style="background-color: white">
         <div class="col-md-12" ng-transclude></div>
       </div>
     </div>
@@ -26,9 +26,7 @@
 								<a class="navbar-brand" ui-sref="main">What We Ate</a><!--our website brand name-->
 						
 						<!-- Collect the nav links, forms, and other content for toggling -->
-						
-					    
-					    <div class="btn-group pull-right">
+						<div class="btn-group pull-right">
 						    <label class="btn btn-default" ng-model="$ctrl.checkModel.veg" ng-click="$ctrl.changer('veg')" uib-btn-checkbox>Vegetarian <img src="data/vegetarian-mark.svg" width="15" height="15"/></label>
 						    <label class="btn btn-default" ng-model="$ctrl.checkModel.vegan" ng-click="$ctrl.changer('vegan')" uib-btn-checkbox>Vegan<img src="data/vegan.svg" width="15" height="15"/></label>
 						    <label class="btn btn-default" ng-model="$ctrl.checkModel.gf" ng-click="$ctrl.changer('gf')" uib-btn-checkbox>Gluten free<img src="data/gf.png" width="15" height="15"/></label>
@@ -61,30 +59,34 @@
 					      </ul>
 					    </div>
 					    <label class="pull-right" style="color: white">Search: <input style="color: black" ng-model="searchText"></label>
+					    </div>
+					    
+		</nav><!--end naviga	tion bar-->
+			<div class="container-fluid">
+						
 					   
-					   </div>
-		</nav><!--end navigation bar-->
+				</div>
  
   <div class="container-fluid">
   <uib-accordion close-others="true">
     
-    <div uib-accordion-group class="panel-default" ng-repeat="recipe in $ctrl.data | filter:{'title': searchText, 'season': searchText1, 'meal': searchText2} | filter:$ctrl.filterStuff" template-url="group-template.html" > 
+    <div uib-accordion-group class="panel-default"  style="margin: 0 auto" ng-repeat="recipe in $ctrl.data | filter:{'title': searchText, 'season': searchText1, 'meal': searchText2} | filter:$ctrl.filterStuff"   ng-style="{'width':$ctrl.w, 'background-color': recipe.bg}" template-url="group-template.html" > 
     <uib-accordion-heading >
       {{recipe.title}}
     </uib-accordion-heading>
              
               <div class = "col-md-4">
-                <img ng-src="{{ recipe.url }}" style="width: 100%">
+                <img ng-src="{{ recipe.url }}" style="width: 100%; text-align:center">
               </div>
-              <div class="col-md-8" style="text-align: center">
+              <div class="col-md-8">
                 <h2 class="photo"> {{recipe.title}}</h2>
-                <p><span class="photo">From:</span>  {{recipe.author}} </p><!-- link filter here -->
+               	<br><span class="photo">From:</span>  {{recipe.author}}<!-- link filter here -->
                <!--  <p class="photo-views"> {{detail.views | number}}</p>
                 <p class="photo-upvotes"> {{detail.upvotes | number}}</p> -->
-                <p><span class="photo">Where we first made it:</span> {{recipe.location}} </p>
-                <p><span class="photo">Season:</span> {{recipe.season}} </p>
-                <p><span class="photo">Meal:</span> {{recipe.meal}} </p>
-                <p><span class="photo">Specialty?</span> {{recipe.speciality}} </p>
+                <br><span class="photo">Where we first made it:</span> {{recipe.location}} 
+                <br><span class="photo">Season:</span> {{recipe.season}} 
+                <br><span class="photo">Meal:</span> {{recipe.meal}}
+                <br><span class="photo">Specialty?</span> {{recipe.speciality}}
                 <h6 ng-repeat="line in recipe.text track by $index">{{line}}</h6>
               </div>
                 

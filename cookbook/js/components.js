@@ -49,14 +49,14 @@ app.component('home', {
     this.data.forEach(function(d,i){
       if (d.url == "") {d.url = "data/img/default.jpg"}
         //change all this in the data
-        var bg = i %2 === 0 ? "#685544" : "#445768"
+        var bg = d.speciality.toLowerCase() == "yes" ? "#ccac00" : "#445768" 
         d.bg = bg
         if (d.veg.toLowerCase() == "yes") {d.veg = true} else if (d.veg.toLowerCase() == "no" || d.veg == "") {d.veg = false}
         if (d.vegan.toLowerCase() == "yes") {d.vegan = true} else if (d.vegan.toLowerCase() == "no"|| d.vegan == "") {d.vegan = false}
         if (d.GF.toLowerCase() == "yes") {d.GF = true} else if (d.GF.toLowerCase() == "no"|| d.GF == "") {d.GF = false}
+        d.textSearch = d.text
       if (d.text) {d.text = d.text.split(/\r\n|\r|\n/g);} else {d.text = [" ","  "]}
-      d.textShort = d.text.slice()
-      if (d.text.length >2) {d.textShort.splice(3,d.text.length,"....")} else{d.textShort.slice(0,1)}
+     
     })
 
     this.checkModel = {
@@ -74,7 +74,8 @@ app.component('home', {
       $('#meal').html(x+" <span class='caret'></span>");
     }); //#ffd700
     
-    
+    this.w = window.innerWidth < 500 ? "100%" : "50%"
+
     var checkGlobal=this.checkModel
     this.filterStuff=function(recipe){
       //console.log(recipe, checkGlobal)
