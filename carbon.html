@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+	<head>
+			<!-- <link href='https://fonts.googleapis.com/css?family=Ruda:400,700|Cantarell:400,700,400italic,700italic' rel='stylesheet' type='text/css'> -->
+			<!-- <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'> -->
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<title>Carbon</title>
+
+	
+			<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  
+	</head>
+
+	<body>
+
+		<div class="container-fluid">
+			<p>
+			<div class="col-md-1 person"></div>
+			<div class="col-md-11 factory pull-right"></div>
+			
+			   
+				<!-- <p>Line width:
+				<div class="row" id="sliderW">
+				  <div id="custom-handleW" class="ui-slider-handle"></div>
+				</div> -->	
+			</div>
+		</div>
+		
+	<script>
+	
+						//global variables
+						var factorysvg, personsvg, zoomer, path, projection, width100, height100
+						//scale stuff
+						var smallCircle = window.innerWidth < 500 ? 4 : 16
+						var bigCircle = window.innerWidth < 500 ? 16 : 64
+						var mapScalar = window.innerWidth < 500 ? .9 : 1.3
+
+						//begin script when window loads
+						initialize();
+
+						//the first function called once the html is loaded
+						function initialize(){
+
+							
+							 
+						   height100 =  window.innerHeight
+						  $(".person").height(height100)
+						  width100 = $(".person").width()
+
+						  personsvg = d3.select(".person").append("svg")
+						   .style({"height": height100, "width": width100, "position": "absolute"})
+						   c=personsvg.append('g')
+
+						 c.selectAll("square")
+						 .data([0]).enter()
+						.append("rect")
+						.attr("x", 0)
+						.attr("y", 25)
+						.style("fill", "red")
+						.attr("width", 5)
+						.attr("height", 5)
+
+						c.selectAll('text')
+						.data([0]).enter()
+						.append("text")
+						.attr("y", 15)
+						.attr("x", 0)
+						.text("You")
+						.style({"font-size": 12, "color": "black"})
+
+						var scalar =257711
+						squares = scalar*25 //volume of your emissions * scalar = volume of facility emissions
+						squares = Math.round(squares/225) //volume of facility emissions divided by volume of facility squares
+						
+							width100 = $(".factory").width()
+							height100 = 200+(squares/(width100/20))*20
+						  $(".factory").height(height100)
+						  
+
+						  factorysvg = d3.select(".factory").append("svg")
+						   .style({"height": height100, "width": width100, "position": "absolute"})
+						   f=factorysvg.append('g')
+
+						
+						//squares = 10000
+						var pastX = -20
+						var pastY = 25
+						var start = true
+						for (i=0; i<squares;i++){
+							var newX = pastX <width100-25 ? pastX+20 : 0
+							var newY = newX == 0 ? pastY+20:pastY
+							newY = start ? 25 : newY
+							f.selectAll("rectf")
+							 .data([0]).enter()
+							.append("rect")
+							.attr("x", newX)
+							.attr("y", newY)
+							.style("fill", "red")
+							.attr("width", 15)
+							.attr("height", 15)
+						    pastX = newX
+						    pastY = newY
+						    start = false
+						}
+						 
+
+						f.selectAll('text')
+						.data([0]).enter()
+						.append("text")
+						.attr("y", 15)
+						.attr("x", 0)
+						.text("A typical high emission ammonia (fertilizer) plant")
+						.style({"font-size": 12, "color": "black"})
+
+						/*d3.select(".person")
+						.append("object")
+						.attr("data", "person.svg")
+						.attr("width", 15)
+						.attr("height", 20)
+						.attr("type", "image/svg+xml");
+						
+						for (var x=0; x<8000; x++){
+							d3.select(".factory")
+								.append("object")
+								.attr("data", "factory.svg")
+								.attr("width", 15)
+								.attr("height", 20)
+								.attr("type", "image/svg+xml");
+						}*/
+						
+
+					}
+					</script>
+
+	</body>
+
+
+</html>
