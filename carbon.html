@@ -75,9 +75,11 @@
 						var scalar =257711
 						squares = scalar*25 //volume of your emissions * scalar = volume of facility emissions
 						squares = Math.round(squares/225) //volume of facility emissions divided by volume of facility squares
-						
+					    //var squares = scalar
+
+					    //how many rows? scalar/200
 							width100 = $(".factory").width()
-							height100 = 200+(squares/(width100/20))*20
+							height100 = 200+((scalar/200)*10)
 						  $(".factory").height(height100)
 						  
 
@@ -85,27 +87,39 @@
 						   .style({"height": height100, "width": width100, "position": "absolute"})
 						   f=factorysvg.append('g')
 
+						var dump = new Array(scalar)
 						
 						//squares = 10000
 						var pastX = -20
 						var pastY = 25
+						var newX, newY
 						var start = true
-						for (i=0; i<squares;i++){
-							var newX = pastX <width100-25 ? pastX+20 : 0
-							var newY = newX == 0 ? pastY+20:pastY
-							newY = start ? 25 : newY
+						//for (i=0; i<squares;i++){
+							
+							
 							f.selectAll("rectf")
-							 .data([0]).enter()
+							 .data(dump).enter()
 							.append("rect")
-							.attr("x", newX)
-							.attr("y", newY)
+							.attr("x", function (d,i){
+								newX = pastX <width100-25 ? pastX+10 : 0
+								pastX = newX
+								return newX
+							})
+							.attr("y", function(d,i){
+								var row = 200 //Math.round(width100/10)
+								//console.log (i % row)
+								newY = i % row == 0 ? pastY+10:pastY
+								newY = start ? 25 : newY
+								pastY = newY
+								start = false
+								//console.log(pastX, pastY)
+								return newY
+							})
 							.style("fill", "red")
-							.attr("width", 15)
-							.attr("height", 15)
-						    pastX = newX
-						    pastY = newY
-						    start = false
-						}
+							.attr("width", 5)
+							.attr("height", 5)
+						    
+						//}
 						 
 
 						f.selectAll('text')
