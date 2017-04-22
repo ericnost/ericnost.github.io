@@ -21,6 +21,13 @@
 	        color: #fff;
 	        border-radius: 2px;
 	      }
+        .rectangles{
+          stroke: yellow;
+        }
+        .title{
+          text-align: center;
+          width: 1000px;
+        }
     </style>
   </head>
  
@@ -55,7 +62,7 @@
                .classed("svg-content-responsive", true); //the map will respond and scale based on the screen size
 
             //create map projection
-            projection = d3.geo.albers()
+            projection = d3.geo.albersUsa()
             .scale(height100*2)
             .translate([(width100)/2, (height100)/2]); //put the center of the map in the middle of the page
 
@@ -73,8 +80,8 @@
                 svg.call(tooltip) //tells the tooltip to run
 
                 //color scheme
-                var range= [ "#ca0020", "#f4a582", "#92c5de", "#0571b0" ].reverse()//['#b2182b','#ef8a62','#fddbc7','#d1e5f0','#67a9cf','#2166ac'].reverse() //the colors we want to use
-                var color = d3.scale.threshold().domain([ 40, 50, 60 ]).range(range) //the scale at which we assign vote %s to color values. Think of it this way, 20% and below, you get #b2182b. 20-40 you get #ef8a62. etc.k
+                var range= [ "#ca0020", "#0571b0" ].reverse()//['#b2182b','#ef8a62','#fddbc7','#d1e5f0','#67a9cf','#2166ac'].reverse() //the colors we want to use
+                var color = d3.scale.threshold().domain([ 50 ]).range(range) //the scale at which we assign vote %s to color values. Think of it this way, 20% and below, you get #b2182b. 20-40 you get #ef8a62. etc.k
 				//[20,40,50,60,70]
                 data = topojson.feature(us, us.objects.elpo08p020).features //load our data
 
@@ -94,7 +101,7 @@
                 		}
                 		
                 	})
-               
+
                 var votes = data.map(function(d){return parseInt(d.properties.totalvotes2016)}) //get our data in a format Javascript can work with. We 'map' the total vote attribute of it into an an array thta we can do math on.
                 //console.log(votes)
                 votes = votes.filter(function(d){return d>0}) //make sure we're only looking at counties where there were more than 0 votes. There's some weird, wrong data out there that could throw us for a loop.
@@ -106,8 +113,8 @@
                 console.log(min, median, mean, max)
                 
                 var alphaScale = d3.scale.threshold() 
-				  .domain( [ 15000, 60000, 1000000 ] )
-				  .range( [ .15, .40, .80, 1 ] );
+      				  .domain( [ 60000 ] )
+      				  .range( [ .2, 1 ] );
                 //.domain([min, median, mean, max]).range([.1,.3,.5, 1]) //here we set up the scale which we will use to give an alpha value to the county, which is kind of a brightness measure. We're using it, in a way, to lessen the effect of spatially big counties that had few votes...
 
                 u.selectAll("path") //here we start drawing our map
@@ -138,11 +145,12 @@
                     })
 
 
-                  var dom = [ 40, 50, 60 ]
-                  var dom2 =[ 15000, 60000, 1000000 ]
+                  var dom = [ 50 ]
+                  var dom2 =[ 60000]
                   leg1 = svg.append("g")
                   leg1.attr("transform", "translate(0,"+(height100-200)+")")
-				  leg1.selectAll("rect")
+				  
+          leg1.selectAll("rect")
 				    .data(range)
 				    .enter()
 				    .append("rect")
@@ -157,6 +165,7 @@
 				    .attr("height", 24)
 				    .attr("y", function(d,i){return i * 24 })
 				    .attr("x", 65)
+            .attr("class", "rectangles")
 
 				  leg1.selectAll("rect2")
 				    .data(range)
@@ -174,7 +183,18 @@
 				    .attr("y", function(d,i){return i * 24 })
 				    .attr("x", 90)
 
-				  leg1.selectAll("rect3")
+          var mapTitle = svg.append("g")
+          mapTitle.attr("transform", "translate("+width100/2+","+height100/8+")")
+
+          mapTitle.selectAll("title")
+            .data(["Election Map"])
+            .enter()
+            .append("text")
+            .text(function(title){return title})
+            .style("font-color", "red")
+          //.attr("transform", "translate(0,"+(height100-200)+")")
+
+				  /*leg1.selectAll("rect3")
 				    .data(range)
 				    .enter()
 				    .append("rect")
@@ -205,7 +225,7 @@
 				    .attr("width", 24)
 				    .attr("height", 24)
 				    .attr("y", function(d,i){return i * 24 })
-				    .attr("x", 140)
+				    .attr("x", 140)*/
 				 
 
 				  leg1.selectAll("textPercent")

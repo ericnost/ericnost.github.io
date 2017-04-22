@@ -51,13 +51,28 @@ app.component('home', {
         //change all this in the data
         var bg = d.speciality.toLowerCase() == "yes" ? "#ccac00" : "#445768" 
         d.bg = bg
+        d.speciality = d.speciality.toLowerCase() == "yes" ? true : false
         if (d.veg.toLowerCase() == "yes") {d.veg = true} else if (d.veg.toLowerCase() == "no" || d.veg == "") {d.veg = false}
         if (d.vegan.toLowerCase() == "yes") {d.vegan = true} else if (d.vegan.toLowerCase() == "no"|| d.vegan == "") {d.vegan = false}
         if (d.GF.toLowerCase() == "yes") {d.GF = true} else if (d.GF.toLowerCase() == "no"|| d.GF == "") {d.GF = false}
         d.textSearch = d.text
-      if (d.text) {d.text = d.text.split(/\r\n|\r|\n/g);} else {d.text = [" ","  "]}
-     
+      if (d.text) {d.text = d.text.split(/\r\n|\r|\n/g);} else {d.text = [" ","Recipe coming soon!"]}
+      d.author = d.author.length > 0 ? d.author : "Not Available..."
+      d.title = ucFirstAllWords(d.title)
+      d.season = ucFirstAllWords(d.season)
+    
     })
+
+    function ucFirstAllWords( str )
+    {
+        var pieces = str.split(" ");
+        for ( var i = 0; i < pieces.length; i++ )
+          {
+              var j = pieces[i].charAt(0).toUpperCase();
+              pieces[i] = j + pieces[i].substr(1);
+          }
+        return pieces.join(" ");
+    }
 
     this.checkModel = {
       veg: false,
@@ -123,6 +138,8 @@ app.component('infoPanel', {
   bindings: { recipe: '<' },      
   controller: function () {
     console.log(this)
+    $(".main").hide()
+    $("nav").hide()
     //banner click to return to
   }
 })
