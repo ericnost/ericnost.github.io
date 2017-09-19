@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+	<head >
+			<!-- <link href='https://fonts.googleapis.com/css?family=Ruda:400,700|Cantarell:400,700,400italic,700italic' rel='stylesheet' type='text/css'> -->
+			<link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<title>Virginia and Eric's Wedding</title>
+
+			<!--put Bootstrap stylesheet links above style.css-->
+
+      
+			<link rel="stylesheet" href="css/bootstrap.css">
+			<link rel="stylesheet" href="css/style.css">
+      <script type="text/javascript" src="js/shared/angular.min.js"></script>
+      <script type="text/javascript" src="js/shared/angular-route.js"></script>
+      <script type="text/javascript" src="lib/ui-bootstrap.min.js"></script>
+      <script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-beta.3/angular-ui-router.js"></script>
+
+	</head>
+
+	<body ng-app="GalleryApp">
+	         <nav class="navbar navbar-default navbar-fixed-top main-navbar"> <!--creates navbar-->
+
+						<div class="navbar-header"> <!--creates the navbar header-->
+								<!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+										<span class="sr-only">Toggle navigation</span>used for screen readers for accessibility
+										<span class="glyphicon glyphicon-menu-hamburger"></span>
+										<span class="menu">Menu</span>
+								</button> hamburger button for smaller devices-->
+								<a class="navbar-brand" ui-sref="home">Virginia and Eric's Wedding</a><!--our website brand name-->
+						
+						<!-- Collect the nav links, forms, and other content for toggling -->
+						
+					    </div>
+					    
+		</nav><!--end naviga	tion bar-->
+		
+
+  <div class="container-fluid">
+  	<div class="col-md-12 main">
+  		<div class="col-md-4"><a ui-sref="directions"><h1>Directions</h1></a></div>
+  		<div class="col-md-4"><a ui-sref="hotel"><h1>Hotel</h1></a></div>
+  		<div class="col-md-4"><a ui-sref="gifts"><h1>Gifts</h1></a></div>
+
+
+    		<ui-view>
+    			    <div class=col-md-1></div>
+				    <div class="col-md-10">
+				    	<br>
+				    	<div class="backdrop">
+				    	Welcome. Come to the wedding if you're invited.
+				    	</div>
+				    </div>
+				    <div class=col-md-1></div>
+
+    		</ui-view>
+  	</div>
+  	<!--<img src="data/img/photo.jpg" width="100%" height="100%"/>
+    <div class="row" ng-repeat="recipe in $ctrl.data  | filter:{'title': searchText, 'season': searchText1, 'meal': searchText2}">  , 'veg': $ctrl.checkModel.veg,'vegan': $ctrl.checkModel.vegan, 'GF':$ctrl.checkModel.gf} 
+     <a ui-sref="main.recipe({siteID: recipe.title})">
+     
+    </a>-->
+
+  </div>  
+
+
+
+  <!-- Controllers -->
+ <script src="js/components.js"></script>
+<script src="js/filters/filters.js"></script>
+  
+
+  </body>
+
+</html>

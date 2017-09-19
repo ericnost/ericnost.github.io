@@ -118,7 +118,7 @@ app.factory('Resource', function ($http) {
       });
     },
     getAll: function() {
-      return $http.get('data/blocks.json').then(function(resp) {
+      return $http.get('blocks.json').then(function(resp) { //"data/blocks.json"
       	return $http.get('data/income/data.json').then(function(resp3) {
 	      	return $http.get('data/race/data.json').then(function(resp2) { //how to load multiple years. probably combine in json....
 	        	var years =["2000", "2010", "2014"]
@@ -407,7 +407,7 @@ app.component('home', {
         center: {
             lat: 29.977835,
             lng: -90.096786,
-            zoom: 12
+            zoom: 8
         },
         defaults: {
             scrollWheelZoom: false
