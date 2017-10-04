@@ -25,17 +25,40 @@
 			<script type="text/javascript" src="lib/topojson.v1.min.js"></script>
 			<script type="text/javascript" src="lib/tip.js"></script>
 			<script type="text/javascript" src="lib/leaflet.js"></script>
-			<script src="lib/w3HTMLinclude.js"></script>
 
 
 
 </head>
+    <nav class="navbar navbar-default navbar-fixed-top main-navbar"> <!--creates navbar-->
+            <div class="navbar-header"> <!--creates the navbar header-->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span><!--used for screen readers for accessibility-->
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                    <span class="menu">Menu</span>
+                </button> <!--hamburger button for smaller devices-->
+                <a class="navbar-brand" href="#">Programming Resilience</a><!--our website brand name-->
+            </div>
+            <h5 class="navbar-text"><font color="#cccccc">Exploring Land Loss</font></h5>
+                <div class="collapse navbar-collapse" id="nav1">
+     
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="http://geography.wisc.edu/students/profile.php?p=1025">About</a></li>
+                    
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Stories<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="index.html">Exploring Land Loss</a></li>
+                        <li><a href="texaco/index.html">Texaco Canals</a></li>
+                        <li><a href="/NewOrleans/censusViewer/index.html">New Orleans Census Viewer</a></li>
+                      </ul>
+                    </li>
 
+                  </ul>
+                </div><!-- /.navbar-collapse -->
+
+    </nav><!--end navigation bar-->
 	<body>
-	<div w3-include-html="nav.html"></div>
-	<script>
-	w3IncludeHTML();
-	</script>
+
   <div class="center">
 
   </div>
@@ -67,6 +90,7 @@
 					<div class="space">
 					</div>
 						<div class="row landLossText">
+							<h4>A coastwide problem</h4><p>At some point in the past 80 years, every region in the coast has experienced some degree of land loss, with some areas losing a much greater proportion of their land than others. As this chart shows, at various times, basins started to regain land, only to lose it again from storms or further development. One notable exception is the Atchafalaya basin, which has steadily been gaining land. <a href='http://www.nola.com/environment/index.ssf/2014/07/wax_lake_outlets_growing_wetla.html' target='_blank'>The Wax Lake Delta</a> there has proven a model for the kinds of restoration projects the state wants to invest in.
 						</div>
 					<div class="space">
 					</div>
@@ -77,12 +101,14 @@
 						<div class="space">
 						</div>
 							<div class="row canalText text-left">
+								<h4>Legal controversy</h4>Canals are at the center of what has been called <a href='http://www.nytimes.com/interactive/2014/10/02/magazine/mag-oil-lawsuit.html?_r=0' target='_blank'>'the most ambitious environmental lawsuit ever.'</a> The levee board responsible for protecting New Orleans has filed suit against over 90 oil and gas firms, claiming that they failed to meet the conditions of their environmental permits to fill-in canals after extraction operations ceased. The case of Delacroix has featured prominently in the suit. The Texaco Canals area starkly illustrates the impact of industry operations. Click <a href='../texaco/index.html'>here</a> to explore.
 							</div>
 						<div class="space">
 						</div>
 				</div> 
 				<div class="col-md-4">
 						<div class="row canalImg">
+							<img src='img/SLFPRAE larger.gif'></img>
 						</div>
 				</div>
 	</div>
@@ -97,6 +123,7 @@
 						<div class="space">
 						</div>
 							<div class="" id="text">
+								<h4>Boom and bust</h4>Over the past century, the State of Louisiana has permitted hundreds of thousands of wells for extracting oil and gas. While in boom years these wells provided jobs and incomes to many, not only do modern wells operating today <a href="http://www.npr.org/2014/04/19/304707516/telltale-rainbow-sheens-show-thousands-of-spills-across-the-gulf" target="_blank">impact a variety of ecosystems</a>, old wells <a href="http://harpers.org/archive/2013/11/dirty-south/" target="_blank">have left their own legacy</a>. Many leak, contaminating nearby property, while others have been implicated in the <a href="http://projects.propublica.org/louisiana/" target="_blank">tremendous land loss the state is experiencing</a>. This map shows how many wells were permitted in each parish (or, county) in the state in the past 100 or so years. By clicking on the icons below, you can focus in on a particular "boom."
 							</div>
 						<div class="space">
 						</div>
@@ -126,30 +153,11 @@ var fullHeight = Math.max(document.documentElement.clientHeight, window.innerHei
 var chartWidth = $(".col-md-8").width()/4, chartHeight = fullHeight/1.5;
 $("#third").height(chartHeight)
 
-//begin script when window loads 
-window.onload = initialize(); 
-
-//the first function called once the html is loaded 
-
-function initialize(){ 
-
-	d3.select(".landLossText")
-		.html("<h4>A coastwide problem</h4><p>At some point in the past 80 years, every region in the coast has experienced some degree of land loss, with some areas losing a much greater proportion of their land than others. As this chart shows, at various times, basins started to regain land, only to lose it again from storms or further development. One notable exception is the Atchafalaya basin, which has steadily been gaining land. <a href='http://www.nola.com/environment/index.ssf/2014/07/wax_lake_outlets_growing_wetla.html' target='_blank'>The Wax Lake Delta</a> there has proven a model for the kinds of restoration projects the state wants to invest in.")
-	
-	d3.select(".canalText")
-		.html("<h4>Legal controversy</h4>Canals are at the center of what has been called <a href='http://www.nytimes.com/interactive/2014/10/02/magazine/mag-oil-lawsuit.html?_r=0' target='_blank'>'the most ambitious environmental lawsuit ever.'</a> The levee board responsible for protecting New Orleans has filed suit against over 90 oil and gas firms, claiming that they failed to meet the conditions of their environmental permits to fill-in canals after extraction operations ceased. The case of Delacroix has featured prominently in the suit. The Texaco Canals area starkly illustrates the impact of industry operations. Click <a href='../texaco/index.html'>here</a> to explore.")
-	d3.select(".canalImg")
-		.html("<img src='img/SLFPRAE larger.gif'></img>")
-
-	d3.select("#text")
-		.html('<h4>Boom and bust</h4>Over the past century, the State of Louisiana has permitted hundreds of thousands of wells for extracting oil and gas. While in boom years these wells provided jobs and incomes to many, not only do modern wells operating today <a href="http://www.npr.org/2014/04/19/304707516/telltale-rainbow-sheens-show-thousands-of-spills-across-the-gulf" target="_blank">impact a variety of ecosystems</a>, old wells <a href="http://harpers.org/archive/2013/11/dirty-south/" target="_blank">have left their own legacy</a>. Many leak, contaminating nearby property, while others have been implicated in the <a href="http://projects.propublica.org/louisiana/" target="_blank">tremendous land loss the state is experiencing</a>. This map shows how many wells were permitted in each parish (or, county) in the state in the past 100 or so years. By clicking on the icons below, you can focus in on a particular "boom."')
 
 	wellsMap();
 	
 	landLossChart();
 	setMap(); 
-
-}; 
 
 
 //set choropleth map parameters 
@@ -957,6 +965,7 @@ function wellsMap(){
     }
 	}).appendTo('#links');
 };
+
 </script>
 </body>
 </html>
