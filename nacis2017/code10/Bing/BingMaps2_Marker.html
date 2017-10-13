@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script type='text/javascript' 
+            src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap' 
+            async defer></script>
+    <script type='text/javascript'>
+    function GetMap() {
+        var map = new Microsoft.Maps.Map('#myMap', {
+//The key in the following line has been issued by Microsoft. It is no longer specific to an individual server.
+            credentials: 'AmnzJW8uTvn19E0NiZ7Gx5qxrnm_oQB9zKZw2mIJ0kw6D9dPqwivr4_7WGHCZZgh',
+            center: new Microsoft.Maps.Location(41.258531,-96.012599)
+        });
+
+        var center = map.getCenter();
+
+        //Create custom Pushpin
+        var pin = new Microsoft.Maps.Pushpin(center, {
+            title: 'University of Nebraska at Omaha',
+            subTitle: 'Department of Geography/Geology',
+            text: 'G'
+        });
+
+        //Add the pushpin to the map
+        map.entities.push(pin);
+    }
+    </script>
+</head>
+<body>
+I changed the center of the map, and the map size and the marker info.
+    <div id="myMap" style="position:relative;width:800px;height:300px;"></div>
+</body>
+</html>

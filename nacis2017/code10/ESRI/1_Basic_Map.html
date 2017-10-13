@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Get started with MapView - Create a 2D map - 4.1</title>
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 300px;
+      width: 700px;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.1/esri/css/main.css">
+  <script src="https://js.arcgis.com/4.1/"></script>
+
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "dojo/domReady!"
+    ], function(Map, MapView) {
+
+// BASEMAP TYPES:
+// streets	
+// satellite
+// hybrid
+// topo
+// gray
+// dark-gray
+// oceans
+// national-geographic
+// terrain	
+// osm
+// dark-gray-vector
+// gray-vector
+// streets-vector
+// topo-vector
+// streets-night-vector
+// streets-relief-vector
+// streets-navigation-vector
+
+      var map = new Map({
+        basemap: "streets-vector" //here is where you can change the basemap type
+      });
+
+      var view = new MapView({
+        container: "viewDiv",
+        map: map,
+        zoom: 8, //here is where you can change the zoom level
+        center: [-96, 41.35] //here is where you change the center (location) of the map
+      });
+
+    });
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+</body>
+</html>

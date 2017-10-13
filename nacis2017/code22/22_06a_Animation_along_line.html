@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Animating Symbols</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script>
+
+var line;
+
+function initialize() {
+  var mapOptions = {
+    center: new google.maps.LatLng(38, -96),
+    zoom: 4,
+    mapTypeId: google.maps.MapTypeId.TERRAIN
+  };
+
+  var map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+
+  var lineCoordinates = [
+    new google.maps.LatLng(33.930106, -118.404437),
+    new google.maps.LatLng(40.754182, -74.019068)
+  ];
+
+  // Define the symbol, using one of the predefined paths ('CIRCLE')
+  // supplied by the Google Maps JavaScript API.
+  var lineSymbol = {
+    path: google.maps.SymbolPath.CIRCLE,
+    scale: 8,
+    strokeColor: '#394'
+  };
+
+  // Create the polyline and add the symbol to it via the 'icons' property.
+  line = new google.maps.Polyline({
+    path: lineCoordinates,
+	geodesic: true,
+    icons: [{
+      icon: lineSymbol,
+      offset: '100%'
+    }],
+    map: map
+  });
+
+  animateCircle();
+}
+
+// Use the DOM setInterval() function to change the offset of the symbol
+// at fixed intervals.
+function animateCircle() {
+    var count = 0;
+    window.setInterval(function() {
+      count = (count + 1) % 200;
+
+      var icons = line.get('icons');
+      icons[0].offset = (count / 2) + '%';
+      line.set('icons', icons);
+// Changing the number in the following line changes the speed of the symbol 
+// The larger the number, the slower the speed.
+  }, 25);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+  <ol>
+<li> Change the endpoints of the line
+<li> Change the size and center of the map.
+<li> Change the color of the circle.
+<li> Change the speed of the animation.
+</ol>
+      <div id="map-canvas" style="width:700px; height:300px"></div> 
+  </body>
+</html>
+

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script type='text/javascript' 
+            src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap' 
+            async defer></script>
+    <script type='text/javascript'>
+    function GetMap() {
+        var map = new Microsoft.Maps.Map('#myMap', {
+            credentials: 'AmnzJW8uTvn19E0NiZ7Gx5qxrnm_oQB9zKZw2mIJ0kw6D9dPqwivr4_7WGHCZZgh',
+            center: new Microsoft.Maps.Location(41.258531,-96.012599)
+        });
+
+        var center = map.getCenter();
+
+        //Create array of locations to form a ring.
+		//Notice how the resultant triangle is not isosceles but should be based on the lat/long values
+        var exteriorRing = [
+			new Microsoft.Maps.Location(center.latitude + 0.05, center.longitude),
+            new Microsoft.Maps.Location(center.latitude - 0.05, center.longitude - 0.05),
+            new Microsoft.Maps.Location(center.latitude - 0.05, center.longitude + 0.05),
+			new Microsoft.Maps.Location(center.latitude + 0.05, center.longitude)
+        ];
+
+        //Create a polygon
+        var polygon = new Microsoft.Maps.Polygon(exteriorRing, {
+		// The colors are defined in RGB, 0-255.  The last value is the opacity, 0-1.
+            fillColor: 'rgba(0, 255, 0, 0.5)',
+            strokeColor: 'red',
+            strokeThickness: 3
+        });
+
+        //Add the polygon to map
+        map.entities.push(polygon);
+    }
+    </script>
+</head>
+<body>
+I changed the size of the map, the style of the triangle and the location of the map.
+    <div id="myMap" style="position:relative;width:800px;height:300px;"></div>
+</body>
+</html>

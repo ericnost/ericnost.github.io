@@ -1,0 +1,25 @@
+<html>
+<head>
+   	<title>Basic Mapstraction Map</title>
+    
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+   	<script src="https://raw.github.com/mapstraction/mxn/master/source/mxn.js?(googlev3)" type="text/javascript">
+      </script>
+	<style type="text/css">
+	#map {
+		width: 700; height: 300px;
+	}
+	</style>
+</head>
+<body>
+I changed the center of the map and map size. I changed the map from Google Maps to OpenLayers.
+	<div id="map"></div>
+	<script type="text/javascript">
+		var map = new mxn.Mapstraction('map', 'googlev3'); 
+		var latlon = new mxn.LatLonPoint(41.258531,-96.012599);
+
+		map.setCenterAndZoom(latlon, 15);
+	</script>
+</body>
+</html>

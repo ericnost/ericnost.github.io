@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<title>Google Maps JavaScript API v3 Example: Marker Animations</title>
+<link href="http://code.google.com/apis/maps/documentation/javascript/examples/standard.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+  var marker;
+
+  function initialize() {
+    var markers = [];
+
+    var center = new google.maps.LatLng(44.979971, -93.276988);
+    var mapOptions = {
+      zoom: 10,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      center: center
+    };
+
+    var map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+
+// Function to drop the markers
+    function drop10() {
+      var sw = map.getBounds().getSouthWest();
+      var ne = map.getBounds().getNorthEast();
+	  
+// The following loop controls how many markers are dropped
+      for (var i = 0; i < 10; i++) {
+        setTimeout(function() {
+          var lat = Math.random() * (ne.lat() - sw.lat()) + sw.lat();
+          var lng = Math.random() * (ne.lng() - sw.lng()) + sw.lng();
+          markers.push(new google.maps.Marker({
+            position: new google.maps.LatLng(lat, lng),
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.DROP
+          }));
+        }, i * 200);
+      }
+    }
+    document.getElementById("drop10").onclick = drop10;
+
+// This code is executed when the "Make 'em bounce" button is pressed
+    document.getElementById("bounce").onclick = function() {
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setAnimation(google.maps.Animation.BOUNCE);
+      }
+    };
+
+// This code is executed when the Stop! button is pressed
+    document.getElementById("stop").onclick = function() {
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setAnimation(null);
+      }
+    };
+
+    google.maps.event.addListenerOnce(map, 'tilesloaded', drop10);
+  }
+</script>
+</head>
+<body onload="initialize()" style="font-family: sans-serif; font-size: 14px;">
+  <ol>
+<li> Change the center and size of the map
+<li> Change the number of markers that are dropped.
+</ol>
+<div id="map_canvas" style="border: 1px solid black; width: 700px; height: 300px">map div</div>
+<p style="margin-top: 5px">
+  <button id="drop10">Drop 10!</button>
+  <button id="bounce">Make 'em bounce!</button>
+  <button id="stop">Stop!</button>
+  ...and try dragging one!
+</p>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script type='text/javascript' 
+            src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap' 
+            async defer></script>
+    <script type='text/javascript'>
+    var map;
+
+    function GetMap() {
+        map = new Microsoft.Maps.Map('#myMap', {
+            credentials: 'AmnzJW8uTvn19E0NiZ7Gx5qxrnm_oQB9zKZw2mIJ0kw6D9dPqwivr4_7WGHCZZgh',
+            center: new Microsoft.Maps.Location(41.258531,-96.012599)
+        }); 
+        var center = map.getCenter();
+
+        //Create an infobox that will render in the center of the map.
+        var infobox = new Microsoft.Maps.Infobox(center, {
+            title: 'Department of Geography/Geology',
+            description: 'Cartography & GIS Lab'
+        });
+
+        //Assign the infobox to a map instance.
+        infobox.setMap(map);
+    }
+    </script>
+</head>
+<body>
+I changed the center of the map, and the map size and the infobox info. 
+    <div id="myMap" style="position:relative;width:800px;height:300px;"></div>
+</body>
+</html> 

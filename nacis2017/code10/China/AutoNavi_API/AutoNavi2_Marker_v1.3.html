@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+            <title>Add Marker</title>
+            <!--<style>
+             body{ margin:0; padding:0;font:12px/16px Verdana, Helvetica, Arial, sans-serif;}
+             </style>-->
+            <link rel="stylesheet" href="/Public/Css/demo.Default.css" type="text/css" />
+            <script language="javascript" src="http://webapi.amap.com/maps?v=1.3&key=eac2bfeea107a0189110a195d552a807&&plugin=AMap.Scale,AMap.OverView,AMap.ToolBar"></script>
+            <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+            <script language="javascript">
+                var mapObj, scale, toolBar, overView; 
+                function mapInit(){
+                    scale = new AMap.Scale({visible: true}),
+    				toolBar = new AMap.ToolBar({visible: true}),
+    				overView = new AMap.OverView({visible: true});
+					mapObj = new AMap.Map("map",{
+                                          center:new AMap.LngLat(116.392936,39.919479),
+										  zoom:12,
+										  lang:'en'
+                                          });
+                    //add map controls
+					mapObj.addControl(scale);
+    				mapObj.addControl(toolBar);
+    				mapObj.addControl(overView);
+                    //Create a marker 构建点对象
+                    var marker = new AMap.Marker({
+                                                 map:mapObj,
+                                                 position:new AMap.LngLat(116.373881,39.907409), //position 基点位置
+                                                 icon:"http://webapi.amap.com/images/marker_sprite.png", //Icon of the marker图标，直接传递地址url
+                                                 offset:{x:-8,y:-34} //offset 相对于基点的位置
+                                                 });
+                    
+                    //information window: to show the address of AutoNavi
+                    var info = [];
+                    info.push("<b>&nbsp;&nbsp;AutoNavi</b>");
+                    info.push("&nbsp;&nbsp;TEL: 010-84107000   Zip Code: 100102");
+                    info.push("&nbsp;&nbsp;Address: 北京市望京阜通东大街方恒国际中心A座16层");
+                    
+                    var inforWindow = new AMap.InfoWindow({
+                                                          offset:new AMap.Pixel(0,-30),
+                                                          content:info.join("<br />")
+                                                          });
+                    
+                    //Add a listener
+                    AMap.event.addListener(marker,'click',function(e){
+                                           inforWindow.open(mapObj,marker.getPosition());
+                                           })
+                    
+                    //set the marker to the center
+                    mapObj.setCenter(marker.getPosition());
+                }
+                </script>
+    </head>
+    <body onLoad="mapInit()">
+        I changed the center of the map and map size. The center must be within China.
+        <div id="map" style="width:700px;height:300px;border:#F6F6F6 solid 1px;"></div>
+    </body>
+</html>

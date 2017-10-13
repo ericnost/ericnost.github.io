@@ -1,0 +1,11 @@
+<markers>
+ <marker lat="41.259258" lng="-96.033462" html="Closest McDonalds to the university at 2.0 miles " label="Closest"/>
+ <marker lat="41.281065" lng="-96.024335" html="Second closest at 2.1 miles" label="2nd"/>
+ <marker lat="41.258767" lng="-95.973617" html="Third closest at 2.2 miles" label="3rd"/>
+ <marker lat="41.301248" lng="-96.023208" html="Fourth closest at 3.3 miles" label="4th"/>
+ <marker lat="41.225928" lng="-96.043763" html="Fifth closest at 3.9 miles" label="5th"/>
+ <marker lat="41.225928" lng="-96.043763" html="Sixth clostest at 4.0 miles" label="6th"/>
+ <marker lat="41.263728" lng="-96.090036" html="Seventh closest at 4.1 miles" label="7th"/>
+ <marker lat="41.221389" lng="-95.975342" html="Eighth closest at 4.7 miles" label="8th"/>
+ <marker lat="41.290091" lng="-96.082041" html="Ninth clostest at 5.3 miles" label="9th"/>
+</markers>

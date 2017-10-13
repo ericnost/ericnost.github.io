@@ -1,0 +1,41 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+
+<link rel="stylesheet" type="text/css" href="code10anc.css">
+
+<script type="text/javascript" 
+    src="http://maps.google.com/maps/api/js?sensor=false"> 
+</script> 
+
+<script type="text/javascript"> 
+  function initialize() { 
+    var latlng = new google.maps.LatLng(41.258679, -96.013507); 
+    var myOptions = { 
+      zoom: 15, 
+      center: latlng, 
+      mapTypeId: google.maps.MapTypeId.HYBRID,
+      disableDefaultUI: true,
+      zoomControl: true,
+      zoomControlOptions: {
+// Change BOTTOM_CENTER (OPTIONS: TOP, BOTTOM _ RIGHT, CENTER, LEFT)
+             position: google.maps.ControlPosition.TOP_CENTER,
+// Change SMALL (OPTIONS: SMALL, LARGE)
+             style: google.maps.ZoomControlStyle.SMALL
+      },
+      overviewMapControl: true
+    }; 
+    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
+  } 
+ 
+</script> 
+</head> 
+
+<body onLoad="initialize()">
+Zoom control Position changed to ... 
+
+<div id="map_canvas" style="width:700px; height:300px">
+</div>
+
+</body> 
+</html>

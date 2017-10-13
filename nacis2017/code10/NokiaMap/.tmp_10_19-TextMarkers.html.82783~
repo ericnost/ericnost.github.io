@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- 
+	Example from Nokia Maps API Playground, for more information visit http://api.maps.nokia.com
+ -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Nokia Maps API Example: Marker</title>
+		<meta name="description" content="Panning the map up, down, left, right and setting it to a particular location"/>
+		<meta name="keywords" content="moving, map essentials, pan, drag"/>
+		<!-- For scaling content for mobile devices, setting the viewport to the width of the device-->
+		<meta name=viewport content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+		<script type="text/javascript" charset="UTF-8" src="http://api.maps.nokia.com/2.2.3/jsl.js?with=all"></script>
+		<!-- JavaScript for example container (NoteContainer & Logger)  -->
+
+		<style type="text/css">
+			html {
+				overflow:hidden;
+			}
+			
+			body {
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				width: 100%;
+				height: 100%;
+				position: absolute;
+			}
+			
+			#mapContainer {
+				width: 100%;
+				height: 100%;
+				left: 0;
+				top: 0;
+				position: absolute;
+			}
+		</style>
+	</head>
+    
+	<body>
+		<div id="mapContainer" style="width: 700px; height: 300px"></div>
+		<script type="text/javascript" id="exampleJsSource">
+/*	Set authentication token and appid 
+*	WARNING: this is a demo-only key
+*	please register on http://api.developer.nokia.com/ 
+*	and obtain your own developer's API key 
+*/
+nokia.Settings.set("appId", "_peU-uCkp-j8ovkzFGNU"); 
+nokia.Settings.set("authenticationToken", "gBoUkAMoxoqIWfxWA5DuMQ");
+
+// We create a new instance of InfoBubbles bound to a variable so we can call it later on
+var infoBubbles = new nokia.maps.map.component.InfoBubbles(),
+	// We create an instance of Container to store markers
+	markersContainer = new nokia.maps.map.Container();
+
+// Get the DOM node to which we will append the map
+var mapContainer = document.getElementById("mapContainer");
+
+// Create a map inside the map container DOM node
+var map = new nokia.maps.map.Display(mapContainer, {
+	// Initial center and zoom level of the map
+	center: [52.51, 13.4],
+	zoomLevel: 13,
+	components: [
+		// We add the behavior component to allow panning / zooming of the map
+		new nokia.maps.map.component.Behavior()
+	]
+});
+
+// Switch map to satellite mode
+map.set("baseMapType", map.SATELLITE);
+
+/* We add the container to the map's object collection so that
+ * when we add markers to them they will be rendered onto the map
+ */
+map.objects.add(markersContainer);
+
+/* We would like to add event listener on mouse click or finger tap so we check
+ * nokia.maps.dom.Page.browser.touch which indicates whether the used browser has a touch interface.
+ */
+var TOUCH = nokia.maps.dom.Page.browser.touch,
+	CLICK = TOUCH ? "tap" : "click";
+
+// Javascript inheritance helper function
+function extend(B, A) {
+	function I() {}
+	I.prototype = A.prototype;
+	B.prototype = new I();
+	B.prototype.constructor = B;
+}
+
+/* TextMarker takes five arguments
+ * 		- coordinate: An object containing the geographic coordinates 
+ * 			of the location, where the bubble's anchor is to be placed
+ * 		- text: Content for the infoBubble
+ * 		- width: Width of the marker
+ * 		- height:  Height of the marker
+ * 		- [props]:
+ * 				Object with StandardMarker properties:
+ * 				- brush: The color used for the interior of the marker
+ * 				- text:  The text displayed in the middle of the marker.
+ * 				- pen: The color which is used to draw the outline of the marker.
+ * 				- textPen: The color which is used to draw the label text of the marker
+ */
+var TextMarker = function (coord, text, width, height, props) {
+	var container;
+	
+	if (!(coord instanceof nokia.maps.geo.Coordinate && text &&
+		width && height)) {
+		throw "Invalid arguments given to TextMarker constructor";
+	}
+	
+	// Call the "super" constructor to initialize properties inherited from Marker
+	nokia.maps.map.Marker.call(this, coord, props);
+	
+	this.init(text, width, height, props);
+};
+
+extend(TextMarker, nokia.maps.map.Marker);
+
+// TextMarker constructor function 
+TextMarker.prototype.init = function (text, width, height, props) {
+	var that = this,
+		// Helper function that allows us to easily set the text and color of our SVG marker.
+		createIcon = function (props) {
+			var iconSVG = '<svg width="__WIDTH__" height="__HEIGHT__" xmlns="http://www.w3.org/2000/svg">' +
+				'<rect x="__X__" y="__Y__" rx="5" ry="5" width="__RECT_WIDTH__" height="__RECT_HEIGHT__" ' +
+				'style="fill:__BRUSH__;stroke:__STROKE__;stroke-width:__STROKEWIDTH__;"/>' +
+				'<text x="__OFFSETX__" y="__OFFSETY__" fill="__TEXT_PEN__" style="font-weight:normal; ' +
+				'font-family:__FONTFAMILY__; font-size:__FONTSIZE__;" textContent="__TEXT__">__TEXT__</text>' +
+				'</svg>',
+				brush,
+				pen,
+				textPen;
+			
+			if (!props)
+				props = {};
+			
+			// Setting properties if given else use defaults
+			brush = props.brush ? props.brush : {};
+			brush.color = props.brush.color || "#000";
+			pen = props.pen || {};
+			pen.strokeColor = props.pen.strokeColor || brush.color;
+			pen.strokeWidth = props.pen.strokeWidth || 1;
+			textPen = props.textPen ? props.textPen : {};
+			textPen.strokeColor = props.textPen.strokeColor || "#FFF";
+			textPen.fontSize = props.textPen.fontSize || 12;
+			textPen.fontFamily = props.textPen.fontFamily || "arial";
+			textPen.offsetX = props.textPen.offsetX || 0;
+			textPen.offsetY = props.textPen.offsetY || 0;
+	
+			iconSVG = iconSVG.replace(/__TEXT__/g, text)
+					.replace(/__FONTSIZE__/g, textPen.fontSize)
+					.replace(/__FONTFAMILY__/g, textPen.fontFamily)
+					.replace(/__BRUSH__/g, brush.color)
+					.replace(/__STROKE__/g, pen.strokeColor)
+					.replace(/__STROKEWIDTH__/g, pen.strokeWidth)
+					.replace(/__TEXT_PEN__/g, textPen.strokeColor)
+					.replace(/__WIDTH__/g, width + pen.strokeWidth)
+					.replace(/__HEIGHT__/g, height + pen.strokeWidth)
+					.replace(/__RECT_WIDTH__/g, width)
+					.replace(/__RECT_HEIGHT__/g, height)
+					.replace(/__OFFSETX__/g, textPen.offsetX)
+					.replace(/__OFFSETY__/g, textPen.offsetY)
+					.replace(/__OPACITY__/g, brush.opacity)
+					.replace(/__X__/g, pen.strokeWidth / 2)
+					.replace(/__Y__/g, pen.strokeWidth / 2);
+	
+			return new nokia.maps.gfx.GraphicsImage(that.svgParser.parseSvg(iconSVG));
+		},
+		icon = createIcon(props);
+		
+	this.set("icon", icon);
+	
+	/* For every created Marker we need to set the anchor property which 
+	 * is the point in the image that should overlap with the Marker's geo coordinate. 
+	 */
+	this.set("anchor", new nokia.maps.util.Point(icon.width / 2, icon.height / 2));
+};
+
+// Helper property to identify instances of TextMarker
+TextMarker.prototype._type = "textMarker";
+
+TextMarker.prototype.svgParser =  new nokia.maps.gfx.SvgParser();
+
+// To change text of the marker
+TextMarker.prototype.setText = function (text) {
+	this.text = text;
+};
+
+var brandenbugerTorTextMarker = new TextMarker(
+	new nokia.maps.geo.Coordinate(52.516237, 13.377686),
+	"Brandenburger Tor",
+	148,
+	24,
+	{ 
+		brush: { color: "#00000088" }, // Transparent black background
+		pen: { 
+			strokeColor: "#FFF", // White border outline
+			strokeWidth: 1
+		},
+		textPen: { 
+			strokeColor: "#FFF",
+			fontSize: 16,
+			fontFamily: "sans-serif",
+			offsetX: 8,
+			offsetY: 17
+		}
+	}
+);
+
+var fernsehturmTextMarker = new TextMarker(
+	new nokia.maps.geo.Coordinate(52.520816, 13.409417),
+	"Fernsehturm",
+	106,
+	24,
+	{ 
+		brush: { color: "#00000088" }, 
+		pen: { 
+			strokeColor: "#FFF", 
+			strokeWidth: 1
+		},
+		textPen: { 
+			strokeColor: "#FFF",
+			fontSize: 16,
+			fontFamily: "sans-serif",
+			offsetX: 8,
+			offsetY: 17
+		}
+	}
+);
+
+// Add textMarker to the markers container so it will be rendered onto the map
+markersContainer.objects.addAll([brandenbugerTorTextMarker, fernsehturmTextMarker]);
+
+		</script>
+	</body>
+</html>

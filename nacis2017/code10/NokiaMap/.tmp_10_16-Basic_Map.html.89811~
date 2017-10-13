@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- 
+	Example from Nokia Maps API Playground, for more information visit http://api.maps.nokia.com
+ -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Nokia Maps API Example: Panning the map</title>
+		<meta name="description" content="Panning the map up, down, left, right and setting it to a particular location"/>
+		<meta name="keywords" content="moving, map essentials, pan, drag"/>
+		<!-- For scaling content for mobile devices, setting the viewport to the width of the device-->
+		<meta name=viewport content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+		<script type="text/javascript" charset="UTF-8" src="http://api.maps.nokia.com/2.2.3/jsl.js?with=all"></script>
+		<!-- JavaScript for example container (NoteContainer & Logger)  -->
+
+		<style type="text/css">
+			html {
+				overflow:hidden;
+			}
+			
+			body {
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				width: 100%;
+				height: 100%;
+				position: absolute;
+			}
+			
+			#mapContainer {
+				width: 100%;
+				height: 100%;
+				left: 0;
+				top: 0;
+				position: absolute;
+			}
+		</style>
+	</head>
+    
+	<body>
+		<div id="mapContainer" style="width: 700px; height: 300px"></div>
+		<script type="text/javascript" id="exampleJsSource">
+/*	Set authentication token and appid 
+*	WARNING: this is a demo-only key
+*	please register on http://api.developer.nokia.com/ 
+*	and obtain your own developer's API key 
+*/
+nokia.Settings.set("appId", "_peU-uCkp-j8ovkzFGNU"); 
+nokia.Settings.set("authenticationToken", "gBoUkAMoxoqIWfxWA5DuMQ");
+
+// Get the DOM node to which we will append the map
+var mapContainer = document.getElementById("mapContainer");
+
+// Create a map inside the map container DOM node
+var map = new nokia.maps.map.Display(mapContainer, {
+	// Initial center and zoom level of the map
+	center: [52.51, 13.4],
+	zoomLevel: 10,
+	components: [
+		// We add the behavior component to allow panning / zooming of the map
+		new nokia.maps.map.component.Behavior()
+	]
+});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Google Maps JavaScript API Example: Street View Controls</title>
+<script src="http://maps.google.com/maps/api/js?sensor=false"
+        type="text/javascript"></script>
+<script type="text/javascript">
+function initialize() {
+  var colorado = new google.maps.LatLng(39.645412,-107.077721);
+
+  // Note: constructed panorama objects have visible: true
+  // set by default.
+  var panoOptions = {
+    position: colorado,
+    addressControlOptions: {
+      position: google.maps.ControlPosition.BOTTOM
+    },
+    linksControl: true,
+    panControl: false,
+    zoomControlOptions: {
+      style: google.maps.ZoomControlStyle.LARGE
+    },
+    enableCloseButton: false
+  };
+
+  var panorama = new google.maps.StreetViewPanorama(
+      document.getElementById("pano"), panoOptions);
+}
+</script>
+</head>
+<body onLoad="initialize()">
+Change the location of the Street View. <p>
+  <div id="pano" style="width: 1400px; height: 600px"></div>
+</body>
+</html>

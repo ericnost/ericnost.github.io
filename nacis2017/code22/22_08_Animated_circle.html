@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<style type="text/css">
+    html { height: 100% }
+    body { height: 100%; margin: 0; padding: 0 }
+    #map { height: 90%; width: 90% }
+</style>
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+
+<script type="text/javascript">
+
+    function initialize() {
+        var center = new google.maps.LatLng(51.5120, -0.12);
+        var mapOptions = {
+            center: center,
+            zoom: 14,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        var map = new google.maps.Map(document.getElementById("map"),
+                        mapOptions);
+
+//change the size, opacity, weight, stroke color and fill color.
+        var circle = new google.maps.Circle({
+            center: center,
+            radius: 300,
+            strokeColor: "#E16D65",
+            strokeOpacity: 1,
+            strokeWeight: 3,
+            fillColor: "#E16D65",
+            fillOpacity: 0
+        });
+
+        circle.setMap(map);
+
+        var direction = 1;
+		
+// This controls the change in circle size.
+        var rMin = 60, rMax = 300;
+        setInterval(function() {
+            var radius = circle.getRadius();
+            if ((radius > rMax) || (radius < rMin)) {
+                direction *= -1;
+            }
+            circle.setRadius(radius + direction * 10);
+			
+//setInterval is a timing function that is slowing things down here.  Larger number is slower.
+        }, 50);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+
+</head>
+
+<body onload="initialize()" style="font-family: sans-serif; font-size: 14px;">
+  <ol>
+<li> Change the center and size of the map
+<li> Change the speed of animation using setInterval.  Change the color and/or thickness of the circle.
+</ol>
+
+    <div id='map'></div>
+
+</body>
+
+</html>

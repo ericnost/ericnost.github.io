@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+<link rel="stylesheet" type="text/css" href="https://js.cit.api.here.com/v3/3.0/mapsjs-ui.css" />
+<script type="text/javascript" src="https://js.cit.api.here.com/v3/3.0/mapsjs-core.js"></script>
+<script type="text/javascript" src="https://js.cit.api.here.com/v3/3.0/mapsjs-service.js"></script>
+<script type="text/javascript" src="https://js.cit.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+<script type="text/javascript" src="https://js.cit.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+
+</head>
+<body>
+I changed the size and location of the map, and the position of the two markers.
+  <div id="map" style="width: 100%; height: 300px; background: grey" />
+  <script  type="text/javascript" charset="UTF-8" >
+    
+
+/**
+ * Adds markers to the map 
+ * @param  {H.Map} map      A HERE Map instance within the application
+ */
+function addMarkersToMap(map) {
+  var Marker1 = new H.map.Marker({lat:41.258531, lng:-96.012599});
+  map.addObject(Marker1);
+
+  var Marker2 = new H.map.Marker({lat:41.255443, lng: -95.993000});
+  map.addObject(Marker2);
+}
+
+/**
+ * Boilerplate map initialization code starts below:
+ */
+
+//Step 1: initialize communication with the platform
+/*	Set authentication token and appid 
+*	WARNING: this is a demo-only key
+*	register on http://api.developer.nokia.com/ 
+*	and obtain your own developer's API key 
+*/
+var platform = new H.service.Platform({
+  app_id: 'DemoAppId01082013GAL',
+  app_code: 'AJKnXv84fjrb0KIHawS0Tg',
+  useCIT: true,
+  useHTTPS: true
+});
+var defaultLayers = platform.createDefaultLayers();
+
+//Step 2: initialize a map - this map is centered over Europe
+var map = new H.Map(document.getElementById('map'),
+  defaultLayers.normal.map,{
+  center: {lat:41.258531, lng:-96.012599},
+  zoom: 13
+});
+
+//Step 3: make the map interactive
+// MapEvents enables the event system
+// Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+// Create the default UI components
+var ui = H.ui.UI.createDefault(map, defaultLayers);
+
+// Now use the map as required...
+addMarkersToMap(map);
+  </script>
+</body>
+</html>

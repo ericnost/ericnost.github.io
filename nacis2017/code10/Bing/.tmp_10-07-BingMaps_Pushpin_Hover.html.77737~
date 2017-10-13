@@ -1,0 +1,120 @@
+<html>
+<head>
+     <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+     <script type="text/javascript">
+         var map = null;
+         var pinInfobox = null;
+         var MM = Microsoft.Maps;
+
+
+         function NewMap() {
+             var mapSettings = {
+                 credentials: "AunibQgMuoLjm1DqyKo7PBTmOkqC9_5TjEMpb2UMoXF9Vu_d3pYXdiHW4l4SgJXO",
+                 center: new MM.Location(41.258531,-96.012599),
+				mapTypeId: MM.MapTypeId.aerial,
+                 zoom: 18,
+                 showScalebar: true
+             };
+             map = new MM.Map(document.getElementById("tuwien"), mapSettings);
+             MM.Events.addHandler(map, 'viewchange', mapViewChange);
+
+             var pin = new MM.Pushpin(new MM.Location(41.258531,-96.012599));
+             //MM.Events.addHandler(pin, 'click', displayInfobox);
+             MM.Events.addHandler(pin, 'mouseover', pinMouseOver);
+             MM.Events.addHandler(pin, 'mouseout', pinMouseOut);
+             map.entities.push(pin);
+
+         }
+
+         function displayInfobox(e) {
+             stopInfoboxTimer(e);
+
+             var pin = e.target;
+             if (pin != null) {
+
+                 var location = pin.getLocation();
+                 var options = {
+                     id: 'infoBox1',
+                     title: 'Cartography & GIS Laboratory',
+                     description: 'University of Nebraska at Omaha',
+                     height: 90,
+                     width: 240,
+                     visible: true,
+                     showPointer: true,
+                     showCloseButton: true,
+                     offset: new MM.Point(0, pin.getHeight()),  
+                     zIndex: 999
+                 };
+                
+                 if (pinInfobox != null) {
+                     map.entities.remove(pinInfobox);
+                     if (MM.Events.hasHandler(pinInfobox, 'mouseleave'))
+                         MM.Events.removeHandler(pinInfobox.mouseLeaveHandler);
+                     if (MM.Events.hasHandler(pinInfobox, 'mouseenter'))
+                         MM.Events.removeHandler(pinInfobox.mouseEnterHandler);
+                     pinInfobox = null;
+                 }
+                
+                 pinInfobox = new MM.Infobox(location, options);
+                
+                 pinInfobox.mouseLeaveHandler 
+                     = MM.Events.addHandler(pinInfobox, 'mouseleave', pinInfoboxMouseLeave);
+              
+                 pinInfobox.mouseEnterHandler 
+                     = MM.Events.addHandler(pinInfobox, 'mouseenter', pinInfoboxMouseEnter);
+                
+                 map.entities.push(pinInfobox);
+             }
+         }
+
+         function hideInfobox(e) {
+             if (pinInfobox != null)
+                 pinInfobox.setOptions({ visible: false });
+         }
+
+        
+         function startInfoboxTimer(e) {
+            
+             if (pinInfobox.pinTimer != null) {
+                 clearTimeout(pinInfobox.pinTimer);
+             }
+            
+             pinInfobox.pinTimer = setTimeout(timerTriggered, 300);
+         }
+
+        
+         function stopInfoboxTimer(e) {
+             if (pinInfobox != null && pinInfobox.pinTimer != null) {
+                 clearTimeout(pinInfobox.pinTimer);
+             }
+         }
+
+         function mapViewChange(e) {
+             stopInfoboxTimer(e);
+             hideInfobox(e);
+         }
+         function pinMouseOver(e) {
+             displayInfobox(e);
+         }
+         function pinMouseOut(e) {
+            
+             startInfoboxTimer(e);
+         }
+         function pinInfoboxMouseLeave(e) {
+             hideInfobox(e);
+         }
+         function pinInfoboxMouseEnter(e) {
+             
+             stopInfoboxTimer(e);
+         }
+         function timerTriggered(e) {
+             hideInfobox(e);
+         }
+     </script>
+</head>
+<body onLoad="NewMap();">
+     <div id='tuwien' style="position: absolute; width: 700px; height: 400px;">
+     </div>
+</body>
+</html>
+

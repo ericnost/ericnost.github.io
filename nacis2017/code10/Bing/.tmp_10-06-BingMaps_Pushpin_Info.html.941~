@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+   <head>
+      <title></title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+      <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+
+
+      <script type="text/javascript">
+
+         var map = null; 
+         var pinInfobox = null;        
+
+         function GetMap()
+         {
+            // Initialize the map
+            map = new Microsoft.Maps.Map(document.getElementById("myMap"), {credentials:"AjPEInnalw4KLza4VYB3gO6IbyZJ0r-J6P9W1qRjDShZYeMdPuSYEblFfr1ellgF"}); 
+
+            // Define the pushpin location
+            var loc = new Microsoft.Maps.Location(48.501924,14.078808);
+            
+            // Center the map on the location
+            map.setView({center: loc, zoom: 15});
+            
+            // Add a pin to the center of the map
+            var pin = new Microsoft.Maps.Pushpin(loc, {text: '☼'}); 
+
+            // Create the infobox for the pushpin
+            pinInfobox = new Microsoft.Maps.Infobox(pin.getLocation(), 
+                {title: 'St. Peter am Wimberg', 
+                 description: 'In the middle of nowhere', 
+                 visible: false, 
+                 offset: new Microsoft.Maps.Point(0,15)});
+
+            // Add handler for the pushpin click event.
+            Microsoft.Maps.Events.addHandler(pin, 'click', displayInfobox);
+
+            // Hide the infobox when the map is moved.
+            Microsoft.Maps.Events.addHandler(map, 'viewchange', hideInfobox);
+
+
+            // Add the pushpin and infobox to the map
+            map.entities.push(pin);
+            map.entities.push(pinInfobox);
+
+         }
+
+         function displayInfobox(e)
+         {
+            pinInfobox.setOptions({ visible:true });
+         }                    
+
+         function hideInfobox(e)
+         {
+            pinInfobox.setOptions({ visible: false });
+         }
+      </script>
+
+   </head>
+   <body onload="GetMap();">
+      <div id='myMap' style="position:relative; width:700px; height:300px;"></div>       
+</html>

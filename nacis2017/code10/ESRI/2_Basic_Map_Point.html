@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Get started with graphics - 4.1</title>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.1/esri/css/main.css">
+  <script src="https://js.arcgis.com/4.1/"></script>
+
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 300px;
+      width: 700px;
+    }
+  </style>
+
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/Graphic",
+      "esri/geometry/Point",
+      "esri/symbols/SimpleMarkerSymbol",
+      "dojo/domReady!"
+    ], function(
+      Map, MapView,
+      Graphic, Point,
+      SimpleMarkerSymbol
+    ) {
+
+// BASEMAP TYPES:
+// streets	
+// satellite
+// hybrid
+// topo
+// gray
+// dark-gray
+// oceans
+// national-geographic
+// terrain	
+// osm
+// dark-gray-vector
+// gray-vector
+// streets-vector
+// topo-vector
+// streets-night-vector
+// streets-relief-vector
+// streets-navigation-vector
+
+      var map = new Map({
+        basemap: "streets-vector"
+      });
+
+      var view = new MapView({
+        center: [-96, 41.25], 
+        container: "viewDiv",
+        map: map,
+        zoom: 11
+      });
+
+
+      // First create a point geometry (this is the location of the point)
+      var point = new Point({
+        longitude: -96.012475,
+        latitude: 41.258582, 
+      });
+
+      // Create a symbol for drawing the point
+      var markerSymbol = new SimpleMarkerSymbol({
+        color: [226, 119, 40], //this is where you change the color of the point
+        outline: { // autocasts as new SimpleLineSymbol()
+          color: [255, 255, 255], //this is where you change the color of the outline
+          width: 2 //this is where you change the width of the outline
+        }
+      });
+
+      // Create a graphic and add the geometry, and symbol to it
+      var pointGraphic = new Graphic({
+        geometry: point,
+        symbol: markerSymbol
+      });
+
+      // Add the graphics to the view's graphics layer
+      view.graphics.add(pointGraphic);
+    });
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+</body>
+
+</html>

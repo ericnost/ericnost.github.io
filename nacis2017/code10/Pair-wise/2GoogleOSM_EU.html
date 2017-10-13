@@ -1,0 +1,109 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+
+<script type="text/javascript" 
+    src="http://maps.google.com/maps/api/js?sensor=false"> 
+</script> 
+<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+<script type="text/javascript"> 
+
+var map; 
+function initialize() { 
+  var myLatlng = new google.maps.LatLng(41.25,-96.05); 
+  var myOptions = { 
+    zoom: 2, 
+    center: myLatlng, 
+    mapTypeId: google.maps.MapTypeId.ROADMAP 
+  } 
+ 
+  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
+ 
+  // Define bounding box for random markers
+  // This area needs to correspond to the defined center and extent of the map,
+  // as defined by myLatLng and zoom.
+  // Procedure: re-center map, find lat/long for SW and NE corners, enter
+  // south latitude (slat); north latitude (nlat);
+  // west longitude (wlong); east longitude (elong);
+  var slat = 37.665920;
+  var nlat = 58.089164;
+  var wlong = -11.266227;
+  var elong = 40.590227;
+  
+  var southWest = new google.maps.LatLng(slat, wlong); 
+  var northEast = new google.maps.LatLng(nlat, elong);
+  
+  // draw the box
+  var rectangleCoords = [
+      new google.maps.LatLng(slat, wlong),
+      new google.maps.LatLng(nlat, wlong),
+      new google.maps.LatLng(nlat, elong),
+      new google.maps.LatLng(slat, elong),
+      new google.maps.LatLng(slat, wlong)
+  ];
+  // Construct the rectangle
+    var rectangle = new google.maps.Polygon({
+      paths: rectangleCoords,
+      strokeColor: "#FF0000",
+      strokeOpacity: 0.8,
+      strokeWeight: 1,
+      fillColor: "#FF0000",
+      fillOpacity: 0.02
+    });
+
+  // Draw the rectangle
+   rectangle.setMap(map);
+  
+  var bounds = new google.maps.LatLngBounds(southWest,northEast); 
+  
+// Following fits bounds within the map, with a margin.  Not needed here.
+// map.fitBounds(bounds); 
+  var lngSpan = northEast.lng() - southWest.lng(); 
+  var latSpan = northEast.lat() - southWest.lat(); 
+
+    var lat= southWest.lat() + latSpan * Math.random();
+	var lon= southWest.lng() + lngSpan * Math.random();
+    var location = new google.maps.LatLng(lat, lon);
+		var myOptions = { 
+            zoom: 18, 
+            center: location, 
+            mapTypeId: google.maps.MapTypeId.ROADMAP 
+  } 
+  
+  // OpenStreetMap
+    var Map;
+    var zoom = 18;
+
+    var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+    var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+    var position       = new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
+ 
+    map = new OpenLayers.Map("Map");
+    var mapnik = new OpenLayers.Layer.OSM();
+    map.addLayer(mapnik);
+ 
+    var markers = new OpenLayers.Layer.Markers( "Markers" );
+    map.addLayer(markers);
+    markers.addMarker(new OpenLayers.Marker(position));
+ 
+    //map.setCenter(position, zoom);
+	map.moveTo(position, zoom);
+  
+  // back to Google
+  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
+        var marker = new google.maps.Marker({ 
+        position: location, 
+        map: map 
+    }); 
+
+} 
+
+</script> 
+</head> 
+<body onLoad="initialize()">
+  <div id="map_canvas" style="width:800px; height:500px; position: absolute; top: 5px; left: 5px; border: thin solid black"></div> 
+  <div id="Map" style="height:500px; width:800px; position: absolute; left: 811px; top: 5px; border: thin solid black"></div>
+</body> 
+</html>
+
+

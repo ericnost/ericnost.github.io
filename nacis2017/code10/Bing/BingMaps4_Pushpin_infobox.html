@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script type='text/javascript' 
+            src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap' 
+            async defer></script>
+    <script type='text/javascript'>
+    var map, infobox;
+
+    function GetMap() {
+        map = new Microsoft.Maps.Map('#myMap', {
+            credentials: 'AmnzJW8uTvn19E0NiZ7Gx5qxrnm_oQB9zKZw2mIJ0kw6D9dPqwivr4_7WGHCZZgh',
+            center: new Microsoft.Maps.Location(41.258531,-96.012599)
+        });
+		
+		var center = map.getCenter();
+
+        //Create an infobox at the center of the map but don't show it.
+        infobox = new Microsoft.Maps.Infobox(map.getCenter(), {
+            visible: false
+        });
+
+        //Assign the infobox to a map instance.
+        infobox.setMap(map);
+
+        //Create a pushpin at a random location in the map bounds.
+        var randomLocation = Microsoft.Maps.TestDataGenerator.getLocations(1, map.getBounds());
+        var pin = new Microsoft.Maps.Pushpin(center);
+
+        //Store some metadata with the pushpin.
+        pin.metadata = {
+            title: 'Cartography & GIS Lab',
+            description: 'University of Nebraska at Omaha'
+        };
+
+        //Add a click event handler to the pushpin.
+        Microsoft.Maps.Events.addHandler(pin, 'click', pushpinClicked);
+
+        //Add pushpin to the map.
+        map.entities.push(pin);
+    }
+
+    function pushpinClicked(e) {
+        //Make sure the infobox has metadata to display.
+        if (e.target.metadata) {
+            //Set the infobox options with the metadata of the pushpin.
+            infobox.setOptions({
+                location: e.target.getLocation(),
+                title: e.target.metadata.title,
+                description: e.target.metadata.description,
+                visible: true
+            });
+        }
+    }
+    </script>
+</head>
+<body>
+I changed the size and location of the map, and the contents of the infowindow.
+    <div id="myMap" style="position:relative;width:800px;height:300px;"></div>
+</body>
+</html>

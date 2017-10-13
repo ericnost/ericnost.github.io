@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+<head> 
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> 
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
+    <title>Google Maps Javascript API v3 Example: changing the icon on mouseover/mouseout </title> 
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
+<script type="text/javascript" src="downloadxml.js"></script>
+<style type="text/css">
+html, body { height: 100%; } 
+</style>
+<script type="text/javascript"> 
+//<![CDATA[
+      // this variable will collect the html which will eventually be placed in the side_bar 
+      var side_bar_html = ""; 
+    
+      // arrays to hold copies of the markers and html used by the side_bar 
+      // because the function closure trick doesnt work there 
+      var gmarkers = []; 
+      var gicons = [];
+     // global "map" variable
+      var map = null;
+gicons["red"] = new google.maps.MarkerImage("mapIcons/marker_red.png",
+      // This marker is 20 pixels wide by 34 pixels tall.
+      new google.maps.Size(20, 34),
+      // The origin for this image is 0,0.
+      new google.maps.Point(0,0),
+      // The anchor for this image is at 9,34.
+      new google.maps.Point(9, 34));
+  // Marker sizes are expressed as a Size of X,Y
+  // where the origin of the image (0,0) is located
+  // in the top left of the image.
+ 
+  // Origins, anchor positions and coordinates of the marker
+  // increase in the X direction to the right and in
+  // the Y direction down.
+
+  var iconImage = new google.maps.MarkerImage('mapIcons/marker_red.png',
+      // This marker is 20 pixels wide by 34 pixels tall.
+      new google.maps.Size(20, 34),
+      // The origin for this image is 0,0.
+      new google.maps.Point(0,0),
+      // The anchor for this image is at 9,34.
+      new google.maps.Point(9, 34));
+  var iconShadow = new google.maps.MarkerImage('http://www.google.com/mapfiles/shadow50.png',
+      // The shadow image is larger in the horizontal dimension
+      // while the position and offset are the same as for the main image.
+      new google.maps.Size(37, 34),
+      new google.maps.Point(0,0),
+      new google.maps.Point(9, 34));
+      // Shapes define the clickable region of the icon.
+      // The type defines an HTML &lt;area&gt; element 'poly' which
+      // traces out a polygon as a series of X,Y points. The final
+      // coordinate closes the poly by connecting to the first
+      // coordinate.
+  var iconShape = {
+      coord: [9,0,6,1,4,2,2,4,0,8,0,12,1,14,2,16,5,19,7,23,8,26,9,30,9,34,11,34,11,30,12,26,13,24,14,21,16,18,18,16,20,12,20,8,18,4,16,2,15,1,13,0],
+      type: 'poly'
+  };
+
+function getMarkerImage(iconColor) {
+   if ((typeof(iconColor)=="undefined") || (iconColor==null)) { 
+      iconColor = "red"; 
+   }
+   if (!gicons[iconColor]) {
+      gicons[iconColor] = new google.maps.MarkerImage("mapIcons/marker_"+ iconColor +".png",
+      // This marker is 20 pixels wide by 34 pixels tall.
+      new google.maps.Size(20, 34),
+      // The origin for this image is 0,0.
+      new google.maps.Point(0,0),
+      // The anchor for this image is at 6,20.
+      new google.maps.Point(9, 34));
+   } 
+   return gicons[iconColor];
+
+}
+
+      gicons["blue"] = getMarkerImage("blue");
+      gicons["green"] = getMarkerImage("green");
+      gicons["yelow"] = getMarkerImage("yellow");
+// A function to create the marker and set up the event window function 
+function createMarker(latlng,name,html,color) {
+    var contentString = html;
+    var marker = new google.maps.Marker({
+        position: latlng,
+        icon: gicons[color],
+   //     shadow: iconShadow,
+        map: map,
+        title: name,
+        zIndex: Math.round(latlng.lat()*-100000)<<5
+        });
+
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent(contentString); 
+        infowindow.open(map,marker);
+        });
+        // Switch icon on marker mouseover and mouseout
+        google.maps.event.addListener(marker, "mouseover", function() {
+          marker.setIcon(gicons["yellow"]);
+        });
+        google.maps.event.addListener(marker, "mouseout", function() {
+          marker.setIcon(gicons["blue"]);
+        });
+    gmarkers.push(marker);
+    // add a line to the side_bar html
+    var marker_num = gmarkers.length-1;
+    side_bar_html += '<a href="javascript:myclick(' + marker_num + ')" onmouseover="gmarkers['+marker_num+'].setIcon(gicons.yellow)" onmouseout="gmarkers['+marker_num+'].setIcon(gicons.blue)">' + name + '<\/a><br>';
+}
+ 
+// This function picks up the click and opens the corresponding info window
+function myclick(i) {
+  google.maps.event.trigger(gmarkers[i], "click");
+}
+
+
+
+function initialize() {
+  // create the map
+ var myLatlng = new google.maps.LatLng(41.259547, -96.015331); 
+  var myOptions = {
+    zoom: 12,
+    center: myLatlng,
+    mapTypeControl: true,
+    mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
+    navigationControl: true,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+   
+  map = new google.maps.Map(document.getElementById("map_canvas"),
+                                myOptions);
+
+						
+ //This defines the center marker, its position, and associated text	 
+  var marker1 = new google.maps.Marker({ 
+      position: myLatlng,  
+      map: map, 
+      title:"I am hungry!" 
+  }); 
+//This adds a listener to the marker
+  google.maps.event.addListener(marker1, 'click', function() { 
+  }); 
+  
+  
+  
+  google.maps.event.addListener(map, 'click', function() {
+        infowindow.close();
+        });
+      // Read the data from example.xml
+      downloadUrl("example.xml", function(doc) {
+        var xmlDoc = xmlParse(doc);
+        var markers = xmlDoc.documentElement.getElementsByTagName("marker");
+        for (var i = 0; i < markers.length; i++) {
+          // obtain the attribues of each marker
+          var lat = parseFloat(markers[i].getAttribute("lat"));
+          var lng = parseFloat(markers[i].getAttribute("lng"));
+          var point = new google.maps.LatLng(lat,lng);
+          var html = markers[i].getAttribute("html");
+          var label = markers[i].getAttribute("label");
+          // create the marker
+          var marker = createMarker(point,label,html,"blue");
+        }
+        // put the assembled side_bar_html contents into the side_bar div
+        document.getElementById("side_bar").innerHTML = side_bar_html;
+      });
+    }
+ 
+
+var infowindow = new google.maps.InfoWindow(
+  { 
+    size: new google.maps.Size(150,50)
+  });
+    
+    // This Javascript is based on code provided by the
+    // Community Church Javascript Team
+    // http://www.bisphamchurch.org.uk/   
+    // http://econym.org.uk/gmap/
+    // from the v2 tutorial page at:
+    // http://econym.org.uk/gmap/basic3.htm 
+//]]>
+</script> 
+
+  </head> 
+<body style="margin:0px; padding:0px;" onload="initialize()"> 
+ 
+    <!-- you can use tables or divs for the overall layout --> 
+    Mouse over list to see a list-based animation.  Change points to create another list-based animation. 
+    <table border="1"> 
+      <tr> 
+        <td> 
+           <div id="map_canvas" style="width: 550px; height: 450px"></div> 
+        </td> 
+        <td valign="top" style="width:150px; text-decoration: underline; color: #4444ff;"> 
+           <div id="side_bar"></div> 
+        </td> 
+      </tr> 
+    </table> 
+ 
+  </body> 
+</html> 

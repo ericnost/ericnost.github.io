@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OpenStreetMap Reprojection</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.1.1/css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v4.1.1/build/ol.js"></script>
+  </head>
+  <body>
+    <div id="map" class="map"></div>
+    <script>
+// This example shows client-side reprojection of OpenStreetMap in WGS84.
+      var map = new ol.Map({
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM()
+          })
+        ],
+        target: 'map',
+        view: new ol.View({
+	
+// Most spherical mercator maps use an extent of the world from -180 to 180 longitude, 
+// and from -85.0511 to 85.0511 latitude. Because the Mercator Projection stretches to 
+// infinity as you approach the poles, a cutoff in the north-south direction is required, and
+// this particular cutoff results in a perfect square of projected meters. 
+ 
+// “EPSG” identifiers for projections are managed by the European Petroleum Survey Group.
+// EPSG took some time to warm to the system used by Google and others, but eventually, in
+// mid-2008 they decided to add the system to their code registry, assigning it the code
+// EPSG: 3785. There was a small fanfare among the spatial community, and people started 
+// recoding the old 900913-hack code to use the new “official” code instead.
+
+// As an aside, the projection was listed on the EPSG registry with an accompanying note
+// reading “It is not a recognised geodetic system”.
+
+// In 2009, the code was changed from 3785 to 3857.
+
+// EPSG:3785 describes a Mercator projection of geographic coordinates defined on a 
+// spherical model of the earth, of radius 6,378,137m
+
+// There are only 2 possible projections with openlayers and they are defined with 
+// “EPSG” codes, identifiers managed by the European Petroleum Survey Group.
+// EPSG:4326 - WGS84
+// EPSG:3857 - Spherical or Web Mercator
+// officially registered EPSG code 3857 whose projection is identical to EPSG:900913
+// older designation but still works EPSG:900913 - Spherical or Web Mercator
+// older designation but still works EPSG:102113 - Spherical or Web Mercator
+
+          projection: 'EPSG:4326',
+          center: [-96, 0],
+          zoom: 2
+        })
+      });
+    </script>
+  </body>
+</html>

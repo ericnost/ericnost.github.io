@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Maximum Zoom imagery service</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 300px;
+		width: 900px;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 500px;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h2> Change size of map center within a country in Africa. Explain in this line of text.</h2>
+
+    <div id="map"></div>
+    Click on map to determine the maximum imagery level available. Levels go from a minimum of 1 to a max of 20.  Most areas of the world are above 10.
+    <script>
+      var map;
+      var maxZoomService;
+      var infoWindow;
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 13,
+          center: {lat: 41.258531, lng: -96.012599},
+          mapTypeId: 'hybrid'
+        });
+
+        infoWindow = new google.maps.InfoWindow();
+
+        maxZoomService = new google.maps.MaxZoomService();
+
+        map.addListener('click', showMaxZoom);
+      }
+
+// The Google Maps API provides map tiles at various zoom levels for map type imagery. Most roadmap imagery is 
+// available from zoom levels 0 to 18, for example. Satellite imagery varies more widely as this imagery is not
+// generated, but directly photographed.
+
+// Because satellite imagery is not always available at high zoom levels for remote locations — sparsely populated
+// areas or open ocean areas — you may want to know the highest zoom level for imagery at a given location beforehand.
+// The MaxZoomService object provides a simple interface for discovering the maximum zoom level at a given location
+// for which Google Maps has satellite imagery.
+
+      function showMaxZoom(e) {
+        maxZoomService.getMaxZoomAtLatLng(e.latLng, function(response) {
+          if (response.status !== 'OK') {
+            infoWindow.setContent('Error in MaxZoomService');
+          } else {
+            infoWindow.setContent(
+                'The maximum zoom at this location is: ' + response.zoom);
+          }
+          infoWindow.setPosition(e.latLng);
+          infoWindow.open(map);
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?&callback=initMap">
+    </script>
+  </body>
+</html>
