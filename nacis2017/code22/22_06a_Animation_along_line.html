@@ -28,13 +28,14 @@ function initialize() {
 
   var lineCoordinates = [
     new google.maps.LatLng(45.469621, -73.745115),
-    new google.maps.LatLng(29.940739, -90.089940)
+    new google.maps.LatLng(29.940739, -90.089940),
+    new google.maps.LatLng(43.075881, -89.383769)
   ];
 
   // Define the symbol, using one of the predefined paths ('CIRCLE')
   // supplied by the Google Maps JavaScript API.
   var lineSymbol = {
-    path: google.maps.SymbolPath.CIRCLE,
+    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
     scale: 5,
     strokeColor: 'blue'
   };

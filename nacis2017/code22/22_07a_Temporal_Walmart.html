@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 <title>Symbols on markers</title>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4AeyLGK6rC7JLMiE2u84f45JW5PidVHQ&callback=initMap"></script>
 <script type="text/javascript" src="walmarts.json"></script>
 <script type="text/javascript">
   var map;
@@ -99,7 +99,7 @@
       } else {
         month++;
       }
-      setTimeout(nextMonth, 150);
+      setTimeout(nextMonth, 25);
     }
   }
 
@@ -164,8 +164,8 @@
 // changing the loop counter changes the number of circles 
 // this sets the timing for the exploding circle, influencing the speed of the 
 // animation. Changing '60' to a larger number makes the animated circle slower.
-    for (var i = 0; i <= 10; i++) {
-      setTimeout(setScale(inner, outer, i / 10), i * 60
+    for (var i = 0; i <= 5; i++) {
+      setTimeout(setScale(inner, outer, i / 5), i * 30
 	  );
     }
   }
