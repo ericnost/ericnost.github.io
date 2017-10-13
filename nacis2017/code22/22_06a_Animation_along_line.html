@@ -11,14 +11,14 @@
         padding: 0px
       }
     </style>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4AeyLGK6rC7JLMiE2u84f45JW5PidVHQ&callback=initMap"></script>
     <script>
 
 var line;
 
 function initialize() {
   var mapOptions = {
-    center: new google.maps.LatLng(38, -96),
+    center: new google.maps.LatLng(37.5, -81.5),
     zoom: 4,
     mapTypeId: google.maps.MapTypeId.TERRAIN
   };
@@ -27,22 +27,22 @@ function initialize() {
       mapOptions);
 
   var lineCoordinates = [
-    new google.maps.LatLng(33.930106, -118.404437),
-    new google.maps.LatLng(40.754182, -74.019068)
+    new google.maps.LatLng(45.469621, -73.745115),
+    new google.maps.LatLng(29.940739, -90.089940)
   ];
 
   // Define the symbol, using one of the predefined paths ('CIRCLE')
   // supplied by the Google Maps JavaScript API.
   var lineSymbol = {
     path: google.maps.SymbolPath.CIRCLE,
-    scale: 8,
-    strokeColor: '#394'
+    scale: 5,
+    strokeColor: 'blue'
   };
 
   // Create the polyline and add the symbol to it via the 'icons' property.
   line = new google.maps.Polyline({
     path: lineCoordinates,
-	geodesic: true,
+	  geodesic: true,
     icons: [{
       icon: lineSymbol,
       offset: '100%'
@@ -65,7 +65,7 @@ function animateCircle() {
       line.set('icons', icons);
 // Changing the number in the following line changes the speed of the symbol 
 // The larger the number, the slower the speed.
-  }, 25);
+  }, 1000);
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -79,7 +79,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <li> Change the color of the circle.
 <li> Change the speed of the animation.
 </ol>
-      <div id="map-canvas" style="width:700px; height:300px"></div> 
+      <div id="map-canvas" style="width:900px; height:600px"></div> 
   </body>
 </html>
 
