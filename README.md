@@ -8,4 +8,4 @@ A set of web-facing projects, including:
 * New Orleans STR Viewer - Angular-based view of short-term rental licenses in the city
 * ES Explorer - an experiment in mapping difference and change in ecosystem services
 * Angular - a demonstration of using Angular.js for mapping applications
-* zipcode - Using Turf.js, Leaflet, and PHP to map zipcodes and return results
+* zipcode - Using Turf.js and Leaflet to map zipcodes
