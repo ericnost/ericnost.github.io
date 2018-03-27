@@ -1,5 +1,5 @@
 # ericnost.github.io
-A set of web-facing projects, including:
+A container for various web-facing projects, including:
 * armchairgeographer - pulls random Flickr images from a specified set of coordinates, maps the area, and displays text randomly selected from a set of social theorists.
 * election 2016 - a map of the presidential election results
 * cookbook - draws from a Google Sheet of recipes and uses Angular.js for displaying them
