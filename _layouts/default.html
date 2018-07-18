@@ -22,10 +22,11 @@
 
         <p>{{ site.description | default: site.github.project_tagline }}</p>
 
-        <ul class="downloads">
+        <!-- <ul class="downloads">
           <li><a href="/about"><strong>About</strong></a></li>
           <li><a href="/cv"><strong>CV</strong></a></li>
-        </ul>
+          <li><a href="https://www.uoguelph.ca/geography/faculty/nost-eric"><strong>Contact</strong></a></li>
+        </ul> -->
 
         {% if site.github.is_user_page %}
         <p class="view"><a href="{{ site.github.owner_url }}">View My GitHub Profile</a></p>
@@ -35,9 +36,9 @@
 
       <section>
 
-      <h2>{{page.title}}</h2>
+        <h2>{{page.title}}</h2>
 
-      {{ content }}
+        {{ content }}
 
       </section>
       <footer>
