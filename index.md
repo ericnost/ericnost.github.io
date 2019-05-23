@@ -4,10 +4,16 @@ layout: default
 title: Welcome!
 
 ---
+I research how data and technology inform environmental governance, drawing on and contributing to the fields of political ecology, science and technology studies (STS), and digital geographies. New kinds of data-generating sensors and data-synthesizing algorithms are becoming central to everyday life and may prove transformational at a policy-level as well. A key challenge for geographers in the coming years is assessing emerging geospatial technologies' promise to help society solve sustainability issues related to food security, climate change adaptation, and ecosystem services. This will be done by understanding their human dimensions - their design, use, maintenance, and social impacts - alongside other governance trends such as marketization and metrification. 
 
-I am a geographer researching how data and technology inform conservation. I draw on and contribute to the fields of political ecology, science and technology studies (STS), and digital geographies. My [most recent project](https://search.proquest.com/docview/2043521221) followed the US state of Louisiana's efforts to simulate future wetlands loss along the Gulf Coast. Based on interviews, document surveys, and attendance at public meetings, I explain how bureaucrats and ecosystem scientists develop an infrastructure for modeling, build an institution and lean on technologies to learn from their simulations, and apply their findings to planning large-scale coastal restoration. The project characterizes the winners and losers that result and speaks to the opportunities and limits of applications of "big data" in (environmental) governance. Some of my previous research examined the contested role of software in ecosystem services markets in Oregon, while new projects explore digital agriculture, especially the design, maintenance, and use of decision-support tools and the governance of ag data infrastructure.
+My [dissertation](https://search.proquest.com/docview/2043521221) followed the US state of Louisiana’s efforts to simulate future wetlands loss along the Gulf Coast. I explain how bureaucrats and ecosystem scientists develop an infrastructure for modeling, build institutions and lean on technologies to learn from their simulations, and apply their findings to planning large-scale coastal restoration. The project characterized the winners and losers that result and speaks to the opportunities and limits of applications of “big data” in conservation. Some of my previous research examined the contested role of modeling software in ecosystem services markets in Oregon, while new projects explore digital agriculture, especially the design and use of farm decision-support tools.
 
 I teach classes in nature-society geography and (web) mapping, using maps to publicize hidden dimensions of environmental policy. I also participate in the [Environmental Data and Governance Initiative](https://www.envirodatagov.org), tracking how the US federal government portrays climate change and other issues on the web. For the past several years, I have collaborated in an effort to visualize US EPA data on the North American hazardous waste trade. View our work [here](https://www.geography.wisc.edu/hazardouswaste).
+
+### Recruitment
+I am recruiting a Master's student with interests in agri-environmental stewardship, geospatial technology, and science-policy interfaces. The student will complete a social science research project on ag data governance and use, conducting interviews with and surveying stakeholders including crop advisors, government agency staff, and representatives of farmers groups. The thesis will be developed alongside collaborators who are creating a soil carbon accounting and profit mapping tool (see Capmourteres et al. 2018) that will require assessing existing/best practices for farm-level data management and how users might actually employ such information in their decision-making. The research is funded by the Arrell Food Institute at the University of Guelph via the Canada First Research Excellence Fund. 
+
+For a full description of the position, see [here](https://github.com/ericnost/ericnost.github.io/assets/img/digitalagricultureatGuelph-recruitment.pdf) Prospective applicants should contact me via email and forward an unofficial transcript, resume or CV, and a statement outlining their interests as they relate to the project description above.
 
 ### Digital governance and infrastructure
 Environmental governance actors - states, corporations, conservationist groups, farmers, and so on - struggle to get the data they want. There's a lot out of it there - and more every day - but not all of it is relevant nor is there the time or money to make sense of it. In other words, governing nature means governing data, raising questions of who collects data, who manages it, who contributes to databases and who has access, and who pays. These questions often crystallize in attempts to "infrastructure" data. What are the platforms - environmental information systems, models, webmaps, databases, etc. - enabling environmental governance? What are the controversies around these platforms? Who wins and who loses?
@@ -41,9 +47,9 @@ How can political ecologists scholars sharpen or build new methods and concepts 
 * [CTRL-F](https://github.com/ericnost/EDGI) - A set of Python add-ons to the Environmental Data and Governance Initiative's web monitoring project - specifically, their API for accessing Wayback Machine snapshots. 
 
 ### Contact
-* [Email](mailto:enost@uoguelph.ca)
+* Email: enost[at]uoguelph[dot]ca
 * Phone: 519 824-4120 ext. 53279
-* Office: HUTT 126
+* Office: HUTT 344
 * [Faculty webpage](https://www.uoguelph.ca/geography/faculty/nost-eric)
 * [ResearchGate](https://www.researchgate.net/profile/Eric_Nost)
 * [Google Scholar](https://scholar.google.ca/citations?user=Bf4hh7oAAAAJ&hl=en)
