@@ -4,54 +4,61 @@ layout: default
 title: Welcome!
 
 ---
-I research how data and technology inform environmental governance, drawing on and contributing to the fields of political ecology, science and technology studies (STS), and digital geographies. New kinds of data-generating sensors and data-synthesizing algorithms are becoming central to everyday life and may prove transformational at a policy-level as well. A key challenge for geographers in the coming years is assessing emerging geospatial technologies' promise to help society solve sustainability issues related to food security, climate change adaptation, and ecosystem services. This will be done by understanding their human dimensions - their design, use, maintenance, and social impacts - alongside other governance trends such as marketization and metrification. 
+I research how data technologies inform environmental governance, drawing on and contributing to the fields of political ecology, science and technology studies (STS), and digital geographies. 
 
-My [dissertation](https://search.proquest.com/docview/2043521221) followed the US state of Louisiana’s efforts to simulate future wetlands loss along the Gulf Coast. I explain how bureaucrats and ecosystem scientists develop an infrastructure for modeling, build institutions and lean on technologies to learn from their simulations, and apply their findings to planning large-scale coastal restoration. The project characterized the winners and losers that result and speaks to the opportunities and limits of applications of “big data” in conservation. Some of my previous research examined the contested role of modeling software in ecosystem services markets in Oregon, while new projects explore digital agriculture, especially the design and use of farm decision-support tools.
+New kinds of data-generating sensors and data-synthesizing algorithms are becoming central to everyday life and may prove transformational at a policy-level as well. A key challenge for geographers in the coming years is assessing these technologies' promise to help society solve sustainability issues related to food security, climate change adaptation, and ecosystem services. This will be done by understanding their human dimensions - their design, use, maintenance, and social impacts - alongside other governance trends such as marketization and metrification. 
 
-I teach classes in nature-society geography and (web) mapping, using maps to publicize hidden dimensions of environmental policy. I also participate in the [Environmental Data and Governance Initiative](https://www.envirodatagov.org), tracking how the US federal government portrays climate change and other issues on the web. For the past several years, I have collaborated in an effort to visualize US EPA data on the North American hazardous waste trade. View our work [here](https://www.geography.wisc.edu/hazardouswaste).
+My [dissertation](https://search.proquest.com/docview/2043521221) followed the US state of Louisiana’s efforts to simulate future wetlands loss along the Gulf Coast. I explained how bureaucrats and ecosystem scientists develop their data infrastructures, build institutions for learning from their simulations, and apply their findings to planning large-scale coastal restoration. The project characterized the winners and losers that result and speaks to the opportunities and limits of “big data” in conservation. Some of my previous research examined the contested role of modeling software in ecosystem services markets in Oregon, while new projects explore digital agriculture - especially the design and use of farm decision-support tools.
+
+I teach undergraduate courses in nature-society geography and (web)mapping. A core component of my work involves making maps to publicize the hidden dimensions of environmental policy. I participate in the [Environmental Data and Governance Initiative](https://www.envirodatagov.org), where we [bring people together to analyze data](https://www.environmentalenforcementwatch.org/) in the US EPA's Enforcement and Compliance History Online (ECHO) database and track how the US federal government portrays climate change on the web. I have also collaborated in efforts to visualize EPA data on the North American hazardous waste trade. View our work [here](https://www.geography.wisc.edu/hazardouswaste).
 
 ### Recruitment
-I am recruiting a Master's student with interests in agri-environmental stewardship, geospatial technology, and science-policy interfaces, to start in Fall 2019. The student will complete a social science research project on ag data governance and use, conducting interviews with and surveying stakeholders including crop advisors, government agency staff, and representatives of farmers groups. The thesis will be developed alongside collaborators who are creating a soil carbon accounting and profit mapping tool (see [Capmourteres et al. 2018](https://www.researchgate.net/publication/328224222_Precision_conservation_meets_precision_agriculture_A_case_study_from_southern_Ontario)) that will require assessing existing/best practices for farm-level data management and how users might actually employ such information in their decision-making. The research is funded by the Arrell Food Institute at the University of Guelph via the Canada First Research Excellence Fund. 
+I’m excited to hear from prospective grad students who are curious about the intersections of digital technologies and environmental governance. Some specific projects we could collaborate on might include:
 
-For a full description of the position, see [this page](recruitment.md) or the [PDF](https://github.com/ericnost/ericnost.github.io/raw/master/digitalagricultureatGuelph-recruitment.pdf). Prospective applicants should contact me via email and forward an unofficial transcript, resume or CV, and a statement outlining their interests as they relate to the project description above.
+* evaluating ecosystem services decision-support software and conservationist groups' use of it
+* understanding the use of decision-support tools and/or the design of data governance frameworks within "smart" farming
+* visualizing environmental agencies’ and nonprofits' web presences and practices
 
-### Digital governance and infrastructure
-Environmental governance actors - states, corporations, conservationist groups, farmers, and so on - struggle to get the data they want. There's a lot out of it there - and more every day - but not all of it is relevant nor is there the time or money to make sense of it. In other words, governing nature means governing data, raising questions of who collects data, who manages it, who contributes to databases and who has access, and who pays. These questions often crystallize in attempts to "infrastructure" data. What are the platforms - environmental information systems, models, webmaps, databases, etc. - enabling environmental governance? What are the controversies around these platforms? Who wins and who loses?
-* 2015  Nost, E. Performing nature’s value: software and the making of Oregon’s ecosystem services markets. Environment and Planning: A 47 (12): 2573-2590. PDF.
+Prospective students might be interested in conducting interviews, document analysis, and surveys for their research, as well as working critically with digital technologies themselves. I can offer training in critical communication skills - including via mapping, web design, and public writing - and in the scholarly fields of political ecology, science and technology studies, and digital geographies.
+
+
+### Data governance and infrastructure
+Environmental governance actors - states, corporations, conservation groups, farmers, and so on - struggle to get the information they want. There's more and more data out there every day, but it's often siloed, and even when it's available, it's not necessarily relevant and there usually isn't the time or money to make sense of it. Governing nature, it turns out, means governing data. Who collects and manages environmental data, who contributes to databases and has access, and who pays for it all? These questions tend to crystallize in data infrastructures.
+* Nost, E. 2020. Infrastructuring "data-driven" environmental governance in Louisiana’s coastal restoration plan. *Environment & Planning E: Nature and Space*. [Link](https://doi.org/10.1177/2514848620909727)
+* Nost, E. 2019. Climate services for whom? The political economics of contextualizing climate data for Louisiana’s coastal Master Plan. *Climatic Change*. 157(1): 27-42. [Link](https://link.springer.com/article/10.1007%2Fs10584-019-02383-z)
+* Nost, E. 2015. Performing nature’s value: software and the making of Oregon’s ecosystem services markets. *Environment and Planning: A* 47 (12): 2573-2590. [Link](https://www.researchgate.net/publication/287797973_Performing_nature%27s_value_software_and_the_making_of_Oregon%27s_ecosystem_services_markets?ev=prf_high)
 
 ### Digital practice and praxis
-Policy-makers and other (environmental) governance actors increasingly aim for what they call “data-driven management." But if data is to "drive" governance, it must be learned from, through social institutions for accessing expertise, communicating expectations, and legitimating "good modelers," as well as through technical affordances. Who are the users of digital tools? What can actors learn and do with these tools? How can data serve public ends, in and beyond the classroom?
-* 2018  Vincent, K., R. E. Roth, S. A. Moore, Q. Huang, N. Lally, C. M. Sack, E. Nost, and H. Rosenfeld. Improving spatial decision making using interactive maps: An empirical study on interface complexity and decision complexity in the North American hazardous waste trade. Environment and Planning B: Urban Analytics and City Science. Link (in-press).
-* 2018  Rosenfeld, H., S. Moore, E. Nost, R. E. Roth, and K. Vincent. Hazardous Aesthetics: A “Merely Interesting” Toxic Tour of Waste Management Data. GeoHumanities. Link (in-press).
-* 2017	Nost, E., H. Rosenfeld, K. Vincent, S. Moore, and R.E. Roth. HazMatMapper: An online and interactive geographic visualization tool for exploring transnational flows of hazardous waste and environmental justice. Journal of Maps 13(1): 14-23.  PDF. Map . Shortlisted for Journal of Maps’s 2017 “Best Map” award.
-* 2013	Crampton, J. W., J. Bowen, D. Cockayne, B. Cook, E. Nost, L. Shade, L. Sharp, and M. Jacobsen. 2013. “Commentary: Whose geography? Which publics?” Dialogues in Human Geography 3: 73-76. PDF.
+Decision-makers increasingly aim for what they call "data-driven"  governance. But data doesn't "drive" as much as it affords, and it has to be learned from, through institutions for accessing expertise, communicating expectations, and legitimating "good modelers". Who are the users of digital technologies? What can they learn and do with their tools? How can data serve public ends, in and beyond the classroom?
+* Tirrell, C, L. Senier, S. Wylie, C. Alder, G. Poudrier, J. Divalli, M. Beck, E. Nost, R. Brackett, and G. Gehrke. 2020. Learning in Crisis: Training students to monitor and address irresponsible knowledge construction by U.S. federal agencies under Trump. *Engaging Science, Technology, and Society* 6. [Link](https://doi.org/10.17351/ests2020.313)
+* Walker, D., E. Nost, A. Lemelin, R. Lave, and L. Dillon. 2018. Practicing environmental data justice: From DataRescue to Data Together. *Geo*. [Link](https://rgs-ibg.onlinelibrary.wiley.com/doi/abs/10.1002/geo2.61)
+* Vincent, K., R. E. Roth, S. A. Moore, Q. Huang, N. Lally, C. M. Sack, E. Nost, and H. Rosenfeld. 2018. Improving spatial decision making using interactive maps: An empirical study on interface complexity and decision complexity in the North American hazardous waste trade. *Environment and Planning B: Urban Analytics and City Science*. [Link](http://journals.sagepub.com/doi/abs/10.1177/2399808318764122)
+* Rosenfeld, H., S. Moore, E. Nost, R. E. Roth, and K. Vincent. 2018. Hazardous Aesthetics: A “Merely Interesting” Toxic Tour of Waste Management Data. *GeoHumanities*. [Link](http://www.tandfonline.com/doi/full/10.1080/2373566X.2017.1423235)
+* Nost, E., H. Rosenfeld, K. Vincent, S. Moore, and R.E. Roth. 2017. HazMatMapper: An online and interactive geographic visualization tool for exploring transnational flows of hazardous waste and environmental justice. *Journal of Maps* 13(1): 14-23. [Link](http://www.tandfonline.com/doi/full/10.1080/17445647.2017.1282384) Shortlisted for *Journal of Maps*’s 2017 “Best Map” award.
 
-### Methods for environmental governance and political ecology
-How can political ecologists scholars sharpen or build new methods and concepts for understanding environmental governance issues?
-* 2017	Moore, S., R. Roth, H. Rosenfeld, E. Nost, K. Vincent, T. Buckingham, M.R. Arefin. Undisciplining Environmental Justice Research with Visual Storytelling. Geoforum. Link (in-press).
-* 2014	Nost, E. Scaling-up local foods: commodity practice in community supported agriculture (CSA). Journal of Rural Studies 34: 152-160. PDF. 
-* 2013	Nost, E.  The Power of Place: Tourism and Development in Costa Rica. Tourism Geographies 15(1): 88-106. PDF. Also in Understanding Tropical Coastal and Island Tourism Development, eds. Klaus Meyer-Arendt and Alan Lew. 2016. Winner, 2011 AAG Tourism and Recreation Speciality Group Best Student Paper Award.
+### Methods for political ecology
+How can political ecologists sharpen or build new methods for understanding environmental governance?
+* Ohayon, J., E. Nost, K. Silk, M. Rakoff. 2020. Barriers and opportunities for breast cancer organizations to focus on environmental health and disease prevention: a mixed-methods approach using website analyses, interviews, and focus groups. *Environmental Health*. [Link](https://ehjournal.biomedcentral.com/articles/10.1186/s12940-020-0570-7)
+* Nost, E., M. Robertson, and R. Lave. 2019. Q-method and the performance of subjectivity: Reflections from a survey of US stream restoration practitioners. *Geoforum* 105: 23-31. [Link](https://www.sciencedirect.com/science/article/pii/S0016718519301915)
+* Moore, S. A., H. Rosenfeld, E. Nost, K. Vincent, and R. E. Roth. 2018. Undermining methodological nationalism: Cosmopolitan analysis and visualization of the North American hazardous waste trade. *Environment and Planning A*. [Link](http://journals.sagepub.com/doi/abs/10.1177/0308518X18784023)
+* Moore, S., R. Roth, H. Rosenfeld, E. Nost, K. Vincent, T. Buckingham, M.R. Arefin. 2017. Undisciplining Environmental Justice Research with Visual Storytelling. *Geoforum*. [Link](https://www.researchgate.net/publication/315635619_Undisciplining_environmental_justice_research_with_visual_storytelling)
+
 
 ### Webmapping and other programming projects
-* [armchairgeographer](https://github.com/ericnost/armchairgeographer) - pulls random Flickr images from a specified set of coordinates, maps the area, and displays text randomly selected from a set of social theorists.
-* [election 2016](https://github.com/ericnost/election2016) - a map of the presidential election results
-* [cookbook](https://github.com/ericnost/cookbook) - draws from a Google Sheet of recipes and uses Angular.js for displaying them
-* [Louisiana Land Loss](https://github.com/ericnost/landloss) - D3.js visualizations of coastal erosion
-* [New Orleans Census Viewer](https://github.com/ericnost/NOLA-CensusViewer) - Angular-based view of US Census information about the city
-* [New Orleans STR Viewer](https://github.com/ericnost/NOLA-STR) - Angular-based view of short-term rental licenses in the city
-* [Exploring ES](https://github.com/ericnost/Exploring-ES) - an experiment in mapping difference and change in ecosystem services
-* [Angular](https://github.com/ericnost/angular) - a demonstration of using Angular.js for mapping applications
-* [zipcode](https://github.com/ericnost/zipcode) - Using Turf.js and Leaflet to map zipcodes
-* [HazMatMapper](https://github.com/uwcart/waste) - Collaborative D3.js project for telling stories about the North American gazardous waste trade
-* [waste processing scripts](https://github.com/ericnost/hazardous-waste-data-processing) - Mostly Python scripts for integrating CSVs related to hazardous waste data
-* [CTRL-F](https://github.com/ericnost/EDGI) - A set of Python add-ons to the Environmental Data and Governance Initiative's web monitoring project - specifically, their API for accessing Wayback Machine snapshots. 
+* Collaborative
+* * [EDGI - Website Monitoring](https://github.com/edgi-govdata-archiving/web_monitoring_research) - Python-based analysis of changes to US federal environmental agency websites, 2016-2020
+* * [EDGI - Environmental Enforcement Watch](https://github.com/edgi-govdata-archiving/Environmental-Enforcement-Watch) - Bringing people together to use Jupyter Notebooks to analyze the US EPA's Enforcement and Compliance History Online (ECHO) database
+* * [HazMatMapper](https://github.com/uwcart/waste) - Collaborative D3.js project for telling stories about the North American gazardous waste trade
+* Personal
+* * [Angular](https://github.com/ericnost/angular) - a demonstration of using Angular.js for mapping applications
+* * [armchairgeographer](https://github.com/ericnost/armchairgeographer) - pulls random Flickr images from a specified set of coordinates, maps the area, and displays text randomly selected from a set of social theorists.
+* * [cookbook](https://github.com/ericnost/cookbook) - draws from a Google Sheet of recipes and uses Angular.js for displaying them
+* * [CTRL-F](https://github.com/ericnost/EDGI) - A set of Python add-ons to the Environmental Data and Governance Initiative's web monitoring project and Environmental Enforcement Watch projects. 
+* * [election 2016](https://github.com/ericnost/election2016) - a map of the presidential election results
+* * [Exploring ES](https://github.com/ericnost/Exploring-ES) - an experiment in mapping difference and change in ecosystem services
+* * [Louisiana Land Loss](https://github.com/ericnost/landloss) - D3.js visualizations of coastal erosion
+* * [New Orleans Census Viewer](https://github.com/ericnost/NOLA-CensusViewer) - Angular-based view of US Census information about the city
+* * [New Orleans STR Viewer](https://github.com/ericnost/NOLA-STR) - Angular-based view of short-term rental licenses in the city
+* * [waste processing scripts](https://github.com/ericnost/hazardous-waste-data-processing) - Mostly Python scripts for integrating CSVs related to hazardous waste data
+* * [zipcode](https://github.com/ericnost/zipcode) - Using Turf.js and Leaflet to map zipcodes
 
-### Contact
-* Email: enost[at]uoguelph[dot]ca
-* Phone: 519 824-4120 ext. 53279
-* Office: HUTT 344
-* [Faculty webpage](https://www.uoguelph.ca/geography/faculty/nost-eric)
-* [ResearchGate](https://www.researchgate.net/profile/Eric_Nost)
-* [Google Scholar](https://scholar.google.ca/citations?user=Bf4hh7oAAAAJ&hl=en)
-* [Twitter](https://twitter.com/ericnost)
-* [Full CV](https://docs.google.com/document/d/1QiOS4xX6yDp8IWMKMEobQAQfvsqDEhiXz3vT20F-a9E/edit?usp=sharing)
