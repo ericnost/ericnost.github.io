@@ -54,7 +54,7 @@ How can political ecologists sharpen or build new methods for understanding envi
   * [armchairgeographer](https://github.com/ericnost/armchairgeographer) - pulls random Flickr images from a specified set of coordinates, maps the area, and displays text randomly selected from a set of social theorists.
   * [cookbook](https://github.com/ericnost/cookbook) - draws from a Google Sheet of recipes and uses Angular.js for displaying them
   * [CTRL-F](https://github.com/ericnost/EDGI) - A set of Python add-ons to the Environmental Data and Governance Initiative's web monitoring project and Environmental Enforcement Watch projects. 
- * [election 2016](https://github.com/ericnost/election2016) - a map of the presidential election results
+  * [election 2016](https://github.com/ericnost/election2016) - a map of the presidential election results
   * [Exploring ES](https://github.com/ericnost/Exploring-ES) - an experiment in mapping difference and change in ecosystem services
   * [Louisiana Land Loss](https://github.com/ericnost/landloss) - D3.js visualizations of coastal erosion
   * [New Orleans Census Viewer](https://github.com/ericnost/NOLA-CensusViewer) - Angular-based view of US Census information about the city
