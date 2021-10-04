@@ -6,7 +6,7 @@ title: Welcome!
 ---
 I research how data technologies inform environmental governance. New kinds of data-generating sensors and data-synthesizing algorithms are becoming central to everyday life and may prove transformational in policy too. A key challenge for geographers in the coming years is assessing these technologies’ promise to help society solve sustainability issues related to food security, climate change adaptation, and ecosystem services conservation. This will be done by understanding their human dimensions - their design, use, maintenance, and effects on society - alongside other governance trends such as marketization and metrification. It will involve understanding how these data systems came but also experimenting with them towards more just and equitable ends.
 
-My work contributes to the field of political ecology and is currently supported by a SSHRC Insight Development Grant. I teach undergraduate courses in nature-society geography and mapping as well as graduate courses in research methods and in Guelph's Master of Conservation Leadership program. I serve on the coordinating committee of the [Environmental Data and Governance Initiative](https://www.envirodatagov.org)(EDGI), where we [bring people together to analyze publicly available socio-environmental data](https://www.environmentalenforcementwatch.org/) and track the portrayal of climate change issues on the web. 
+My work contributes to the field of political ecology and is currently supported by a SSHRC Insight Development Grant. I teach undergraduate courses in nature-society geography and mapping as well as graduate courses in research methods and in Guelph's Master of Conservation Leadership program. I serve on the coordinating committee of the [Environmental Data and Governance Initiative](https://www.envirodatagov.org) (EDGI), where we [bring people together to analyze publicly available socio-environmental data](https://www.environmentalenforcementwatch.org/) and track the portrayal of climate change issues on the web. 
 
 ## Recruitment
 I’m excited to hear from prospective grad students who are curious about the intersections of data technologies and environmental governance. In particular, I am looking to recruit a Master of Arts student to research the design of government datasets in Canada and/or the US (e.g. the National Pollutant Release Inventory or the Enforcement and Compliance History Online datasets) and to experiment in alternative uses of them. This research could inform ongoing policy discussions such as those around Canada's [Bill C-230](https://www.ourcommons.ca/DocumentViewer/en/43-2/ENVI/report-8/) and the US's [Justice40](https://www.whitehouse.gov/omb/briefing-room/2021/07/20/the-path-to-achieving-justice40/) initiative, both of which seek to develop data infrastructures for advancing environmental justice. The student would have the opportunity to collaborate with EDGI members on this project.
@@ -15,7 +15,26 @@ Prospective students should be interested in conducting interviews, document ana
 
 I encourage interested candidates to email me at enost[at]uoguelph[dot]ca with a brief statement of interest, an unofficial transcript, a writing / research sample, and a CV/resume.
 
-## Papers
+## Webmapping and other programming projects
+### Collaborative
+* [EDGI - Website Monitoring](https://github.com/edgi-govdata-archiving/web_monitoring_research) - Python-based analysis of changes to US federal environmental agency websites, 2016-2020
+* [EDGI - Environmental Enforcement Watch](https://github.com/edgi-govdata-archiving/Environmental-Enforcement-Watch) - Bringing people together to analyze publicly available data on how environmental protection laws are enforced and complied with (Python-based Jupyer Notebooks)
+* [HazMatMapper](https://github.com/uwcart/waste) - Collaborative D3.js project for telling stories about the North American hazardous waste trade
+
+### Personal
+* [Angular](https://github.com/ericnost/angular) - a demonstration of using Angular.js for mapping applications
+* [armchairgeographer](https://github.com/ericnost/armchairgeographer) - pulls random Flickr images from a specified set of coordinates, maps the area, and displays text randomly selected from a set of social theorists.
+* [cookbook](https://github.com/ericnost/cookbook) - draws from a Google Sheet of recipes and uses Angular.js for displaying them
+* [CTRL-F](https://github.com/ericnost/EDGI) - A set of Python add-ons to the Environmental Data and Governance Initiative's web monitoring project and Environmental Enforcement Watch projects. 
+* [election 2016](https://github.com/ericnost/election2016) - a map of the 2016 US presidential election results
+* [Exploring ES](https://github.com/ericnost/Exploring-ES) - an experiment in mapping difference and change in ecosystem services
+* [Louisiana Land Loss](https://github.com/ericnost/landloss) - D3.js visualizations of coastal erosion in the US state of Louisiana
+* [New Orleans Census Viewer](https://github.com/ericnost/NOLA-CensusViewer) - Angular-based view of US Census information about the city
+* [New Orleans STR Viewer](https://github.com/ericnost/NOLA-STR) - Angular-based view of short-term rental licenses in the city
+* [waste processing scripts](https://github.com/ericnost/hazardous-waste-data-processing) - Mostly Python scripts for integrating CSVs related to hazardous waste data
+* [zipcode](https://github.com/ericnost/zipcode) - Using Turf.js and Leaflet to map US zipcodes
+
+## Selected Papers
 ### Data governance and infrastructure
 Environmental governance actors - states, corporations, conservation groups, farmers, and so on - struggle to get the information they want. There's more and more data out there every day, but it's usually siloed. Even when it's available, it's not necessarily relevant and there often isn't the time or money to make sense of it. Governing nature, it turns out, means governing data. Who collects environmental data and manages environmental databases, and who pays for it all? These questions tend to crystallize in data infrastructures.
 * **Nost, E**. and J.E. Goldstein. 2021. A political ecology of data. *Environment & Planning E: Nature and Space*. [Link](https://journals.sagepub.com/doi/10.1177/25148486211043503)
@@ -42,23 +61,6 @@ How can political ecologists sharpen or build new methods for understanding envi
 * Moore, S., R. Roth, H. Rosenfeld, **E. Nost**, K. Vincent, T. Buckingham, M.R. Arefin. 2017. Undisciplining Environmental Justice Research with Visual Storytelling. *Geoforum*. [Link](https://www.researchgate.net/publication/315635619_Undisciplining_environmental_justice_research_with_visual_storytelling)
 
 
-## Webmapping and other programming projects
-### Collaborative
-* [EDGI - Website Monitoring](https://github.com/edgi-govdata-archiving/web_monitoring_research) - Python-based analysis of changes to US federal environmental agency websites, 2016-2020
-* [EDGI - Environmental Enforcement Watch](https://github.com/edgi-govdata-archiving/Environmental-Enforcement-Watch) - Bringing people together to analyze publicly available data on how environmental protection laws are enforced and complied with (Python-based Jupyer Notebooks)
-* [HazMatMapper](https://github.com/uwcart/waste) - Collaborative D3.js project for telling stories about the North American hazardous waste trade
 
-### Personal
-* [Angular](https://github.com/ericnost/angular) - a demonstration of using Angular.js for mapping applications
-* [armchairgeographer](https://github.com/ericnost/armchairgeographer) - pulls random Flickr images from a specified set of coordinates, maps the area, and displays text randomly selected from a set of social theorists.
-* [cookbook](https://github.com/ericnost/cookbook) - draws from a Google Sheet of recipes and uses Angular.js for displaying them
-* [CTRL-F](https://github.com/ericnost/EDGI) - A set of Python add-ons to the Environmental Data and Governance Initiative's web monitoring project and Environmental Enforcement Watch projects. 
-* [election 2016](https://github.com/ericnost/election2016) - a map of the 2016 US presidential election results
-* [Exploring ES](https://github.com/ericnost/Exploring-ES) - an experiment in mapping difference and change in ecosystem services
-* [Louisiana Land Loss](https://github.com/ericnost/landloss) - D3.js visualizations of coastal erosion in the US state of Louisiana
-* [New Orleans Census Viewer](https://github.com/ericnost/NOLA-CensusViewer) - Angular-based view of US Census information about the city
-* [New Orleans STR Viewer](https://github.com/ericnost/NOLA-STR) - Angular-based view of short-term rental licenses in the city
-* [waste processing scripts](https://github.com/ericnost/hazardous-waste-data-processing) - Mostly Python scripts for integrating CSVs related to hazardous waste data
-* [zipcode](https://github.com/ericnost/zipcode) - Using Turf.js and Leaflet to map US zipcodes
 
 
