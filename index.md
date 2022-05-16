@@ -9,17 +9,19 @@ I research how data technologies inform environmental governance. New kinds of d
 My work contributes to the field of political ecology and is currently supported by a SSHRC Insight Development Grant. I teach undergraduate courses in nature-society geography and mapping as well as graduate courses in research methods and in Guelph's Master of Conservation Leadership program. I serve on the coordinating committee of the [Environmental Data and Governance Initiative](https://www.envirodatagov.org) (EDGI), where we [bring people together to analyze publicly available socio-environmental data](https://www.environmentalenforcementwatch.org/) and track the portrayal of climate change issues on the web. 
 
 ## Recruitment
-I’m excited to hear from prospective grad students who are curious about the intersections of data technologies and environmental governance. In particular, I am looking to recruit a Master of Arts student to research the design of government datasets in Canada and/or the US (e.g. the National Pollutant Release Inventory or the Enforcement and Compliance History Online datasets) and to experiment in alternative uses of them. This research could inform ongoing policy discussions such as those around Canada's [Bill C-230](https://www.ourcommons.ca/DocumentViewer/en/43-2/ENVI/report-8/) and the US's [Justice40](https://www.whitehouse.gov/omb/briefing-room/2021/07/20/the-path-to-achieving-justice40/) initiative, both of which seek to develop data infrastructures for advancing environmental justice. The student would have the opportunity to collaborate with EDGI members on this project.
+I am recruiting a Master's of Arts student with interests in agri-environmental stewardship, geospatial technology, and science-policy interfaces, to start in Fall 2022. The MA student will complete a social science research project on best practices for agri-environmental data management and use, conducting focus groups with and surveying stakeholders including farmers, farmer organizations, Indigenous communities, conservation authorities, conservation NGOs, and governments. The thesis research will support colleagues who are developing a WebGIS platform to enable stakeholders to identify agri-environmental hot spots at a field scale in the Lake Erie Basin and prioritize investments in conservation actions (see [Liu et al. 2018](https://www.researchgate.net/publication/325743168_Development_of_an_Integrated_Modelling_System_for_Evaluating_Water_Quantity_and_Quality_Effects_of_Individual_Wetlands_in_an_Agricultural_Watershed)). The research is funded by the Arrell Food Institute at the University of Guelph via the Canada First Research Excellence Fund.
 
-Prospective students should be interested in conducting interviews, document analysis, and/or surveys for their research, as well as working reflexively with data technologies themselves. I can offer training in communication skills including mapping, web design, and public writing.
+The MA student will gain research skills related to focus group and Q survey methods ([Nost et al. 2019](https://www.researchgate.net/publication/334466202_Q-method_and_the_performance_of_subjectivity_Reflections_from_a_survey_of_US_stream_restoration_practitioners)). A key component of the research involves knowledge mobilization alongside collaborators - an opportunity for the student to enhance their project management and public communication skills.
 
-I encourage interested candidates to email me at enost[at]uoguelph[dot]ca with a brief statement of interest, an unofficial transcript, a writing / research sample, and a CV/resume.
+The Department of Geography, Environment and Geomatics at Guelph and I aim to foster welcoming and collaborative spaces that value diversity and wellness. I encourage applications from all qualified individuals, including from justice-seeking groups and those underrepresented in higher education. Prospective applicants should contact me via email - enost[at]uoguelph[dot]ca - and forward an unofficial transcript, resume or CV, and a brief statement outlining their interests as they relate to the project. 
 
 ## Webmapping and other programming projects
 ### Collaborative
 * [EDGI - Website Monitoring](https://github.com/edgi-govdata-archiving/web_monitoring_research) - Python-based analysis of changes to US federal environmental agency websites, 2016-2020
 * [EDGI - Environmental Enforcement Watch](https://github.com/edgi-govdata-archiving/Environmental-Enforcement-Watch) - Bringing people together to analyze publicly available data on how environmental protection laws are enforced and complied with (Python-based Jupyer Notebooks)
 * [HazMatMapper](https://github.com/uwcart/waste) - Collaborative D3.js project for telling stories about the North American hazardous waste trade
+* [LA_MasterPlan_Analysis](https://github.com/ericnost/LA_MasterPlan_Analysis) - Jupyter Notebook in R for analyzing the US state of Louisiana's Coastal Master Plan
+
 
 ### Personal
 * [Angular](https://github.com/ericnost/angular) - a demonstration of using Angular.js for mapping applications
@@ -29,6 +31,7 @@ I encourage interested candidates to email me at enost[at]uoguelph[dot]ca with a
 * [election 2016](https://github.com/ericnost/election2016) - a map of the 2016 US presidential election results
 * [Exploring ES](https://github.com/ericnost/Exploring-ES) - an experiment in mapping difference and change in ecosystem services
 * [Louisiana Land Loss](https://github.com/ericnost/landloss) - D3.js visualizations of coastal erosion in the US state of Louisiana
+* [MyGuelph](https://github.com/ericnost/MyGuelph) - Leaflet webmap for participatory mapping Guelph's new city ward boundaries.
 * [New Orleans Census Viewer](https://github.com/ericnost/NOLA-CensusViewer) - Angular-based view of US Census information about the city
 * [New Orleans STR Viewer](https://github.com/ericnost/NOLA-STR) - Angular-based view of short-term rental licenses in the city
 * [waste processing scripts](https://github.com/ericnost/hazardous-waste-data-processing) - Mostly Python scripts for integrating CSVs related to hazardous waste data
