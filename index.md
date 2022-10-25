@@ -14,11 +14,11 @@ I am recruiting a Master of Arts student with interests in agri-environmental st
 The Department of Geography, Environment and Geomatics at Guelph and I aim to foster welcoming and collaborative spaces that value diversity and wellness. I encourage applications from all qualified individuals, including from justice-seeking groups and those underrepresented in higher education. Prospective applicants should contact me via email - enost[at]uoguelph[dot]ca - and forward an unofficial transcript, resume or CV, and a brief statement outlining their interests as they relate to the project. 
 
 More about the Department of Geography, Environment and Geomatics at Guelph:
-•	Guaranteed funding for all graduate students for the duration of the program
-•	Comprehensive support for fieldwork and research expenses
-•	Outstanding faculty dedicated to a collaborative model of graduate education
-•	Research-intensive, collegial department in one of Canada’s top comprehensive universities
-•	Spacious campus with modern amenities in a vibrant community
+* Guaranteed funding for all graduate students for the duration of the program
+* Comprehensive support for fieldwork and research expenses
+* Outstanding faculty dedicated to a collaborative model of graduate education
+* Research-intensive, collegial department in one of Canada’s top comprehensive universities
+* Spacious campus with modern amenities in a vibrant community
 For additional details, please see [our website](https://geg.uoguelph.ca/graduate-programs).
 
 
