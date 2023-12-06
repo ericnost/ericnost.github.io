@@ -24,7 +24,7 @@ Link to notebook
 
 ## Watershed Prioritization Using New Data Sources Lab
 Text
-[Link to lab instructions](https://www.ericnost.github.io/digitalconservation_watershedlab)
+[Link to lab instructions](https://ericnost.github.io/digitalconservation_watershedlab)
 
 ## Guelph Informal Green Space Activity
 Text
