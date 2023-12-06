@@ -29,7 +29,7 @@ We will be using the industry-standard ArcGIS Pro to get high-level experience w
 
 2.	**Unzip the file** you just downloaded. You can do this by right-clicking and “Extract Here” with 7-Zip on a Windows computer or any other similar utility.
 
-3.  **Open the folder** you just unzipped and double click on the ArcGIS Project File. The following image illustrates this for the Niagara Region example.\
+3.  **Open the folder** you just unzipped and double click on the ArcGIS Project File. The following image illustrates this for the Niagara Region example:\
 !["Step 3"](assets/img/watershedlab/step5.png "Step 3"){: width="75%" height="75%" }
 
 4. **Review the spatial data layers** in front of you. We have the watershed boundaries, land use categories derived from satellite imagery, as well as mapped wetland locations and existing conservation spaces.
@@ -40,24 +40,33 @@ We will be using the industry-standard ArcGIS Pro to get high-level experience w
 
 6. First, we will **calculate distances** from all spots on the map to either wetlands or existing greenspaces. 
 * **Click on the Analysis tab and then Toolbox.** 
-* Search for **Euclidean Distance** and open the tool.\
-!["Step 7b"](assets/img/watershedlab/step7b.png "Step 7b"){: width="50%" height="50%" }
-* Your input is either the wetlands or greenspaces layer.\
-!["Step 7c"](assets/img/watershedlab/step7c.png "Step 7c"){: width="50%" height="50%" }
-* **Click on the Environments tab and set the Raster Analysis variables** Cell Size, Mask, and Clip Raster to be the same as the land use layer.\
-!["Step 7d"](assets/img/watershedlab/step7d.png "Step 7d"){: width="50%" height="50%" }
+* Search for **Euclidean Distance** and open the tool:\
+!["Step 7b"](assets/img/watershedlab/step7b.png "Step 7b"){: width="75%" height="75%" }
+* Your input is either the wetlands or greenspaces layer:\
+!["Step 7c"](assets/img/watershedlab/step7c.png "Step 7c"){: width="75%" height="75%" }
+* **Click on the Environments tab and set the Raster Analysis variables** Cell Size, Mask, and Clip Raster to be the same as the land use layer:\
+!["Step 7d"](assets/img/watershedlab/step7d.png "Step 7d"){: width="75%" height="75%" }
 * Click **run**!
 
 7. Now we need to evaluate and classify our data – is more distance from an existing wetland or greenspace a good thing or a bad thing? Areas closer to wetlands or existing parks might be more highly ranked – or not, depending on the context. Likewise, areas with certain land use types (e.g. for BMPs, agricultural uses) would be ranked more or less highly depending on the context.
-* **In the Analysis toolbar, choose Suitability Modeler.**
-* In the pane that appears on the right, **give your model a good name**, like Conservation Suitability or WatershedRanking. Choose whether you want a 1-5 or 1-10 (or some other) scale to rank areas’ suitability for conservation.
-* **Click the Parameters tab**, then the dropdown arrow, and select the land use and distance layers. 
-* **Click on the circle to the left of each layer in the Criteria pane**. When you click on the circle for land use, **choose unique ranks and the `landu` variable** from the dropdown menu that appears. Choose what you think the right suitability is for the different land use types. By default, suitability is ranked on a 1 (worst) to 10 (best) scale.
+* **In the Analysis toolbar, choose Suitability Modeler:**\
+!["Step 9a"](assets/img/watershedlab/step9a.png "Step 9a"){: width="75%" height="75%" }
+* In the pane that appears on the right, **give your model a good name**, like Conservation Suitability or WatershedRanking. Choose whether you want a 1-5 or 1-10 (or some other) scale to rank areas’ suitability for conservation:\
+!["Step 9b"](assets/img/watershedlab/step9b.png "Step 9b"){: width="75%" height="75%" }
+* **Click the Parameters tab**, then the dropdown arrow, and select the land use and distance layers:\
+!["Step 9c"](assets/img/watershedlab/step9c.png "Step 9c"){: width="75%" height="75%" }
+* **Click on the circle to the left of each layer in the Criteria pane**. When you click on the circle for land use, **choose unique ranks and the `landu` variable** from the dropdown menu that appears. Choose what you think the right suitability is for the different land use types. By default, suitability is ranked on a 1 (worst) to 10 (best) scale:\
+!["Step 9d"](assets/img/watershedlab/step9d.png "Step 9d"){: width="75%" height="75%" }
 * When you click on the circle next to the distance layer, you can **stick with “continuous functions”**. 
 * For now, your model will have two criteria:
- * distance to wetlands or greenspace
- * and use type
+    * distance to wetlands or greenspace
+    * and use type
 You can weight them however you like, it all depends on exactly what you’re envisioning as the specific conservation decision here. 
 
+## Part 2 – Social Media and Volunteered Geographic Information
+
+Publicly available social media data, especially data with a spatial component (volunteered geographic information - VGI) can prove to be a very valuable, if also very limited, source of data for conservation efforts. It can tell us about stakeholder preferences and values, it can give us more precise information, and it amounts to massive numbers of species observations. 
+
+In this part of the lab, we’ll try to make use of VGI species observations reported to eBird and/or iNaturalist. Specifically, we’ll enrich our watershed conservation suitability model by adding these observations as proxies for species presence in an area and/or its recreational value. The eBird data I’ve provided includes over 300,000 observations made in Ontario of vulnerable, endangered, critically endangered, and even extinct species (?!) The metadata for it is available [here](https://www.gbif.org/occurrence/download/0256061-210914110416597). The iNaturalist data includes about 17,000 observations made in southern Ontario of threatened native plant species. 
 
 
