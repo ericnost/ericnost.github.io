@@ -8,6 +8,10 @@ I research how data technologies inform environmental governance. New kinds of d
 
 My work contributes to the field of political ecology and is currently supported by SSHRC funding. I teach undergraduate courses in nature-society geography and mapping as well as graduate courses in research methods and in Guelph's Master of Conservation Leadership program. I serve on the coordinating committee of the [Environmental Data and Governance Initiative](https://www.envirodatagov.org) (EDGI), where we [bring people together to analyze publicly available socio-environmental data](https://www.environmentalenforcementwatch.org/) and track the portrayal of climate change issues on the web. 
 
+## Projects
+* Digital Conservation - short blurb
+* Environmental Enforcement Watch (EEW) - short blurb
+
 ## Recruitment
 I’m excited to hear from prospective grad students who are curious about the role data technologies play in environmental governance. Types of projects we might collaborate on include:
 * Evaluating opportunities for technologies such as AI and GIS in nature conservation and agri-environmental stewardship
