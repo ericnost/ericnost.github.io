@@ -31,7 +31,7 @@ We will be using the industry-standard ArcGIS Pro to get high-level experience w
 
 3.  **Open the folder** you just unzipped and double click on the ArcGIS Project File. The following image illustrates this for the Niagara Region example.
 
-!["Step 3"]("assets/img/watershedlab/step5.png" "Step 3")
+!["Step 3"](assets/img/watershedlab/step5.png "Step 3")
 https://raw.githubusercontent.com/ericnost/ericnost.github.io/main/assets/img/watershedlab/step5.png
 
 4. **Review the spatial data layers** in front of you. We have the watershed boundaries, land use categories derived from satellite imagery, as well as mapped wetland locations and existing conservation spaces.
