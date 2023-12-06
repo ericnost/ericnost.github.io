@@ -20,7 +20,8 @@ Link to PDF?
 
 ## eBird API Tutorial
 Text
-Link to notebook
+[Link to notebook](https://colab.research.google.com/drive/1HJ5D8zLkQJugdTnsZM7IKofRE8ASPUS3?usp=sharing)
+[Link to tutorial instructions](https://ericnost.github.io/digitalconservation_ebirdapi)
 
 ## Watershed Prioritization Using New Data Sources Lab
 Text

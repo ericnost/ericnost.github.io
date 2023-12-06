@@ -41,9 +41,21 @@ We will be using the industry-standard ArcGIS Pro to get high-level experience w
 
 6. First, we will **calculate distances** from all spots on the map to either wetlands or existing greenspaces. 
 * **Click on the Analysis tab and then Toolbox.** 
-* **Search for Euclidean Distance and open the tool.** !["Step 7b"](assets/img/watershedlab/step7b.png "Step 7b")
+* **Search for Euclidean Distance and open the tool.** !["Step 7b"](assets/img/watershedlab/step7b.png "Step 7b"){width=50% height=50%}
 * Your input is either the wetlands or greenspaces layer.!["Step 7c"](assets/img/watershedlab/step7c.png "Step 7c")
 * **Click on the Environments tab and set the Raster Analysis variables** Cell Size, Mask, and Clip Raster to be the same as the land use layer. !["Step 7d"](assets/img/watershedlab/step7d.png "Step 7d")
 * Click **run**!
+
+7. Now we need to evaluate and classify our data – is more distance from an existing wetland or greenspace a good thing or a bad thing? Areas closer to wetlands or existing parks might be more highly ranked – or not, depending on the context. Likewise, areas with certain land use types (e.g. for BMPs, agricultural uses) would be ranked more or less highly depending on the context.
+* **In the Analysis toolbar, choose Suitability Modeler.**
+* In the pane that appears on the right, **give your model a good name**, like Conservation Suitability or WatershedRanking. Choose whether you want a 1-5 or 1-10 (or some other) scale to rank areas’ suitability for conservation.
+* **Click the Parameters tab**, then the dropdown arrow, and select the land use and distance layers. 
+* **Click on the circle to the left of each layer in the Criteria pane**. When you click on the circle for land use, **choose unique ranks and the `landu` variable** from the dropdown menu that appears. Choose what you think the right suitability is for the different land use types. By default, suitability is ranked on a 1 (worst) to 10 (best) scale.
+* When you click on the circle next to the distance layer, you can **stick with “continuous functions”**. 
+* For now, your model will have two criteria:
+	* distance to wetlands or greenspace
+	* and use type
+You can weight them however you like, it all depends on exactly what you’re envisioning as the specific conservation decision here. 
+
 
 
