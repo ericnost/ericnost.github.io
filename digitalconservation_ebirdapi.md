@@ -97,7 +97,9 @@ data
 
 Next, we analyze the `sciName` column to figure out exactly how many different species were observed.
 
-`data["sciName"].nunique()`
+```
+data["sciName"].nunique()
+```
 
 So there were 255 different species identified over the past 30 days in southern Ontario (this number will vary depending on when this tutorial is run!)
 
@@ -117,7 +119,9 @@ species_information
 
 We can summarize this information and then plot it in a histogram.
 
-`species_information['familyComName'].value_counts().plot(kind='bar')`
+```
+species_information['familyComName'].value_counts().plot(kind='bar')
+```
 
 To no one's surprise, we're mostly observing ducks, geese, and waterfowl!
 
@@ -130,7 +134,9 @@ species_list
 
 There have been many species observed over time in Ontario. In the past 30 days, we have observed the following percent of these species:
 
-`str(round((species_information['speciesCode'].nunique()/species_list[0].shape[0]) * 100, 2)) + "%"`
+```
+str(round((species_information['speciesCode'].nunique()/species_list[0].shape[0]) * 100, 2)) + "%"
+```
 
 ### Spatial Analysis
 Finally, let's look at WHERE these species were observed. Because of the nature of the eBird API, we don't have access to ALL observations in the recent past, so we can't really make claims about the spatial distribution of bird sightings (you would need to manually download the data from the Global Biodiversity Information Facility to do that). Nonetheless, we could consider what we do have - the most recent observation of each species observed in the past 30 days in Ontario - as perhaps representative of where citizen scientists are operating. However, it is crucial to remember that these data reflect where people who use eBird are finding birds. The data tell us as much about people as birds. We are likely to map eBird observations near cities, in parks, and so on.

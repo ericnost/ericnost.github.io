@@ -41,9 +41,9 @@ We will be using the industry-standard ArcGIS Pro to get high-level experience w
 
 6. First, we will **calculate distances** from all spots on the map to either wetlands or existing greenspaces. 
 * **Click on the Analysis tab and then Toolbox.** 
-* **Search for Euclidean Distance and open the tool.** !["Step 7b"](assets/img/watershedlab/step7b.png "Step 7b"){: width="50%" height="50%" }
-* Your input is either the wetlands or greenspaces layer.!["Step 7c"](assets/img/watershedlab/step7c.png "Step 7c")
-* **Click on the Environments tab and set the Raster Analysis variables** Cell Size, Mask, and Clip Raster to be the same as the land use layer. !["Step 7d"](assets/img/watershedlab/step7d.png "Step 7d")
+* | **Search for Euclidean Distance and open the tool.** | !["Step 7b"](assets/img/watershedlab/step7b.png "Step 7b"){: width="50%" height="50%" }|
+* Your input is either the wetlands or greenspaces layer.!["Step 7c"](assets/img/watershedlab/step7c.png "Step 7c"){: width="50%" height="50%" }
+* **Click on the Environments tab and set the Raster Analysis variables** Cell Size, Mask, and Clip Raster to be the same as the land use layer. !["Step 7d"](assets/img/watershedlab/step7d.png "Step 7d"){: width="50%" height="50%" }
 * Click **run**!
 
 7. Now we need to evaluate and classify our data – is more distance from an existing wetland or greenspace a good thing or a bad thing? Areas closer to wetlands or existing parks might be more highly ranked – or not, depending on the context. Likewise, areas with certain land use types (e.g. for BMPs, agricultural uses) would be ranked more or less highly depending on the context.
