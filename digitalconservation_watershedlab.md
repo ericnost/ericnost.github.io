@@ -50,7 +50,7 @@ We will be using the industry-standard ArcGIS Pro to get high-level experience w
 
 7. Now we need to evaluate and classify our data – is more distance from an existing wetland or greenspace a good thing or a bad thing? Areas closer to wetlands or existing parks might be more highly ranked – or not, depending on the context. Likewise, areas with certain land use types (e.g. for BMPs, agricultural uses) would be ranked more or less highly depending on the context.
 * **In the Analysis toolbar, choose Suitability Modeler:**\
-!["Step 9a"](assets/img/watershedlab/step9a.png "Step 9a"){: width="75%" height="75%" }
+!["Step 9a"](assets/img/watershedlab/step9a.png "Step 9a"){: width="25%" height="25%" }
 * In the pane that appears on the right, **give your model a good name**, like Conservation Suitability or WatershedRanking. Choose whether you want a 1-5 or 1-10 (or some other) scale to rank areas’ suitability for conservation:\
 !["Step 9b"](assets/img/watershedlab/step9b.png "Step 9b"){: width="75%" height="75%" }
 * **Click the Parameters tab**, then the dropdown arrow, and select the land use and distance layers:\
@@ -59,8 +59,8 @@ We will be using the industry-standard ArcGIS Pro to get high-level experience w
 !["Step 9d"](assets/img/watershedlab/step9d.png "Step 9d"){: width="75%" height="75%" }
 * When you click on the circle next to the distance layer, you can **stick with “continuous functions”**. 
 * For now, your model will have two criteria:
-    * distance to wetlands or greenspace
-    * and use type
+    a. distance to wetlands or greenspace
+    b. and use type
 You can weight them however you like, it all depends on exactly what you’re envisioning as the specific conservation decision here. 
 
 ## Part 2 – Social Media and Volunteered Geographic Information
