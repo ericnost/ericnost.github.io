@@ -9,11 +9,17 @@ I research how data technologies inform environmental governance. New kinds of d
 My work contributes to the field of political ecology and is currently supported by SSHRC funding. I teach undergraduate courses in nature-society geography and mapping as well as graduate courses in research methods and in Guelph's Master of Conservation Leadership program. I serve on the coordinating committee of the [Environmental Data and Governance Initiative](https://www.envirodatagov.org) (EDGI), where we [bring people together to analyze publicly available socio-environmental data](https://www.environmentalenforcementwatch.org/) and track the portrayal of climate change issues on the web. 
 
 ## Recruitment
-I am recruiting a Master of Arts student with interests in agri-environmental stewardship, geospatial technology, and the interactions between science and policy, to start in Fall 2023. The MA student will be funded with a graduate research assistantship to complete a social science project on best practices for agri-environmental data management and use. They will conduct focus groups with and survey stakeholders including farmers, farmer organizations, conservation authorities, conservation NGOs, and governments (municipal, provincial, First Nations, etc.) Their thesis research will support colleagues who are developing a WebGIS platform to enable stakeholders to identify agri-environmental hot spots at a field scale in the Lake Erie Basin and prioritize investments in conservation actions (see [Liu et al. 2018](https://www.researchgate.net/publication/325743168_Development_of_an_Integrated_Modelling_System_for_Evaluating_Water_Quantity_and_Quality_Effects_of_Individual_Wetlands_in_an_Agricultural_Watershed)). A key component of the research involves knowledge mobilization alongside collaborators - an opportunity for the student to enhance their project management and public communication skills. The project is supported by the Arrell Food Institute at the University of Guelph via the Canada First Research Excellence Fund.
+I’m excited to hear from prospective grad students who are curious about the role data technologies play in environmental governance. Types of projects we might collaborate on include:
+* Evaluating opportunities for technologies such as AI and GIS in nature conservation and agri-environmental stewardship
+* Analyzing publicly-available climate, conservation, and environmental governance datasets
 
-The Department of Geography, Environment and Geomatics at Guelph and I aim to foster welcoming and collaborative spaces that value diversity and wellness. I encourage applications from all qualified individuals, including from justice-seeking groups and those underrepresented in higher education. Prospective applicants should contact me via email - enost[at]uoguelph[dot]ca - and forward an unofficial transcript, resume or CV, and a brief statement outlining their interests as they relate to the project. 
+I am also looking for students to research the design of environmental governance datasets like Canada's National Pollutant Release Inventory and to experiment in alternative uses of them. This research would inform ongoing policy discussions, including those around Canada's [Bill C-226](https://www.parl.ca/legisinfo/en/bill/44-1/c-226) and the US's [Justice40](https://www.whitehouse.gov/omb/briefing-room/2021/07/20/the-path-to-achieving-justice40/) initiative, both of which seek to develop data infrastructures for advancing environmental justice. Students would have the opportunity to collaborate with the [Environmental and Data Governance Initiative](https://envirodatagov.org/).
 
-More about the Department of Geography, Environment and Geomatics at Guelph:
+Prospective students should be interested in conducting interviews, document analysis, and/or surveys for their research, as well as working critically with data technologies themselves. I can offer training in communication skills - including mapping, data visualization, and public writing - and in the scholarly fields of political ecology, science and technology studies, and digital geographies. Former graduate students have gone on to work in academia and in the conservation and environmental NGO sectors. 
+
+I encourage interested candidates to email me with a brief statement of interest, an unofficial transcript, and a writing/research sample.
+
+The Department of Geography, Environment and Geomatics at Guelph and I aim to foster welcoming and collaborative spaces that value diversity and wellness. I encourage applications from all qualified individuals, including from justice-seeking groups and those underrepresented in higher education. More about the Department:
 * Guaranteed funding for all graduate students for the duration of the program
 * Comprehensive support for fieldwork and research expenses
 * Outstanding faculty dedicated to a collaborative model of graduate education
@@ -21,20 +27,20 @@ More about the Department of Geography, Environment and Geomatics at Guelph:
 * Spacious campus with modern amenities in a vibrant community
 For additional details, please see [our website](https://geg.uoguelph.ca/graduate-programs).
 
-
 ## Webmapping and other programming projects
 ### Collaborative
 * [EDGI - Website Monitoring](https://github.com/edgi-govdata-archiving/web_monitoring_research) - Python-based analysis of changes to US federal environmental agency websites, 2016-2020
 * [EDGI - Environmental Enforcement Watch](https://github.com/edgi-govdata-archiving/Environmental-Enforcement-Watch) - Bringing people together to analyze publicly available data on how environmental protection laws are enforced and complied with (Python-based Jupyer Notebooks)
+* [EDGI - New Jersey Drinking Water Justice Tool](https://github.com/ericnost/NJ_SDWA_EEW) - A Streamlit based-tool for exploring drinking water justice in New Jersey
+* [gfw](https://github.com/ericnost/gfw/blob/master/gfw_analysis.ipynb) - Jupyter Notebook in R for analyzing Global Fishing Watch data
 * [HazMatMapper](https://github.com/uwcart/waste) - Collaborative D3.js project for telling stories about the North American hazardous waste trade
-* [LA_MasterPlan_Analysis](https://github.com/ericnost/LA_MasterPlan_Analysis) - Jupyter Notebook in R for analyzing the US state of Louisiana's Coastal Master Plan
-
+* [IPCC](https://github.com/ericnost/IPCC) - Jupyter Notebook in Python for bibliometric analysis of papers cited in the Intergovernmental Panel on Climate Change's Sixth Asssessment Report
+* [LA_MasterPlan_Analysis](https://github.com/ericnost/LA_MasterPlan_Analysis) - Jupyter Notebook in Python for analyzing the US state of Louisiana's Coastal Master Plan
 
 ### Personal
 * [Angular](https://github.com/ericnost/angular) - a demonstration of using Angular.js for mapping applications
 * [armchairgeographer](https://github.com/ericnost/armchairgeographer) - pulls random Flickr images from a specified set of coordinates, maps the area, and displays text randomly selected from a set of social theorists.
 * [cookbook](https://github.com/ericnost/cookbook) - draws from a Google Sheet of recipes and uses Angular.js for displaying them
-* [CTRL-F](https://github.com/ericnost/EDGI) - A set of Python add-ons to the Environmental Data and Governance Initiative's web monitoring project and Environmental Enforcement Watch projects. 
 * [election 2016](https://github.com/ericnost/election2016) - a map of the 2016 US presidential election results
 * [Exploring ES](https://github.com/ericnost/Exploring-ES) - an experiment in mapping difference and change in ecosystem services
 * [Louisiana Land Loss](https://github.com/ericnost/landloss) - D3.js visualizations of coastal erosion in the US state of Louisiana
@@ -49,6 +55,7 @@ For additional details, please see [our website](https://geg.uoguelph.ca/graduat
 Environmental governance actors - states, corporations, conservation groups, farmers, and so on - struggle to get the information they want. There's more and more data out there every day, but it's often siloed. Even when it's available, it's not necessarily relevant and there typically isn't the time or money to make sense of it. Governing nature, it turns out, means governing data. Who collects environmental data and manages environmental databases, and who pays for it all? These questions tend to crystallize in data infrastructures.
 
 * J. Goldstein and **E. Nost**. 2022. *The Nature of Data: Infrastructures, Environments, Politics*. University of Nebraska Press. [Link](https://www.nebraskapress.unl.edu/nebraska/9781496217158/)
+* **Nost, E.** 2022. ‘The tool didn’t make decisions for us': metrics and the performance of accountability in environmental governance *Science as Culture* [Link](https://www.tandfonline.com/doi/pdf/10.1080/09505431.2022.2151427)
 * Drakopulos, L., Silver, J., **Nost, E.**, Hawkins, R., and Gray, N. 2022. Making global oceans governance in/visible with Smart Earth: The case of Global Fishing Watch. *Environment and Planning E: Nature and Space*. [Link](https://journals.sagepub.com/doi/full/10.1177/25148486221111786)
 * **Nost, E.** and E. Colven. 2022. Earth for AI: A Political Ecology of Data-Driven Climate Initiatives. *Geoforum*. [Link](https://www.sciencedirect.com/science/article/pii/S0016718522000240?via%3Dihub)
 * **Nost, E**. and J.E. Goldstein. 2021. A political ecology of data. *Environment & Planning E: Nature and Space*. [Link](https://journals.sagepub.com/doi/10.1177/25148486211043503)
@@ -60,6 +67,8 @@ Environmental governance actors - states, corporations, conservation groups, far
 ### Digital practice and praxis
 Decision-makers increasingly aim for what they call "data-driven" governance. But data doesn't "drive" as much as it affords. It has to be learned from, through institutions that allow decision-makers to access expertise and communicate their expectations. Who are the users of digital technologies? What can they learn and do with their tools? How can data serve public ends, in and beyond the classroom?
 
+* Horgan, L., K. Mok., E. Boetsch, S. Kelly, K. Dickinson, **E. Nost**, R. Bongiavanni, an S. Wylie. 2023. What Does Chelsea Creek Do for You? A Relational Approach to Environmental Justice Communication. *Environmental Justice*. [Link](https://www.liebertpub.com/doi/pdf/10.1089/env.2022.0081)
+* Molloy, M., **E. Nost**, and M. Bledsoe. 2023. Is adaptation planning effective and for whom? The case of Louisiana’s 2017 Comprehensive Master Plan for a Sustainable Coast. *Environmental Hazards*. [Link](https://www.tandfonline.com/doi/pdf/10.1080/17477891.2023.2189687)
 * Steger, C., Hirsh, S., Cosgrove, C., Inman, S., **Nost, E**., Shinbrot, X., Thorn, J.P.R., Browth, D.G., Gret-Regamey, A., Muller, B., Reid, R.S., Tucker, C., Weibel, B., Klein, J.A. 2021. Linking model design and application for transdisciplinary approaches in social-ecological systems. *Global Environmental Change*. [Link](https://www.researchgate.net/publication/347712978_Linking_model_design_and_application_for_transdisciplinary_approaches_in_social-ecological_systems).
 * Tirrell, C, L. Senier, S. Wylie, C. Alder, G. Poudrier, J. Divalli, M. Beck, **E. Nost**, R. Brackett, and G. Gehrke. 2020. Learning in Crisis: Training students to monitor and address irresponsible knowledge construction by U.S. federal agencies under Trump. *Engaging Science, Technology, and Society* 6. [Link](https://doi.org/10.17351/ests2020.313)
 * Walker, D., **E. Nost**, A. Lemelin, R. Lave, and L. Dillon. 2018. Practicing environmental data justice: From DataRescue to Data Together. *Geo*. [Link](https://rgs-ibg.onlinelibrary.wiley.com/doi/abs/10.1002/geo2.61)
@@ -74,8 +83,3 @@ How can political ecologists sharpen or build new methods for understanding envi
 * **Nost, E.**, M. Robertson, and R. Lave. 2019. Q-method and the performance of subjectivity: Reflections from a survey of US stream restoration practitioners. *Geoforum* 105: 23-31. [Link](https://www.sciencedirect.com/science/article/pii/S0016718519301915)
 * Moore, S. A., H. Rosenfeld, **E. Nost**, K. Vincent, and R. E. Roth. 2018. Undermining methodological nationalism: Cosmopolitan analysis and visualization of the North American hazardous waste trade. *Environment and Planning A*. [Link](http://journals.sagepub.com/doi/abs/10.1177/0308518X18784023)
 * Moore, S., R. Roth, H. Rosenfeld, **E. Nost**, K. Vincent, T. Buckingham, M.R. Arefin. 2017. Undisciplining Environmental Justice Research with Visual Storytelling. *Geoforum*. [Link](https://www.researchgate.net/publication/315635619_Undisciplining_environmental_justice_research_with_visual_storytelling)
-
-
-
-
-
