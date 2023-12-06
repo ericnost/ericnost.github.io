@@ -29,9 +29,8 @@ We will be using the industry-standard ArcGIS Pro to get high-level experience w
 
 2.	**Unzip the file** you just downloaded. You can do this by right-clicking and “Extract Here” with 7-Zip on a Windows computer or any other similar utility.
 
-3.  **Open the folder** you just unzipped and double click on the ArcGIS Project File. The following image illustrates this for the Niagara Region example.
-
-!["Step 3"](assets/img/watershedlab/step5.png "Step 3")
+3.  **Open the folder** you just unzipped and double click on the ArcGIS Project File. The following image illustrates this for the Niagara Region example.\
+!["Step 3"](assets/img/watershedlab/step5.png "Step 3"){: width="75%" height="75%" }
 
 4. **Review the spatial data layers** in front of you. We have the watershed boundaries, land use categories derived from satellite imagery, as well as mapped wetland locations and existing conservation spaces.
 
@@ -41,10 +40,11 @@ We will be using the industry-standard ArcGIS Pro to get high-level experience w
 
 6. First, we will **calculate distances** from all spots on the map to either wetlands or existing greenspaces. 
 * **Click on the Analysis tab and then Toolbox.** 
-* | Search for **Euclidean Distance** and open the tool. | !["Step 7b"](assets/img/watershedlab/step7b.png "Step 7b")|
-* Your input is either the wetlands or greenspaces layer.
+* Search for **Euclidean Distance** and open the tool.\
+!["Step 7b"](assets/img/watershedlab/step7b.png "Step 7b"){: width="50%" height="50%" }
+* Your input is either the wetlands or greenspaces layer.\
 !["Step 7c"](assets/img/watershedlab/step7c.png "Step 7c"){: width="50%" height="50%" }
-* **Click on the Environments tab and set the Raster Analysis variables** Cell Size, Mask, and Clip Raster to be the same as the land use layer.
+* **Click on the Environments tab and set the Raster Analysis variables** Cell Size, Mask, and Clip Raster to be the same as the land use layer.\
 !["Step 7d"](assets/img/watershedlab/step7d.png "Step 7d"){: width="50%" height="50%" }
 * Click **run**!
 
@@ -55,8 +55,8 @@ We will be using the industry-standard ArcGIS Pro to get high-level experience w
 * **Click on the circle to the left of each layer in the Criteria pane**. When you click on the circle for land use, **choose unique ranks and the `landu` variable** from the dropdown menu that appears. Choose what you think the right suitability is for the different land use types. By default, suitability is ranked on a 1 (worst) to 10 (best) scale.
 * When you click on the circle next to the distance layer, you can **stick with “continuous functions”**. 
 * For now, your model will have two criteria:
-	* distance to wetlands or greenspace
-	* and use type
+ * distance to wetlands or greenspace
+ * and use type
 You can weight them however you like, it all depends on exactly what you’re envisioning as the specific conservation decision here. 
 
 

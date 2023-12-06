@@ -8,7 +8,7 @@ Project background
 
 ## Summary of research findings
 * Text
-* [Link to PDF]('Digital%20Conservation%20Summary.pdf')
+* [Link to PDF](Digital%20Conservation%20Summary.pdf)
 
 ## Paper Draft 1
 Text
