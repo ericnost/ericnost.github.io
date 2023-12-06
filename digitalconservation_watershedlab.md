@@ -15,13 +15,13 @@ By the end, you'll have created a data dashboard, the kind of which we see many 
 
 The overarching prompt that will guide your work: where should we invest in new conservation areas? Imagine you are tasking a GIS tech with building a publicly-available tool that would allow you, your organization, and your partners to investigate watershed conditions and possible areas for investment. It would be helpful to know, in some detail, what to task the tech with building. Through this you will learn about the kinds of conservation tools, tech, and data available to organizations and some of the practical and ethical concerns arising in them.
 
-# Requirements
+### Requirements
 To complete this lab, you will need the following:
 * Access to an ArcGIS account from Esri
 * Access to ArcGIS Pro software
 * Access to one of the lab datasets - available here [(Niagara Region)]() and here [(Toronto Region)]
 
-# Part 1 – Modeling Landscape Values
+## Part 1 – Modeling Landscape Values
 
 We will be using the industry-standard ArcGIS Pro to get high-level experience working with classic and emerging conservation tools and technology. The goal is not to have you memorize which buttons to push, but to think through practical and ethical concerns that arise when implementing these within an organizational mission.
 
@@ -31,7 +31,8 @@ We will be using the industry-standard ArcGIS Pro to get high-level experience w
 
 3.  **Open the folder** you just unzipped and double click on the ArcGIS Project File. The following image illustrates this for the Niagara Region example.
 
-!["Step 3"]("https://github.com/ericnost/ericnost.github.io/blob/main/assets/img/watershedlab/step5.png?raw=true" "Step 3")
+!["Step 3"]("../assets/img/watershedlab/step5.png" "Step 3")
+https://raw.githubusercontent.com/ericnost/ericnost.github.io/main/assets/img/watershedlab/step5.png
 
 4. **Review the spatial data layers** in front of you. We have the watershed boundaries, land use categories derived from satellite imagery, as well as mapped wetland locations and existing conservation spaces.
 
