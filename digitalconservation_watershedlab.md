@@ -41,7 +41,7 @@ We will be using the industry-standard ArcGIS Pro to get high-level experience w
 
 6. First, we will **calculate distances** from all spots on the map to either wetlands or existing greenspaces. 
 * **Click on the Analysis tab and then Toolbox.** 
-* **Search for Euclidean Distance and open the tool.** !["Step 7b"](assets/img/watershedlab/step7b.png "Step 7b"){width=50% height=50%}
+* **Search for Euclidean Distance and open the tool.** !["Step 7b"](assets/img/watershedlab/step7b.png "Step 7b"){: width="50%" height="50%" }
 * Your input is either the wetlands or greenspaces layer.!["Step 7c"](assets/img/watershedlab/step7c.png "Step 7c")
 * **Click on the Environments tab and set the Raster Analysis variables** Cell Size, Mask, and Clip Raster to be the same as the land use layer. !["Step 7d"](assets/img/watershedlab/step7d.png "Step 7d")
 * Click **run**!
