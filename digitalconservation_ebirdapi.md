@@ -54,7 +54,7 @@ def get_ebird_data(url):
 
   payload={}
   headers = {
-    'X-eBirdApiToken': 'hr892h2c8264' # Replace {{x-ebirdapitoken}} with your API token
+    'X-eBirdApiToken': {{x-ebirdapitoken}} # Replace {{x-ebirdapitoken}} with your API token
   }
 
   response = requests.request("GET", url, headers=headers, data=payload) # "Visit" the website with this data
