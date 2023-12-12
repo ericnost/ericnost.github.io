@@ -69,4 +69,21 @@ Publicly available social media data, especially data with a spatial component (
 
 In this part of the lab, we’ll try to make use of VGI species observations reported to eBird and/or iNaturalist. Specifically, we’ll enrich our watershed conservation suitability model by adding these observations as proxies for species presence in an area and/or its recreational value. The eBird data I’ve provided includes over 300,000 observations made in Ontario of vulnerable, endangered, critically endangered, and even extinct species (?!) The metadata for it is available [here](https://www.gbif.org/occurrence/download/0256061-210914110416597). The iNaturalist data includes about 17,000 observations made in southern Ontario of threatened native plant species. 
 
+1.  **Load either the eBird or iNaturalist data** I have assembled for you. Open the Catalog pane, turn the arrow on the database, and drag the layer on to the map.\
+!["Part 2 Step 2"](assets/img/watershedlab/part2step2.png "Part 2 Step 2"){: width="75%" height="75%" }
+
+2.  **Optional but recommended**: You can filter the eBird or iNaturalist data depending on what exactly you might be interested in…For instance, if you only wanted to include a single species in your model of how suitable areas are for conservation, you could filter the data to only observations of that species. Or you could filter it to only high quality observations. Or only observations made recently.\ 
+**Right click on the layer in the Contents pane and select Attribute Table**. To filter, choose the Select by Attributes tool in the top toolbar and Create a New Expression. In the example at the right, I’ve filtered the eBird data to only observations of Bubo scandiacus (snowy owl).\
+!["Part 2 Step 3a"](assets/img/watershedlab/part2step3a.png "Part 2 Step 3a"){: width="75%" height="75%" }\
+!["Part 2 Step 3a"](assets/img/watershedlab/part2step3a2.png "Part 2 Step 3a"){: width="75%" height="75%" }\
+!["Part 2 Step 3a"](assets/img/watershedlab/part2step3a3.png "Part 2 Step 3a"){: width="75%" height="75%" }
+
+3.  This time around we’re not going to calculate the distance from each area to each species observation (though that could certainly make sense). **Instead, we’ll calculate the density of observations**, in order to give us a sense of how common it is to observe the species, or to have people recreating, in an area. Calculating density like this is a good way to get around the fact that eBird, iNaturalist, and other such data sources are only samples of all species observations / nature recreation activities that exist in a given area.
+* **Find the Kernel Density tool** by opening the Toolbox through the Analysis tab. 
+!["Part 2 Step 4a"](assets/img/watershedlab/part2step4a.png "Part 2 Step 4a"){: width="75%" height="75%" }\
+* **Enter the eBird or iNaturalist layer as your input**. In the Parameters pane, simply set the Cell Size environment to the land use layer.
+!["Part 2 Step 4b"](assets/img/watershedlab/part2step4b.png "Part 2 Step 4b"){: width="75%" height="75%" }\
+* Click **run**!
+
+4.  **Add the new layer** to your suitability model following the same steps that you took in Part 1 to add the land use and distance to wetlands/parks layers. Don’t forget to click on the circle to the left of the density layer you add to the model and to classify it. 
 
