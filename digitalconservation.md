@@ -19,9 +19,9 @@ Text \
 Text \
 [Link to lab instructions](https://ericnost.github.io/digitalconservation_watershedlab)
 
-## Guelph's Informal Green Space Lab
+## Guelph's Informal Green Spaces Lab
 Text \
-Link to detailed page
+[Link to lab instructions](https://ericnost.github.io/digitalconservation_igslab)
 
 ## Observatory
 Text \
