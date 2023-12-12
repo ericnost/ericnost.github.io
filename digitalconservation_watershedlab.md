@@ -103,14 +103,11 @@ Data dashboards are, of course, not just for tracking pandemics, but for sharing
 * **Search for and open the Raster to Polygon tool**. Enter the raster you just created using the Int tool as the input. Choose “Value” as the field if it isn’t already selected. Be sure to select “simplify polygons” and “create multipart features” – these options help make the output manageable.\
 !["Part 3 Step 3a"](assets/img/watershedlab/part3step3a.png "Part 3 Step 3a"){: width="75%" height="75%" }
 
-3.  **Optional**: The result of turning our data into polygons is that our map probably looks a bit “messier” and a lot harder to compare consistently across it. The shapes might reflect ecological realities on the ground, but they might also provide us too much detail at this stage./ 
-
-One thing we can do to correct this is to aggregate the data. We can “bin” it into grids like we saw on Global Fishing Watch’s platform. To do this, we first need to **create a grid**.
+3.  **Optional**: The result of turning our data into polygons is that our map probably looks a bit “messier” and a lot harder to compare consistently across it. The shapes might reflect ecological realities on the ground, but they might also provide us too much detail at this stage. One thing we can do to correct this is to aggregate the data. We can “bin” it into grids like we saw on Global Fishing Watch’s platform. To do this, we first need to **create a grid**.
 * **Search for and open the Generate Tessellation tool**. I recommend creating a grid with square shapes, though the choice is yours. You can make them as large or small as you like, though I’ve found 5 sq. km. to be a reasonable choice.\
 !["Part 3 Step 4a"](assets/img/watershedlab/part3step4a.png "Part 3 Step 4a"){: width="75%" height="75%" }
-* **Run** the tool!
-
-The result of running “Generate Tessellation” is a blank grid on our map. Now we need to join our suitability data to it.
+* **Run** the tool! 
+* The result of running “Generate Tessellation” is a blank grid on our map. Now we need to join our suitability data to it.
 * We do this with a “Spatial Join”. **Right click on the grid you just produced, navigate to “Joins and Relates” and choose Spatial Join**. The Join Features should be the polygon version of the suitability map, which you generated in step 3 above.\
 !["Part 3 Step 4c"](assets/img/watershedlab/part3step4c.png "Part 3 Step 4c"){: width="75%" height="75%" } 
 * **Expand the Fields pane and navigate to “gridcode”**. You need to tell ArcGIS how it should summarize the suitability values in each part of the grid. Let’s say there are 10 areas you’ve modeled that fall within one grid cell. Should the software take the average suitability value of each area and assign that to the grid cell? Should it take the median? Some other statistic? In the example above, I’ve instructed ArcGIS to take the median, but other measures may be valid.
@@ -124,7 +121,7 @@ The result of running “Generate Tessellation” is a blank grid on our map. No
 
 5.  There are many styling options that are available to you. Once you have finalized the style of your map, it’s time to publish it!
 * First, **unselect all layers** from the Contents pane, except the layer you just finished styling.\
-!["Part 3 Step 7a"](assets/img/watershedlab/part3step7a.png "Part 3 Step 7a"){: width="75%" height="75%" } 
+!["Part 3 Step 7a"](assets/img/watershedlab/part3step7a.png "Part 3 Step 7a"){: width="25%" height="25%" } 
 * Next, **select Web Map** from the Share tab on the toolbar.\
 !["Part 3 Step 7b"](assets/img/watershedlab/part3step7b.png "Part 3 Step 7b"){: width="75%" height="75%" }
 * **Give your map a decent name**, provide a quick summary, and add some tags.
@@ -152,7 +149,7 @@ The result of running “Generate Tessellation” is a blank grid on our map. No
 11. You can continue to **refine your dashboard** as much as you like. For instance, the colors in your pie chart probably won’t match the colors are your map. There’s no easy way to fix that, unfortunately. Again, remember that our goal here is to make a polished product – it’s to go through the steps.
 
 12. **Save your dashboard!!!**\
-!["Part 3 Step 14"](assets/img/watershedlab/part3step14.png "Part 3 Step 14"){: width="75%" height="75%" }  
+!["Part 3 Step 14"](assets/img/watershedlab/part3step14.png "Part 3 Step 14"){: width="50%" height="50%" }  
 
 13. Last but not least, **share your dashboard!!!**  Back in the Content tab of ArcGIS Online, find your dashboard and choose “View Dashboard” that should take you to the publicly-available version of it.\
 !["Part 3 Step 15"](assets/img/watershedlab/part3step15.png "Part 3 Step 15"){: width="75%" height="75%" }  
