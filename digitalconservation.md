@@ -16,8 +16,8 @@ Text \
 [Link to tutorial instructions](https://ericnost.github.io/digitalconservation_ebirdapi)
 
 ## Watershed Prioritization Using New Data Sources Lab
-* Text \
-* [Link to lab instructions](https://ericnost.github.io/digitalconservation_watershedlab)
+Text \
+[Link to lab instructions](https://ericnost.github.io/digitalconservation_watershedlab)
 
 ## Guelph's Informal Green Space Lab
 Text \

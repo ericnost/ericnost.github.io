@@ -11,6 +11,7 @@ My work contributes to the field of political ecology and is currently supported
 ## Projects
 * Digital Conservation - short blurb
 * Environmental Enforcement Watch (EEW) - short blurb
+* Public Political Ecologies of Data - short blurb
 
 ## Recruitment
 I’m excited to hear from prospective grad students who are curious about the role data technologies play in environmental governance. Types of projects we might collaborate on include:
