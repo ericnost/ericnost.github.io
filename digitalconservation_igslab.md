@@ -14,7 +14,7 @@ This lab will help us to get to know two key conservation technologies – GIS a
 
 ### Requirements
 To complete this lab, you will need the following:
-* Access to QGIS free, open access mapping software
+* Access to [QGIS](https://www.qgis.org/en/site/forusers/download.html) - free, open access mapping software
 * Access to the datasets (linked to in the Instructions below)
 
 ### Learning Objectives
