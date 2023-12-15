@@ -4,7 +4,7 @@ layout: default
 title: Digital Conservation - Watershed Prioritization Using New Data Sources Lab
 
 ---
-We are not trying to train you to be Geographic Information System (GIS) technicians. You will learn how to employ GIS and modeling, social media/volunteered geographic information, and data dashboards in specific use cases – modeling landscapes, assessing recreational and other ecosystem services, and interactively prioritizing conservation investments. 
+In this lab, you will learn how to employ GIS and modeling, social media/volunteered geographic information, and data dashboards in specific use cases – modeling landscapes, assessing recreational and other ecosystem services, and interactively prioritizing conservation investments. 
 
 The lab is divided into three parts:
 1.	Modeling Landscape Values

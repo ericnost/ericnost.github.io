@@ -9,9 +9,10 @@ I research how data technologies inform environmental governance. New kinds of d
 My work contributes to the field of political ecology and is currently supported by SSHRC funding. I teach undergraduate courses in nature-society geography and mapping as well as graduate courses in research methods and in Guelph's Master of Conservation Leadership program. I serve on the coordinating committee of the [Environmental Data and Governance Initiative](https://www.envirodatagov.org) (EDGI), where we [bring people together to analyze publicly available socio-environmental data](https://www.environmentalenforcementwatch.org/) and track the portrayal of climate change issues on the web. 
 
 ## Projects
-* Digital Conservation - short blurb
-* Environmental Enforcement Watch (EEW) - short blurb
-* Public Political Ecologies of Data - short blurb
+* [Digital Conservation](https://ericnost.github.io/digitalconservation) - Big data and related data collection tools such as acoustic
+sensors; machine learning and artificial intelligence (AI) algorithms; dashboards and platforms for sharing data – these all constitute “digital conservation.” Digital technologies have the potential to make conservation more holistic, responsive, and participatory. However, we hear a lot about the promises of digital conservation and less about the challenges. Is access to digital conservation democratic? Are outcomes lining up with expectations? In general, what do conservationists actually think about and do with digital tools?
+* [Environmental Enforcement Watch (EEW)](https://www.environmentalenforcementwatch.org/) - EEW is a collaborative project engaging with the Environmental Protection Agency’s Enforcement and Compliance History Online (ECHO) database and to: draw large-scale public attention to the lack of environmental enforcement; work with partner organizations, especially marginalized communities, to build data efficacy through mutually beneficial relationships; inform EPA visions of alternative forms of public engagement; prototype community-oriented structures for environmental data, i.e. by congressional district, watershed, and health risks for a community; call attention to the relationship between environmental enforcement, environmental racism, and other interlocking forms of oppression (particularly white supremacy, capitalism, settler-colonialism, heteropatriarchy, etc.)
+* [Public Political Ecologies of Data] - short blurb
 
 ## Recruitment
 I’m excited to hear from prospective grad students who are curious about the role data technologies play in environmental governance. Types of projects we might collaborate on include:

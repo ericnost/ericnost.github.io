@@ -60,3 +60,9 @@ To complete this lab, you will need the following:
 11. Analyze in relation to Census data? (Visually)
 
 ## Reflections
+* What do we see? What have we found?
+* Is this data biased? If so, how? And what impact would that have on the analysis?
+* How would similar data sources be useful in your own work? How might they raise questions of bias?
+* Is this data sensitive? Are there privacy concerns?
+* What next steps? How would you want to analyze this further?
+* How easy was this? What capacity, cost, etc. needed?
