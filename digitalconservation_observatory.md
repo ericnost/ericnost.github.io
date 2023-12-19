@@ -84,19 +84,19 @@ google = google_process(datatype = "CSV", project=project)
 google
 ```
 
-| date | link |                                           metrics | source |  query |                                               |
-|-----:|-----:|--------------------------------------------------:|-------:|-------:|-----------------------------------------------|
-|   0  |  NaN | https://www.nature.com/articles/s41467-022-279... |    NaN | Google |        "machine learning" nature conservation |
-|   1  |  NaN | https://iucn.org/story/202307/computer-conserv... |    NaN | Google |        "machine learning" nature conservation |
-|   2  |  NaN | https://teamcore.seas.harvard.edu/machine-lear... |    NaN | Google |        "machine learning" nature conservation |
-|   3  |  NaN |         https://pubmed.ncbi.nlm.nih.gov/35140206/ |    NaN | Google |        "machine learning" nature conservation |
-|   4  |  NaN |                  https://arxiv.org/abs/2110.12951 |    NaN | Google |        "machine learning" nature conservation |
-|  ... |  ... |                                               ... |    ... |    ... |                                           ... |
-|  108 |  NaN | https://besjournals.onlinelibrary.wiley.com/do... |    NaN | Google | "artificial intelligence" nature conservation |
-|  109 |  NaN | https://crcs.seas.harvard.edu/news/computer-co... |    NaN | Google | "artificial intelligence" nature conservation |
-|  110 |  NaN | https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7... |    NaN | Google | "artificial intelligence" nature conservation |
-|  111 |  NaN | https://www.fws.gov/press-release/2023-11/cutt... |    NaN | Google | "artificial intelligence" nature conservation |
-|  112 |  NaN | https://en.reset.org/project-zamba-open-data-u... |    NaN | Google | "artificial intelligence" nature conservation |
+| date |                                              link | metrics | source |                                         query |
+|-----:|--------------------------------------------------:|--------:|-------:|----------------------------------------------:|
+|  NaN | https://www.nature.com/articles/s41467-022-279... |     NaN | Google |        "machine learning" nature conservation |
+|  NaN | https://iucn.org/story/202307/computer-conserv... |     NaN | Google |        "machine learning" nature conservation |
+|  NaN | https://teamcore.seas.harvard.edu/machine-lear... |     NaN | Google |        "machine learning" nature conservation |
+|  NaN |         https://pubmed.ncbi.nlm.nih.gov/35140206/ |     NaN | Google |        "machine learning" nature conservation |
+|  NaN |                  https://arxiv.org/abs/2110.12951 |     NaN | Google |        "machine learning" nature conservation |
+|  ... |                                               ... |     ... |    ... |                                           ... |
+|  NaN | https://besjournals.onlinelibrary.wiley.com/do... |     NaN | Google | "artificial intelligence" nature conservation |
+|  NaN | https://crcs.seas.harvard.edu/news/computer-co... |     NaN | Google | "artificial intelligence" nature conservation |
+|  NaN | https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7... |     NaN | Google | "artificial intelligence" nature conservation |
+|  NaN | https://www.fws.gov/press-release/2023-11/cutt... |     NaN | Google | "artificial intelligence" nature conservation |
+|  NaN | https://en.reset.org/project-zamba-open-data-u... |     NaN | Google | "artificial intelligence" nature conservation |
 
 Even though we did three searches, returning the top 100 Google-ranked pages for each query, many of the results were duplicates, leaving us with a little over 100 unique pages.
 
@@ -258,19 +258,19 @@ words = query("get_words", combined_terms)
 words
 ```
 
-| url | domain                                            | source            | date   | artificial intelligence | ai  | machine learning | algorithm | conservation | nature | ... | arctic | privacy | surveillance | cost | efficiency | market | decision making | working land | indigenous-led | easement |     |
-|-----|---------------------------------------------------|-------------------|--------|-------------------------|-----|------------------|-----------|--------------|--------|-----|--------|---------|--------------|------|------------|--------|-----------------|--------------|----------------|----------|-----|
-| 0   | https://teamcore.seas.harvard.edu/machine-lear... | harvard           | Google | None                    | 2   | 0                | 0         | 1            | 3      | 0   | ...    | 0       | 0            | 1    | 0          | 0      | 0               | 0            | 0              | 0        | 0   |
-| 1   | https://www.zsl.org/what-we-do/projects/machin... | zsl               | Google | None                    | 0   | 1                | 7         | 4            | 5      | 0   | ...    | 0       | 0            | 0    | 0          | 0      | 0               | 0            | 0              | 0        | 0   |
-| 2   | https://iucn.org/story/202307/computer-conserv... | iucn              | Google | None                    | 2   | 24               | 3         | 4            | 18     | 7   | ...    | 0       | 1            | 2    | 1          | 0      | 0               | 0            | 0              | 0        | 0   |
-| 3   | https://coastalresilience.org/project/ai-conse... | coastalresilience | Google | None                    | 2   | 7                | 1         | 0            | 5      | 11  | ...    | 0       | 1            | 0    | 0          | 0      | 0               | 0            | 0              | 0        | 0   |
-| 4   | https://environment.yale.edu/                     | yale              | Google | None                    | 0   | 0                | 1         | 0            | 1      | 3   | ...    | 0       | 0            | 0    | 0          | 0      | 0               | 0            | 0              | 0        | 0   |
-| ... | ...                                               | ...               | ...    | ...                     | ... | ...              | ...       | ...          | ...    | ... | ...    | ...     | ...          | ...  | ...        | ...    | ...             | ...          | ...            | ...      | ... |
-| 82  | https://2030.builders/8-ways-ai-can-contribute... | 2030              | Google | None                    | 1   | 41               | 0         | 2            | 4      | 0   | ...    | 0       | 4            | 0    | 1          | 8      | 0               | 0            | 0              | 0        | 0   |
-| 83  | https://neworleansbio.com/petvet-dx-revolution... | neworleansbio     | Google | None                    | 0   | 1                | 0         | 0            | 2      | 0   | ...    | 0       | 0            | 0    | 0          | 0      | 0               | 0            | 0              | 0        | 0   |
-| 84  | https://www.smartparks.org/news/artificial-int... | smartparks        | Google | None                    | 2   | 13               | 0         | 3            | 8      | 0   | ...    | 0       | 0            | 0    | 0          | 0      | 0               | 0            | 0              | 0        | 0   |
-| 85  | https://ml.ucsb.edu/fei-fang                      | ucsb              | Google | None                    | 3   | 1                | 3         | 2            | 7      | 0   | ...    | 0       | 0            | 0    | 0          | 0      | 0               | 0            | 0              | 0        | 0   |
-| 86  | https://www.huawei.com/en/news/2023/10/tech4na... | huawei            | Google | None                    | 1   | 0                | 1         | 0            | 5      | 10  | ...    | 0       | 1            | 0    | 0          | 0      | 1               | 0            | 0              |          |     |
+|                                               url |            domain | source | date | artificial intelligence |  ai | machine learning | algorithm | conservation | nature | ... | arctic | privacy | surveillance | cost | efficiency | market | decision making | working land | indigenous-led | easement |   |
+|--------------------------------------------------:|------------------:|-------:|-----:|------------------------:|----:|-----------------:|----------:|-------------:|-------:|----:|-------:|--------:|-------------:|-----:|-----------:|-------:|----------------:|-------------:|---------------:|---------:|---|
+| https://teamcore.seas.harvard.edu/machine-lear... |           harvard | Google | None |                       2 |   0 |                0 |         1 |            3 |      0 | ... |      0 |       0 |            1 |    0 |          0 |      0 |               0 |            0 |              0 |        0 |   |
+| https://www.zsl.org/what-we-do/projects/machin... |               zsl | Google | None |                       0 |   1 |                7 |         4 |            5 |      0 | ... |      0 |       0 |            0 |    0 |          0 |      0 |               0 |            0 |              0 |        0 |   |
+| https://iucn.org/story/202307/computer-conserv... |              iucn | Google | None |                       2 |  24 |                3 |         4 |           18 |      7 | ... |      0 |       1 |            2 |    1 |          0 |      0 |               0 |            0 |              0 |        0 |   |
+| https://coastalresilience.org/project/ai-conse... | coastalresilience | Google | None |                       2 |   7 |                1 |         0 |            5 |     11 | ... |      0 |       1 |            0 |    0 |          0 |      0 |               0 |            0 |              0 |        0 |   |
+|                     https://environment.yale.edu/ |              yale | Google | None |                       0 |   0 |                1 |         0 |            1 |      3 | ... |      0 |       0 |            0 |    0 |          0 |      0 |               0 |            0 |              0 |        0 |   |
+|                                               ... |               ... |    ... |  ... |                     ... | ... |              ... |       ... |          ... |    ... | ... |    ... |     ... |          ... |  ... |        ... |    ... |             ... |          ... |            ... |      ... |   |
+| https://2030.builders/8-ways-ai-can-contribute... |              2030 | Google | None |                       1 |  41 |                0 |         2 |            4 |      0 | ... |      0 |       4 |            0 |    1 |          8 |      0 |               0 |            0 |              0 |        0 |   |
+| https://neworleansbio.com/petvet-dx-revolution... |     neworleansbio | Google | None |                       0 |   1 |                0 |         0 |            2 |      0 | ... |      0 |       0 |            0 |    0 |          0 |      0 |               0 |            0 |              0 |        0 |   |
+| https://www.smartparks.org/news/artificial-int... |        smartparks | Google | None |                       2 |  13 |                0 |         3 |            8 |      0 | ... |      0 |       0 |            0 |    0 |          0 |      0 |               0 |            0 |              0 |        0 |   |
+|                      https://ml.ucsb.edu/fei-fang |              ucsb | Google | None |                       3 |   1 |                3 |         2 |            7 |      0 | ... |      0 |       0 |            0 |    0 |          0 |      0 |               0 |            0 |              0 |        0 |   |
+| https://www.huawei.com/en/news/2023/10/tech4na... |            huawei | Google | None |                       1 |   0 |                1 |         0 |            5 |     10 | ... |      0 |       1 |            0 |    0 |          0 |      1 |               0 |            0 |              0 |        0 |   |
 
 That's a bunch of numbers. Can we make sense of this and visualize it?
 
@@ -288,7 +288,7 @@ efficiency but not  ai : 0, 0%
 Together: 6, 6%
 
 
-| ai         | efficiency |          |
+|         | ai  |  efficiency        |
 |------------|------------|----------|
 | ai         | 1.000000   | 0.560072 |
 | efficiency | 0.560072   | 1.000000 |
@@ -299,12 +299,12 @@ Zeros: 25, 28%
 efficiency but not  ai : 0, 0%
 Together: 6, 6%
 
-| efficiency | ai       |          |
+|  | efficiency       |      ai    |
 |------------|----------|----------|
 | efficiency | 1.000000 | 0.560072 |
 | ai         | 0.560072 | 1.000000 |
 
-!["Chart"](assets/img/watershedlab/chart.png "Chart"){: width="75%" height="75%" }
+!["Chart"](assets/img/observatory/chart.png "Chart"){: width="75%" height="75%" }
 
 How do we understand these results?
 

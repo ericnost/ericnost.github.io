@@ -27,7 +27,7 @@ This lab will help us to get to know two key conservation technologies – GIS a
 ## observatory Python Package
 Python package for collecting and analyzing webpages \
 [Link to repo](https://github.com/ericnost/observatory) \
-[Link to notebook](https://colab.research.google.com/drive/1vd6Nm77cDFMpKt5vyDmmZtSfy3bL-HGg?usp=sharing)
+[Link to notebook](https://colab.research.google.com/drive/1vd6Nm77cDFMpKt5vyDmmZtSfy3bL-HGg?usp=sharing) \
 [Link to tutorial instructions](https://ericnost.github.io/digitalconservation_observatory)
 
 ## Paper 1 Draft
