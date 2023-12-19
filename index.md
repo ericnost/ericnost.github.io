@@ -46,7 +46,6 @@ For additional details, please see [our website](https://geg.uoguelph.ca/graduat
 ### Personal
 * [Angular](https://github.com/ericnost/angular) - a demonstration of using Angular.js for mapping applications
 * [armchairgeographer](https://github.com/ericnost/armchairgeographer) - pulls random Flickr images from a specified set of coordinates, maps the area, and displays text randomly selected from a set of social theorists.
-* [cookbook](https://github.com/ericnost/cookbook) - draws from a Google Sheet of recipes and uses Angular.js for displaying them
 * [election 2016](https://github.com/ericnost/election) - a map of the 2016 US presidential election results
 * [Exploring ES](https://github.com/ericnost/Exploring-ES) - an experiment in mapping difference and change in ecosystem services
 * [Louisiana Land Loss](https://github.com/ericnost/landloss) - D3.js visualizations of coastal erosion in the US state of Louisiana
