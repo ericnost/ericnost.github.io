@@ -19,7 +19,7 @@ The overarching prompt that will guide your work: where should we invest in new 
 To complete this lab, you will need the following:
 * Access to an ArcGIS account from Esri
 * Access to ArcGIS Pro software
-* Access to one of the lab datasets - available here [(Niagara Region)]() and here [(Toronto Region)]
+* Access to one of the lab datasets - available here [(Niagara Region)](assets/other/NiagaraAnalysis.zip) and here [(Toronto Region)](assets/other/TorontoAnalysis.zip)
 
 ## Part 1 – Modeling Landscape Values
 
