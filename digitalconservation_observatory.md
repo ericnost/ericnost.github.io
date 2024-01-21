@@ -4,9 +4,9 @@ layout: default
 title: Digital Conservation - observatory Tutorial
 
 ---
-## Tutorial: observatory
+## Tutorial: web-observatory
 
-This is a Python package for collecting and analyzing webpages. While there are many Python packages for individual components of a website-based content analysis, observatory is designed to provide a full set of tools for an entire project:
+This is a Python package for collecting and analyzing webpages. While there are many Python packages for individual components of a website-based content analysis, web-observatory is designed to provide a full set of tools for an entire project:
 * handling credentials
 * automated searching Google for relevant webpages (and, previously - before changes to the platform's data access policy - searching Twitter for relevant links posted in tweets)
 * crawling websites from a list of topic domains
@@ -14,13 +14,13 @@ This is a Python package for collecting and analyzing webpages. While there are 
 * querying that database to return keyword counts
 * visualizing these results
 
-In what follows, we offer an example use of observatory. We will use the package to explore what top-ranked pages returned by a Google search for "nature conservation and artificial intelligence" have to say about the role of AI in habitat and species protection. Is this "conversation about conservation" optimistic about AI? Pessimistic? Something else? In general, what ideas are prevalent and emphasized and which are obscured? The tutorial will demo all of the above features of observatory, with the exception of website crawls (this feature currently only works locally, not on Colab) and Twitter searches (which now cost money).
+In what follows, we offer an example use of web-observatory. We will use the package to explore what top-ranked pages returned by a Google search for "nature conservation and artificial intelligence" have to say about the role of AI in habitat and species protection. Is this "conversation about conservation" optimistic about AI? Pessimistic? Something else? In general, what ideas are prevalent and emphasized and which are obscured? The tutorial will demo all of the above features of observatory, with the exception of website crawls (this feature currently only works locally, not on Colab) and Twitter searches (which now cost money).
 
 First, we install the package:
 
 ```
-# Install observatory
-!pip install git+https://github.com/ericnost/observatory &>/dev/null;
+# Install web-observatory
+!pip install web-observatory &>/dev/null;
 ```
 
 Next, we name and create a project, while importing code that will be useful later on.
@@ -31,7 +31,7 @@ project = "digcon_ai"
 
 import pandas
 
-from observatory import start_project
+from web_observatory import start_project
 start_project(project)
 ```
 
@@ -42,7 +42,7 @@ The approach for loading credentials here is to store them with Google Colab usi
 ```
 # Set credentials
 from google.colab import userdata
-from observatory import credentials as credentials
+from web_observatory import credentials as credentials
 
 credentials["google"]["devkey"] = userdata.get('google_dev')
 credentials["google"]["cx"] = userdata.get('google_cx')
@@ -53,7 +53,7 @@ Before Elon Musk changed the access model for Twitter's API (Application Program
 ```
 # Search twitter - WILL NOT WORK
 """
-from observatory import search_twitter
+from web_observatory import search_twitter
 ai_nc_twitter = search_twitter(
     q = 'conservation ("artificial intellligence" OR AI) has:links start_time: 2023-11-21T00:00:00.00Z end_time: 2023-11-22T00:00:00.00Z',
     project=project)
@@ -67,7 +67,7 @@ Each search will return the top 100 pages, according to Google, for the query. I
 
 ```
 # Get Google results about AI in nature conservation
-from observatory import search_google
+from web_observatory import search_google
 ml_nc_google = search_google(q = '"machine learning" nature conservation', project = project) # Search for machine learning, a related term
 ai_full_nc_google = search_google(q = '"artificial intelligence" nature conservation', project = project) # Search for AI spelled out
 ai_nc_google = search_google(q = 'ai nature conservation', project = project) # search for AI abbreviated
@@ -79,7 +79,7 @@ The "date" and "metrics" columns will be Null because these are reserved for Twi
 
 ```
 # Compile results
-from observatory import google_process
+from web_observatory import google_process
 google = google_process(datatype = "CSV", project=project)
 google
 ```
@@ -104,7 +104,7 @@ At this point, one thing that may be valuable is understanding a bit more of *wh
 
 ```
 # Extract organizations from Google results
-from observatory import get_domains
+from web_observatory import get_domains
 google = get_domains(google) # Update the data
 google.groupby(by="domain").count().sort_values(by="link", ascending=False)[["link"]].head(20)
 ```
@@ -136,14 +136,14 @@ This suggests a lot of the conversation about AI in conservation is coming from 
 
 In some cases we might want to search the websites of a set of organizations before proceeding to learn more about the content of the sites. We might want all or as many pages from The Nature Conservancy, WWF, etc. as possible in order to understand how much "space" their take on AI in conversation accounts for relative to other topics.
 
-The crawl tools in observatory help us do that. We won't demo it here, but here's an example of what a crawl might look like:
+The crawl tools in web-observatory help us do that. We won't demo it here, but here's an example of what a crawl might look like:
 
 ```
 # Crawl organizational pages
 ## Set up
 orgs = ["https://natureconservancy.ca/", "https://wwf.ca/", "https://davidsuzuki.org/", "https://ecotrust.ca/", "https://www.grandriver.ca/en/index.aspx", "https://raresites.org/"]
 org_domains = ["natureconservancy.ca", "wwf.ca", "davidsuzuki.org", "ecotrust.ca", "grandriver.ca", "raresites.org"]
-from observatory import initialize_crawl
+from web_observatory import initialize_crawl
 initialize_crawl(sites = orgs, domains = org_domains, project = project)
 
 ## Crawl - this currently has to be done in a terminal program though it could be adjusted to run using Python's subprocess module
@@ -151,7 +151,7 @@ initialize_crawl(sites = orgs, domains = org_domains, project = project)
 !scrapy crawl digcon_crawler -O crawl_eco_gr.json --nolog
 
 ## View crawl results
-from observatory import crawl_process
+from web_observatory import crawl_process
 crawl = crawl_process("digcon_crawler/digcon_crawler/crawl.json")
 crawl.groupby(by="query").count()
 ```
@@ -163,10 +163,10 @@ Instead, we'll proceed to the point of "scraping" the websites we got from the G
 ## First, run `get_versions` in order to set up our data correctly.
 ## Plus, when we do have Twitter data, this actually tries to get versions of the pages as they appeared when they were tweeted about, using the Internet Archive's Wayback Machine.
 ## Either way, this "get_versions" function will ensure we have a proper link for each page, not a link that will redirect to something else. This will help in scraping.
-from observatory import get_versions
+from web_observatory import get_versions
 results = get_versions(google, project = project)
 ## Next, we initialize the scrape
-from observatory import initialize_scrape
+from web_observatory import initialize_scrape
 urls = initialize_scrape(versions = results, project = project)
 urls
 ```
@@ -222,7 +222,7 @@ credentials["postgres"]["db"] = 'digcon'
 credentials["postgres"]["user"] = 'postgres'
 credentials["postgres"]["password"] = 'postgres'
 ## Get pages' HTML
-from observatory import scrape
+from web_observatory import scrape
 scrape(urls)
 ```
 
@@ -232,7 +232,7 @@ Scraping webpages we haven't personally visited before means that we aren't like
 
 ```
 # Quality control
-from observatory import query
+from web_observatory import query
 ## First, create a working copy of the text table
 query("copy") # Only need to do this once!
 ## Remove urls from db where there was no text scraped
@@ -246,7 +246,7 @@ Now let's get some word counts! How many times does "Indigenous" appear on pages
 
 ```
 ## Get word counts
-from observatory import query
+from web_observatory import query
 tech_terms = ["artificial intelligence", " ai ", "machine learning", "algorithm"] # Spaces in ai to capture its use as in AI rather than e.g. said
 cons_terms = ["conservation", "nature"]
 topics = ["forest", "mountain", "wetland", "boreal", "ocean", "river", "arctic"]
@@ -277,7 +277,7 @@ That's a bunch of numbers. Can we make sense of this and visualize it?
 Are certain terms used together (or not)? When we see mention of "AI" do we also see mention of "efficiency"?
 
 ```
-from observatory import analyze_term_correlations
+from web_observatory import analyze_term_correlations
 analyze_term_correlations(words, [" ai ", "efficiency"])
 ```
 
@@ -322,7 +322,7 @@ The tables show correlation coefficients between the two terms.
 In short, we have a very small sample, but it does show some level of correlation: when we look at pages with both terms, more uses of AI tend to mean more mentions of *AI*.
 
 ```
-from observatory import co_occurrence
+from web_observatory import co_occurrence
 co_occurrence(words, [" ai ", "efficiency"])
 ```
 

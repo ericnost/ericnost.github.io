@@ -24,7 +24,7 @@ In this lab, you will learn how to employ GIS and modeling, social media/volunte
 This lab will help us to get to know two key conservation technologies – GIS and VGI  – through the context of an underexplored conservation issue: informally used greenspaces. \
 [Link to lab instructions](https://ericnost.github.io/digitalconservation_igslab)
 
-## observatory Python Package
+## web-observatory Python Package
 Python package for collecting and analyzing webpages \
 [Link to repo](https://github.com/ericnost/observatory) \
 [Link to notebook](https://colab.research.google.com/drive/1vd6Nm77cDFMpKt5vyDmmZtSfy3bL-HGg?usp=sharing) \
