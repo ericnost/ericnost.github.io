@@ -18,13 +18,13 @@ First, we introduce eBird. eBird is a citizen science platform for bird species 
 
 An API is a standardized, structured set of names and codes that enable the public to access platform data. Most platforms provide an API, though they differ in how much access they provide. For instance, X (formerly Twitter), has an API that allows researchers to search for tweets based on keywords, geographic location, hashtags, and more and to download these without ever actually opening the website and using its search tool.
 
-Each platform's API is unique and what can be accessed how varies. The only way to know is to review the API documentation. eBird's is available here: https://documenter.getpostman.com/view/664302/S1ENwy59 These are often not easy to read unless you have a background in programming as well as extensive familiarity with the platform and its data.
+Each platform's API is unique and what can be accessed how varies. The only way to know is to review the API documentation. eBird's is available [here](https://documenter.getpostman.com/view/664302/S1ENwy59). These are often not easy to read unless you have a background in programming as well as extensive familiarity with the platform and its data.
 
 For our purposes, we are interested in observations, so we open the `data/obs` folder and select `Recent observations in a region`. This provides us with the general template we need to follow to access relevant eBird data. The query parameters are variables we can adjust in order to access the exact kind of data we want.
 
 In the following cell of code, we import some code that will help us later (`requests`) and then "call up" the eBird API. Basically what we are doing is using programming to "visit" a website, one that contains the data we want, but in the JSON format. To confirm this is what's happening, try entering the url into a browser.
 
-Note: many APIs require you to create an account first and/or get a "token" (password). This may be separate from your platform account. To access eBird's data through its API, you will need to get an API token. You can do so here: https://secure.birds.cornell.edu/cassso/login?service=https%3A%2F%2Febird.org%2Flogin%2Fcas%3Fportal%3Debird&locale=en_US
+Note: many APIs require you to create an account first and/or get a "token" (password). This may be separate from your platform account. To access eBird's data through its API, you will need to get an API token. You can do so [here](https://secure.birds.cornell.edu/cassso/login?service=https%3A%2F%2Febird.org%2Flogin%2Fcas%3Fportal%3Debird&locale=en_US).
 
 ```
 import requests
@@ -33,7 +33,7 @@ url = "https://api.ebird.org/v2/data/obs/KZ/recent"
 
 payload={}
 headers = {
-  'X-eBirdApiToken': 'hr892h2c8264' # Replace {{x-ebirdapitoken}} with your API token
+  'X-eBirdApiToken': '{{x-ebirdapitoken}}' # Replace {{x-ebirdapitoken}} with your API token
 }
 
 response = requests.request("GET", url, headers=headers, data=payload)
