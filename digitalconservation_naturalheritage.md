@@ -32,8 +32,8 @@ This dataset contains both NHIC’s 1 sq. km. grid for the province as well as a
 - From the Type dropdown menu, select OpenFileGDB.
 - In the Vector Dataset(s) menu, click the button and navigate to the unzipped dataset, clicking through “PROVTRKG” to select Non_Sensitive.gdb.
 - Click Add.
-- You may be prompted to “Select Items to Add” – if so, make sure both items are highlighted and then click Add Layers. You might also be prompted to Select Transformation….If so, click OK.
-!["Step 4"](assets/img/naturalheritage/step4.png "Step 4"){: width="75%" height="75%" }
+- You may be prompted to “Select Items to Add” – if so, make sure both items are highlighted and then click Add Layers. You might also be prompted to Select Transformation….If so, click OK.\
+!["Step 4"](assets/img/naturalheritage/step4.png "Step 4")\
 (note: your screen might look different; I have “dark mode” enabled)
 
 What do we see here? We have two layers in our list on the left-hand side of the screen now: 1) the 1 sq. km. grid, which will also appear on the map as a series of rectangular boxes; 2) A table that contains information on species occurrences in each part of the grid.
@@ -53,9 +53,9 @@ The rectangles should now be squares!
 - Input layer 2 is the species occurrence table (“…DETAIL”)
 - Table field 2 is Prov Trk Species 1km Grid Id, the column in this table that matches Ogf Id in the Input layer
 - Layer 2 fields to copy can be left blank to copy all fields
-- The joint type is “Create separate feature….one-to-many” because of the way the data are structured, where each grid cell can be home to more than one species
-!["Step 6"](assets/img/naturalheritage/step6.png "Step 6"){: width="75%" height="75%" }
-Click Run. This may take a minute to complete. You can close the menu afterwards.
+- The joint type is “Create separate feature….one-to-many” because of the way the data are structured, where each grid cell can be home to more than one species\
+!["Step 6"](assets/img/naturalheritage/step6.png "Step 6"){: width="75%" height="75%" }\
+- Click Run. This may take a minute to complete. You can close the menu afterwards.
 
 7\. Now we can **highlight locations of species using the “Joined layer”** that was produced in the previous step. We will “filter” the grid to show only those square kilometers where NHIC tells us bald eagles occur.
 
@@ -65,7 +65,7 @@ Click Run. This may take a minute to complete. You can close the menu afterwards
 
 This will filter the map to only the cells where bald eagles are observed or expected to occur. As you can see, there aren’t that many in southern Ontario. Perhaps we can change that by using iNaturalist records to demonstrate a wider range for bald eagles….
 
-What counts as an occurrence? According to NHIC, “The \[NatureServe\] specifications define what does and does not constitute an element occurrence. For example, for a bald eagle, the NHIC considers a record for a nesting site an element occurrence or part of an element occurrence. But it does not consider a record of a migrating bald eagle an element occurrence or part of an element occurrence.” <https://www.ontario.ca/page/natural-heritage-methodology>
+> What counts as an occurrence? [According to NHIC](https://www.ontario.ca/page/natural-heritage-methodology), “The \[NatureServe\] specifications define what does and does not constitute an element occurrence. For example, for a bald eagle, the NHIC considers a record for a nesting site an element occurrence or part of an element occurrence. But it does not consider a record of a migrating bald eagle an element occurrence or part of an element occurrence.” 
 
 ## iNaturalist observations
 
@@ -93,7 +93,7 @@ To do this requires a few preliminary steps:
 - With those steps out of the way, we can proceed with identifying “bald eagle clusters.” We will use something called DBSCAN clustering. Search for this tool in the Processing toolbox.
 - Use “Reprojected” layer as the input
 - Set the minimum cluster size to 5 and the maximum distance between them to 1000 meters. We want relatively close together areas of at least 5 observations. At this point, you might be wondering - how do we know how to make these specific decisions? Well, they are reasonable assumptions – 5 sightings of bald eagles less than 1 kilometer apart suggests repeated use of the area, and hence habitat, certainly compared to one off sightings in the middle of nowhere…In the end, your menu should look like this:
-!["Step 9"](assets/img/naturalheritage/step9.png "Step 9"){: width="75%" height="75%" }
+!["Step 9"](assets/img/naturalheritage/step9.png "Step 9"){: width="75%" height="75%" } \
 Once it’s done, you’ll notice that there are still many observations on the map. That’s because after the DBSCAN QGIS will retain all observations in the layer, even the ones that didn’t end up as part of a cluster.
 
 Remove these unclustered points from the dataset altogether:
@@ -102,8 +102,8 @@ Remove these unclustered points from the dataset altogether:
 - You will see that now even fewer observations are highlighted. Export these to their own layer by right-clicking on the Clusters layer, then choose “Save selected features as…”
 - Give the file an appropriate name and be sure to choose the “ESRI shapefile” format, as well as “Add saved data to the map” (at the bottom of the window).
 
-10\. Finally, we want to **assess the extent to which the NHIC grid cells line up with these bald eagle clusters**. Visually, we can see some interesting differences. (Consider adding a basemap for context – to do this, select OpenStreetMap from the XYZ tiles section of the Browser panel). For instance, the area around London includes many observations along the Thames River even though the NHIC grids only sometimes intersect with the river.
-!["Step 10a"](assets/img/naturalheritage/step10a.png "Step 10a"){: width="75%" height="75%" }
+10\. Finally, we want to **assess the extent to which the NHIC grid cells line up with these bald eagle clusters**. Visually, we can see some interesting differences. (Consider adding a basemap for context – to do this, select OpenStreetMap from the XYZ tiles section of the Browser panel). For instance, the area around London includes many observations along the Thames River even though the NHIC grids only sometimes intersect with the river.\
+!["Step 10a"](assets/img/naturalheritage/step10a.png "Step 10a"){: width="75%" height="75%" }\
 For a more rigorous and less visual analysis, we will **select the grid cells that contain clusters of bald eagle sightings**. First, clear the filter on the grid (see step #7 above) so that we can see all the grid cells, not just the ones the province currently thinks has bald eagles.
 
 - Right click on the “Joined layer”, then “Filter…” select Clear and then Ok.
@@ -112,7 +112,7 @@ For a more rigorous and less visual analysis, we will **select the grid cells th
 - Select features from the grid (“Joined layer”) that intersect the iNaturalist observations.
 - Export this selection of areas by right-clicking and choosing Export…Save Selected Features As…. Just as you did with the bald eagle clusters in #9 above.
 - Add the NHIC grid cells with bald eagles (repeat #7 above). Symbolize them so you can compare with the clusters. You might end up with something like this, which shows us iNatrualist based-definition of bald eagle range, alongside the province’s NH-based definition.
-!["Step 10b"](assets/img/naturalheritage/step10b.png "Step 10"){: width="75%" height="75%" }
+!["Step 10b"](assets/img/naturalheritage/step10b.png "Step 10"){: width="75%" height="75%" }\
 The pink areas are those identified by NHIC while the black outlined areas are those identified by us as bald eagle clusters. Where they overlap (pink areas with black outlines) there is agreement in the two approaches. Where we have just black outlines, we have potential new occurrence areas. Where we have just pink squares we have areas where perhaps bald eagles are expected to occur based on habitat features or have been observed by non citizen science sources.
 
 ### Reflections
@@ -120,4 +120,4 @@ The pink areas are those identified by NHIC while the black outlined areas are t
 - What are the limitations of our approach, including the datasets we’ve used?
 - What kinds of assumptions did we have to make along the way, and when? How might different choices have affected our results?
 - What sorts of ethical concerns can you identify in this analysis, perhaps around our use of VGI (volunteered geographic information) or in terms of sensitive species?
-- Will this work for policy / in decision-making?
+- Will this work for policy or in decision-making?
