@@ -20,6 +20,10 @@ This tutorial teaches how to access eBird observations data through the citizen 
 In this lab, you will learn how to employ GIS and modeling, social media/volunteered geographic information, and data dashboards in specific use cases – modeling landscapes, assessing recreational and other ecosystem services, and interactively prioritizing conservation investments. \
 [Link to lab instructions](https://ericnost.github.io/digitalconservation_watershedlab)
 
+## Using iNaturalist to Supplement Natural Heritage Information
+In this tutorial, we’ll use the open-source mapping software QGIS to visualize citizen science data from the iNaturalist platform and highlight unrecognized areas where species of conservation concern might exist. \
+[Link to lab instructions](https://ericnost.github.io/digitalconservation_naturalheritage)
+
 ## Guelph's Informal Green Spaces Lab
 This lab will help us to get to know two key conservation technologies – GIS and VGI  – through the context of an underexplored conservation issue: informally used greenspaces. \
 [Link to lab instructions](https://ericnost.github.io/digitalconservation_igslab)
